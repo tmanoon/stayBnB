@@ -7,8 +7,6 @@ StayBnB is a replica of the popular vacation rental marketplace, Airbnb. This pr
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## Features
