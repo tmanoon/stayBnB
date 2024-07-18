@@ -32,18 +32,18 @@ StayBnB is a replica of the popular vacation rental marketplace, Airbnb. This pr
 - MongoDB installed and running
 
 ### Steps
-1. Clone the repository:
-   git clone https://github.com/tmanoon/staybnb.git
-2. Install dependencies in backend:
-   cd backend
-   npm i
-3. Start the backend development server:
-   npm start
-4. Install dependencies in frontend:
-   cd ../frontend
-   npm i
-5. Start the frontend development server:
-   npm start
+1. **Clone the repository:**
+   - git clone https://github.com/tmanoon/staybnb.git
+2. **Install dependencies in backend:**
+   - cd backend
+   - npm i
+3. **Start the backend development server:**
+   - npm start
+4. **Install dependencies in frontend:**
+   - cd ../frontend
+   - npm i
+5. **Start the frontend development server:**
+   - npm start
 
 ## Usage
 1. Open your browser and go to http://localhost:3030 to view the application.
