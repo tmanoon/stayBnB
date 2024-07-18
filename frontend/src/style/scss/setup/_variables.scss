@@ -1,0 +1,46 @@
+$darkGray: #222222;
+$headerGray: #838383;
+$borderclr: #DEDEDE;
+$gray1: #717171;
+$gray2: #dddddd;
+$gray3: #DDDDDC;
+$gray4: #b0b0b0;
+$gray5: #6a6a6a;
+$lightGray: #ebebeb;
+$btnHover: #f7f7f7;
+
+$siteColor: #ff385c;
+
+$approved: rgb(24, 198, 125);
+$rejected: rgb(253, 122, 122);
+
+
+$BR1: 8px;  //border-radius: 0.5rem
+$BR2: 9.6px;  //border-radius: 0.6rem
+$BR3: 12.8px;  //border-radius: 0.8rem
+
+
+
+:root {
+    --grid-columns: 1;
+
+    @media (width > 550px) {
+        --grid-columns: 2;
+    }
+
+    @media (width > 950px) {
+        --grid-columns: 3;
+    }
+
+    @media (width > 1128px) {
+        --grid-columns: 4;
+    }
+
+    @media (width > 1640px) {
+        --grid-columns: 5;
+    }
+
+    @media (width > 1880px) {
+        --grid-columns: 6;
+    }
+}

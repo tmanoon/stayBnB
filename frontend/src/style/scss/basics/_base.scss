@@ -1,0 +1,55 @@
+* {
+    box-sizing: border-box;
+    font-family: circular-thin, sans-serif;
+}
+
+html {
+    min-height: 100vh;
+}
+
+body {
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: .5em 0 .5em;
+}
+
+p,
+pre {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+button {
+    border: none;
+    border-radius: 20px;
+    padding-inline: 0.625em;
+    height: 2.25em;
+    width: fit-content;
+    cursor: pointer;
+
+    // transition: 1s;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0 0 0 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}

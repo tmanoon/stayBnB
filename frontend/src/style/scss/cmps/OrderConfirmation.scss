@@ -1,0 +1,227 @@
+.order-confirmation {
+    position: fixed;
+    inset: 2.5rem 0 0 0;
+    z-index: 4;
+
+    color: $darkGray;
+    background-color: white;
+    border-radius: $BR3 $BR3 0 0;
+
+    header,
+    footer {
+        position: absolute;
+        background-color: white;
+        z-index: 5;
+    }
+
+    header {
+        height: 4rem;
+        inset: 0 0 auto;
+        padding: 1rem 1.5rem;
+        border-block-end: 0.667px solid $lightGray;
+        border-radius: $BR3 $BR3 0 0;
+
+        .exit-btn {
+            position: absolute;
+            inset: 1rem auto auto 1.25rem;
+            border-radius: 50%;
+            height: 2rem;
+            width: 2rem;
+            background-color: transparent;
+            transition: 0s;
+
+            &::before {
+                content: '\58';
+                font-family: fa-solid;
+            }
+
+            &:hover {
+                background-color: $btnHover;
+            }
+        }
+
+        h1 {
+            font-size: 1rem;
+        }
+    }
+
+    footer {
+        height: 3rem;
+        inset: auto 0 0;
+        border-block-start: 0.667px solid $lightGray;
+
+        button {
+            height: 2.5rem;
+            color: white;
+            background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
+            font-family: circular-bold;
+            border-radius: $BR1;
+            padding: 0 1.5rem;
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: $gray2;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 5px;
+        background-color: $lightGray;
+    }
+
+    .order-details {
+        height: calc(100% - 7rem);
+        padding-block: 1rem 0;
+        margin-block: 4rem 0;
+        padding-inline: 1rem;
+
+        grid-template-columns: minmax(1px, 100%);
+        gap: 1.5rem;
+        overflow: auto;
+
+        h1 {
+            align-self: end;
+        }
+
+        img {
+            object-fit: cover;
+            max-width: 100%;
+            max-height: 12rem;
+            border-radius: 10.016px;
+            justify-self: center;
+
+            transition: scale 1s;
+        }
+
+        .user,
+        .stay-name,
+        .booking-number,
+        .rooms,
+        .guests,
+        .price {
+            gap: 0.35rem;
+        }
+
+        .dates,
+        .guests-rooms {
+            grid-template-columns: repeat(2, minmax(100px, 40%));
+            column-gap: 1.5rem;
+        }
+
+        .guests-container {
+            gap: 0.5rem;
+
+            ul {
+                padding-inline-start: 1.5rem;
+
+                li {
+                    list-style: disc;
+                    padding-inline-start: 0.5rem;
+                }
+            }
+        }
+
+        .price {
+            width: 100%;
+            align-self: center;
+            justify-self: center;
+
+            padding: 1rem;
+            border: 0.667px solid $lightGray;
+            box-shadow: 5px 5px 5px $lightGray;
+            margin-block-end: 2rem;
+
+            transition: width 1s;
+
+            p {
+                gap: 1.5rem;
+
+                span {
+                    font-family: circular-medium;
+                }
+            }
+
+
+
+        }
+    }
+}
+
+@media (width > 533px) {
+    .order-confirmation {
+        header h1 {
+            font-size: 1.5rem;
+        }
+
+        .order-details {
+            grid-template-columns: minmax(1px, 57%) minmax(1px, 38%);
+            padding-inline: 2rem;
+
+            img {
+                grid-area: 1 / 2 / 5 / 3;
+                max-width: 15rem;
+                max-height: 15rem;
+                aspect-ratio: 1/1;
+                justify-self: end;
+
+                scale: 0.8;
+                transform-origin: top right;
+            }
+
+            .dates {
+                grid-area: 5 / 1 / 6 / 3;
+            }
+
+            .guests-rooms {
+                grid-area: 6 / 1 / 7 / 3;
+            }
+
+            .price {
+                width: 80%;
+                grid-area: 7 / 1 / 8 / 3;
+            }
+        }
+    }
+}
+
+@media (width > 600px) {
+    .order-confirmation {
+        .order-details {
+            .price {
+                width: 60%;
+            }
+
+            img {
+                scale: 0.95;
+            }
+        }
+    }
+}
+
+
+@media (width > 780px) {
+    .order-confirmation {
+        inset: 2rem calc(50% - 24.5rem);
+        max-width: 48.75rem;
+        border-radius: $BR3;
+
+        header h1 {
+            font-size: 2rem;
+        }
+
+        footer {
+            border-radius: 0 0 $BR3 $BR3;
+        }
+
+        .order-details {
+            img {
+                scale: 1;
+            }
+        }
+    }
+}

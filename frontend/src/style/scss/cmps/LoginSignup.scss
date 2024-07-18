@@ -1,0 +1,91 @@
+.login-signup {
+    position: fixed;
+    inset: 2.5rem 0 auto 0;
+    z-index: 4;
+
+    color: $darkGray;
+    background-color: white;
+    border-radius: $BR3;
+
+    header {
+        position: relative;
+        padding: 0.5rem 1rem;
+
+        .back-btn {
+            position: absolute;
+            inset: 1rem auto auto 1rem;
+            border-radius: 50%;
+            height: 2rem;
+            width: 2rem;
+            background-color: transparent;
+
+            &::before {
+                content: "\f053";
+                font-family: fa-solid;
+            }
+
+            &:hover {
+                background-color: $btnHover;
+            }
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-family: circular-medium;
+            font-weight: normal;
+        }
+
+        span {
+            text-decoration: underline;
+            font-family: circular-medium;
+
+            cursor: pointer;
+
+            &:hover {
+                font-family: circular-bold;
+            }
+        }
+    }
+
+    form {
+        padding: 1rem 1rem 1.5rem;
+        gap: 1rem;
+
+        label {
+            width: 100%;
+            height: 3.2rem;
+            border: 0.667px solid $gray4;
+            border-radius: $BR1;
+            outline: none;
+            padding-inline: 1rem;
+            font-size: 0.8rem;
+            color: $gray5;
+            padding-block: 0.5rem;
+
+            input,
+            select {
+                font-size: 0.9rem;
+                border: none;
+                outline: none;
+            }
+        }
+
+        button {
+            font-size: 1.15rem;
+            font-family: circular-medium;
+            width: 100%;
+            height: 3rem;
+            color: white;
+            background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
+            border-radius: $BR1;
+        }
+    }
+}
+
+@media (width > 742px) {
+    .login-signup {
+        margin-block: 2.5rem;
+        margin-inline: auto;
+        max-width: 48.75rem;
+    }
+}

@@ -1,0 +1,246 @@
+.app-header-container {
+    display: flex;
+    color: $darkGray;
+    background-color: white;
+    border-bottom: solid 0.667px $gray2;
+    padding-block: 0.5rem 1em;
+    margin-block-end: 1em;
+    z-index: 1;
+}
+
+.expanded-header {
+    height: 4.2em;
+    width: 100%;
+    margin-top: 0.3em;
+    margin-inline: 0;
+    z-index: 1;
+
+    .details-header {
+        width: 80%;
+    }
+
+    .compact-header {
+        height: 2.875rem;
+        font-size: 0.875em;
+        border-radius: 48px;
+        color: $darkGray;
+        border: 1px solid #dddddd;
+        box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+        opacity: 0;
+        width: 0;
+
+        cursor: pointer;
+
+        &>div {
+            padding-inline: 0.5rem;
+            width: 10.3rem;
+            width: 10rem;
+            text-align: center;
+        }
+
+        &>div:last-of-type {
+            padding-inline: 0.5rem 0.4rem;
+            width: 3rem;
+        }
+
+        .calendar {
+            box-shadow: 1px 0 0px 0px rgba(0, 0, 0, 0.1), -1px 0 0px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .guests {
+            color: $gray1;
+            font-weight: normal;
+        }
+
+        .search-btn {
+            inset: auto 0.4rem auto auto;
+
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+            background-color: $siteColor;
+            margin-right: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:before {
+                content: '\f002';
+                font-family: fa-solid;
+                color: white;
+                font-size: 11px;
+            }
+
+        }
+    }
+
+    .logo-section {
+        width: 22em;
+
+        cursor: pointer;
+
+        .logo {
+            width: 7.375em;
+            height: 4em;
+            font-size: 1.25em;
+            font-family: circular-bold;
+            color: $siteColor;
+
+            gap: 0.2em;
+
+            img {
+                height: 30px;
+            }
+        }
+    }
+
+    .nav-section {
+        nav {
+            font-size: 1em;
+
+            a {
+                margin: 10px 16px;
+
+
+                &.active {
+                    color: $darkGray;
+                    font-family: circular-medium;
+                }
+            }
+        }
+    }
+
+    .user-section {
+        width: 22.5em;
+        z-index: 100;
+        justify-content: end;
+        gap: 1em;
+
+        img {
+            width: 35px;
+            border-radius: 50%;
+        }
+
+        a {
+            font-size: 0.875rem;
+            border-radius: 40px;
+            ;
+            padding: 0.5rem 0.75rem;
+            font-family: circular-medium;
+            text-wrap: nowrap;
+
+            &:hover {
+                background-color: $btnHover;
+            }
+        }
+
+        button {
+            width: 5.33rem;
+            height: 3rem;
+            padding: 8px 8px 8px 14px;
+            border: 0.667px solid $gray2;
+            border-radius: 32px;
+            background-color: white;
+            position: relative;
+
+            gap: 1em;
+
+            transition: 0.2s;
+
+            .profile {
+                position: relative;
+                width: 2.4rem;
+                height: 2.4rem;
+                border-radius: 50%;
+                margin: 0.25rem 0.5rem 0 0;
+                background-color: white;
+
+                &::before {
+                    content: '\f2bd';
+                    font-family: fa-solid;
+
+                    position: absolute;
+                    scale: 2.6;
+                    transform-origin: top;
+                    color: $gray1; //switch to $gray1
+                }
+            }
+
+            &:hover {
+                box-shadow: 1px 2px 2px 2px $gray2;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .grayTxt:not(.grayTxt:hover) {
+        color: $headerGray;
+    }
+}
+
+.header-fixed {
+    position: fixed;
+    inset: 0 0 auto 0;
+}
+
+.header-condensed {
+    padding-block-end: 0;
+    transition: 0.5s;
+}
+
+@media (width < 850px) {
+    .app-header-container {
+            padding-block: 0em;
+            margin-block-end: 0em;
+
+        .expanded-header {
+
+            .user-section a,
+            .logo-section {
+                display: none;
+            }
+        }
+
+        &.header-expanded {
+            .header-filter {
+                transform: translateY(-3.5rem) scale(0.4, 0.65);
+                opacity: 0;
+                transition: 0.3s ease-out;
+                height: 0;
+            }
+
+            .compact-header {
+                opacity: 1;
+                transition: opacity 0.3s;
+                display: flex;
+                width: 100%;
+                max-width: calc(100vw - 3rem);
+            }
+
+            nav {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (width < 550px) {
+    .expanded-header {
+padding-inline: 5px;
+
+        .nav-section .compact-header {
+
+            width: 15em;
+
+            & .calendar {
+                display: none;
+            }
+
+            & .guests {
+                display: none;
+            }
+
+        }
+    }
+}

@@ -1,0 +1,57 @@
+.stay-details-date-filter {
+    position: absolute;
+    top: -130%;
+    left: -142%;
+    box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.15);
+    width: 50rem;
+    height: 30rem;
+    border-radius: 24px;
+    background-color: white;
+    z-index: 1;
+    display: flex;
+    padding-top: 4em;
+    color: $darkGray;
+
+    align-content: center;
+    flex-direction: column;
+
+    & .rdrMonths {
+        font: size 0.875em;
+     }
+ 
+     & .rdrDays {
+        font-size: 0.875em;
+     }
+
+     & .rdrMonthAndYearPickers{
+      opacity: 0;
+     }
+ 
+
+}
+
+.hide-prev-btnP{
+   .rdrPprevButton{
+      opacity: 0;
+   }
+}
+
+
+
+
+
+
+
+
+
+
+// .rdrDateRangePickerWrapper span {
+//     color: $darkGray;
+//     border-radius: 50%;
+//     // height: 2.7em;
+// }
+
+
+// .rdrInRange{
+//     background-color: none !important;
+// }

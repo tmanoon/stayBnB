@@ -1,0 +1,104 @@
+.details-guest-count {
+    position: absolute;
+    top: 103%;
+    box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.15);
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    width: 20.0875rem;
+    height: 25.5625rem;
+    color: $darkGray;
+    background-color: white;
+    right: -0.3%;
+    z-index: 2;
+
+
+    span {
+        font-size: 14px;
+        color: $headerGray;
+        font-weight: normal;
+    }
+
+    & .btn-container {
+        display: flex;
+        justify-content: end;
+
+        & .close-btn {
+            text-align: end;
+            padding: 0.625rem;
+            width: max-content;
+            padding-right: 0;
+            text-decoration: underline;
+         font-family: circular-bold;
+        }
+
+    }
+
+
+
+    & .options {
+        font-size: 1rem;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 1rem 2rem;
+        // background-color: rebeccapurple;
+        height: 100%;
+
+
+        & .option {
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+
+
+            & .description {
+             font-family: circular-bold;
+                display: flex;
+                flex-direction: column;
+                padding: 1.5rem 0.25rem 1.5rem 0;
+                row-gap: 0.25em;
+
+                // & span {
+                //     font-weight: normal;
+                // }
+            }
+
+            & .count {
+                width: 6.5rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                & button {
+                    width: 1.875rem;
+                    height: 1.875rem;
+                    border-radius: 50%;
+                    font-size: 1.4em;
+                    display: flex;
+                    justify-content: center;
+                    text-align: center;
+                    align-items: center;
+                    border: solid 1px $gray2;
+                    background-color: white;
+                    padding: 0.7em;
+                    color: $gray1;
+
+
+
+
+
+                }
+
+                & .disabled {
+                    opacity: 20%;
+
+                    cursor: not-allowed;
+                }
+            }
+        }
+
+
+    }
+}

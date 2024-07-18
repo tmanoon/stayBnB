@@ -1,0 +1,219 @@
+.dashboard {
+    color: $darkGray;
+    height: 83vh;
+
+    h1 {
+        font-family: circular-reg;
+        font-weight: normal;
+        font-size: 2rem;
+        margin: 0;
+    }
+
+    .user-stays {
+        margin-block: 1rem;
+
+        .user-stays-container {
+            border-block-end: 0.667px solid $gray2;
+            padding: 0 0.4rem;
+            color: $darkGray;
+
+            grid-auto-columns: 350px;
+            grid-auto-flow: column;
+            column-gap: 1rem;
+
+            overflow: auto hidden;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            // .user-stay-card {
+            //     p, button {
+            //         display: none;
+            //         //  fow to transition display slowly?
+            //     }
+            // }
+
+            // &:hover {
+            //     .user-stay-card {
+            //         p, button {
+            //             display: block;
+            //         }
+            //     }
+            // }
+
+            .user-stay-card {
+                position: relative;
+                gap: 0.3rem;
+                padding: 1rem 1.5rem;
+                margin-block: 1rem 2rem;
+                border-radius: 12px;
+                -webkit-box-shadow: 0 0 6px 6px $gray2;
+                -moz-box-shadow: 0 0 6px 6px $gray2;
+                transition: scale 1s;
+
+                img {
+                    object-fit: cover;
+                    max-width: 341px;
+                    width: 100%;
+                    aspect-ratio: 2/1;
+                    border-radius: 12px;
+                }
+
+                h2 {
+                    margin-block: 1rem 0.5rem;
+                    font-size: 1.25rem;
+                }
+
+                button {
+                    position: absolute;
+                    inset: auto 1.5rem 1rem auto;
+                    padding: 0.5rem 0.75rem;
+                    background-color: transparent;
+                    font-family: circular-medium;
+                    text-decoration: underline;
+
+                    &:hover {
+                        font-family: circular-bold;
+                        background-color: $btnHover;
+                    }
+                }
+
+                &:hover {
+                    scale: 1.05;
+                }
+            }
+        }
+    }
+
+    .user-orders {
+        margin-block: 1rem;
+
+        .user-orders-container {
+            li {
+                grid-template-columns: minmax(90px, 2fr) minmax(60px, 1fr) minmax(80px, 1fr);
+                border-block-end: 1px solid $gray2;
+                padding: 0.5rem;
+                align-items: center;
+                gap: 0.5rem;
+
+                h3:first-of-type,
+                h3:nth-of-type(2),
+                &:not(:first-of-type) {
+                    cursor: pointer;
+                }
+
+                .num {
+                    justify-self: center;
+                }
+
+                .only-desktop,
+                .also-tablet {
+                    display: none;
+                }
+
+                .selected {
+                    display: flex;
+                    gap: 0.5rem;
+
+                    &::after {
+                        content: '\f077';
+                        font-family: fa-solid;
+                        font-size: 0.8rem;
+                        padding-block-start: 0.4rem;
+                    }
+                }
+
+                div {
+                    flex-direction: column;
+                    gap: 0.15rem;
+                    align-items: center;
+
+                    &:not(.answered) {
+                        .approve-btn {
+                            background-color: $approved;
+                        }
+
+                        .reject-btn {
+                            background-color: $rejected;
+                        }
+                    }
+
+                    button {
+                        color: white;
+                        background-color: $gray4;
+                        font-family: circular-medium;
+
+                        transition: scale 0.5s;
+
+                        &:active {
+                            scale: 0.9;
+                        }
+
+                        &.approve-btn:hover,
+                        &.approved {
+                            background-color: darken($approved, 20);
+                        }
+
+                        &.reject-btn:hover,
+                        &.rejected {
+                            background-color: darken($rejected, 40);
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+@media (width > 550px) {
+    .dashboard {
+        .user-orders {
+            .user-orders-container {
+                li {
+                    grid-template-columns: minmax(90px, 2fr) minmax(60px, 1fr) repeat(2, minmax(50px, 1fr)) minmax(80px, 1fr);
+
+                    .also-tablet {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media (width > 742px) {
+    .dashboard {
+        .user-orders {
+            .user-orders-container {
+                li {
+                    grid-template-columns: minmax(90px, 2fr) minmax(60px, 1fr) repeat(4, minmax(50px, 1fr)) minmax(80px, 1fr);
+
+                    .only-desktop {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (width > 950px) {
+    .dashboard {
+        .user-orders {
+            .user-orders-container {
+                li {    
+                    grid-template-columns: minmax(100px, 2fr) repeat(5, minmax(60px, 1fr)) minmax(80px, 1fr);
+                
+                    div {
+                        flex-direction: row;
+                    }
+                }
+            }
+        }
+    }
+}

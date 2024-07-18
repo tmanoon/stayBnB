@@ -1,0 +1,41 @@
+.dynamic-modal-header {
+    padding-inline-end: rem(286.5px);
+    position: fixed;
+    z-index: 30;
+    left: 0;
+    top: 0;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 24px;
+    color: $darkGray;
+
+    .txt-container {
+        gap: 2px;
+
+        h3 {
+            font-size: em(16px);
+
+            span {
+                font-size: em(14px);
+            }
+        }
+        .txt-reviews {
+            font-size: em(12px);
+        }
+    }
+
+    button {
+        height: rem(48px);
+        background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
+        border-radius: $BR1;
+        line-height: 19px;
+        margin-block-start: 1rem;
+        margin-block-end: rem(8px);
+        cursor: pointer;
+        
+        span {
+            color: #ffffff;
+            font-family: circular-medium;
+        }
+    }
+}

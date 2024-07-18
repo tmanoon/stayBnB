@@ -1,0 +1,46 @@
+.stay-preview {
+    font-size: 0.9rem;
+    font-family: circular-bold;
+    letter-spacing: -0.4px;
+    color: $darkGray;
+
+    img {
+        width: 100%;
+        aspect-ratio: 1 / 0.95;
+        border-radius: 11.2px;
+        margin-block-end: 0.55rem;
+    }
+
+    h1 {
+        font-size: 0.95rem;
+        margin: 0;
+        font-family: circular-bold;
+        margin-block-end: 0.2rem;
+        overflow-wrap: normal;
+    }
+
+    p {
+        font-size: 1rem;
+        margin-block-end: 0.3rem;
+        overflow: hidden;
+
+        &.grayTxt,
+        .grayTxt {
+            color: $gray1;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+
+        .boldTxt {
+            font-family: circular-reg;
+        }
+
+        .moneySgn {
+            font-size: 1.1rem;
+            font-family: circular-reg;
+            margin-inline-end: rem(1px);
+        }
+    }
+}

@@ -1,0 +1,430 @@
+.filter-modal {
+    position: fixed;
+    inset: 2.5rem 0 0 0;
+    z-index: 4;
+
+    color: $darkGray;
+    background-color: white;
+    border-radius: $BR3;
+
+    header,
+    footer {
+        background-color: white;
+        position: absolute;
+
+        &>* {
+            font-size: 1rem;
+        }
+    }
+
+    header {
+        height: 4rem;
+        inset: 0 0 auto;
+        padding: 1rem 1.5rem;
+        border-block-end: 0.667px solid $lightGray;
+        border-radius: $BR3 $BR3 0 0;
+
+        h1 {
+            font-family: circular-reg;
+        }
+    }
+
+    footer {
+        height: 5rem;
+        inset: auto 0 0;
+        padding: 1rem 1.5rem 1rem 0.9rem;
+        border-block-start: 0.667px solid $lightGray;
+    }
+
+    .exit-btn,
+    .clear-btn {
+        background-color: white;
+        transition: 0s;
+
+        &:hover {
+            background-color: $btnHover;
+        }
+    }
+
+    .exit-btn {
+        position: absolute;
+        inset: 1rem auto auto 1rem;
+        border-radius: 50%;
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .clear-btn {
+        font-family: circular-medium;
+        border-radius: $BR2;
+    }
+
+    .submit-btn {
+        height: auto;
+        padding: 0.9rem 1.7rem;
+        border-radius: $BR2;
+        color: white;
+        background-color: $darkGray;
+
+        font-size: 0.92rem;
+        font-family: circular-bold;
+    }
+
+    button:active {
+        scale: 0.85;
+        transition: scale 1s;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: $gray2;
+        border: 0.667px solid $gray2;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 5px;
+        border: 0.667px solid $gray2;
+    }
+
+    main {
+        height: calc(100% - 9rem);
+        overflow-y: auto;
+        margin-block-start: 4rem;
+        padding-inline: 1.5rem;
+
+        h2 {
+            font-size: 1.41rem;
+            margin: 0;
+        }
+
+        h3 {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        h4 {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        p {
+            font-size: 0.9rem;
+        }
+
+        &>div:not(:last-of-type) {
+            border-block-end: solid 1px $lightGray;
+        }
+
+        .checkbox-group {
+            grid-template-columns: minmax(0, 1fr);
+            row-gap: 1rem;
+            padding-block-end: 1rem;
+
+            .checkbox-item {
+                cursor: pointer; 
+
+                .Mui-checked {
+                    color: $darkGray !important;
+                }
+
+                .checkbox {
+                    background-color: transparent;
+                    color: $gray2;
+                    
+                    &:hover {
+                        color: $darkGray;
+                    }
+                }
+                
+                span {
+                    font-family: circular-thin;
+                }
+            }
+
+            label {
+                text-transform: capitalize;
+            }
+        }
+
+        .accordion-arrow {
+            font-family: circular-medium;
+            font-size: 0.9375rem;
+            text-decoration: underline;
+
+            cursor: pointer;
+        }
+
+        /////////////////////////////////////////////////////////////
+        .place-type {
+            padding-block: 1.4rem 1.5rem;
+
+            h2 {
+                padding-block-end: 1rem;
+            }
+
+            p {
+                margin-block-end: 1.5rem;
+            }
+
+            .btns {
+                grid-template-columns: 0 repeat(3, 1fr) 0;
+                grid-template-rows: 4.0625rem;
+                grid-template-areas: '. btn1 btn2 btn3 .';
+            }
+
+            .btn {
+                font-size: 1rem;
+                font-family: circular-medium;
+                padding: 1rem 0.5rem;
+                height: 4.0625rem;
+                width: 100%;
+                text-transform: capitalize;
+
+                @include buttons15;
+
+                &:active {
+                    scale: 1;
+                }
+
+                &:first-of-type {
+                    grid-area: btn1;
+                    border-radius: 10px 0 0 10px;
+                }
+
+                &:nth-of-type(2) {
+                    grid-area: btn2;
+                    border-radius: 0;
+                }
+
+                &:last-of-type {
+                    grid-area: btn3;
+                    border-radius: 0 10px 10px 0;
+                }
+            }
+        }
+
+        .price-range {
+            padding-block: 1.9rem;
+
+            h2 {
+                margin-block-end: 0.5rem;
+            }
+
+            .price-input {
+                margin-inline: 1rem;
+
+                &>div {
+                    gap: 1.5rem;
+
+                    label {
+                        border: 1.5px solid $gray4;
+                        border-radius: $BR2;
+                        padding: 0.75rem;
+
+                        flex-grow: 1;
+
+                        input {
+                            font-family: circular-reg;
+                            border: none;
+                            outline: none;
+                        }
+                    }
+                }
+            }
+
+            .css-188mx6n-MuiSlider-root {
+                color: $darkGray;
+                height: 5px;
+                padding-block: 1rem;
+                margin-block: 1rem;
+
+                cursor: default;
+
+                .css-7o8aqz-MuiSlider-rail,
+                .css-1as9v07-MuiSlider-thumb,
+                .css-7o8aqz-MuiSlider-track {
+                    cursor: pointer;
+                }
+
+                .css-7o8aqz-MuiSlider-rail {
+                    background-color: $gray2;
+                    opacity: 1;
+                }
+
+                .css-1as9v07-MuiSlider-thumb {
+                    width: 32px;
+                    height: 32px;
+                    color: white;
+                    box-shadow: 0 6px 16px $gray4;
+                }
+
+                .css-14gyywz-MuiSlider-valueLabel.MuiSlider-valueLabelOpen {
+                    display: none;
+                }
+
+            }
+        }
+
+        .rooms-beds {
+            padding-block: 1.9rem 2.6rem;
+
+            h2 {
+                margin-block-end: 1.75rem;
+            }
+
+            h4 {
+                margin-block: 1.5rem 1.65rem;
+                margin-inline: 0.1rem;
+            }
+
+            .btns {
+                grid-template-columns: 79.2px repeat(8, 59.2px);
+                grid-template-rows: 2.45rem;
+                gap: 0.61rem;
+
+                overflow: auto hidden;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .btn {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 20px;
+
+                    text-transform: capitalize;
+
+                    @include buttons1;
+                }
+            }
+        }
+
+        .prop-type {
+            padding-block: 1.9rem;
+
+            h2 {
+                margin-block-end: 1.55rem;
+            }
+
+            .btns {
+                grid-auto-rows: 7.8rem;
+                gap: 1rem;
+            }
+
+            .btn {
+                font-size: 15px;
+                height: 100%;
+                width: 100%;
+                padding: 1rem;
+                border-radius: 12px;
+                font-family: circular-medium;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                text-transform: capitalize;
+
+                @include buttons2;
+
+                svg {
+                    width: 2rem;
+                    height: 2rem;
+                }
+            }
+        }
+
+        .amenities,
+        .accessibility {
+            padding-block: 1.9rem 2.5rem;
+            padding-inline: 0 0.75rem;
+
+            h2 {
+                margin-block: 0.1rem 2rem
+            }
+
+            h3 {
+                margin-block: 1.5rem 1.25rem;
+            }
+        }
+
+        .booking-opts {
+            padding-block: 1.9rem 2.8rem;
+
+            h2 {
+                margin-block-end: 2.2rem;
+            }
+
+            div {
+                margin: 1.6rem 1rem 0 0;
+                height: fit-content;
+
+                div {
+                    margin: 0;
+                }
+            }
+
+            h4 {
+                font-weight: normal;
+                font-size: 1rem;
+                font-family: circular-reg;
+                margin-block: 0 0.4rem;
+            }
+
+            p {
+                color: $gray1;
+            }
+
+        }
+
+        .host-lng {
+            padding-block: 1.9rem 2.5rem;
+            padding-inline: 0 0.75rem;
+
+            h2 {
+                margin-block-end: 2.2rem;
+            }
+
+        }
+    }
+}
+
+@media (width > 350px) {
+    .filter-modal main .prop-type .btns {
+        grid-template-columns: repeat(2, minmax(112px, 1fr));
+    }
+}
+
+@media (width > 450px) {
+    .filter-modal main .place-type .btns {
+        grid-template-columns: 40px repeat(3, 1fr) 40px;
+    }
+}
+
+@media (width > 742px) {
+    .filter-modal {
+        margin-block: 0 2.5rem;
+        margin-inline: auto;
+        max-width: 48.75rem;
+
+        footer {
+            border-radius: 0 0 $BR3 $BR3;
+        }
+
+        main {
+            .prop-type .btns {
+                grid-template-columns: repeat(4, minmax(112px, 1fr));
+            }
+
+            .checkbox-group {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+    }
+}

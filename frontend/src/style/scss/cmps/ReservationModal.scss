@@ -1,0 +1,170 @@
+.reserve-modal {
+    display: none;
+    color: $darkGray;
+}
+
+.reserve-footer {
+    position: fixed;
+    inset: auto 0 0 0;
+    height: 5rem;
+    background-color: white;
+    padding-inline: 1.5rem;
+    border-block-start: 0.667px solid $gray2;
+    color: $darkGray;
+
+    span {
+        font-family: circular-bold;
+    }
+
+    p:last-of-type {
+        text-decoration: underline;
+    }
+
+    button {
+        height: 3rem;
+        width: 9.25rem;
+        font-size: 1.1rem;
+        font-family: circular-bold;
+        color: #ffffff;
+        background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
+        border-radius: $BR1;
+        margin-block: 1rem;
+    }
+}
+
+@media (width > 900px) {
+    .reserve-footer {
+        display: none;
+    }
+
+    .reserve-modal {
+        display: block;
+        z-index: 1;
+        position: sticky;
+        top: rem(100px);
+        margin-block-end: rem(80px);
+        max-width: 23.25rem;
+        padding: 24px;
+        border: 1px solid $gray3;
+        border-radius: 12px;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+
+        .selectors-container label {
+            text-transform: uppercase;
+        }
+
+        .arrow-down::before {
+            content: '\f107';
+            font-family: fa-solid;
+        }
+
+        .arrow-up::before {
+            content: '\f106';
+            font-family: fa-solid;
+        }
+
+        .container-price-selectors {
+            // width: rem(322.33px);
+            // height: rem(226px);
+        }
+
+        .price-logo {
+            margin-block-end: rem(24px);
+
+            h2 {
+                font-size: rem(22px);
+                margin: 0;
+            }
+
+            span {
+                font-size: 1rem;
+            }
+
+        }
+
+        .selectors-container {
+            cursor: pointer;
+
+            .check-in,
+            .checkout {
+                border: 1px solid $borderclr;
+                flex-grow: 1;
+                width: rem(160.66px);
+                height: rem(56px);
+                z-index: 100; //needed for date calender 
+            }
+
+            label {
+                font-size: 0.6rem;
+                font-family: circular-bold;
+                cursor: pointer;
+            }
+
+            div.txt-date {
+                font-size: rem(14px);
+                color: $gray5;
+            }
+
+            .txt {
+                padding: 26px 12px 10px;
+                align-self: flex-end;
+                gap: 0.25rem;
+            }
+
+            .guest-selector {
+                padding: 26px 12px 10px 12px;
+                border: 1px solid $borderclr;
+                height: rem(56px);
+                justify-content: flex-end;
+                position: relative;
+
+                .guest-container {
+                    color: $gray5;
+                }
+            }
+        }
+
+        .reserve-btn {
+            height: rem(48px);
+            background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
+            border-radius: $BR1;
+            line-height: 19px;
+            margin-block-start: 1rem;
+            margin-block-end: rem(8px);
+            
+            cursor: pointer;
+            
+            span {
+                color: white;
+                font-family: circular-medium;
+            }
+        }
+
+        .charged-p {
+            text-align: center;
+            margin-block: 1rem 1.5rem;
+            font-size: 0.875rem;
+        }
+
+        .price-calc,
+        .fee-calc {
+            padding-block-end: 1rem;
+
+            span:first-of-type {
+                text-decoration: underline;
+            }
+        }
+
+        .fee-calc {
+            border-block-end: 0.667px solid $gray2;
+        }
+
+        .sum-total {
+            margin-block-start: 1rem;
+            
+            span {
+                font-family: circular-medium;
+            }
+        }
+    }
+}
