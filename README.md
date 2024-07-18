@@ -7,8 +7,6 @@ StayBnB is a replica of the popular vacation rental marketplace, Airbnb. This pr
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## Features
@@ -42,7 +40,7 @@ StayBnB is a replica of the popular vacation rental marketplace, Airbnb. This pr
 3. Start the backend development server:
    npm start
 4. Install dependencies in frontend:
-   cd frontend
+   cd ../frontend
    npm i
 5. Start the frontend development server:
    npm start
