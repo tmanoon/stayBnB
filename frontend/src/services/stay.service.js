@@ -31,9 +31,9 @@ const amenityLabels = ['wifi', 'kitchen', 'washer', 'dryer', 'air_conditioning',
 const filterLabels = ['iconic_cities', 'new', 'off-the-grid', 'rooms', 'creative_spaces',
     'boats', 'grand_pianos', 'vineyards', 'historical_homes', 'mansions', 'lake', 'bed_&_breakfasts', 'treehouses', 'farms', 'skiing', 'earth_homes', 'countryside', 'amazing_views', 'beach', 'desert', 'a-frames',
     'design', 'beachfront', 'caves', 'national_parks', 'castles', 'lakefront', 'islands', 'trulli', 'tropical', 'cabins', 'campers', 'camping', 'arctic', 'tiny_homes', 'surfing', 'barns', 'cycladic_homes', 'hanoks', 'ryokans', 'domes', 'shepard_huts', 'yurts', 'minsus', 'casas_particulares']
+
 function query(filterBy = getDefaultFilter()) {
     return httpService.get(BASE_URL, filterBy)
-
 }
 
 async function getHostStaysById(userId) {
@@ -168,7 +168,7 @@ function getDefaultFilter() {
         bedrooms: 'any',
         beds: 'any',
         bathrooms: 'any',
-        propType: [], 
+        propType: [],
         amenities: [],
         bookingOpts: {
             instant: false,
@@ -185,13 +185,13 @@ function getDefaultHeaderFilter() {
     return {
         loc: {},
         entryDate: '',
-        exitDate: '', 
-        guestCount: { adults: 0, children: 0, infants: 0, pets: 0 }, 
+        exitDate: '',
+        guestCount: { adults: 0, children: 0, infants: 0, pets: 0 },
     }
 }
 
 function getEmptyOrder() {
-    return { 
+    return {
         hostId: '',
         buyer: {
             _id: '',
@@ -226,7 +226,7 @@ function getEmptyModalFilter() {
         bedrooms: 'any',
         beds: 'any',
         bathrooms: 'any',
-        propType: [], 
+        propType: [],
         amenities: [],
         bookingOpts: {
             instant: false,
@@ -366,7 +366,7 @@ function generateRandomDate(stayPrice) {
     }
 
     return selectedDate;
-}  
+}
 
 
 function generateRandomDistance(stay) {
