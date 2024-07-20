@@ -133,6 +133,7 @@
         padding-inline: rem(80px);
         grid-template-columns: repeat(2, max-content);
         justify-content: space-between;
+        align-items: center;
 
         .credits-and-links {
             grid-row: 1;
@@ -163,6 +164,7 @@
         .locale {
             justify-self: self-start;
             margin-inline-end: rem(109px);
+            margin-block-end: 0;
         }
 
         .social {
