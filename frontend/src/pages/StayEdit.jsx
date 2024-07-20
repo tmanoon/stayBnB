@@ -15,9 +15,11 @@ export function StayEdit() {
 
     const [editStage, setEditStage] = useState(1)
 
-    function onSaveStay(){
-        saveStay(stay)
-          navigate('/')
+    async function onSaveStay(){
+        try {
+            await saveStay(stay)
+            navigate(`/${stay._id}`)
+        } catch(err) {console.log(err)}
     }
 
 

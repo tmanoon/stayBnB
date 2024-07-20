@@ -102,7 +102,7 @@ export function UserDashboard() {
                                 <img src={stay.imgUrls[0]} />
                                 <h2>{stay.name}</h2>
                                 <p><span>Capacity:</span> {stay.capacity}</p>
-                                <p><span>Price:</span> {stay.price}</p>
+                                <p><span>Price:</span> ${stay.price}</p>
                                 <button onClick={(ev) => navToEditStay(ev, stay._id)}>Edit</button>
                             </article>
                         ))}
