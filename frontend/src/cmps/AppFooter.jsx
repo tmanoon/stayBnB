@@ -5,30 +5,25 @@ export function AppFooter() {
     }
 
     return (
-        <section className="app-footer-container">
-            <div className="app-footer">
-
-                <div className="options">
-                    © 2024 Staybnb, Inc.
-                    <div>·</div>
-                    <span>TermsSitemap</span>
-                    ·
-                    <span>Privacy</span>
-                    ·
-                    <span>Your Privacy Choices</span>
+        <section className="footer grid">
+            <div className="credits-and-links grid">
+                <p className="credits">© 2024 Staybnb, Inc.<span>·</span></p>
+                <div className="links flex">
+                    <p>Terms</p>
+                    <span>·</span>
+                    <p>Sitemap</p>
+                    <span>·</span>
+                    <p>Privacy</p>
                 </div>
-
-                <div className="media">
-                    <span> English (US)</span>
-                    <span>$USD</span>
-
-                    <div className="share">
-                        <div className="facebook" onClick={() => navigateTo("https://www.facebook.com/airbnb/")}></div>
-                        <div className="twitter" onClick={() => navigateTo("https://twitter.com/airbnb")}></div>
-                        <div className="instagram" onClick={() => navigateTo("https://www.instagram.com/airbnb/")}></div>
-                    </div>
-                </div>
-
+            </div>
+            <div className="locale flex">
+                <span>English (US)</span>
+                <span>$USD</span>
+            </div>
+            <div className="social grid">
+                <span className="facebook flex center" onClick={() => navigateTo("https://www.facebook.com/airbnb/")}></span>
+                <span className="twitter flex center" onClick={() => navigateTo("https://twitter.com/airbnb")}></span>
+                <span className="instagram flex center" onClick={() => navigateTo("https://www.instagram.com/airbnb/")}></span>
             </div>
         </section>
     )
