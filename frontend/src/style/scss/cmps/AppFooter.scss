@@ -7,11 +7,13 @@
     font-size: 0.875em;
     color: $darkGray;
     background-color: $btnHover;
+    padding-block: 2em;
 
     .app-footer {
         display: flex;
         justify-content: space-between;
         overflow: hidden;
+
 
         .options,
         .media {
@@ -83,7 +85,7 @@
 
 
 @media (width < 600px) {
-    .app-footer-container{
-       display: none;
+    .app-footer-container {
+        display: none;
     }
 }
