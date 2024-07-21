@@ -71,19 +71,16 @@ export function AppHeader({ scrolledPage }) {
     return <section className={`app-header-container header-${getHeaderWidth()} header-${getHeaderSize()} ${getHeaderPosition()} flex column center`}>
         <section className="expanded-header flex space-between align-center">
 
-            <div className="logo-section" onClick={goHome}>
-                <div className="logo flex align-center">
+            <section className="logo-section flex align-center" onClick={goHome}>
                     <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="" />
-                    Staybnb
-                </div>
-            </div>
+                    <span>Staybnb</span>
+            </section>
 
-            <div className="nav-section flex justify-center">
-                <nav className="nav flex space-evenly">
+            <section className="nav-section flex justify-center">
+                {/* <nav className="nav flex space-evenly">
                     <NavLink onClick={goHome} to="/">Stays</NavLink>
                     <NavLink to="/unActive" className='grayTxt'>Experiences</NavLink>
-                    {/* <NavLink to="/" className='grayTxt'>Online Experiences</NavLink> */}
-                </nav>
+                </nav> */}
 
                 <div className="compact-header flex align-center">
                     <div onClick={() => { setModalType(modalType === 'map' ? null : 'map'), SetDynamicPageLayOut(false) }} className="map">Anywhere</div>
@@ -94,9 +91,9 @@ export function AppHeader({ scrolledPage }) {
                     </div>
                 </div>
 
-            </div>
+            </section>
 
-            <div className="user-section flex align-center" >
+            <section className="user-section flex align-center" >
 
                 <NavLink to="/edit">Staybnb your home</NavLink>
 
@@ -110,7 +107,7 @@ export function AppHeader({ scrolledPage }) {
                     )}
                 </button>
 
-            </div>
+            </section>
 
         </section>
 
