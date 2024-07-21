@@ -17,14 +17,10 @@ import { Loading } from "../cmps/Loading"
 
 
 export function StayDetails() {
-    const [searchParams, setSearchParams] = useSearchParams()
-    const location = useLocation()
-    const queryParams = new URLSearchParams(location.search)
+    const [searchParams, setSearchParams] = useSearchParams()    
     const safetyAmenities = ['Carbon monoxide alarm', 'Smoke alarm']
     const { isLoading } = useSelector(storeState => storeState.stayModule)
-    const { stayId } = useParams()
-    const [stay, setStay] = useState('')
-    const [longestBedsCount, setLongestBedsCount] = useState(1)
+    const { stayId } = useParams()    
     const {
         region,
         adults,
@@ -33,7 +29,7 @@ export function StayDetails() {
         pets,
         entryDate,
         exitDate
-    } = Object.fromEntries(queryParams.entries())
+    } = Object.fromEntries(searchParams.entries())
 
     const paramsFromFilter = {
         region,
@@ -43,25 +39,25 @@ export function StayDetails() {
         pets,
         entryDate,
         exitDate
-    }
+    }    
+
     const [params, updateParams] = useState(paramsFromFilter)
+    const [stay, setStay] = useState('')
+    const [longestBedsCount, setLongestBedsCount] = useState(1)
+
     // is guest favorite - if truthy - show a cmp of guest fav
     useEffect(() => {
-        if (stayId) {
-            loadStay(stayId)
-        }
+        if (stayId) loadStay(stayId)
     }, [])
 
     useEffect(() => {
-        if (stay) {
-            setLongestBedsCount(utilService.calcLongestBedCount(stay))
-        }
-    }, [stay])
-
-    useEffect(() => {
+        if (stay) setLongestBedsCount(utilService.calcLongestBedCount(stay))
         setSearchParams(params)
-    }, [params])
+    }, [stay, params])
 
+    // useEffect(() => {
+    //     setSearchParams(params)
+    // }, [params])
 
     async function loadStay(stayId) {
         try {
@@ -78,8 +74,6 @@ export function StayDetails() {
         const hostName = host.fullname.slice(0, spaceIdx)
         return hostName
     }
-
-  
 
     return <>
       {isLoading && <Loading currentPage={'details'} />}
@@ -139,18 +133,15 @@ export function StayDetails() {
                     <article className="amenity-info" id="amenities">
                         <h1>What this place offers </h1>
                         <ul className="amenities-ul grid">
-
                             {stay.amenities.slice(0, 9).map(amenity =>
                                 <li key={amenity} className="flex align-center">
                                     <SvgPathCmp name={amenity.replaceAll(' ', '').toLowerCase()} />
                                     <p>{amenity}</p>
                                 </li>)}
-
                             <li className={`${stay.amenities.includes(safetyAmenities[0]) ? '' : 'no-safety-amenity'} flex align-center`}>
                                 <SvgPathCmp name={safetyAmenities[0].replaceAll(' ', '').toLowerCase()} />
                                 <p>{safetyAmenities[0]}</p>
                             </li>
-
                             <Accordion>
                                 {stay.amenities.slice(9).map(amenity =>
                                     <li key={amenity} className="flex align-center">
