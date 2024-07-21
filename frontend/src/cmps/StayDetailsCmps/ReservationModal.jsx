@@ -23,21 +23,18 @@ export function ReservationModal({ stay, params, updateParams }) {
     const [modalType, openModalType] = useState()
     const [isBtnScrolled, setIsBtnScrolled] = useState(false)
     const [btnObserver, setBtnObserver] = useState(null)
-    const ref = useRef(null)
+    const modal = useRef(null)
     const btn = useRef()
 
     useEffect(() => {
         setNumOfDays(utilService.calcSumOfDays(params))
         loadBtnScrolledObserver()
-    }, [params])
-
-    useEffect(() => {
-        setFee(parseInt((numOfDays * stay.price) * 0.14125))
-    }, [numOfDays])
+        if(numOfDays) setFee(parseInt((numOfDays * stay.price) * 0.14125))
+    }, [params, numOfDays])
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (ref.current && !ref.current.contains(event.target)) {
+            if (modal.current && !modal.current.contains(event.target)) {
                 openModalType('')
             }
         }
@@ -45,7 +42,7 @@ export function ReservationModal({ stay, params, updateParams }) {
         return () => {
             document.removeEventListener('click', handleClickOutside)
         }
-    }, [ref])
+    }, [modal])
 
     useEffect(() => {
         if (btnObserver) btnObserver.observe(btn.current)
@@ -73,21 +70,14 @@ export function ReservationModal({ stay, params, updateParams }) {
 
     function validateAndMoveToPayment() {
         if (params.entryDate && params.exitDate && params.adults) {
-            const queryParams = new URLSearchParams({
-                entryDate: params.entryDate,
-                exitDate: params.exitDate,
-                adults: params.adults || '',
-                children: params.children || '',
-                infants: params.infants || '',
-                pets: params.pets || ''
-            }).toString()
+            const queryParams = utilService.getFormattedParams(params)
             userService.getLoggedInUser() ? navigate(`/${stay._id}/payment?${queryParams}`) : setIsLoginModal(true)
         }
     }
 
     return <>
         {isBtnScrolled && <DynamicModalHeader stay={stay} params={params} />}
-        <div className="reserve-modal" ref={ref}>
+        <div className="reserve-modal" ref={modal}>
             <div className='container-price-selectors'>
                 <div className="price-logo flex align-center">
                     <h2>$ {stay.price.toLocaleString()} &nbsp;</h2><span>night</span>
@@ -113,7 +103,7 @@ export function ReservationModal({ stay, params, updateParams }) {
                             </div>
                         </div>
                     </div>
-                    <div ref={ref} className='guest-selector flex column' >
+                    <div ref={modal} className='guest-selector flex column' >
                         <label onClick={() => openModalType(modalType === 'guest' ? null : 'guest')} className='guests'>Guests</label>
                         <div className='guest-container flex space-between' onClick={() => openModalType(modalType === 'guest' ? null : 'guest')}>
                             {stayService.guestCountStringForReservation(params)}

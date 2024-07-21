@@ -1,10 +1,13 @@
 .footer {
 
-    @media (min-width: 370px) {
+    @media (max-width: 744px) {
         grid-template-rows: repeat(2, 1fr);
         padding: rem(24px) rem(24px);
         color: $darkGray;
         background-color: $btnHover;
+        position: relative;
+        bottom: 0;
+        width: 100%;
 
         .credits-and-links {
             grid-row: 2;

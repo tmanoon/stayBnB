@@ -19,7 +19,8 @@ export const utilService = {
     calcSumOfDays,
     calcLongestBedCount,
     calcGuestCount,
-    calcSumToPayAtTrips
+    calcSumToPayAtTrips,
+    getFormattedParams
 }
 
 function makeId(length = 6) {
@@ -222,3 +223,15 @@ function calcGuestCount(order) {
     }
     return sumOfGuests
 }
+
+function getFormattedParams(params) {
+    const queryParams = new URLSearchParams({
+      entryDate: params.entryDate,
+      exitDate: params.exitDate,
+      adults: params.adults || '',
+      children: params.children || '',
+      infants: params.infants || '',
+      pets: params.pets || ''
+    }).toString()
+    return queryParams
+  }

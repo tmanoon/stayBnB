@@ -22,19 +22,12 @@ export function Payment({ stay, params }) {
     const [isEditDates, setIsEditDates] = useState(false)
     const [isEditGuests, setIsEditGuests] = useState(false)
 
-    async function checkAndValidateOrder(e) {
+    async function checkAndValidateOrder() {
         try {
-            e.stopPropagation()
-            // if (userOrderDetails.card.cardNum &&
-            //     userOrderDetails.card.expDate &&
-            //     userOrderDetails.card.cvv &&
-            //     userOrderDetails.card.zip &&
-            //     userOrderDetails.phone) {
                 const orderToAdd = await addOrder(params, stay)
                 socketService.emit(SOCKET_SERVICE_ADD_ORDER, orderToAdd )
                 setOrder(orderToAdd)
                 setIsOrder(true)
-            // }
         } catch (err) {
             console.log('err', err)
             throw err
@@ -85,21 +78,14 @@ export function Payment({ stay, params }) {
         }
     }
 
-    // function onCloseAddPhone(e) {
-    //     e.stopPropagation()
-    //     setIsPhone(false)
-    // }
-
-    // function onOpenAddPhone(e) {
-    //     e.stopPropagation()
-    //     setIsPhone(true)
-    // }
-
     function onClose(e) {
         e.stopPropagation()
-        navigate(`/${stay._id}`)
+        navigate(`/${stay._id}?${utilService.getFormattedParams(params)}`)
     }
 
+    useEffect(() => {
+        console.log(stay, params)
+    })
     return <section className="payment-details">
 
         <header className="flex">
