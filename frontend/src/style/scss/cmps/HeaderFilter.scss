@@ -137,18 +137,6 @@
         height: 0;
         display: none;
     }
-
-    .compact-filter {
-        display: inline;
-        opacity: 1;
-        transition: opacity 0.3s;
-        display: flex;
-        width: 22rem;
-    }
-
-    nav {
-        display: none;
-    }
 }
 
 @media (width < 742px) {}

@@ -1,154 +1,120 @@
-.index-filter-section {
-    padding-block: 1rem 0.5rem;
+.filter-labels-section {
+    padding-block: 0.5rem 0rem;
+    margin-block-start: 0.5rem;
+    border-block-start: 1px solid $gray2;
+    
+    grid-template-columns: 1fr 5.75rem;
+    column-gap: 1rem;
 
-    grid-auto-flow: column;
-    grid-gap: 0 1rem;
+    .labels-filter {
+        grid-auto-flow: column;
+        column-gap: 2rem;
+        height: fit-content;
 
-    button {
-        display: none;
-        align-items: center;
-    }
+        overflow: auto hidden;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
 
-    position: sticky;
-    top: 9.5rem;
-    transform: translateY(-5rem);
-    background-color: white;
-    border-block-end: 1px solid $gray2;
-
-    transition: transform 0.1s;
-}
-
-.label-filter-section {
-    grid-auto-flow: column;
-    column-gap: 2rem;
-    height: fit-content;
-
-    overflow: auto hidden;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-
-    &>div {
-        font-size: 0.85rem;
-        opacity: 0.7;
-        position: relative;
-
-        width: max-content;
-        min-width: 3.5rem;
-        padding-block: 0.25rem 0.65rem;
-        margin-block: 0.6rem 0.125rem;
-        border-block-end: 3px solid white;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-
-        cursor: pointer;
-
-        p {
-            color: black;
-            font-family: circular-reg;
+        &::-webkit-scrollbar {
+            display: none;
         }
 
         &>div {
-            svg {
-                width: 1.5rem;
-                height: 1.5rem;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            position: relative;
 
-                &>* {
-                    scale: 0.25;
+            width: max-content;
+            min-width: 3.5rem;
+            padding-block: 0.25rem 0.65rem;
+            margin-block: 0.6rem 0.125rem;
+            border-block-end: 3px solid white;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+
+            cursor: pointer;
+
+            p {
+                color: black;
+                font-family: circular-reg;
+            }
+
+            &>div {
+                svg {
+                    width: 1.5rem;
+                    height: 1.5rem;
+
+                    &>* {
+                        scale: 0.25;
+                    }
                 }
+            }
+
+            p {
+                text-transform: capitalize;
+                text-wrap: nowrap;
+            }
+
+            &:hover {
+                opacity: 0.8;
+                border-block-end: 3px solid $gray2;
+            }
+
+            &:active {
+                scale: 0.8;
+                transition: scale 1s;
+            }
+
+            &.selected,
+            &:active {
+                opacity: 0.8;
+                border-block-end: 3px solid $darkGray;
+            }
+        }
+    }
+
+    button {
+        font-size: 0.75rem;
+        height: 3rem;
+        width: 5.75rem;
+        margin: 0.75rem 0.375rem 0 0;
+        background-color: transparent;
+        border: 0.667px solid $gray2;
+        border-radius: 12px;
+        color: $darkGray;
+
+        transition: 0s;
+        gap: 0.8em;
+
+        span {
+            font-family: circular-medium;
+        }
+
+        svg {
+            opacity: 0.8;
+            padding-block-start: 0.2rem;
+            height: 1.2rem;
+            width: 1rem;
+
+            &>* {
+                scale: 0.03;
             }
         }
 
-        p {
-            text-transform: capitalize;
-            text-wrap: nowrap;
-        }
-
         &:hover {
-            opacity: 0.8;
-            border-block-end: 3px solid $gray2;
+            background-color: $btnHover;
+            border: 1px solid $darkGray;
         }
-
-        &:active {
-            scale: 0.8;
-            transition: scale 1s;
-        }
-
-        &.selected,
-        &:active {
-            opacity: 0.8;
-            border-block-end: 3px solid $darkGray;
-        }
-    }
-}
-
-@media (width > 850px) {
-    .index-filter-section.labels-header-expanded {
-        height: 0;
     }
 }
 
 @media (width > 742px) {
-    .index-filter-section {
+    filter-labels-section {
         box-shadow: none;
         border: none;
-
-        &.labels-header-condensed {
-            position: sticky;
-            top: 10.5rem;
-            transform: translateY(-5rem);
-            background-color: white;
-            border-block-end: 1px solid $gray2;
-        }
-
-        button {
-            display: block;
-            font-size: 0.75rem;
-
-            height: 3rem;
-            width: 5.75rem;
-            margin: 0.75rem 0.375rem 0 0;
-            background-color: transparent;
-            border: 0.667px solid $gray2;
-            border-radius: 12px;
-            color: $darkGray;
-            display: flex;
-            justify-content: center;
-            transition: 0s;
-            column-gap: 0.8em;
-
-            span {
-                font-family: circular-medium;
-            }
-
-            svg {
-                opacity: 0.8;
-                padding-block-start: 0.2rem;
-                height: 1.2rem;
-                width: 1rem;
-
-                &>* {
-                    scale: 0.03;
-                }
-            }
-
-            &:hover {
-                background-color: $btnHover;
-                border: 1px solid $darkGray;
-            }
-        }
-    }
-}
-
-@media (width > 850px) {
-    .index-filter-section {
-        padding-block: 0.5rem;
     }
 }
