@@ -55,10 +55,6 @@ export function StayDetails() {
         setSearchParams(params)
     }, [stay, params])
 
-    // useEffect(() => {
-    //     setSearchParams(params)
-    // }, [params])
-
     async function loadStay(stayId) {
         try {
             const loadedStay = await loadStayById(stayId)

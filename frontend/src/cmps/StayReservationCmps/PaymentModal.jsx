@@ -21,7 +21,7 @@ export function PaymentModal({ stay, params }) {
             <h1>Price details</h1>
 
             <div className="accommodation flex space-between">
-                <p>$ {stay.price.toLocaleString()} X {utilService.calcSumOfDays(params) === 1 ? `${utilService.calcSumOfDays(params)} night` : `${utilService.calcSumOfDays(params)} nights`}</p>
+                <p>${stay.price.toLocaleString()} X {utilService.calcSumOfDays(params) === 1 ? `${utilService.calcSumOfDays(params)} night` : `${utilService.calcSumOfDays(params)} nights`}</p>
                 <p className='sum'>${(stay.price * utilService.calcSumOfDays(params) * (+params.adults + +params.children)).toLocaleString()}</p>
             </div>
 
