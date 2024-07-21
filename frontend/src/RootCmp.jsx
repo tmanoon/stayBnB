@@ -32,7 +32,6 @@ export function RootCmp() {
     <Provider store={store}>
       <Router>
         <AppHeader scrolledPage={scrolledPage} />
-        <body>
           <main>
             <Routes>
               <Route path='/' element={<StayIndex scrolledPage={scrolledPage} />} />
@@ -45,7 +44,6 @@ export function RootCmp() {
               <Route path='/wishlist' element={<UserWishlist />} />
             </Routes>
           </main>
-        </body>
         <AppFooter />
       </Router>
     </Provider>
