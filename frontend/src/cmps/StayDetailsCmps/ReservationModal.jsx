@@ -70,14 +70,7 @@ export function ReservationModal({ stay, params, updateParams }) {
 
     function validateAndMoveToPayment() {
         if (params.entryDate && params.exitDate && params.adults) {
-            const queryParams = new URLSearchParams({
-                entryDate: params.entryDate,
-                exitDate: params.exitDate,
-                adults: params.adults || '',
-                children: params.children || '',
-                infants: params.infants || '',
-                pets: params.pets || ''
-            }).toString()
+            const queryParams = utilService.getFormattedParams(params)
             userService.getLoggedInUser() ? navigate(`/${stay._id}/payment?${queryParams}`) : setIsLoginModal(true)
         }
     }
