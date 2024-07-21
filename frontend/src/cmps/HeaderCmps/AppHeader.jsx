@@ -9,6 +9,7 @@ import { UserNavModal } from "./UserNavModal"
 import { useLocation } from 'react-router-dom';
 import { LoginSignup } from "../LoginSignup"
 import { userService } from "../../services/user.service"
+import { LabelsFilter } from "../LabelsFilter"
 
 export function AppHeader({ scrolledPage }) {
     var filterBy = useSelector(storeState => storeState.stayModule.filterBy)
@@ -63,8 +64,7 @@ export function AppHeader({ scrolledPage }) {
     }
 
     return <>
-        <header className={`full-app-header header-${getHeaderWidth()} header-${getHeaderSize()} ${getHeaderPosition()}`}>
-
+        <header className={`full-app-header header-${getHeaderWidth()} header-${getHeaderSize()} ${getHeaderPosition()} grid`}>
             <section className="logo-section flex align-center" onClick={goHome}>
                 <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="" />
                 <span>Staybnb</span>
@@ -91,7 +91,10 @@ export function AppHeader({ scrolledPage }) {
                     {userService.getLoggedInUser() ? (<img src={userService.getLoggedInUser().imgUrl} alt="User Profile" />) : (<div className="profile"></div>)}
                 </button>
             </section>
+
+            {location.pathname === '/' && <LabelsFilter filterBy={filterBy} />} {/*send setStayFilter prop*/}
         </header>
+
 
         {modalType === 'user-nav' && <UserNavModal setIsLoginModal={setIsLoginModal} setModalType={setModalType} />}
         {isLoginModal && <LoginSignup setIsLoginModal={setIsLoginModal} />}

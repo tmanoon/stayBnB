@@ -3,7 +3,6 @@ import { useSearchParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { loadStays, removeStay, saveStay, setStayFilter } from '../store/actions/stay.actions.js'
 import { StayList } from '../cmps/StayList.jsx'
-import { LabelsFilter } from '../cmps/LabelsFilter.jsx'
 import { store } from '../store/store.js'
 import { stayService } from '../services/stay.service.js'
 import { socketService, SOCKET_EVENT_ORDER_UPDATE } from '../services/socket.service.js'
@@ -27,8 +26,6 @@ export function StayIndex({ scrolledPage }) {
         setTimeout(() => {
             socketService.emit(SOCKET_EVENT_ORDER_UPDATE, 'order')
         }, 1000)
-
-
     }, ['hi'])
 
     function onIncreasePagination() {
@@ -45,20 +42,7 @@ export function StayIndex({ scrolledPage }) {
         }
     }
 
-    // if (!stays || !stays.length) return <section className='index-section'>
-    //     <LabelsFilter
-    //         setStayFilter={setStayFilter}
-    //         filterBy={filterBy}
-    //         scrolledPage={scrolledPage}
-    //     />
-    // </section>
-
         return <section className={`index-section ${scrolledHeader()}`}>
-            <LabelsFilter
-                setStayFilter={setStayFilter}
-                filterBy={filterBy}
-                scrolledPage={scrolledPage}
-            />
             {isLoading && <Loading />}
             {!isLoading && <><StayList
                 stays={stays}

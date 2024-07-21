@@ -6,7 +6,7 @@ import { FilterModal } from './FilterModal'
 import { filterLists } from "../services/filterLists.service"
 import { SvgPathCmp } from "./HelperCmps/SvgPathCmp"
 
-export function LabelsFilter({ setStayFilter, filterBy, scrolledPage }) {
+export function LabelsFilter({ filterBy, setStayFilter }) {
 	const [showFilterModal, setShowFilter] = useState(false)
 	const [selectedValue, setSelectedValue] = useState('')
 
@@ -19,24 +19,16 @@ export function LabelsFilter({ setStayFilter, filterBy, scrolledPage }) {
 		setShowFilter(true)
 	}
 
-	const scrolledHeader = () => {
-		if (scrolledPage) {
-			return 'labels-header-condensed'
-		} else {
-			return 'labels-header-expanded'
-		}
-	}
-
 	return <>
-		<section className={`index-filter-section grid ${scrolledHeader()}`}>
-			<section className="label-filter-section grid ">
+		<section className={'filter-labels-section grid'}>
+			<div className="labels-filter grid ">
 				<SvgWithNamesCmp
 					svgNames={filterLists.filterLabels}
 					handleChange={handleChange}
 					selectedValue={selectedValue} />
-			</section>
+			</div>
 
-			<button className="flex align-center" onClick={openFilterModal}>
+			<button className="flex center" onClick={openFilterModal}>
 				<SvgPathCmp name={'settings'} />
 				<span>Filters</span>
 			</button>

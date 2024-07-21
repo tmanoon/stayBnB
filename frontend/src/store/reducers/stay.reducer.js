@@ -8,7 +8,6 @@ export const UPDATE_STAY = 'UPDATE_STAY'
 
 export const SET_IS_LOADING = 'SET_IS_LOADING'
 
-
 export const SET_FILTER = 'SET_FILTER'
 export const SET_HEADER_FILTER = 'SET_HEADER_FILTER'
 export const SET_PAGE_IDX = 'SET_PAGE_IDX'
