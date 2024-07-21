@@ -2,15 +2,12 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
-
-
 import { DateFilter } from './DateFilter'
 import { MapFilter } from './MapFilter'
 import { GuestFilter } from './GuestFilter'
 import { loadStays, setStayFilter } from '../../store/actions/stay.actions'
 import { stayService } from '../../services/stay.service'
 import { store } from '../../store/store'
-
 
 export function HeaderFilter({ modalType, setModalType }) {
     const header = useRef(null)
@@ -86,5 +83,4 @@ export function HeaderFilter({ modalType, setModalType }) {
         {modalType === 'guest' && <GuestFilter headerFilterBy={headerFilterBy} />}
 
     </section>
-
 }
