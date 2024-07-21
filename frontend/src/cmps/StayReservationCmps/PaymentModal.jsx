@@ -27,12 +27,12 @@ export function PaymentModal({ stay, params }) {
 
             <div className="fee flex space-between">
                 <p>Staybnb service fee</p>
-                <p>$ {(Math.round(utilService.calcSumToPay(params, stay) * 0.14125)).toLocaleString()}</p>
+                <p>${(Math.round(utilService.calcSumToPay(params, stay) * 0.14125)).toLocaleString()}</p>
             </div>
 
             <div className="total flex space-between">
                 <p>Total <span>(USD)</span></p>
-                <p>$ {(Math.round((utilService.calcSumToPay(params, stay))) + Math.round((utilService.calcSumToPay(params, stay) * 0.14125))).toLocaleString()}</p>
+                <p>${(Math.round((utilService.calcSumToPay(params, stay))) + Math.round((utilService.calcSumToPay(params, stay) * 0.14125))).toLocaleString()}</p>
             </div>
         </div>
     </div>
