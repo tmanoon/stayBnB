@@ -10,7 +10,7 @@ var axios = Axios.create({
 
 export const httpService = {
     get(endpoint, data) {
-        return ajax(endpoint, 'GET', data) // car/
+        return ajax(endpoint, 'GET', data)
     },
     post(endpoint, data) {
         return ajax(endpoint, 'POST', data) 
@@ -24,7 +24,6 @@ export const httpService = {
 }
 
 async function ajax(endpoint, method = 'GET', data = null) {
-    // console.log(`${BASE_URL}${endpoint}`)
     try {
         const res = await axios({
             url: `${BASE_URL}${endpoint}`,
