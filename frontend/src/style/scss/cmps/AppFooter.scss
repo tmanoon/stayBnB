@@ -1,6 +1,5 @@
 .footer {
-
-    @media (max-width: 744px) {
+    @media (min-width: 100px) {
         grid-template-rows: repeat(2, 1fr);
         padding: rem(24px) rem(24px);
         color: $darkGray;
