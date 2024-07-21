@@ -3,14 +3,12 @@ import { useSelector } from 'react-redux'
 import { useSearchParams, } from 'react-router-dom'
 import { useState, useEffect, useRef } from "react"
 import { HeaderFilter } from "./HeaderFilter"
-import { DemoDataService } from "../../services/demoData.service"
 import { stayService } from "../../services/stay.service"
 import { setStayFilter, setStayHeaderFilter } from "../../store/actions/stay.actions"
 import { UserNavModal } from "./UserNavModal"
 import { useLocation } from 'react-router-dom';
 import { LoginSignup } from "../LoginSignup"
 import { userService } from "../../services/user.service"
-import { utilService } from "../../services/util.service"
 
 export function AppHeader({ scrolledPage }) {
     var filterBy = useSelector(storeState => storeState.stayModule.filterBy)
@@ -21,10 +19,6 @@ export function AppHeader({ scrolledPage }) {
     const ref = useRef(null)
     const navigate = useNavigate()
     const location = useLocation()
-
-    function onNavigate() {
-        navigate('/')
-    }
 
     function goHome() {
         const defaultHeaderFilter = stayService.getDefaultHeaderFilter()
@@ -53,7 +47,7 @@ export function AppHeader({ scrolledPage }) {
     const getHeaderSize = () => {
         const { pathname } = location
         if (pathname === '/' && !scrolledPage) {
-            return 'expanded' // expanded header for the index
+            return 'expanded' // expanded header for the scrolled index
         } else {
             return 'condensed' // condensed header for details/payment/user-info/trips/dashboard/wishlist
         }
@@ -68,52 +62,38 @@ export function AppHeader({ scrolledPage }) {
         }
     }
 
-    return <section className={`app-header-container header-${getHeaderWidth()} header-${getHeaderSize()} ${getHeaderPosition()} flex column center`}>
-        <section className="expanded-header flex space-between align-center">
+    return <>
+        <header className={`full-app-header header-${getHeaderWidth()} header-${getHeaderSize()} ${getHeaderPosition()}`}>
 
             <section className="logo-section flex align-center" onClick={goHome}>
-                    <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="" />
-                    <span>Staybnb</span>
+                <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="" />
+                <span>Staybnb</span>
             </section>
 
-            <section className="nav-section flex justify-center">
+            <section className="filter-section flex justify-center">
                 {/* <nav className="nav flex space-evenly">
                     <NavLink onClick={goHome} to="/">Stays</NavLink>
                     <NavLink to="/unActive" className='grayTxt'>Experiences</NavLink>
                 </nav> */}
 
-                <div className="compact-header flex align-center">
+                <div className="compact-filter grid">
                     <div onClick={() => { setModalType(modalType === 'map' ? null : 'map'), SetDynamicPageLayOut(false) }} className="map">Anywhere</div>
                     <div onClick={() => setModalType(modalType === 'check-in' ? null : 'check-in')} className="calendar">Any week</div>
                     <div onClick={() => setModalType(modalType === 'guest' ? null : 'guest')} className="guests">Add guests</div>
-                    <div>
-                        <button className="search-btn"></button>
-                    </div>
+                    <button className="search-btn flex center"></button>
                 </div>
-
+                <HeaderFilter modalType={modalType} setModalType={setModalType} />
             </section>
 
             <section className="user-section flex align-center" >
-
                 <NavLink to="/edit">Staybnb your home</NavLink>
-
                 <button className="flex align-center space-between" onClick={onOpenUserModal}> ☰
-
-
-                    {userService.getLoggedInUser() ? (
-                        <img src={userService.getLoggedInUser().imgUrl} alt="User Profile" />
-                    ) : (
-                        <div className="profile"></div>
-                    )}
+                    {userService.getLoggedInUser() ? (<img src={userService.getLoggedInUser().imgUrl} alt="User Profile" />) : (<div className="profile"></div>)}
                 </button>
-
             </section>
-
-        </section>
+        </header>
 
         {modalType === 'user-nav' && <UserNavModal setIsLoginModal={setIsLoginModal} setModalType={setModalType} />}
         {isLoginModal && <LoginSignup setIsLoginModal={setIsLoginModal} />}
-
-        <HeaderFilter modalType={modalType} setModalType={setModalType} />
-    </section>
+    </>
 }

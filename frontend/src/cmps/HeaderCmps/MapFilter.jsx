@@ -1,20 +1,12 @@
-
 import { useEffect } from 'react'
 import { loadStays, removeStay, saveStay, setStayHeaderFilter } from '../../store/actions/stay.actions'
 
-
-
-
-
 export function MapFilter({ setModalType, headerFilterBy }) {
-
-
 
     function switchToDatesFilter(ev) {
         ev.stopPropagation()
         setModalType('check-in')
     }
-
 
     function onSelectRegion(region) {
         setStayHeaderFilter({ ...headerFilterBy, loc: { ...headerFilterBy.loc, region } })
@@ -66,8 +58,5 @@ export function MapFilter({ setModalType, headerFilterBy }) {
                 </div>
             </article>
         </section>
-
-
-
     </section>
 }
