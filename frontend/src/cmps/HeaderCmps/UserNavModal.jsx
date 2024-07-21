@@ -15,7 +15,7 @@ export function UserNavModal({ setIsLoginModal, setModalType }) {
 
     async function onGuestClick() {
         try {
-            const user = login({ username: 'guest', password: 'guest' })
+            const user = await login({ username: 'guest', password: 'guest' })
             if (user) checkIsLoggedInUser(true)
         } catch (err) {
             console.log(err)
