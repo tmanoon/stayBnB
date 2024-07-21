@@ -11,6 +11,7 @@ import { AppFooter } from './cmps/AppFooter'
 import { StayEdit } from './pages/StayEdit'
 import { UserDashboard } from './pages/UserDashboard'
 import './style/main.css'
+import { UserWishlist } from './pages/UserWishlist'
 
 export function RootCmp() {
 
@@ -31,16 +32,20 @@ export function RootCmp() {
     <Provider store={store}>
       <Router>
         <AppHeader scrolledPage={scrolledPage} />
-
-        <Routes>
-          <Route path='/' element={<StayIndex scrolledPage={scrolledPage} />} />
-          <Route path='/:stayId' element={<StayDetails />} />
-          <Route path='/:stayId/payment' element={<StayPayment />} />
-          <Route path='/trips' element={<UserTrips />} />
-          <Route path='/dashboard'   element={<UserDashboard />}></Route>
-          <Route path='/edit' element={<StayEdit />} />
-          <Route path='/edit/:stayId' element={<StayEdit />} />
-        </Routes>
+        <body>
+          <main>
+            <Routes>
+              <Route path='/' element={<StayIndex scrolledPage={scrolledPage} />} />
+              <Route path='/:stayId' element={<StayDetails />} />
+              <Route path='/:stayId/payment' element={<StayPayment />} />
+              <Route path='/trips' element={<UserTrips />} />
+              <Route path='/dashboard' element={<UserDashboard />}></Route>
+              <Route path='/edit' element={<StayEdit />} />
+              <Route path='/edit/:stayId' element={<StayEdit />} />
+              <Route path='/wishlist' element={<UserWishlist />} />
+            </Routes>
+          </main>
+        </body>
         <AppFooter />
       </Router>
     </Provider>
