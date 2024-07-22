@@ -21,6 +21,7 @@ export const utilService = {
     calcLongestBedCount,
     calcGuestCount,
     calcSumToPayAtTrips,
+    calcGuestCountInFilterBy,
     getFormattedParams
 }
 
@@ -160,7 +161,7 @@ function timestampDaysAway(entryTimestamp, exitTimestamp) {
     const exit = new Date(exitTimestamp)
     const today = new Date()
     today.setHours(0, 0, 0, 0)
-    
+
     const daysEntry = Math.floor((entry - today) / (1000 * 60 * 60 * 24))
     const daysExit = Math.floor((exit - today) / (1000 * 60 * 60 * 24))
 
@@ -231,12 +232,20 @@ function calcGuestCount(order) {
 
 function getFormattedParams(params) {
     const queryParams = new URLSearchParams({
-      entryDate: params.entryDate,
-      exitDate: params.exitDate,
-      adults: params.adults || '',
-      children: params.children || '',
-      infants: params.infants || '',
-      pets: params.pets || ''
+        entryDate: params.entryDate,
+        exitDate: params.exitDate,
+        adults: params.adults || '',
+        children: params.children || '',
+        infants: params.infants || '',
+        pets: params.pets || ''
     }).toString()
     return queryParams
-  }
+}
+
+function calcGuestCountInFilterBy(filterBy) {
+    let str = 0
+    for (let guestType in filterBy.guestCount) {
+        str += filterBy.guestCount[guestType]
+    }
+    return str += ' guests'
+}
