@@ -1,32 +1,30 @@
-export function GuestFilter({ headerFilterBy }) {
+export function GuestFilter({ filterBy }) {
 
     function updateGuestCounts(guestType, countChange) {
-        const newGuestCounts = { ...headerFilterBy.guestCount }
+        const newGuestCounts = { ...filterBy.guestCount }
 
         newGuestCounts[guestType] += countChange
 
-        setStayHeaderFilter({ ...headerFilterBy, guestCount: newGuestCounts })
+        setStayHeaderFilter({ ...filterBy, guestCount: newGuestCounts })
     }
 
     return (
         <section className="guest-filter">
-
             <div className="options">
-
                 <article className="option">
                     <div className="description">
                         Adults
                         <span>Age 18 or above</span>
                     </div>
                     <div className="count">
-                        <button className={headerFilterBy.guestCount.adults === 0 ? 'disabled' : ''} onClick={() => {
-                            if (headerFilterBy.guestCount.adults > 1) {
+                        <button className={filterBy.guestCount.adults === 0 ? 'disabled' : ''} onClick={() => {
+                            if (filterBy.guestCount.adults > 1) {
                                 updateGuestCounts('adults', -1)
                             }
                         }}>-</button>
-                        {headerFilterBy.guestCount.adults}
-                        <button className={headerFilterBy.guestCount.adults + headerFilterBy.guestCount.children >= 16 ? 'disabled' : ''} onClick={() => {
-                            if (headerFilterBy.guestCount.adults + headerFilterBy.guestCount.children < 16) {
+                        {filterBy.guestCount.adults}
+                        <button className={filterBy.guestCount.adults + filterBy.guestCount.children >= 16 ? 'disabled' : ''} onClick={() => {
+                            if (filterBy.guestCount.adults + filterBy.guestCount.children < 16) {
                                 updateGuestCounts('adults', +1)
                             }
                         }}>+</button>
@@ -37,16 +35,15 @@ export function GuestFilter({ headerFilterBy }) {
                         Children
                         <span>Ages 2 - 12</span>
                     </div>
-
                     <div className="count">
-                        <button className={headerFilterBy.guestCount.children === 0 ? 'disabled' : ''} onClick={() => {
-                            if (headerFilterBy.guestCount.children > 0) {
+                        <button className={filterBy.guestCount.children === 0 ? 'disabled' : ''} onClick={() => {
+                            if (filterBy.guestCount.children > 0) {
                                 updateGuestCounts('children', -1)
                             }
                         }}>-</button>
-                        {headerFilterBy.guestCount.children}
-                        <button className={headerFilterBy.guestCount.adults + headerFilterBy.guestCount.children >= 16 ? 'disabled' : ''} onClick={() => {
-                            if (headerFilterBy.guestCount.adults + headerFilterBy.guestCount.children < 16) {
+                        {filterBy.guestCount.children}
+                        <button className={filterBy.guestCount.adults + filterBy.guestCount.children >= 16 ? 'disabled' : ''} onClick={() => {
+                            if (filterBy.guestCount.adults + filterBy.guestCount.children < 16) {
                                 updateGuestCounts('children', +1)
                             }
                         }}>+</button>
@@ -58,14 +55,14 @@ export function GuestFilter({ headerFilterBy }) {
                         <span>Under 2</span>
                     </div>
                     <div className="count">
-                        <button className={headerFilterBy.guestCount.infants === 0 ? 'disabled' : ''} onClick={() => {
-                            if (headerFilterBy.guestCount.infants > 0) {
+                        <button className={filterBy.guestCount.infants === 0 ? 'disabled' : ''} onClick={() => {
+                            if (filterBy.guestCount.infants > 0) {
                                 updateGuestCounts('infants', -1)
                             }
                         }}>-</button>
-                        {headerFilterBy.guestCount.infants}
-                        <button className={headerFilterBy.guestCount.infants === 5 ? 'disabled' : ''} onClick={() => {
-                            if (headerFilterBy.guestCount.infants < 5) {
+                        {filterBy.guestCount.infants}
+                        <button className={filterBy.guestCount.infants === 5 ? 'disabled' : ''} onClick={() => {
+                            if (filterBy.guestCount.infants < 5) {
                                 updateGuestCounts('infants', +1)
                             }
                         }}>+</button>
@@ -76,14 +73,14 @@ export function GuestFilter({ headerFilterBy }) {
                         Pets
                     </div>
                     <div className="count">
-                        <button className={headerFilterBy.guestCount.pets === 0 ? 'disabled' : ''} onClick={() => {
-                            if (headerFilterBy.guestCount.pets > 0) {
+                        <button className={filterBy.guestCount.pets === 0 ? 'disabled' : ''} onClick={() => {
+                            if (filterBy.guestCount.pets > 0) {
                                 updateGuestCounts('pets', -1)
                             }
                         }}>-</button>
-                        {headerFilterBy.guestCount.pets}
-                        <button className={headerFilterBy.guestCount.pets === 5 ? 'disabled' : ''} onClick={() => {
-                            if (headerFilterBy.guestCount.pets < 5) {
+                        {filterBy.guestCount.pets}
+                        <button className={filterBy.guestCount.pets === 5 ? 'disabled' : ''} onClick={() => {
+                            if (filterBy.guestCount.pets < 5) {
                                 updateGuestCounts('pets', +1)
                             }
                         }}>+</button>
