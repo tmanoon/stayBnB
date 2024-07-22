@@ -5,7 +5,7 @@ import { login, logout } from '../../store/actions/user.actions'
 import { LoginSignup } from '../LoginSignup'
 import { useNavigate } from 'react-router-dom'
 
-export function UserNavModal({ setIsLoginModal, setModalType }) {
+export function UserNavModal({ setIsLoginModal, handleModalTypeChange }) {
     const [isLoggedInUser, checkIsLoggedInUser] = useState(false)
     const navigate = useNavigate()
 
@@ -33,7 +33,7 @@ export function UserNavModal({ setIsLoginModal, setModalType }) {
         try {
             await logout()
             checkIsLoggedInUser(false)
-            setModalType('')
+            handleModalTypeChange('user-nav')
         } catch (err) {
             console.log(err)
             throw err

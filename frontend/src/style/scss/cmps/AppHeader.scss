@@ -8,7 +8,7 @@
     &.header-condensed {
         padding-block-end: 0;
         transition: 0.5s;
-        
+
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: max-content max-content;
         align-items: center;
@@ -92,11 +92,11 @@
                 font-size: 11px;
             }
 
-            .calendar {
+            .check-in {
                 box-shadow: 1px 0 0px 0px rgba(0, 0, 0, 0.1), -1px 0 0px 0px rgba(0, 0, 0, 0.1);
             }
 
-            .guests {
+            .guest {
                 color: $gray1;
                 font-weight: normal;
             }
@@ -105,10 +105,12 @@
 
     .logo-section {
         height: 4em;
-
         gap: 0.2em;
 
-        cursor: pointer;
+        img,
+        span {
+            cursor: pointer;
+        }
 
         span {
             font-size: 1.25em;
@@ -220,8 +222,8 @@
         .filter-section .compact-filter {
             grid-template-columns: 1fr 2.4rem;
 
-            .calendar,
-            .guests {
+            .check-in,
+            .guest {
                 display: none;
             }
 
