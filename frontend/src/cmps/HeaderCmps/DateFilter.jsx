@@ -6,7 +6,7 @@ import "react-date-range/dist/theme/default.css" // theme css file
 
 import { setStayFilter } from '../../store/actions/stay.actions'
 
-export function DateFilter({ setModalType, filterByToEdit, setFilterByToEdit }) {
+export function DateFilter({ handleModalTypeChange, filterByToEdit, setFilterByToEdit }) {
 
     const [dateRange, setDateRange] = useState([
         {
@@ -16,7 +16,7 @@ export function DateFilter({ setModalType, filterByToEdit, setFilterByToEdit }) 
         }
     ])
 
-    const handleSelect = (ranges) => {
+    const handleSelect = (e, ranges) => {
         const startDateTimestamp = ranges.selection.startDate.getTime()
         const endDateTimestamp = ranges.selection.endDate.getTime()
 
@@ -28,7 +28,7 @@ export function DateFilter({ setModalType, filterByToEdit, setFilterByToEdit }) 
             setFilterByToEdit({ ...filterByToEdit, entryDate: startDateTimestamp, exitDate: null })
         }
         setDateRange([ranges.selection])
-        setModalType('check-out')
+        handleModalTypeChange(e, 'check-out')
     }
 
     return (

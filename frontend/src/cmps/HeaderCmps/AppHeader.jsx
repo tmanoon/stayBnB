@@ -26,7 +26,7 @@ export function AppHeader({ scrolledPage }) {
         navigate('/')
     }
 
-    function handleModalTypeChange(ev, modalName) {
+    function handleModalTypeChange(ev, modalName = modalType) {
         ev.stopPropagation()
         setModalType(prevModalType => (prevModalType === modalName ? '' : modalName))
     }
@@ -78,7 +78,7 @@ export function AppHeader({ scrolledPage }) {
                         }
                         <button className="search-btn flex center"></button>
                     </div>
-                    <HeaderFilter modalType={modalType} setModalType={setModalType} />
+                    <HeaderFilter modalType={modalType} handleModalTypeChange={handleModalTypeChange} />
                 </section>
                 <section className="user-section flex align-center" >
                     <NavLink to="/edit">Staybnb your home</NavLink>
