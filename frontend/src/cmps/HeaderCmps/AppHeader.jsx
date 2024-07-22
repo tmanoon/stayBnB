@@ -26,8 +26,8 @@ export function AppHeader({ scrolledPage }) {
         navigate('/')
     }
 
-    function handleModalTypeChange(ev, modalName = modalType) {
-        ev.stopPropagation()
+    function handleModalTypeChange(ev = '', modalName = modalType) {
+        if(ev) ev.stopPropagation()
         setModalType(prevModalType => (prevModalType === modalName ? '' : modalName))
     }
 
