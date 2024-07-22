@@ -147,11 +147,11 @@ function timestampsToShortDates(entryTimestamp, exitTimestamp) {
         return entryDate + ' ' + entryMonth + ' ' + entryYear + ' - ' + exitDate + ' ' + exitMonth + ' ' + exitYear
     }
     let str = ''
-    if (entryMonth === exitMonth) str += entryMonth + entryDate + ' - ' + exitDate
+    if (entryMonth === exitMonth) str += entryMonth + ' ' + entryDate + ' - ' + exitDate
     else str += entryDate + ' ' + entryMonth + ' - ' + exitDate + ' ' + exitMonth
 
     if (entryYear !== currentYear) str += ', ' + entryYear
-    
+
     return str
 }
 
