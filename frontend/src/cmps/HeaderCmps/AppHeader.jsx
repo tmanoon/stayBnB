@@ -55,9 +55,9 @@ export function AppHeader({ scrolledPage }) {
     return (
         <>
             <header className={`full-app-header header-${getHeaderWidth()} header-${getHeaderSize()} ${getHeaderPosition()} grid`}>
-                <section className="logo-section flex align-center" onClick={goHome}>
-                    <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="" />
-                    <span>Staybnb</span>
+                <section className="logo-section flex align-center">
+                    <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="app-logo" onClick={goHome}/>
+                    <span onClick={goHome}>Staybnb</span>
                 </section>
                 <section className="filter-section flex justify-center">
                     {/* <nav className="nav flex space-evenly">
