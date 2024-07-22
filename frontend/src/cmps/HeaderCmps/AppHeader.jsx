@@ -11,10 +11,16 @@ import { LoginSignup } from "../LoginSignup"
 import { HeaderFilter } from "./HeaderFilter"
 import { UserNavModal } from "./UserNavModal"
 import { LabelsFilter } from "./LabelsFilter"
+import { utilService } from "../../services/util.service"
 
-export function AppHeader({ scrolledPage }) {
-    const modalTypes = [{ modalName: 'map', desc: 'Anywhere' }, { modalName: 'check-in', desc: 'Any week' }, { modalName: 'guest', desc: 'Add guests' }]
+export function AppHeader({ scrolledPage }) {    
     const filterBy = useSelector(storeState => storeState.stayModule.filterBy)
+    const modalTypes = [
+        { modalName: 'map', desc: filterBy.txt || 'Anywhere' },
+        { modalName: 'check-in', desc: filterBy.entryDate && filterBy.exitDate ? 
+        utilService.timestampsToShortDates(+filterBy.entryDate, +filterBy.exitDate) : 
+        'Any week' },
+        { modalName: 'guest', desc: checkIfFilterByGuests() ? utilService.calcGuestCountInFilterBy(filterBy) : 'Add guests' }]
     const [modalType, setModalType] = useState('')
     const [isLoginModal, setIsLoginModal] = useState(false)
     const navigate = useNavigate()
@@ -26,8 +32,12 @@ export function AppHeader({ scrolledPage }) {
         navigate('/')
     }
 
+    function checkIfFilterByGuests() {
+        return filterBy.guestCount.adults > 1 || filterBy.guestCount.children || filterBy.guestCount.infants
+    }
+
     function handleModalTypeChange(ev = '', modalName = modalType) {
-        if(ev) ev.stopPropagation()
+        if (ev) ev.stopPropagation()
         setModalType(prevModalType => (prevModalType === modalName ? '' : modalName))
     }
 
@@ -56,7 +66,7 @@ export function AppHeader({ scrolledPage }) {
         <>
             <header className={`full-app-header header-${getHeaderWidth()} header-${getHeaderSize()} ${getHeaderPosition()} grid`}>
                 <section className="logo-section flex align-center">
-                    <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="app-logo" onClick={goHome}/>
+                    <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="app-logo" onClick={goHome} />
                     <span onClick={goHome}>Staybnb</span>
                 </section>
                 <section className="filter-section flex justify-center">
@@ -82,7 +92,7 @@ export function AppHeader({ scrolledPage }) {
                 </section>
                 <section className="user-section flex align-center" >
                     <NavLink to="/edit">Staybnb your home</NavLink>
-                    <button className="flex align-center space-between" onClick={(e) => handleModalTypeChange(e, 'user-nav')}> 
+                    <button className="flex align-center space-between" onClick={(e) => handleModalTypeChange(e, 'user-nav')}>
                         <span>☰</span>
                         {userService.getLoggedInUser() ? (<img src={userService.getLoggedInUser().imgUrl} alt="User Profile" />) : (<div className="profile"></div>)}
                     </button>
