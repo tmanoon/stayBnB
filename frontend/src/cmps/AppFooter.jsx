@@ -5,7 +5,7 @@ export function AppFooter() {
     }
 
     return (
-        <section className="footer grid">
+        <section className="app-footer grid">
             <div className="credits-and-links grid">
                 <p className="credits">© 2024 Staybnb, Inc.<span>·</span></p>
                 <div className="links flex">

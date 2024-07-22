@@ -57,10 +57,6 @@
         }
     }
 
-    .details-header {
-        width: 80%;
-    }
-
     .compact-filter {
         height: 2.875rem;
         width: 0;
@@ -213,7 +209,6 @@
                 opacity: 1;
                 transition: opacity 0.3s;
                 width: 100%;
-                max-width: calc(100vw - 3rem);
             }
         }
     }
@@ -223,7 +218,6 @@
     .full-app-header {
 
         .filter-section .compact-filter {
-            max-width: 15em;
             grid-template-columns: 1fr 2.4rem;
 
             .calendar,
