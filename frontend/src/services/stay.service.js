@@ -82,23 +82,35 @@ function getFilterFromParams(searchParams) {
         guestCount: searchParams.get('guestCount') || defaultFilter.guestCount,
         label: searchParams.get('label') || defaultFilter.label,
         placeType: searchParams.get('placeType') || defaultFilter.placeType,
-        priceRange: searchParams.get('priceRange') || defaultFilter.priceRange,
-        bedrooms: searchParams.get('bedrooms') || defaultFilter.bedrooms,
-        beds: searchParams.get('beds') || defaultFilter.beds,
-        bathrooms: searchParams.get('bathrooms') || defaultFilter.bathrooms,
+        priceRange: {
+            min: searchParams.get('priceRangeMin') || defaultFilter.priceRange.min,
+            max: searchParams.get('priceRangeMax') || defaultFilter.priceRange.max,
+        },
+        bbb: {
+            bedrooms: searchParams.get('bedrooms') || defaultFilter.bbb.bedrooms,
+            beds: searchParams.get('beds') || defaultFilter.bbb.beds,
+            bathrooms: searchParams.get('bathrooms') || defaultFilter.bbb.bathrooms,
+        },
         propType: searchParams.get('propType') || defaultFilter.propType,
-        amenities: searchParams.get('amenities') || defaultFilter.amenities,
-        bookingOpts: searchParams.get('bookingOpts') || defaultFilter.bookingOpts,
-        hostLngs: searchParams.get('hostLngs') || defaultFilter.hostLngs
+        amenities: searchParams.getAll('amenities') || defaultFilter.amenities,
+        bookingOpts: {
+            instant: searchParams.get('instant') === 'true' || defaultFilter.bookingOpts.instant,
+            selfCheckIn: searchParams.get('selfCheckIn') === 'true' || defaultFilter.bookingOpts.selfCheckIn,
+            allowsPets: searchParams.get('allowsPets') === 'true' || defaultFilter.bookingOpts.allowsPets,
+        },
+        accessibility: searchParams.getAll('accessibility') || defaultFilter.accessibility,
+        hostLngs: searchParams.getAll('hostLngs') || defaultFilter.hostLngs
     }
 }
 
 function getEmptyStay() {
     return {
         amenities: [],
-        bathrooms: 0,
-        baths: 0,
-        bedrooms: [],
+        bbb: {
+            bathrooms: 0,
+            baths: 0,
+            bedrooms: [],
+        },
         bookedDates: [],
         capacity: 0,
         desc: "",
@@ -130,7 +142,6 @@ function getEmptyStay() {
         roomType: "",
         sumOfBeds: 0,
         summary: "",
-        _id: ""
     }
 }
 
@@ -171,9 +182,11 @@ function getEmptyModalFilter() {
             min: 0,
             max: Infinity
         },
-        bedrooms: 'any',
-        beds: 'any',
-        bathrooms: 'any',
+        bbb: {
+            bedrooms: 'any',
+            beds: 'any',
+            bathrooms: 'any',
+        },
         propType: [],
         amenities: [],
         bookingOpts: {
