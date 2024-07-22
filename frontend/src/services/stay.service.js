@@ -105,27 +105,25 @@ function getFilterFromParams(searchParams) {
 
 function getEmptyStay() {
     return {
+        placeType: "",
         amenities: [],
+        labels: [],
+        bookingOpts: {
+            instant: false,
+            selfCheckIn: false,
+            allowsPets: false
+        },
+        name: "",
+        price: 0,
+        propertyType: "",
+        desc: "",
+        summary: "",
+        capacity: 0,
         bbb: {
             bathrooms: 0,
             baths: 0,
             bedrooms: [],
         },
-        bookedDates: [],
-        capacity: 0,
-        desc: "",
-        host: {
-            id: "",
-            fullname: "",
-            location: "",
-            about: "",
-            responseTime: "",
-            experience: { isSuperhost: false }
-        },
-        imgUrls: [],
-        isInstantBooking: false,
-        labels: [],
-        likedByUsers: [],
         loc: {
             country: "",
             countryCode: "",
@@ -134,14 +132,20 @@ function getEmptyStay() {
             lng: 0,
             lat: 0,
         },
-        name: "",
-        placeType: "",
-        price: 0,
-        propertyType: "",
-        reviews: [],
+        imgUrls: [],
+        host: {
+            id: "",
+            fullname: "",
+            location: "",
+            about: "",
+            responseTime: "",
+            experience: { isSuperhost: false }
+        },
+        bookedDates: [],
         roomType: "",
+        likedByUsers: [],
+        reviews: [],
         sumOfBeds: 0,
-        summary: "",
     }
 }
 
