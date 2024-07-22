@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 import Switch, { switchClasses } from "@mui/material/Switch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function pxToRem(num) {
     const px = num
@@ -67,8 +67,12 @@ const SwitchStyles = styled(Switch)(() => {
     }
 })
 
-export function SwitchCmp() {
-    const [isChecked, setIsChecked] = useState(false)
+export function SwitchCmp({ type, value, handleChange }) {
+    const [isChecked, setIsChecked] = useState(value)
+
+    useEffect(() => {
+        handleChange(type, isChecked)
+    }, [isChecked])
 
     return <SwitchStyles
         checked={isChecked}
