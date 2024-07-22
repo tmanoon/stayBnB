@@ -135,14 +135,11 @@ function timestampToDate(dateTimestamp) {
 function timestampsToShortDates(entryTimestamp, exitTimestamp) {
     const entry = new Date(+entryTimestamp)
     const exit = new Date(+exitTimestamp)
-
     const entryYear = entry.getFullYear()
     const exitYear = exit.getFullYear()
     const currentYear = new Date().getFullYear()
-
     const entryMonth = entry.toLocaleString('en-US', { month: 'short' })
     const exitMonth = exit.toLocaleString('en-US', { month: 'short' })
-
     const entryDate = entry.getDate()
     const exitDate = exit.getDate()
 
@@ -150,11 +147,11 @@ function timestampsToShortDates(entryTimestamp, exitTimestamp) {
         return entryDate + ' ' + entryMonth + ' ' + entryYear + ' - ' + exitDate + ' ' + exitMonth + ' ' + exitYear
     }
     let str = ''
-    if (entryMonth === exitMonth) str += entryDate + ' - ' + exitDate + ' ' + entryMonth
+    if (entryMonth === exitMonth) str += entryMonth + entryDate + ' - ' + exitDate
     else str += entryDate + ' ' + entryMonth + ' - ' + exitDate + ' ' + exitMonth
 
     if (entryYear !== currentYear) str += ', ' + entryYear
-
+    
     return str
 }
 
