@@ -46,7 +46,6 @@ export function FilterModal({ setShowFilter, setStayFilter, filterBy }) {
             else {
                 newState[field] = value
             }
-            console.log(newState)
             return newState
         })
     }

@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useSelector } from 'react-redux'
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import { useLocation } from 'react-router-dom'
 
 import { stayService } from "../../services/stay.service"
@@ -13,87 +13,87 @@ import { UserNavModal } from "./UserNavModal"
 import { LabelsFilter } from "./LabelsFilter"
 
 export function AppHeader({ scrolledPage }) {
-    var filterBy = useSelector(storeState => storeState.stayModule.filterBy)
+    const modalTypes = [{ modalName: 'map', desc: 'Anywhere' }, { modalName: 'check-in', desc: 'Any week' }, { modalName: 'guest', desc: 'Add guests' }]
+    const filterBy = useSelector(storeState => storeState.stayModule.filterBy)
     const [modalType, setModalType] = useState('')
     const [isLoginModal, setIsLoginModal] = useState(false)
-
-    const ref = useRef(null)
     const navigate = useNavigate()
     const location = useLocation()
 
     function goHome() {
         const defaultFilter = stayService.getDefaultFilter()
-
         setStayFilter(defaultFilter)
         navigate('/')
     }
 
-    function onOpenUserModal(ev) {
-        ev.stopPropagation()
-        setModalType(modalType === 'user-nav' ? '' : 'user-nav')
+    function handleModalTypeChange(ev = '', modalName = modalType) {
+        if(ev) ev.stopPropagation()
+        setModalType(prevModalType => (prevModalType === modalName ? '' : modalName))
     }
 
     const getHeaderWidth = () => {
         const { pathname } = location
-        if (pathname === '/' || pathname === '/trips' || pathname === '/wishlist' || pathname === '/dashboard') {
-            return 'wide' // wide header for the index/trips/dashboard/wishlist
-        } else {
-            return 'narrow' // narrow header for details/payment/user-info/messages
-        }
+        if (pathname === '/' ||
+            pathname === '/trips' ||
+            pathname === '/wishlist' ||
+            pathname === '/dashboard') return 'wide' // wide header for the index/trips/dashboard/wishlist
+        else return 'narrow' // narrow header for details/payment/user-info/messages
     }
 
     const getHeaderSize = () => {
         const { pathname } = location
-        if (pathname === '/' && !scrolledPage) {
-            return 'expanded' // expanded header for the scrolled index
-        } else {
-            return 'condensed' // condensed header for details/payment/user-info/trips/dashboard/wishlist
-        }
+        if (pathname === '/' && !scrolledPage) return 'expanded' // expanded header for the scrolled index
+        else return 'condensed' // condensed header for details/payment/user-info/trips/dashboard/wishlist
     }
 
     const getHeaderPosition = () => {
         const { pathname } = location
-        if (pathname === '/') {
-            return 'header-fixed' // fixed header for the index
-        } else {
-            return '' // static header for details/payment/user-info/trips/dashboard/wishlist
-        }
+        if (pathname === '/') return 'header-fixed' // fixed header for the index
+        else return '' // static header for details/payment/user-info/trips/dashboard/wishlist
     }
 
-    return <>
-        <header className={`full-app-header header-${getHeaderWidth()} header-${getHeaderSize()} ${getHeaderPosition()} grid`}>
-            <section className="logo-section flex align-center" onClick={goHome}>
-                <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="" />
-                <span>Staybnb</span>
-            </section>
-
-            <section className="filter-section flex justify-center">
-                {/* <nav className="nav flex space-evenly">
+    return (
+        <>
+            <header className={`full-app-header header-${getHeaderWidth()} header-${getHeaderSize()} ${getHeaderPosition()} grid`}>
+                <section className="logo-section flex align-center">
+                    <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="app-logo" onClick={goHome}/>
+                    <span onClick={goHome}>Staybnb</span>
+                </section>
+                <section className="filter-section flex justify-center">
+                    {/* <nav className="nav flex space-evenly">
                     <NavLink onClick={goHome} to="/">Stays</NavLink>
                     <NavLink to="/unActive" className='grayTxt'>Experiences</NavLink>
                 </nav> */}
+                    <div className="compact-filter grid">
+                        {
+                            modalTypes.map(modal => {
+                                return (
+                                    <div onClick={(e) => handleModalTypeChange(e, modal.modalName)}
+                                        className={modal.modalName}
+                                        key={modal.modalName}>
+                                        {modal.desc}
+                                    </div>
+                                )
+                            })
+                        }
+                        <button className="search-btn flex center"></button>
+                    </div>
+                    <HeaderFilter modalType={modalType} handleModalTypeChange={handleModalTypeChange} />
+                </section>
+                <section className="user-section flex align-center" >
+                    <NavLink to="/edit">Staybnb your home</NavLink>
+                    <button className="flex align-center space-between" onClick={(e) => handleModalTypeChange(e, 'user-nav')}> 
+                        <span>☰</span>
+                        {userService.getLoggedInUser() ? (<img src={userService.getLoggedInUser().imgUrl} alt="User Profile" />) : (<div className="profile"></div>)}
+                    </button>
+                </section>
 
-                <div className="compact-filter grid">
-                    <div onClick={() => setModalType(modalType === 'map' ? null : 'map')} className="map">Anywhere</div>
-                    <div onClick={() => setModalType(modalType === 'check-in' ? null : 'check-in')} className="calendar">Any week</div>
-                    <div onClick={() => setModalType(modalType === 'guest' ? null : 'guest')} className="guests">Add guests</div>
-                    <button className="search-btn flex center"></button>
-                </div>
-                <HeaderFilter modalType={modalType} setModalType={setModalType} />
-            </section>
+                {location.pathname === '/' && <LabelsFilter filterBy={filterBy} setStayFilter={setStayFilter} />}
 
-            <section className="user-section flex align-center" >
-                <NavLink to="/edit">Staybnb your home</NavLink>
-                <button className="flex align-center space-between" onClick={onOpenUserModal}> ☰
-                    {userService.getLoggedInUser() ? (<img src={userService.getLoggedInUser().imgUrl} alt="User Profile" />) : (<div className="profile"></div>)}
-                </button>
-            </section>
+            </header>
 
-            {location.pathname === '/' && <LabelsFilter filterBy={filterBy} setStayFilter={setStayFilter} />}
-        </header>
-
-
-        {modalType === 'user-nav' && <UserNavModal setIsLoginModal={setIsLoginModal} setModalType={setModalType} />}
-        {isLoginModal && <LoginSignup setIsLoginModal={setIsLoginModal} />}
-    </>
+            {modalType === 'user-nav' && <UserNavModal setIsLoginModal={setIsLoginModal} handleModalTypeChange={handleModalTypeChange} />}
+            {isLoginModal && <LoginSignup setIsLoginModal={setIsLoginModal} />}
+        </>
+    )
 }
