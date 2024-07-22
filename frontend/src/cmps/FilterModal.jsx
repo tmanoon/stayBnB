@@ -8,8 +8,8 @@ import { ButtonGroup } from "./HelperCmps/ButtonGroup"
 import { CheckboxGroup } from "./HelperCmps/CheckboxGroup"
 import { Accordion } from "./HelperCmps/Accordion"
 import { SwitchCmp } from "./HelperCmps/SwitchCmp"
-import Slider from '@mui/material/Slider';
-import { styled } from '@mui/material/styles';
+import Slider from '@mui/material/Slider'
+import { styled } from '@mui/material/styles'
 
 
 export function FilterModal({ setShowFilter, setStayFilter, filterBy }) {
@@ -31,18 +31,23 @@ export function FilterModal({ setShowFilter, setStayFilter, filterBy }) {
 
     function handleChange(field, value) {
         setSelected(prevSelected => {
-            if (field === 'bedrooms' || field === 'beds' || field === 'bathrooms' || field === 'placeType') {
-                return { ...prevSelected, [field]: value }
+            let newState = { ...prevSelected }
 
-            } else if (field === 'bookingOpts') {
-                // return { ...prevFilterBy, [field][value] = !field.value }
-
-            } else {
-                const propTypeArray = prevSelected[field] || []
-                const updatedPropTypeArray = propTypeArray.includes(value) ?
-                    propTypeArray.filter(item => item !== value) : [...propTypeArray, value]
-                return { ...prevSelected, [field]: updatedPropTypeArray }
+            if (['bedrooms', 'beds', 'bathrooms'].includes(field)) {
+                newState.bbb = { ...prevSelected.bbb, [field]: value }
             }
+            else if (['propType', 'amenities', 'accessibility', 'hostLngs'].includes(field)) {
+                const array = newState[field] || []
+                newState[field] = array.includes(value) ? array.filter(item => item !== value) : [...array, value]
+            }
+            else if (['instant', 'selfCheckIn', 'allowsPets'].includes(field)) {
+                newState.bookingOpts = { ...prevSelected.bookingOpts, [field]: value }
+            }
+            else {
+                newState[field] = value
+            }
+            console.log(newState)
+            return newState
         })
     }
 
@@ -122,7 +127,7 @@ export function FilterModal({ setShowFilter, setStayFilter, filterBy }) {
                     <ButtonGroup
                         type={'bedrooms'}
                         items={filterLists.bbbItems}
-                        selectedValue={selected.bedrooms}
+                        selectedValue={selected.bbb.bedrooms}
                         handleChange={handleChange}
                     />
 
@@ -130,7 +135,7 @@ export function FilterModal({ setShowFilter, setStayFilter, filterBy }) {
                     <ButtonGroup
                         type={'beds'}
                         items={filterLists.bbbItems}
-                        selectedValue={selected.beds}
+                        selectedValue={selected.bbb.beds}
                         handleChange={handleChange}
                     />
 
@@ -138,7 +143,7 @@ export function FilterModal({ setShowFilter, setStayFilter, filterBy }) {
                     <ButtonGroup
                         type={'bathrooms'}
                         items={filterLists.bbbItems}
-                        selectedValue={selected.bathrooms}
+                        selectedValue={selected.bbb.bathrooms}
                         handleChange={handleChange}
                     />
                 </div>
@@ -204,21 +209,33 @@ export function FilterModal({ setShowFilter, setStayFilter, filterBy }) {
                             <h4>Instant Book</h4>
                             <p>Listings you can book without waiting for Host approval</p>
                         </div>
-                        <SwitchCmp />
+                        <SwitchCmp
+                            type={'instant'}
+                            value={selected.bookingOpts.instant}
+                            handleChange={handleChange}
+                        />
                     </div>
                     <div className="flex align-center space-between">
                         <div>
                             <h4>Self check-in</h4>
                             <p>Easy access to the property once you arrive</p>
                         </div>
-                        <SwitchCmp />
+                        <SwitchCmp
+                            type={'selfCheckIn'}
+                            value={selected.bookingOpts.selfCheckIn}
+                            handleChange={handleChange}
+                        />
                     </div>
                     <div className="flex align-center space-between">
                         <div>
                             <h4>Allows pets</h4>
                             <p>Bringing a service animal?</p>
                         </div>
-                        <SwitchCmp />
+                        <SwitchCmp
+                            type={'allowsPets'}
+                            value={selected.bookingOpts.allowsPets}
+                            handleChange={handleChange}
+                        />
                     </div>
                 </div>
 
