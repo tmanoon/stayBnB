@@ -16,7 +16,8 @@ export function DateFilter({ handleModalTypeChange, filterByToEdit, setFilterByT
         }
     ])
 
-    const handleSelect = (e, ranges) => {
+
+    const handleSelect = ranges => {
         const startDateTimestamp = ranges.selection.startDate.getTime()
         const endDateTimestamp = ranges.selection.endDate.getTime()
 
@@ -28,7 +29,7 @@ export function DateFilter({ handleModalTypeChange, filterByToEdit, setFilterByT
             setFilterByToEdit({ ...filterByToEdit, entryDate: startDateTimestamp, exitDate: null })
         }
         setDateRange([ranges.selection])
-        handleModalTypeChange(e, 'check-out')
+        handleModalTypeChange('', 'check-out')
     }
 
     return (
