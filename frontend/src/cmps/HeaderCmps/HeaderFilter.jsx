@@ -6,6 +6,7 @@ import { MapFilter } from './MapFilter'
 import { GuestFilter } from './GuestFilter'
 import { loadStays, setStayFilter } from '../../store/actions/stay.actions'
 import { utilService } from '../../services/util.service'
+import { stayService } from '../../services/stay.service'
 
 export function HeaderFilter({ modalType, handleModalTypeChange }) {
     const header = useRef(null)
