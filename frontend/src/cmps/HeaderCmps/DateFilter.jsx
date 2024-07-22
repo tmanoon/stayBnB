@@ -1,10 +1,8 @@
 import React, { useState } from "react"
 import { DateRangePicker } from "react-date-range"
+import "react-date-range/dist/styles.css" 
+import "react-date-range/dist/theme/default.css"
 
-import "react-date-range/dist/styles.css" // main css file
-import "react-date-range/dist/theme/default.css" // theme css file
-
-import { setStayFilter } from '../../store/actions/stay.actions'
 
 export function DateFilter({ handleModalTypeChange, filterByToEdit, setFilterByToEdit }) {
 
@@ -15,7 +13,6 @@ export function DateFilter({ handleModalTypeChange, filterByToEdit, setFilterByT
             key: "selection"
         }
     ])
-
 
     const handleSelect = ranges => {
         const startDateTimestamp = ranges.selection.startDate.getTime()
