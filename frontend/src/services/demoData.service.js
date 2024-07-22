@@ -9,11 +9,9 @@ export const DemoDataService = {
     randomStay,
     generateStay,
     generateStays,
-
 }
 
 // generateRandomStays(170 )
-
 // orderService.createDemoOrder()
 
 function getFilterLabels() {

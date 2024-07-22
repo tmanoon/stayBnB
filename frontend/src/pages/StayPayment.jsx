@@ -13,32 +13,14 @@ export function StayPayment() {
     const location = useLocation()
     const queryParams = new URLSearchParams(location.search)
 
-    const {
-        region,
-        adults,
-        children,
-        infants,
-        pets,
-        entryDate,
-        exitDate
-    } = Object.fromEntries(queryParams.entries())
-
-    const paramsFromFilter = {
-        region,
-        adults,
-        children,
-        infants,
-        pets,
-        entryDate,
-        exitDate
-    }
+    const { txt, adults, children, infants, pets, entryDate, exitDate } = Object.fromEntries(queryParams.entries())
+    const paramsFromFilter = { txt, adults, children, infants, pets, entryDate, exitDate }
 
     const [params, updateParams] = useState(paramsFromFilter)
 
     useEffect(() => {
         setSearchParams(params)
     }, [params])
-
 
     useEffect(() => {
         if (stayId) {

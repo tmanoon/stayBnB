@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-import { SvgWithNamesCmp } from "./HelperCmps/SvgWithNamesCmp"
-import { FilterModal } from './FilterModal'
+import { SvgWithNamesCmp } from "../HelperCmps/SvgWithNamesCmp"
+import { FilterModal } from '../FilterModal'
 
-import { filterLists } from "../services/filterLists.service"
-import { SvgPathCmp } from "./HelperCmps/SvgPathCmp"
+import { filterLists } from "../../services/filterLists.service"
+import { SvgPathCmp } from "../HelperCmps/SvgPathCmp"
 
 export function LabelsFilter({ filterBy, setStayFilter }) {
 	const [showFilterModal, setShowFilter] = useState(false)

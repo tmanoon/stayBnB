@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { loadStays, removeStay, saveStay, setStayHeaderFilter } from '../../store/actions/stay.actions.js'
+import { loadStays, removeStay, saveStay, setStayFilter } from '../../store/actions/stay.actions.js'
 import { store } from '../../store/store.js'
 
 export function GuestCount({ openModalType, params, updateParams, stay}) {

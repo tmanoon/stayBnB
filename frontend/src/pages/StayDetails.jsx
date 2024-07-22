@@ -3,43 +3,27 @@ import { useState, useEffect, useRef } from 'react'
 import { stayService } from "../services/stay.service"
 import { useLocation } from 'react-router-dom'
 import { useSearchParams } from 'react-router-dom'
+import { useSelector } from "react-redux"
+
+import { utilService } from "../services/util.service"
+import { loadStayById } from "../store/actions/stay.actions"
 
 import { StayGalleryPreview } from '../cmps/StayDetailsCmps/StayGalleryPreview'
 import { ReservationModal } from '../cmps/StayDetailsCmps/ReservationModal'
-import { SvgPathCmp } from '../cmps/HelperCmps/SvgPathCmp'
 import { BedroomDetails } from '../cmps/StayDetailsCmps/BedroomDetails'
 import { StayReviewsPreview } from "../cmps/StayDetailsCmps/StayReviewsPreview"
-import { utilService } from "../services/util.service"
-import { Accordion } from "../cmps/HelperCmps/Accordion"
-import { loadStayById } from "../store/actions/stay.actions"
-import { useSelector } from "react-redux"
 import { Loading } from "../cmps/Loading"
-
+import { SvgPathCmp } from '../cmps/HelperCmps/SvgPathCmp'
+import { Accordion } from "../cmps/HelperCmps/Accordion"
 
 export function StayDetails() {
-    const [searchParams, setSearchParams] = useSearchParams()    
+    const [searchParams, setSearchParams] = useSearchParams()
     const safetyAmenities = ['Carbon monoxide alarm', 'Smoke alarm']
     const { isLoading } = useSelector(storeState => storeState.stayModule)
-    const { stayId } = useParams()    
-    const {
-        region,
-        adults,
-        children,
-        infants,
-        pets,
-        entryDate,
-        exitDate
-    } = Object.fromEntries(searchParams.entries())
+    const { stayId } = useParams()
+    const { txt, adults, children, infants, pets, entryDate, exitDate } = Object.fromEntries(searchParams.entries())
 
-    const paramsFromFilter = {
-        region,
-        adults,
-        children,
-        infants,
-        pets,
-        entryDate,
-        exitDate
-    }    
+    const paramsFromFilter = { txt, adults, children, infants, pets, entryDate, exitDate}
 
     const [params, updateParams] = useState(paramsFromFilter)
     const [stay, setStay] = useState('')
@@ -72,7 +56,7 @@ export function StayDetails() {
     }
 
     return <>
-      {isLoading && <Loading currentPage={'details'} />}
+        {isLoading && <Loading currentPage={'details'} />}
         {stay && <section className="stay-details">
             <header className="flex space-between">
                 <h1>{stay.summary}</h1>

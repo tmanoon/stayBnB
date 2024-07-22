@@ -1,5 +1,5 @@
 import { stayService } from '../../services/stay.service'
-import { ADD_STAY, REMOVE_STAY, SET_FILTER, SET_STAYS, UPDATE_STAY, SET_HEADER_FILTER, SET_GALLERY_OBSERVATION,SET_IS_LOADING, SET_STAY } from "../reducers/stay.reducer"
+import { ADD_STAY, REMOVE_STAY, SET_FILTER, SET_STAYS, UPDATE_STAY, SET_GALLERY_OBSERVATION,SET_IS_LOADING, SET_STAY } from "../reducers/stay.reducer"
 import { store } from "../store"
 
 export async function loadStays() {
@@ -10,7 +10,7 @@ export async function loadStays() {
         store.dispatch({ type: SET_STAYS, stays })
         store.dispatch({ type: SET_IS_LOADING, isLoading: false })
     } catch (err) {
-        console.log('stay action -> Cannot load stays', err)
+        console.log(err)
         throw err
     }
 }
@@ -32,7 +32,7 @@ export async function removeStay(stayId) {
         await stayService.remove(stayId)
         store.dispatch({ type: REMOVE_STAY, stayId })
     } catch (err) {
-        console.log('stay action -> Cannot remove stay', err)
+        console.log(err)
         throw err
     }
 }
@@ -44,23 +44,14 @@ export async function saveStay(stay) {
         store.dispatch({ type, stay: stayToSave })
         return stayToSave
     } catch (err) {
-        console.log('stay action -> Cannot save stay', err)
+        console.log(err)
         throw err
     }
 }
 
 export function setStayFilter(filterBy = stayService.getDefaultFilter()) {
-    // dispatch
     store.dispatch({ type: SET_FILTER, filterBy })
-    // return Promise.resolve(filterBy)
-    // return loadStays()
-}
-
-export function setStayHeaderFilter(headerFilterBy = stayService.getDefaultHeaderFilter()) {
-    // dispatch
-    store.dispatch({ type: SET_HEADER_FILTER, headerFilterBy })
-    // return Promise.resolve(filterBy)
-    // return loadStays()
+    return Promise.resolve(filterBy)
 }
 
 export function changeGalleryVisibility(visibility) {

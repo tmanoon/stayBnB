@@ -4,8 +4,17 @@ export function AppFooter() {
         window.open(url, '_blank')
     }
 
+    const getFooterWidth = () => {
+        const { pathname } = location
+        if (pathname === '/' || pathname === '/trips' || pathname === '/wishlist' || pathname === '/dashboard') {
+            return 'wide' // wide header for the index/trips/dashboard/wishlist
+        } else {
+            return 'narrow' // narrow header for details/payment/user-info/messages
+        }
+    }
+
     return (
-        <section className="app-footer grid">
+        <section className={`app-footer footer-${getFooterWidth()} grid`}>
             <div className="credits-and-links grid">
                 <p className="credits">© 2024 Staybnb, Inc.<span>·</span></p>
                 <div className="links flex">

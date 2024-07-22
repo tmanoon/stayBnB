@@ -1,19 +1,19 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useSelector } from 'react-redux'
-import { useSearchParams, } from 'react-router-dom'
 import { useState, useEffect, useRef } from "react"
-import { HeaderFilter } from "./HeaderFilter"
+import { useLocation } from 'react-router-dom'
+
 import { stayService } from "../../services/stay.service"
-import { setStayFilter, setStayHeaderFilter } from "../../store/actions/stay.actions"
-import { UserNavModal } from "./UserNavModal"
-import { useLocation } from 'react-router-dom';
-import { LoginSignup } from "../LoginSignup"
 import { userService } from "../../services/user.service"
-import { LabelsFilter } from "../LabelsFilter"
+import { setStayFilter } from "../../store/actions/stay.actions"
+
+import { LoginSignup } from "../LoginSignup"
+import { HeaderFilter } from "./HeaderFilter"
+import { UserNavModal } from "./UserNavModal"
+import { LabelsFilter } from "./LabelsFilter"
 
 export function AppHeader({ scrolledPage }) {
     var filterBy = useSelector(storeState => storeState.stayModule.filterBy)
-    const [searchParams, setSearchParams] = useSearchParams()
     const [modalType, setModalType] = useState('')
     const [isLoginModal, setIsLoginModal] = useState(false)
 
@@ -22,12 +22,9 @@ export function AppHeader({ scrolledPage }) {
     const location = useLocation()
 
     function goHome() {
-        const defaultHeaderFilter = stayService.getDefaultHeaderFilter()
-        const defaultMainFilter = stayService.getDefaultFilter()
+        const defaultFilter = stayService.getDefaultFilter()
 
-        setStayHeaderFilter(defaultHeaderFilter)
-        setStayFilter(defaultMainFilter)
-
+        setStayFilter(defaultFilter)
         navigate('/')
     }
 
@@ -77,7 +74,7 @@ export function AppHeader({ scrolledPage }) {
                 </nav> */}
 
                 <div className="compact-filter grid">
-                    <div onClick={() => { setModalType(modalType === 'map' ? null : 'map'), SetDynamicPageLayOut(false) }} className="map">Anywhere</div>
+                    <div onClick={() => setModalType(modalType === 'map' ? null : 'map')} className="map">Anywhere</div>
                     <div onClick={() => setModalType(modalType === 'check-in' ? null : 'check-in')} className="calendar">Any week</div>
                     <div onClick={() => setModalType(modalType === 'guest' ? null : 'guest')} className="guests">Add guests</div>
                     <button className="search-btn flex center"></button>
@@ -92,7 +89,7 @@ export function AppHeader({ scrolledPage }) {
                 </button>
             </section>
 
-            {location.pathname === '/' && <LabelsFilter filterBy={filterBy} />} {/*send setStayFilter prop*/}
+            {location.pathname === '/' && <LabelsFilter filterBy={filterBy} setStayFilter={setStayFilter} />}
         </header>
 
 

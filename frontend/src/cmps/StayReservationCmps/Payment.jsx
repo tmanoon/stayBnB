@@ -83,9 +83,6 @@ export function Payment({ stay, params }) {
         navigate(`/${stay._id}?${utilService.getFormattedParams(params)}`)
     }
 
-    useEffect(() => {
-        console.log(stay, params)
-    })
     return <section className="payment-details">
 
         <header className="flex">

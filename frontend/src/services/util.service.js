@@ -15,6 +15,7 @@ export const utilService = {
     timestampToDate,
     timestampsToShortDates,
     timestampToMonthYear,
+    timestampToMonthDay,
     timestampDaysAway,
     calcSumOfDays,
     calcLongestBedCount,
@@ -178,6 +179,13 @@ function timestampToMonthYear(timeStr) {
     const year = date.getFullYear()
 
     return month + ' ' + year
+}
+
+function timestampToMonthDay(timeStr) {
+    const date = new Date(timeStr)
+    const month = date.toLocaleString('default', { month: 'short' })
+    const day = date.getDate()
+    return `${month} ${day}`
 }
 
 function calcSumOfDays(params) {

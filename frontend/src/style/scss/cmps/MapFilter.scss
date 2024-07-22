@@ -10,12 +10,10 @@
     padding: 2em 1.5em;
     z-index: 1;
 
-
     & h1 {
         font-size: 0.875rem;
         margin-left: 0.5rem;
-       margin-bottom: 1rem;
-       
+        margin-bottom: 1rem;
     }
 
     & .regions {
@@ -23,8 +21,6 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         // padding: 32px 24px 24px 24px;
         row-gap: 1em;
-
-
 
         & .region {
             padding: 0.5rem;
@@ -36,17 +32,13 @@
             justify-content: center;
             font-weight: normal;
 
-            &:hover{
+            &:hover {
                 background-color: $gray2;
                 border-radius: 10px;
+
                 cursor: pointer;
-               
             }
-
-
         }
-        
-
     }
 
     & img {

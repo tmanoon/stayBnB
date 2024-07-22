@@ -15,11 +15,13 @@ export function StayIndex({ scrolledPage }) {
     const { filterBy } = useSelector(storeState => storeState.stayModule)
     const { isLoading } = useSelector(storeState => storeState.stayModule)
     const { headerFilterBy } = store.getState().stayModule
-    
+
     useEffect(() => {
-        setSearchParams(stayService.mergeFiltersSP(filterBy, headerFilterBy))
+        const { txt, entryDate, exitDate, label, placeType, propType, amenities, accessibility, hostLngs, pagination } = filterBy
+        const filterByParams = { txt, entryDate, exitDate, label, placeType, propType, amenities, accessibility, hostLngs, pagination, ...filterBy.guestCount, ...filterBy.priceRange, ...filterBy.bbb, ...filterBy.bookingOpts }
+        setSearchParams(filterByParams)
         loadStays()
-    
+
     }, [filterBy])
 
     useEffect(() => {
@@ -42,16 +44,16 @@ export function StayIndex({ scrolledPage }) {
         }
     }
 
-        return <section className={`index-section ${scrolledHeader()}`}>
-            {isLoading && <Loading />}
-            {!isLoading && <><StayList
-                stays={stays}
-                filterBy={filterBy}
-                scrolledPage={scrolledPage}
-            />
+    return <section className={`index-section ${scrolledHeader()}`}>
+        {isLoading && <Loading />}
+        {!isLoading && <><StayList
+            stays={stays}
+            filterBy={filterBy}
+            scrolledPage={scrolledPage}
+        />
             <section className='index-end-section flex column center'>
                 <h1>Continue exploring homes</h1>
                 <button onClick={onIncreasePagination}>Show more</button>
             </section></>}
-        </section>
+    </section>
 }

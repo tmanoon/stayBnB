@@ -16,10 +16,7 @@ export const stayService = {
     getEmptyOrder,
     getEmptyStay,
     getDefaultFilter,
-    getDefaultHeaderFilter,
     getEmptyModalFilter,
-    mergeFiltersSP,
-    mergeFiltersStore,
     guestCountString,
     createDemoData,
     guestCountStringForReservation,
@@ -72,7 +69,6 @@ function addStayMsg(stay, msg) {
 
 function getNumberOfNights({ entryDate, exitDate }) {
     const difference = exitDate - entryDate
-
     const stayLength = Math.ceil(difference / (1000 * 60 * 60 * 24))
     return stayLength
 }
@@ -80,7 +76,7 @@ function getNumberOfNights({ entryDate, exitDate }) {
 function getFilterFromParams(searchParams) {
     const defaultFilter = getDefaultFilter()
     return {
-        loc: searchParams.get('loc') || defaultFilter.loc,
+        txt: searchParams.get('txt') || defaultFilter.txt,
         entryDate: searchParams.get('entryDate') || defaultFilter.entryDate,
         exitDate: searchParams.get('exitDate') || defaultFilter.exitDate,
         guestCount: searchParams.get('guestCount') || defaultFilter.guestCount,
@@ -113,15 +109,8 @@ function getEmptyStay() {
             about: "",
             responseTime: "",
             experience: { isSuperhost: false }
-
         },
-        imgUrls: [
-            "http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436975/hx9ravtjop3uqv4giupt.jpg",
-            "http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436294/mvhb3iazpiar6duvy9we.jpg",
-            "http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436496/ihozxprafjzuhil9qhh4.jpg",
-            "http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436952/aef9ajipinpjhkley1e3.jpg",
-            "http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436948/vgfxpvmcpd2q40qxtuv3.jpg",
-        ],
+        imgUrls: [],
         isInstantBooking: false,
         labels: [],
         likedByUsers: [],
@@ -131,7 +120,7 @@ function getEmptyStay() {
             city: "",
             address: "",
             lng: 0,
-
+            lat: 0,
         },
         name: "",
         placeType: "",
@@ -147,15 +136,7 @@ function getEmptyStay() {
 
 function getDefaultFilter() {
     return {
-        loc: {
-            // region : '',
-            // country: '',
-            // countryCode: '',
-            // city: '',
-            // address: '',
-            // lat: 0,
-            // lng: 0
-        },
+        txt: '',
         entryDate: '',
         exitDate: '',
         guestCount: { adults: 0, children: 0, infants: 0, pets: 0 },
@@ -165,9 +146,11 @@ function getDefaultFilter() {
             min: 0,
             max: 2000
         },
-        bedrooms: 'any',
-        beds: 'any',
-        bathrooms: 'any',
+        bbb: {
+            bedrooms: 'any',
+            beds: 'any',
+            bathrooms: 'any',
+        },
         propType: [],
         amenities: [],
         bookingOpts: {
@@ -181,12 +164,25 @@ function getDefaultFilter() {
     }
 }
 
-function getDefaultHeaderFilter() {
+function getEmptyModalFilter() {
     return {
-        loc: {},
-        entryDate: '',
-        exitDate: '',
-        guestCount: { adults: 0, children: 0, infants: 0, pets: 0 },
+        placeType: 'any',
+        priceRange: {
+            min: 0,
+            max: Infinity
+        },
+        bedrooms: 'any',
+        beds: 'any',
+        bathrooms: 'any',
+        propType: [],
+        amenities: [],
+        bookingOpts: {
+            instant: false,
+            selfCheckIn: false,
+            allowsPets: false
+        },
+        accessibility: [],
+        hostLngs: []
     }
 }
 
@@ -216,61 +212,21 @@ function getEmptyOrder() {
     }
 }
 
-function getEmptyModalFilter() {
-    return {
-        placeType: 'any',
-        priceRange: {
-            min: 0,
-            max: Infinity
-        },
-        bedrooms: 'any',
-        beds: 'any',
-        bathrooms: 'any',
-        propType: [],
-        amenities: [],
-        bookingOpts: {
-            instant: false,
-            selfCheckIn: false,
-            allowsPets: false
-        },
-        accessibility: [],
-        hostLngs: []
-    }
-}
 
 function createDemoData(key, value) {
     if (utilService.loadFromStorage(key)) return utilService.loadFromStorage(key)
     else return utilService.saveToStorage(key, value)
 }
 
-
-function mergeFiltersSP(mainFilter, headerFilter) {
-    const { label, amenities, bathrooms, beds, bookingOpts, hostLngs, bedrooms, placeType, priceRange, propType } = mainFilter
-    const { loc, guestCount, entryDate, exitDate } = headerFilter
-    const mergeFilter = {
-        amenities, bathrooms, beds, ...bookingOpts, hostLngs, bedrooms, placeType, ...priceRange,
-        propType, ...loc, label, ...guestCount, entryDate, exitDate
-    }
-
-    return mergeFilter
-}
-
-function mergeFiltersStore(mainFilter, headerFilter) {
-    const { label, amenities, bathrooms, beds, bookingOpts, hostLngs, bedrooms, placeType, priceRange, propType } = mainFilter
-    const { loc, guestCount, entryDate, exitDate } = headerFilter
-
-    return { amenities, bathrooms, beds, bookingOpts, hostLngs, bedrooms, placeType, priceRange, propType, loc, label, guestCount, entryDate, exitDate }
-}
-
-function guestCountString(headerFilterBy) {
-    const guestsCount = headerFilterBy.guestCount.adults + headerFilterBy.guestCount.children
+function guestCountString(filterBy) {
+    const guestsCount = filterBy.guestCount.adults + filterBy.guestCount.children
     let guests = ''
     if (guestsCount > 0) {
         guests = guestsCount === 1 ? '1 guest' : `${guestsCount} guests`
     }
 
-    const infants = headerFilterBy.guestCount.infants > 0 ? `${headerFilterBy.guestCount.infants} infants` : ''
-    const pets = headerFilterBy.guestCount.pets > 0 ? `${headerFilterBy.guestCount.pets} pets` : ''
+    const infants = filterBy.guestCount.infants > 0 ? `${filterBy.guestCount.infants} infants` : ''
+    const pets = filterBy.guestCount.pets > 0 ? `${filterBy.guestCount.pets} pets` : ''
 
     const parts = [guests, infants, pets].filter(Boolean)
 

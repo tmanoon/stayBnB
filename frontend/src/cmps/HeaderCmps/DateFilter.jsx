@@ -4,10 +4,10 @@ import { DateRangePicker } from "react-date-range"
 import "react-date-range/dist/styles.css" // main css file
 import "react-date-range/dist/theme/default.css" // theme css file
 
-import { setStayHeaderFilter } from '../../store/actions/stay.actions'
+import { setStayFilter } from '../../store/actions/stay.actions'
 
-export function DateFilter({ setModalType, headerFilterBy }) {
-    
+export function DateFilter({ setModalType, filterByToEdit, setFilterByToEdit }) {
+
     const [dateRange, setDateRange] = useState([
         {
             startDate: new Date(),
@@ -16,28 +16,18 @@ export function DateFilter({ setModalType, headerFilterBy }) {
         }
     ])
 
-    
-
-
     const handleSelect = (ranges) => {
         const startDateTimestamp = ranges.selection.startDate.getTime()
         const endDateTimestamp = ranges.selection.endDate.getTime()
 
-        if (!headerFilterBy.entryDate && !headerFilterBy.exitDate) {
-
-            setStayHeaderFilter({ ...headerFilterBy, entryDate: startDateTimestamp })
-
-        } else if (headerFilterBy.entryDate && !headerFilterBy.exitDate) {
-
-            setStayHeaderFilter({ ...headerFilterBy, exitDate: endDateTimestamp })
+        if (!filterByToEdit.entryDate && !filterByToEdit.exitDate) {
+            setFilterByToEdit({ ...filterByToEdit, entryDate: startDateTimestamp })
+        } else if (filterByToEdit.entryDate && !filterByToEdit.exitDate) {
+            setFilterByToEdit({ ...filterByToEdit, exitDate: endDateTimestamp })
         } else {
-
-            setStayHeaderFilter({ ...headerFilterBy, entryDate: startDateTimestamp, exitDate: null })
+            setFilterByToEdit({ ...filterByToEdit, entryDate: startDateTimestamp, exitDate: null })
         }
-
         setDateRange([ranges.selection])
-
-
         setModalType('check-out')
     }
 
@@ -55,10 +45,9 @@ export function DateFilter({ setModalType, headerFilterBy }) {
                 staticRanges={[]}
                 inputRanges={[]}
                 enableOutsideDays={true}
-                minDate={new Date()} 
+                minDate={new Date()}
                 rangeColors={['#c72d65']}
-                // disabledDates={disabledDates}
-
+            // disabledDates={disabledDates}
             />
         </section>
     )
