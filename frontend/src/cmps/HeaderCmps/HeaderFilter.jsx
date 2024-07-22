@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
 import { DateFilter } from './DateFilter'
 import { MapFilter } from './MapFilter'
 import { GuestFilter } from './GuestFilter'
 import { loadStays, setStayFilter } from '../../store/actions/stay.actions'
-import { stayService } from '../../services/stay.service'
-import { store } from '../../store/store'
 import { utilService } from '../../services/util.service'
 
 export function HeaderFilter({ modalType, handleModalTypeChange }) {
