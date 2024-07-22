@@ -38,39 +38,40 @@ export function HeaderFilter({ modalType, handleModalTypeChange }) {
         loadStays()
     }
 
-    return <section ref={header} className={`header-filter grid align-center ${modalType && modalType !== 'user-nav' ? 'grey' : ''}`}>
-        <div className={`destination ${modalType === 'map' ? 'selected' : ''} flex column justify-center`} onClick={(e) => handleModalTypeChange(e, 'map')}>
-            Where
-            <span className=' grayTxt'>{filterByToEdit.txt ? filterByToEdit.txt : "Search destinations"}</span>
-        </div>
-
-        <span className='splitter-1'></span>
-
-        <div className={`dates check-in ${modalType === 'check-in' ? 'selected' : ''} flex column justify-center`} onClick={(e) => handleModalTypeChange(e, 'check-in')}>
-            Check in
-            <span>{filterByToEdit.entryDate ? utilService.timestampToMonthDay(filterByToEdit.entryDate) : 'Add dates'}</span>
-        </div>
-
-        <span className='splitter-2'></span>
-
-        <div className={`dates check-out ${modalType === 'check-out' ? 'selected' : ''} flex column justify-center`} onClick={(e) => handleModalTypeChange(e, 'check-out')}>
-            Check out
-            <span>{filterByToEdit.exitDate ? utilService.timestampToMonthDay(filterByToEdit.exitDate) : 'Add dates'}</span>
-        </div>
-
-        <span className='splitter-3'></span>
-
-        <div className={`guests ${modalType === 'guest' ? 'selected' : ''} flex space-between`} onClick={(e) => handleModalTypeChange(e, 'guest')}>
-            <div className="flex column justify-center">
-                Who
-                <span className='guest-count'>{stayService.guestCountString(filterByToEdit)}</span>
+    return (
+        <section ref={header} className={`header-filter grid align-center ${modalType && modalType !== 'user-nav' ? 'grey' : ''}`}>
+            <div className={`destination ${modalType === 'map' ? 'selected' : ''} flex column justify-center`} onClick={(e) => handleModalTypeChange(e, 'map')}>
+                Where
+                <span className=' grayTxt'>{filterByToEdit.txt ? filterByToEdit.txt : "Search destinations"}</span>
             </div>
-            <button onClick={onLoadStays} className={`search-btn ${modalType !== '' && modalType !== 'user-nav' ? 'compact' : ''}`} ><span>Search</span></button>
-        </div>
 
-        {modalType === 'map' && <MapFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
-        {(modalType === 'check-in' || modalType === 'check-out') && <DateFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
-        {modalType === 'guest' && <GuestFilter filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
+            <span className='splitter-1'></span>
 
-    </section>
+            <div className={`dates check-in ${modalType === 'check-in' ? 'selected' : ''} flex column justify-center`} onClick={(e) => handleModalTypeChange(e, 'check-in')}>
+                Check in
+                <span>{filterByToEdit.entryDate ? utilService.timestampToMonthDay(filterByToEdit.entryDate) : 'Add dates'}</span>
+            </div>
+
+            <span className='splitter-2'></span>
+
+            <div className={`dates check-out ${modalType === 'check-out' ? 'selected' : ''} flex column justify-center`} onClick={(e) => handleModalTypeChange(e, 'check-out')}>
+                Check out
+                <span>{filterByToEdit.exitDate ? utilService.timestampToMonthDay(filterByToEdit.exitDate) : 'Add dates'}</span>
+            </div>
+
+            <span className='splitter-3'></span>
+
+            <div className={`guests ${modalType === 'guest' ? 'selected' : ''} flex space-between`} onClick={(e) => handleModalTypeChange(e, 'guest')}>
+                <div className="flex column justify-center">
+                    Who
+                    <span className='guest-count'>{stayService.guestCountString(filterByToEdit)}</span>
+                </div>
+                <button onClick={onLoadStays} className={`search-btn ${modalType !== '' && modalType !== 'user-nav' ? 'compact' : ''}`} ><span>Search</span></button>
+            </div>
+
+            {modalType === 'map' && <MapFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
+            {(modalType === 'check-in' || modalType === 'check-out') && <DateFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
+            {modalType === 'guest' && <GuestFilter filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
+        </section>
+    )
 }
