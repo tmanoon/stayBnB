@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useSelector } from 'react-redux'
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import { useLocation } from 'react-router-dom'
 
 import { stayService } from "../../services/stay.service"
@@ -26,13 +26,9 @@ export function AppHeader({ scrolledPage }) {
         navigate('/')
     }
 
-    function handleModalTypeChange(modalName) {
-        if (modalType) setModalType('')
-        else setModalType(modalName)
-    }
-
-    function onOpenUserModal() {
-        setModalType(modalType === 'user-nav' ? '' : 'user-nav')
+    function handleModalTypeChange(ev, modalName) {
+        ev.stopPropagation()
+        setModalType(prevModalType => (prevModalType === modalName ? '' : modalName))
     }
 
     const getHeaderWidth = () => {
@@ -63,7 +59,6 @@ export function AppHeader({ scrolledPage }) {
                     <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="" />
                     <span>Staybnb</span>
                 </section>
-
                 <section className="filter-section flex justify-center">
                     {/* <nav className="nav flex space-evenly">
                     <NavLink onClick={goHome} to="/">Stays</NavLink>
@@ -73,7 +68,7 @@ export function AppHeader({ scrolledPage }) {
                         {
                             modalTypes.map(modal => {
                                 return (
-                                    <div onClick={() => handleModalTypeChange(modal.modalName)}
+                                    <div onClick={(e) => handleModalTypeChange(e, modal.modalName)}
                                         className={modal.modalName}
                                         key={modal.modalName}>
                                         {modal.desc}
@@ -85,19 +80,19 @@ export function AppHeader({ scrolledPage }) {
                     </div>
                     <HeaderFilter modalType={modalType} setModalType={setModalType} />
                 </section>
-
                 <section className="user-section flex align-center" >
                     <NavLink to="/edit">Staybnb your home</NavLink>
-                    <button className="flex align-center space-between" onClick={() => onOpenUserModal()}> ☰
+                    <button className="flex align-center space-between" onClick={(e) => handleModalTypeChange(e, 'user-nav')}> 
+                        <span>☰</span>
                         {userService.getLoggedInUser() ? (<img src={userService.getLoggedInUser().imgUrl} alt="User Profile" />) : (<div className="profile"></div>)}
                     </button>
                 </section>
 
                 {location.pathname === '/' && <LabelsFilter filterBy={filterBy} setStayFilter={setStayFilter} />}
+
             </header>
 
-
-            {modalType === 'user-nav' && <UserNavModal setIsLoginModal={setIsLoginModal} setModalType={setModalType} />}
+            {modalType === 'user-nav' && <UserNavModal setIsLoginModal={setIsLoginModal} handleModalTypeChange={handleModalTypeChange} />}
             {isLoginModal && <LoginSignup setIsLoginModal={setIsLoginModal} />}
         </>
     )
