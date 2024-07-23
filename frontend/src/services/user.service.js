@@ -1,6 +1,8 @@
 import { httpService } from './http.service.js'
+import { stayService } from './stay.service.js'
 
 const BASE_URL = 'auth/'
+const USER_URL = 'user/'
 const STORAGE_KEY_LOGGEDIN = 'loggedinUser'
 
 export const userService = {
@@ -9,7 +11,8 @@ export const userService = {
     signup,
     getById,
     getLoggedInUser,
-    getEmptyCredentials
+    getEmptyCredentials,
+    addStayToUserFavorites
 }
 
 async function login({ username, password }) {
@@ -54,7 +57,7 @@ function getById(userId) {
 }
 
 function _setLoggedinUser(user) {
-    const userToSave = { _id: user._id, fullname: user.fullname, username: user.username, imgUrl: user.imgUrl, wishlist: user.wishlist}
+    const userToSave = { _id: user._id, fullname: user.fullname, username: user.username, imgUrl: user.imgUrl, wishlist: user.wishlist }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
     return userToSave
 }
@@ -75,4 +78,17 @@ function getEmptyCredentials() {
 function getLoggedInUser() {
     const user = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN))
     return user
+}
+
+async function addStayToUserFavorites(stayId) {
+    try {
+        const stayToAdd = stayService.getById(stayId)
+        const userToUpdate = getLoggedInUser()
+        userToUpdate.wishlist.unshift(stayToAdd)
+        await httpService.put(USER_URL, userToUpdate)
+        return userToUpdate
+    } catch (err) {
+        console.log('err', err)
+        throw err
+    }
 }
