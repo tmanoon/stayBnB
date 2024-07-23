@@ -4,7 +4,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom"
 import { stayService } from "../services/stay.service.js"
 import { loadStays, removeStay, saveStay, setStayFilter } from '../store/actions/stay.actions.js'
 
-import { Stage0, Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, Stage7, Stage8, Stage9, Stage10, Stage11, Stage12, Stage13, Stage14, Stage15 } from "../cmps/StayEditCmps/Stages.jsx"
+import { Stage0, Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, Stage7, Stage8, Stage9, Stage10, Stage11, Stage12, Stage13, Stage14, Stage15 } from "../cmps/StayEditCmps/StayEditStages.jsx"
 import { ProgressFooter } from "../cmps/StayEditCmps/ProgressFooter"
 import { StayEditHeader } from "../cmps/StayEditCmps/StayEditHeader"
 import { userService } from "../services/user.service.js"

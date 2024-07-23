@@ -420,6 +420,19 @@
     }
 }
 
+.stage-10 {
+    .btns .btn {
+        svg {
+            width: 1.8rem;
+            height: 1.8rem;
+
+            &>* {
+                scale: 0.28;
+            }
+        }
+    }
+}
+
 .stage-13 {
     grid-template-rows: fit-content repeat(3, max-content) 1fr;
 
