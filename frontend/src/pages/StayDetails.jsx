@@ -1,7 +1,5 @@
 import { useParams } from "react-router"
 import { useState, useEffect, useRef } from 'react'
-import { stayService } from "../services/stay.service"
-import { useLocation } from 'react-router-dom'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector } from "react-redux"
 
@@ -16,7 +14,7 @@ import { Loading } from "../cmps/Loading"
 import { SvgPathCmp } from '../cmps/HelperCmps/SvgPathCmp'
 import { Accordion } from "../cmps/HelperCmps/Accordion"
 import { userService } from "../services/user.service"
-import { addStayToUserFavorites } from "../store/actions/user.actions"
+import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 
 export function StayDetails() {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -24,15 +22,19 @@ export function StayDetails() {
     const { isLoading } = useSelector(storeState => storeState.stayModule)
     const { stayId } = useParams()
     const { txt, adults, children, infants, pets, entryDate, exitDate } = Object.fromEntries(searchParams.entries())
-    const user = userService.getLoggedInUser()
     const paramsFromFilter = { txt, adults, children, infants, pets, entryDate, exitDate }
-
     const [params, updateParams] = useState(paramsFromFilter)
     const [stay, setStay] = useState('')
     const [longestBedsCount, setLongestBedsCount] = useState(1)
+    const [user, setUser] = useState(null)
+    const [isWishlistStay, setIsWishlistStay] = useState(false)
 
-    // is guest favorite - if truthy - show a cmp of guest fav
     useEffect(() => {
+        const user = userService.getLoggedInUser()
+        if (user) {
+            setUser(user)
+            console.log(user)
+        }
         if (stayId) loadStay(stayId)
     }, [])
 
@@ -59,8 +61,10 @@ export function StayDetails() {
 
     async function onSaveBtn() {
         try {
-            if(!user.wishlist.find(_stay => _stay._id === stayId)) await addStayToUserFavorites(stayId)
-        } catch(err) {
+            const userToUpdate = await addRemoveStayToUserFavorites(stayId)
+            setUser(userToUpdate)
+            setIsWishlistStay(isWishlistStay => !isWishlistStay)
+        } catch (err) {
             console.log('err', err)
             throw err
         }
@@ -77,7 +81,16 @@ export function StayDetails() {
                         <span>Share</span>
                     </button>
                     <button className="save-btn flex align-center" onClick={() => onSaveBtn()}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'none', height: '16px', width: '16px', stroke: 'currentcolor', strokeWidth: 2, overflow: 'visible' }}><path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path></svg>
+                        {!isWishlistStay &&
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'none', height: '16px', width: '16px', stroke: 'currentcolor', strokeWidth: 2, overflow: 'visible' }}>
+                                <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z">
+                                </path>
+                            </svg>}
+                        {isWishlistStay &&
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'rgb(255, 56, 92)', height: '16px', width: '16px', stroke: 'rgb(255, 56, 92)', strokeWidth: '2', overflow: 'visible' }}>
+                                <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z">
+                                </path>
+                            </svg>}
                         <span>Save</span>
                     </button>
                 </div>
