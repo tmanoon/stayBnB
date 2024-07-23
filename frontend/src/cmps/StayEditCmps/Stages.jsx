@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
+
 import { utilService } from '../../services/util.service'
-import { SvgPathCmp } from '../HelperCmps/SvgPathCmp'
+import { filterLists } from '../../services/filterLists.service'
+
 import { ButtonGroup } from '../HelperCmps/ButtonGroup'
-import { getAmenities } from '../../services/data.modification.service'
+import { ButtonGroupWithTxt } from '../HelperCmps/ButtonGroupWithTxt'
+import { SwitchCmp } from '../HelperCmps/SwitchCmp'
 import { ImgUploader } from '../HelperCmps/ImgUploader'
 
-export function Stage1() {
+export function Stage0() {
     const videoRef = useRef(null)
 
     useEffect(() => {
@@ -15,98 +18,93 @@ export function Stage1() {
     }, [])
 
     return (
+        <section className="stage-0 grid">
+            <h1>It’s easy to get started on Staybnb</h1>
+            <ol className='grid'>
+                <li>
+                    <h2>1</h2>
+                    <h2>Tell us about your place</h2>
+                    <p>Share some basic info, like where it is and how many guests can stay.</p>
+                    <img src="https://a0.muscache.com/4ea/air/v2/pictures/da2e1a40-a92b-449e-8575-d8208cc5d409.jpg" />
+                </li>
+
+                <li>
+                    <h2>2</h2>
+                    <h2>Make it stand out</h2>
+                    <p>Add 5 or more photos plus a title and description—we’ll help you out.</p>
+                    <img src="https://a0.muscache.com/4ea/air/v2/pictures/bfc0bc89-58cb-4525-a26e-7b23b750ee00.jpg" />
+                </li>
+
+                <li>
+                    <h2>3</h2>
+                    <h2>Finish up and publish</h2>
+                    <p>Choose a starting price, verify a few details, then publish your listing.</p>
+                    <img src="https://a0.muscache.com/4ea/air/v2/pictures/c0634c73-9109-4710-8968-3e927df1191c.jpg" />
+                </li>
+            </ol>
+        </section>
+    )
+}
+
+export function Stage1() {
+    const videoRef = useRef(null)
+
+    useEffect(() => {
+        if (videoRef.current) { videoRef.current.play() }
+    }, [])
+
+    return (
         <section className="stage-1">
-            <section className="text">
-                <span className="step">Step 1</span>
-                <span className="question">Tell us about your place</span>
-                <span className="description">In this step, we'll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know the location and how many guests can stay.</span>
-            </section>
+            <p className="step">Step 1</p>
+            <h1 className="title">Tell us about your place</h1>
+            <p className="description">In this step, we'll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know the location and how many guests can stay.</p>
             <video ref={videoRef} src="https://res.cloudinary.com/db7t5amdv/video/upload/v1713520620/BuildHouseVidIntro_tbrwcf.mp4" autoPlay muted></video>
         </section>
     )
 }
 
-
 export function Stage2({ stay, editStay }) {
 
-    function handleSelect(value) {
-        const updatedStay = { ...stay, placeType: value }
-        editStay(updatedStay)
-    }
-
-
-    return <section className="stage-2">
-        <section className='text'>
-            <span className='question'>What type of place will guests have?</span>
-        </section>
-
-        <section className='options'>
-            <div onClick={() => handleSelect('An entire home')} className={stay.placeType === 'An entire home' ? 'selected' : ''}>
-                <span className='title'>
-                    An entire home
-                </span>
-                <span className='subtitles'>Guests have the whole place to themselves. This usually includes a bedroom, a bathroom, and a kitchen.</span>
-                <SvgPathCmp name={'house'} />
-            </div>
-            <div onClick={() => handleSelect('A room')} className={stay.placeType === 'A room' ? 'selected' : ''}>
-                <span className='title'>
-                    A room
-                </span>
-                <span className='subtitles'>Guests have their own private room for sleeping. Other areas could be shared.</span>
-                <SvgPathCmp name={'Workspace'} />
-            </div>
-            <div onClick={() => handleSelect('A Shared room')} className={stay.placeType === 'A Shared room' ? 'selected' : ''}>
-                <span className='title'>
-                    A Shared room
-                </span>
-                <span className='subtitles'>Guests sleep in a bedroom or a common area that could be shared with others.</span>
-            </div>
-        </section>
-    </section>
-
-}
-
-export function Stage3({ stay, editStay }) {
-    function handleSelect(value) {
-        const updatedStay = { ...stay, propertyType: value }
-        editStay(updatedStay)
+    function handleChange(field, value) {
+        editStay(prevStay => { return { ...prevStay, propertyType: value } })
     }
 
     return (
-        <section className="stage-3">
-            <section className='text'>
-                <span className='question'>Which of these best describes your place?</span>
-            </section>
+        <section className="stage-2">
+            <h1>Which of these best describes your place?</h1>
 
-            <section className='options'>
-                <div onClick={() => handleSelect('house')} className={stay.propertyType === 'house' ? 'selected' : ''}>
-                    <SvgPathCmp name={'house'} />
-                    <div className='icon'></div>
-                    <span className='title'>House</span>
-                </div>
-
-                <div onClick={() => handleSelect('apartment')} className={stay.propertyType === 'apartment' ? 'selected' : ''}>
-                    <SvgPathCmp name={'apartment'} />
-                    <span className='title'>Apartment</span>
-                </div>
-
-                <div onClick={() => handleSelect('hotel')} className={stay.propertyType === 'hotel' ? 'selected' : ''}>
-                    <SvgPathCmp name={'guesthouse'} />
-                    <span className='title'>Guesthouse</span>
-                </div>
-
-                <div onClick={() => handleSelect('guesthouse')} className={stay.propertyType === 'guesthouse' ? 'selected' : ''}>
-                    <SvgPathCmp name={'hotel'} />
-                    <span className='title'>Hotel</span>
-                </div>
-            </section>
+            <ButtonGroup
+                type={'propType'}
+                items={filterLists.propTypeItems}
+                selectedValue={stay.propertyType}
+                handleChange={handleChange}
+            />
         </section>
     )
 }
 
+export function Stage3({ stay, editStay }) {
+
+    function handleChange(field, value) {
+        editStay(prevStay => { return { ...prevStay, placeType: value } })
+    }
+
+    return <section className="stage-3">
+        <h1>What type of place will guests have?</h1>
+
+        <ButtonGroupWithTxt
+            type={'placeType'}
+            items={filterLists.placeTypeItemsEdit}
+            selectedValue={stay.placeType}
+            handleChange={handleChange}
+        />
+    </section>
+}
+
 export function Stage4({ stay, editStay }) {
-    function handleInputChange(e) {
-        const { id, value } = e.target
+
+    function handleInputChange(ev) {
+        const { id, value } = ev.target
         const updatedLoc = { ...stay.loc, [id]: value }
         const updatedStay = { ...stay, loc: updatedLoc }
         editStay(updatedStay)
@@ -114,52 +112,59 @@ export function Stage4({ stay, editStay }) {
 
     return (
         <section className="stage-4">
-            <section className='text'>
-                <span className='question'>Where's your place located?</span>
-                <span className="description">Your address is only shared with guests after they’ve made a reservation.</span>
-            </section>
+            <h1>Where's your place located?</h1>
+            <h2>Your address is only shared with guests after they’ve made a reservation.</h2>
 
-            <section className='options'>
-                <label htmlFor="address">Address:
-                    <input type="text" id="address" value={stay.loc.address} onChange={handleInputChange} />
-                </label>
-
-                <label htmlFor="city">City:
-                    <input type="text" id="city" value={stay.loc.city} onChange={handleInputChange} />
-                </label>
-
-                <label htmlFor="country">Country:
+            <form className='grid'>
+                <div className='country'>
+                    <label htmlFor="country">Country:</label>
                     <input type="text" id="country" value={stay.loc.country} onChange={handleInputChange} />
-                </label>
-            </section>
+                </div>
+
+                <div className='countryCode'>
+                    <label htmlFor="countryCode">Country Code:</label>
+                    <input type="text" id="countryCode" value={stay.loc.countryCode} onChange={handleInputChange} />
+                </div>
+
+                <div className='city'>
+                    <label htmlFor="city">City:</label>
+                    <input type="text" id="city" value={stay.loc.city} onChange={handleInputChange} />
+                </div>
+
+                <div className='address'>
+                    <label htmlFor="address">Street & address</label>
+                    <input type="text" id="address" value={stay.loc.address} onChange={handleInputChange} />
+                </div>
+
+                <div className='coordinates'></div> {/*add info when map api is added*/}
+
+            </form>
         </section>
-    );
+    )
 }
 
 export function Stage5({ stay, editStay }) {
-    const isCapacityZero = stay.capacity === 0;
-    const isCapacityMax = stay.capacity === 16;
+    const isCapacityZero = stay.capacity === 0
+    const isCapacityMax = stay.capacity === 16
 
-    const isBedroomsZero = stay.sumOfBeds === 0;
-    const isBedroomsMax = stay.sumOfBeds === 16;
+    const isBedroomsZero = stay.sumOfBeds === 0
+    const isBedroomsMax = stay.sumOfBeds === 16
 
-    const isBathroomsZero = stay.bathrooms === 0;
-    const isBathroomsMax = stay.bathrooms === 16;
+    const isBathroomsZero = stay.bathrooms === 0
+    const isBathroomsMax = stay.bathrooms === 16
 
-    const isBathsZero = stay.baths === 0;
-    const isBathsMax = stay.baths === 16;
+    const isBathsZero = stay.baths === 0
+    const isBathsMax = stay.baths === 16
 
     return (
         <section className="stage-5">
-            <section className='text'>
-                <span className='question'>Let's start with the basics</span>
-                <span className="description">How many guests can your place accommodate?</span>
-            </section>
+            <h1>Share some basics about your place</h1>
+            <h2>You'll add more details later, like bed types.</h2>
 
-            <section className='options'>
+            <form className='grid'>
                 <div>
-                    <span>Guests</span>
-                    <div className='control'>
+                    <h3>Guests</h3>
+                    <div>
                         <button onClick={() => editStay({ ...stay, capacity: Math.max(stay.capacity - 1, 0) })} className={isCapacityZero ? 'disabled' : ''}>-</button>
                         <span>{stay.capacity}</span>
                         <button onClick={() => editStay({ ...stay, capacity: Math.min(stay.capacity + 1, 16) })} className={isCapacityMax ? 'disabled' : ''}>+</button>
@@ -167,8 +172,8 @@ export function Stage5({ stay, editStay }) {
                 </div>
 
                 <div>
-                    <span>Bedrooms</span>
-                    <div className='control'>
+                    <h3>Bedrooms</h3>
+                    <div>
                         <button onClick={() => editStay({ ...stay, sumOfBeds: Math.max(stay.sumOfBeds - 1, 0) })} className={isBedroomsZero ? 'disabled' : ''}>-</button>
                         <span>{stay.sumOfBeds}</span>
                         <button onClick={() => editStay({ ...stay, sumOfBeds: Math.min(stay.sumOfBeds + 1, 16) })} className={isBedroomsMax ? 'disabled' : ''}>+</button>
@@ -176,111 +181,101 @@ export function Stage5({ stay, editStay }) {
                 </div>
 
                 <div>
-                    <span>Bathrooms</span>
-                    <div className='control'>
-                        <button onClick={() => editStay({ ...stay, bathrooms: Math.max(stay.bathrooms - 1, 0) })} className={isBathroomsZero ? 'disabled' : ''}>-</button>
-                        <span>{stay.bathrooms}</span>
-                        <button onClick={() => editStay({ ...stay, bathrooms: Math.min(stay.bathrooms + 1, 16) })} className={isBathroomsMax ? 'disabled' : ''}>+</button>
+                    <h3>Bathrooms</h3>
+                    <div>
+                        <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, bathrooms: Math.max(prevStay.bbb.bathrooms - 1, 0) }, }))} className={isBathroomsZero ? 'disabled' : ''} >     - </button>
+                        <span>{stay.bbb.bathrooms}</span>
+                        <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, bathrooms: Math.min(prevStay.bbb.bathrooms + 1, 16) }, }))} className={isBathroomsMax ? 'disabled' : ''} >     + </button>
                     </div>
                 </div>
 
                 <div>
-                    <span>Baths</span>
-                    <div className='control'>
-                        <button onClick={() => editStay({ ...stay, baths: Math.max(stay.baths - 1, 0) })} className={isBathsZero ? 'disabled' : ''}>-</button>
-                        <span>{stay.baths}</span>
-                        <button onClick={() => editStay({ ...stay, baths: Math.min(stay.baths + 1, 16) })} className={isBathsMax ? 'disabled' : ''}>+</button>
+                    <h3>Baths</h3>
+                    <div>
+                        <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, baths: Math.max(prevStay.bbb.baths - 1, 0) }, }))} className={isBathsZero ? 'disabled' : ''} >     - </button>
+                        <span>{stay.bbb.baths}</span>
+                        <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, baths: Math.min(prevStay.bbb.baths + 1, 16) }, }))} className={isBathsMax ? 'disabled' : ''}>+</button>
                     </div>
                 </div>
-            </section>
+            </form>
         </section>
-    );
+    )
 }
-
-
 
 export function Stage6() {
     const videoRef = useRef(null)
 
     useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.play()
-        }
+        if (videoRef.current) { videoRef.current.play() }
     }, [])
 
-
     return <section className="stage-6">
-        <section className="text">
-            <span className="step">Step 2</span>
-            <span className="question">Make your place stand out</span>
-            <span className="description">In this step, you’ll add some of the amenities your place offers, plus 5 or more photos. Then, you’ll create a title and description.</span>
-        </section>
+        <p className="step">Step 2</p>
+        <h1 className="title">Make your place stand out</h1>
+        <p className="description">In this step, you’ll add some of the amenities your place offers, plus 5 or more photos. Then, you’ll create a title and description.</p>
         <video ref={videoRef} src="https://res.cloudinary.com/db7t5amdv/video/upload/v1713520618/BuildHouseVidMiddle_u6k0ep.mp4" autoPlay muted></video>
     </section>
-
-
 }
 
 export function Stage7({ stay, editStay }) {
-    function handleChange(value) {
-        const index = stay.amenities.indexOf(value)
 
-        if (index === -1) {
-            const updatedAmenities = [...stay.amenities, value]
-            editStay({ ...stay, amenities: updatedAmenities })
-        } else {
-            const updatedAmenities = [...stay.amenities.slice(0, index), ...stay.amenities.slice(index + 1)];
-            editStay({ ...stay, amenities: updatedAmenities })
-        }
+    function handleChange(field, value) {
+        const updatedAmenities = stay.amenities.includes(value) ? stay.amenities.filter(item => item !== value) : [...stay.amenities, value]
+        editStay({ ...stay, amenities: updatedAmenities })
     }
 
     return (
         <section className="stage-7">
-            <section className='text'>
-                <span className="question">Tell guests what your place has to offer</span>
-                <span className="description">You can add more amenities after you publish your listing.</span>
-                <section className='amenities-container'>
-                    {getAmenities().map(amenity => (
-                        <button
-                            key={amenity}
-                            className={`amenity ${stay.amenities.includes(amenity) ? 'selected' : ''}`}
-                            onClick={() => handleChange(amenity)}
-                        >
-                             <SvgPathCmp name={amenity.replace(/[^\w\d]/gi, '').toLowerCase()} />
-                            {amenity}
-                        </button>
-                    ))}
-                </section>
-            </section>
+            <h1>Tell guests what your place has to offer</h1>
+            <h2>You can add more amenities after you publish your listing.</h2>
+
+            <h3>What about these guest favorites?</h3>
+            <ButtonGroup
+                type={'editAmenities'}
+                items={[...filterLists.amenityEssentialsShown, ...filterLists.amenityEssentialsHidden]}
+                selectedValue={stay.amenities}
+                handleChange={handleChange}
+            />
+
+            <h3>Do you have any standout amenities?</h3>
+            <ButtonGroup
+                type={'editAmenities'}
+                items={[...filterLists.amenityFeatures, ...filterLists.amenityLocation]}
+                selectedValue={stay.amenities}
+                handleChange={handleChange}
+            />
+
+            <h3>Do you have any of these safety items?</h3>
+            <ButtonGroup
+                type={'editAmenities'}
+                items={filterLists.amenitySafety}
+                selectedValue={stay.amenities}
+                handleChange={handleChange}
+            />
         </section>
     )
 }
 
-
 export function Stage8({ stay, editStay }) {
 
-return (
-    <section className="stage-8">
-      <section className='text'>
-        <span className="question">Add photos of your place</span>
-        <span className="description">Guests are more likely to book a listing that includes photos. You can add more photos after you publish your listing.</span>
-      </section>
-      <ImgUploader placeholder={stay.imgUrls[0]} editStay={editStay} stay={stay}/>
-    </section>
-  )
-
-
+    return (
+        <section className="stage-8">
+            <h1>Add photos of your place</h1>
+            <h2>You'll need 5 photos to get started. You can add more or make changes later.</h2>
+            <ImgUploader editStay={editStay} stay={stay} />
+        </section>
+    )
 }
 
 export function Stage9({ stay, editStay }) {
-    const [inputValue, setInputValue] = useState(stay.summary)
+    const [inputValue, setInputValue] = useState(stay.name)
 
     const handleInputChange = (event) => {
         const newValue = event.target.value
 
         if (newValue.length <= 32) {
             setInputValue(newValue)
-            editStay({ ...stay, summary: newValue })
+            editStay({ ...stay, name: newValue })
         } else {
             setInputValue(newValue.slice(0, 32))
         }
@@ -288,126 +283,190 @@ export function Stage9({ stay, editStay }) {
 
     return (
         <section className="stage-9">
-            <section className='text'>
-                <span className="question">Now, let's give your place a title</span>
-                <span className="description">Short titles work best. Have fun with it—you can always change it later</span>
-                <input type="text" value={inputValue} onChange={handleInputChange} />
-                <span className='counter'>{inputValue.length}/32</span>
-            </section>
+            <h1>Now, let's give your place a title</h1>
+            <h2>Short titles work best. Have fun with it—you can always change it later</h2>
+            <input type="text" value={inputValue} onChange={handleInputChange} />
+            <span className='counter'>{inputValue.length}/32</span>
         </section>
     )
 }
 
-
 export function Stage10({ stay, editStay }) {
-    const [inputValue, setInputValue] = useState(stay.desc);
 
-    const handleInputChange = (event) => {
-        const newValue = event.target.value
-
-        if (newValue.length <= 500) {
-            setInputValue(newValue);
-            editStay({ ...stay, desc: newValue })
-        } else {
-            setInputValue(newValue.slice(0, 500))
-        }
+    function handleChange(field, value) {
+        const updatedLabels = stay.labels.includes(value) ? stay.labels.filter(item => item !== value) : [...stay.labels, value]
+        editStay({ ...stay, labels: updatedLabels })
     }
 
     return (
         <section className="stage-10">
-            <section className='text'>
-                <span className="question">Create your description</span>
-                <span className="description">Share what makes your place special.</span>
-                <pre><textarea value={inputValue} onChange={handleInputChange} rows={10} cols={50} /></pre>
-                <span className='counter'>{inputValue.length}/500</span>
-            </section>
+            <h1>Next, let's describe your place</h1>
+            <h2>Choose highlights. We'll use these to get your description started.</h2>
+
+            <ButtonGroup
+                type={'editLabels'}
+                items={filterLists.filterLabels}
+                selectedValue={stay.labels}
+                handleChange={handleChange}
+            />
         </section>
     )
 }
 
 
 export function Stage11({ stay, editStay }) {
-    const videoRef = useRef(null)
+    const [inputValue, setInputValue] = useState(stay.summary)
 
-    useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.play()
+    const handleInputChange = (event) => {
+        const newValue = event.target.value
+
+        if (newValue.length <= 500) {
+            setInputValue(newValue)
+            editStay({ ...stay, summary: newValue })
+        } else {
+            setInputValue(newValue.slice(0, 500))
         }
-    }, [])
-    return <section className="stage-11">
-        <section className="text">
-            <span className="step">Step 3</span>
-            <span className="question">Finish up and publish</span>
-            <span className="description">Finally, you’ll choose if you'd like to start with an experienced guest, then you'll set your nightly price. Answer a few quick questions and publish when you're ready.</span>
-        </section>
-        <video ref={videoRef} src="https://res.cloudinary.com/db7t5amdv/video/upload/v1713520620/BuildHouseVidOutro_qiv9vd.mp4" autoPlay muted></video>
-    </section>
-
-
-}
-
-export function Stage12({ stay, editStay }) {
-    const [price, setPrice] = useState(stay.price || '')
-    const handlePriceChange = (event) => {
-        const newPrice = event.target.value
-        setPrice(newPrice)
-        editStay({ ...stay, price: newPrice })
-    };
+    }
 
     return (
-        <section className="stage-12">
-            <section className='text'>
-                <span className="question">Now, set your price</span>
-                <span className="description">You can change it anytime.</span>
-                <label htmlFor="">
-                    <span className='price'>$</span>
-                    <input type="number" value={price} onChange={handlePriceChange} />
-                    <span className='per-night'>per night</span>
-                </label>
-            </section>
+        <section className="stage-11">
+            <h1>Create your description</h1>
+            <h2>Share what makes your place special.</h2>
+
+            <pre><textarea value={inputValue} onChange={handleInputChange} rows={8} cols={50} /></pre>
+            <span className='counter'>{inputValue.length}/500</span>
         </section>
     )
 }
 
-export function Stage13({ stay }) {
+export function Stage12() {
+    const videoRef = useRef(null)
+
+    useEffect(() => {
+        if (videoRef.current) { videoRef.current.play() }
+    }, [])
+
+    return <section className="stage-12">
+        <p className="step">Step 3</p>
+        <h1 className="title">Finish up and publish</h1>
+        <p className="description">Finally, you’ll choose if you'd like to start with an experienced guest, then you'll set your nightly price. Answer a few quick questions and publish when you're ready.</p>
+        <video ref={videoRef} src="https://res.cloudinary.com/db7t5amdv/video/upload/v1713520620/BuildHouseVidOutro_qiv9vd.mp4" autoPlay muted></video>
+    </section>
+}
+
+export function Stage13({ stay, editStay }) {
+
+    function handleChange(field, value) {
+        editStay(prevStay => ({...prevStay, bookingOpts: {  ...prevStay.bookingOpts,  [field]: value } }))
+    }
+
+    return <section className='stage-13 grid'>
+        <h1>Decide your reservation options</h1>
+
+        <div className="flex align-center space-between">
+            <div>
+                <h3>Instant Book</h3>
+                <p>Require approval before guest can book</p>
+            </div>
+
+            <SwitchCmp
+                type={'instant'}
+                value={stay.bookingOpts.instant}
+                handleChange={handleChange}
+            />
+        </div>
+
+        <div className="flex align-center space-between">
+            <div>
+                <h3>Self check-in</h3>
+                <p>Easy access to the property once guest arrives</p>
+            </div>
+            <SwitchCmp
+                type={'selfCheckIn'}
+                value={stay.bookingOpts.selfCheckIn}
+                handleChange={handleChange}
+            />
+        </div>
+
+        <div className="flex align-center space-between">
+            <div>
+                <h3>Allow pets</h3>
+                <p>Allows pets and service animals.</p>
+            </div>
+            <SwitchCmp
+                type={'allowsPets'}
+                value={stay.bookingOpts.allowsPets}
+                handleChange={handleChange}
+            />
+        </div>
+    </section>
+}
+
+export function Stage14({ stay, editStay }) {
+    const [price, setPrice] = useState(stay.price || '')
+
+    const handleChange = (event) => {
+        const newPrice = event.target.value
+        setPrice(newPrice)
+        editStay({ ...stay, price: +newPrice })
+    }
+
+    return (
+        <section className="stage-14">
+            <h1 >Now, set your price</h1>
+            <h2 >You can change it anytime.</h2>
+
+            <div className='flex align-center'>
+                <span>$</span>
+                <input type="number" value={price} onChange={handleChange} />
+            </div>
+            <p>per night</p>
+        </section>
+    )
+}
+
+export function Stage15({ stay }) {
 
     function formatPrice(price) {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
 
-    return <section className="stage-13">
-        <section className='text'>
-            <span className="question">Review your listing</span>
-            <span className="description">Here's what we'll show to guests. Make sure everything looks good.
-            </span>
+    return <section className="stage-15">
+        <h1>Review your listing</h1>
+        <h2>Here's what we'll show to guests. Make sure everything looks good.</h2>
 
-            <div className='stay-edit-preview'>
+        <div className='preview-edit-page grid'>
+
+            <article className='edit-preview'>
                 <img src={stay.imgUrls[0]} />
 
                 <div className='preview-text'>
-
-                    <div className='summary-and-price'>
-                        <span className='summary' style={{ fontStyle: (!stay.summary ? 'italic' : 'normal') }}>
-                            {stay.summary || "No summary chosen for now"}
-                        </span>
-                        <span className='price'>
-                            ${formatPrice(stay.price)}
-                            <span className="per-night">night</span>
-                        </span>
+                    <div className='info'>
+                        <h4>{stay.name}</h4>
+                        <p>${formatPrice(stay.price)}<span className="per-night">night</span></p>
                     </div>
 
-                    <div >
-                        <span className='new'>New</span>
-                        ★
-                    </div>
+                    <div className='new'><span>New</span>★</div>
+                </div>
+            </article>
 
-
+            <article className='next-article'>
+                <h3>What's next?</h3>
+                <div>
+                    <h4>Confirm a few details and publish</h4>
+                    <p>We’ll let you know if you need to verify your identity or register with the local government.</p>
                 </div>
 
-            </div>
+                <div>
+                    <h4>Set up your calendar</h4>
+                    <p>Choose which dates your listing is available. It will be visible 24 hours after you publish.</p>
+                </div>
 
-        </section>
+                <div>
+                    <h4>Adjust your settings</h4>
+                    <p>Set house rules, select a cancellation policy, choose how guests book, and more.</p>
+                </div>
+            </article>
+        </div>
     </section>
-
-
 }

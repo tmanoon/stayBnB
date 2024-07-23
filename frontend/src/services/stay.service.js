@@ -116,7 +116,6 @@ function getEmptyStay() {
         name: "",
         price: 0,
         propertyType: "",
-        desc: "",
         summary: "",
         capacity: 0,
         bbb: {

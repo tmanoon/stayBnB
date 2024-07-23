@@ -35,7 +35,6 @@ export function createNewDemoData() {
     getRandomNumOfBeds()
     addRandomBedrooms()
     addBathsNumber()
-    createStayDesc()
     limitSummaryLength()
     addIsInstantBooking()
     addTenBookedDates()
@@ -252,10 +251,6 @@ function limitSummaryLength() {
         }
         return stay.summary = stay.summary.substring(0, 120)
     })
-}
-
-function createStayDesc() {
-    stayCollection.forEach(stay => stay.desc = stay.summary)
 }
 
 export function getAmenities(){

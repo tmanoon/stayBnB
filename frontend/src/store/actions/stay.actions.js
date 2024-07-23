@@ -39,8 +39,8 @@ export async function removeStay(stayId) {
 
 export async function saveStay(stay) {
     try {
-        const type = stay._id ? UPDATE_STAY : ADD_STAY
         const stayToSave = await stayService.save(stay)
+        const type = stay._id ? UPDATE_STAY : ADD_STAY
         store.dispatch({ type, stay: stayToSave })
         return stayToSave
     } catch (err) {
