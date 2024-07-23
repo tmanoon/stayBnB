@@ -2,7 +2,7 @@ import React from 'react'
 
 export function ProgressFooter({ editStage, setEditStage, onSaveStay, stay }) {
 
-    const progressBarWidth = editStage * 5 + '%'
+    const progressBarWidth = editStage * 6.666 + '%'
 
     function isNextBtnDisabled() {
         switch (editStage) {

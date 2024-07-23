@@ -78,9 +78,9 @@ export function StayDetails() {
                 <section className="content">
                     <article className="place-info flex column">
                         <h1>Entire {stay.propertyType} in {stay.loc.city}, {stay.loc.country}</h1>
-                        <p>{stay.capacity > 1 ? stay.capacity + ' guests' : '1 guest'}・ {stay.bedrooms.length > 1 ? stay.bedrooms.length + ' bedrooms' : '1 bedroom'}  ・
+                        <p>{stay.capacity > 1 ? stay.capacity + ' guests' : '1 guest'}・ {stay.bbb.bedrooms.length > 1 ? stay.bbb.bedrooms.length + ' bedrooms' : '1 bedroom'}  ・
                             {utilService.countBedsInBedrooms(stay) > 1 ? utilService.countBedsInBedrooms(stay) + ' beds' : '1 bed'} ・
-                            {stay.baths > 1 ? stay.baths + ' baths' : '1 bath'}</p>
+                            {stay.bbb.baths > 1 ? stay.bbb.baths + ' baths' : '1 bath'}</p>
                         <p className="reviews-preview">{'★'.repeat(Math.ceil(utilService.calcRate(stay)))} {utilService.calcRate(stay).toFixed(2)} ・ {stay.reviews.length} reviews</p>
                     </article>
 

@@ -161,7 +161,7 @@ export function Stage5({ stay, editStay }) {
             <h1>Share some basics about your place</h1>
             <h2>You'll add more details later, like bed types.</h2>
 
-            <form className='grid'>
+            <form className='grid' onSubmit={(ev)=> {ev.preventDefault()}}>
                 <div>
                     <h3>Guests</h3>
                     <div>

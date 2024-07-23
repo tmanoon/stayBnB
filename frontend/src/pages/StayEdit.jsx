@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { NavLink, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { NavLink, useNavigate, useParams } from "react-router-dom"
 
 import { stayService } from "../services/stay.service.js"
 import { loadStays, removeStay, saveStay, setStayFilter } from '../store/actions/stay.actions.js'
@@ -7,18 +7,35 @@ import { loadStays, removeStay, saveStay, setStayFilter } from '../store/actions
 import { Stage0, Stage1, Stage2, Stage3, Stage4, Stage5, Stage6, Stage7, Stage8, Stage9, Stage10, Stage11, Stage12, Stage13, Stage14, Stage15 } from "../cmps/StayEditCmps/Stages.jsx"
 import { ProgressFooter } from "../cmps/StayEditCmps/ProgressFooter"
 import { StayEditHeader } from "../cmps/StayEditCmps/StayEditHeader"
+import { userService } from "../services/user.service.js"
 
 export function StayEdit() {
-    const [stay, editStay] = useState(stayService.getEmptyStay)
+    const params = useParams()
     const navigate = useNavigate()
 
+    const [stay, editStay] = useState(stayService.getEmptyStay())
     const [editStage, setEditStage] = useState(0)
+
+    useEffect(() => {
+        if (params.stayId) loadStay()
+    }, [])
+
+    async function loadStay() {
+        try {
+            const stayToLoad = await stayService.getById(params.stayId)
+            editStay(stayToLoad)
+        } catch (err) { console.log(err) }
+    }
 
     async function onSaveStay() {
         try {
-            await saveStay(stay)
-            navigate(`/${stay._id}`)
-        } catch (err) { console.log(err) }
+            const host = await userService.getLoggedInUser()
+            const updatedStay = { ...stay, host: { ...stay.host, username: host.username, fullname: host.fullname, imgUrl: host.imgUrl } }
+            const stayToSave = await saveStay(updatedStay)
+            navigate(`/${stayToSave._id}`)
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return <section className="stay-edit">
