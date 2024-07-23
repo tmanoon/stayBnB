@@ -49,8 +49,9 @@ export async function logout() {
 export async function addStayToUserFavorites(stayId) {
     try {
         if (userService.getLoggedInUser()) {
-            userService.addStayToUserFavorites(stayId)
+            const userToUpdate = userService.addStayToUserFavorites(stayId)
             store.dispatch({ type: ADD_STAY_TO_FAVORITES, stayId })
+            store.dispatch({ type: SET_LOGGED_IN_USER, user: userToUpdate})
         }
     } catch (err) {
         console.log('stay action -> Cannot save stay', err)
@@ -58,7 +59,7 @@ export async function addStayToUserFavorites(stayId) {
     }
 }
 
-export async function removeStayToUserFavorites(stayId) {
+export async function removeStayFromUserFavorites(stayId) {
     try {
         if (userService.getLoggedInUser()) store.dispatch({ type: REMOVE_STAY_FROM_FAVORITES, stayId })
     } catch (err) {
