@@ -19,7 +19,7 @@ async function login({ username, password }) {
     try {
         const user = await httpService.post(BASE_URL + 'login', { username, password })
         if (user) {
-            return _setLoggedinUser(user)
+            return _setLoggedInUser(user)
         } else {
             return Promise.reject('Invalid login')
         }
@@ -33,9 +33,7 @@ async function signup({ username, password, fullname, about, imgUrl, location, g
     try {
         const user = { username, password, fullname, isAdmin, about, imgUrl, location, gender }
         await httpService.post(BASE_URL + 'signup', user)
-        // if (_user) return _setLoggedinUser(_user)
-        // else return Promise.reject('Invalid signup')
-        _setLoggedinUser(user)
+        _setLoggedInUser(user)
         return user
     } catch (err) {
         console.log(err)
@@ -56,12 +54,11 @@ function getById(userId) {
     return httpService.get('user/' + userId)
 }
 
-function _setLoggedinUser(user) {
+function _setLoggedInUser(user) {
     const userToSave = { _id: user._id, fullname: user.fullname, username: user.username, imgUrl: user.imgUrl, wishlist: user.wishlist }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
     return userToSave
 }
-
 
 function getEmptyCredentials() {
     return {
@@ -82,10 +79,11 @@ function getLoggedInUser() {
 
 async function addStayToUserFavorites(stayId) {
     try {
-        const stayToAdd = stayService.getById(stayId)
+        const stayToAdd = await stayService.getById(stayId)
         const userToUpdate = getLoggedInUser()
         userToUpdate.wishlist.unshift(stayToAdd)
-        await httpService.put(USER_URL, userToUpdate)
+        await httpService.put(USER_URL + userToUpdate._id, userToUpdate)
+        _setLoggedInUser(userToUpdate)
         return userToUpdate
     } catch (err) {
         console.log('err', err)
