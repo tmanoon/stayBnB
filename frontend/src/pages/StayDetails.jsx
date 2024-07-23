@@ -31,9 +31,7 @@ export function StayDetails() {
 
     useEffect(() => {
         const user = userService.getLoggedInUser()
-        if (user) {
-            setUser(user)
-        }
+        if (user) setUser(user)
         if (stayId) loadStay(stayId)
     }, [])
 
