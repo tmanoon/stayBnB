@@ -54,10 +54,12 @@ export async function addRemoveStayToUserFavorites(stayId) {
                 const userToUpdate = userService.addRemoveStayToUserFavorites(stayId, 'remove')
                 store.dispatch({ type: REMOVE_STAY_FROM_FAVORITES, stayId })
                 store.dispatch({ type: SET_LOGGED_IN_USER, user: userToUpdate })
+                return userToUpdate
             } else {
                 const userToUpdate = userService.addRemoveStayToUserFavorites(stayId, 'add')
                 store.dispatch({ type: ADD_STAY_TO_FAVORITES, stayId })
                 store.dispatch({ type: SET_LOGGED_IN_USER, user: userToUpdate})
+                return userToUpdate
             }
         }
     } catch (err) {
