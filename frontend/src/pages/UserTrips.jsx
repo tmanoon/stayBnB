@@ -103,7 +103,7 @@ export function UserTrips() {
             {tripFilter.tense === 'past' && <h2>Past reservations</h2>}
 
             <div>
-                <h2>No trips to Show</h2>
+                <h2>No trips to show</h2>
             </div>
             <p>Can't find your reservation here? <span>Visit the Help Center</span></p>
         </section>
