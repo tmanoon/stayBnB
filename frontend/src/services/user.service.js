@@ -12,7 +12,7 @@ export const userService = {
     getById,
     getLoggedInUser,
     getEmptyCredentials,
-    addStayToUserFavorites
+    addRemoveStayToUserFavorites
 }
 
 async function login({ username, password }) {
@@ -77,11 +77,15 @@ function getLoggedInUser() {
     return user
 }
 
-async function addStayToUserFavorites(stayId) {
+async function addRemoveStayToUserFavorites(stayId, action) {
     try {
-        const stayToAdd = await stayService.getById(stayId)
+        const stayToEdit = await stayService.getById(stayId)
         const userToUpdate = getLoggedInUser()
-        userToUpdate.wishlist.unshift(stayToAdd)
+        if (action === 'add') userToUpdate.wishlist.unshift(stayToEdit)
+        else {
+            const idxOfStayToRemove = userToUpdate.wishlist.findIndex(stay => stay._id === stayId)
+            userToUpdate.wishlist.splice(idxOfStayToRemove, 1)
+        }
         await httpService.put(USER_URL + userToUpdate._id, userToUpdate)
         _setLoggedInUser(userToUpdate)
         return userToUpdate
