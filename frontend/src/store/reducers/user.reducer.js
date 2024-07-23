@@ -11,7 +11,7 @@ export const LOGOUT = 'LOGOUT'
 const initialState = {
     users: [],
     loggedInUser: '',
-    loggedInUserUserStays: [],
+    loggedInUserStays: [],
     userFavoriteStays: []
 }
 
