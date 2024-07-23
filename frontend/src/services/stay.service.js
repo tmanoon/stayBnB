@@ -2,6 +2,7 @@ import { utilService } from './util.service.js'
 import { httpService } from './http.service.js'
 import { SET_IS_LOADING } from '../store/reducers/stay.reducer.js'
 import { store } from '../store/store.js'
+
 const BASE_URL = 'stay/'
 
 export const stayService = {
