@@ -33,7 +33,6 @@ export function StayDetails() {
         const user = userService.getLoggedInUser()
         if (user) {
             setUser(user)
-            console.log(user)
         }
         if (stayId) loadStay(stayId)
     }, [])
