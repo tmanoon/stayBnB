@@ -36,7 +36,7 @@ async function signup({ username, password, fullname, about, imgUrl, location, g
         return user
     } catch (err) {
         console.log(err)
-        throw error
+        throw err
     }
 }
 
