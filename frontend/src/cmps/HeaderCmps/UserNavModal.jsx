@@ -33,7 +33,7 @@ export function UserNavModal({ setIsLoginModal, handleModalTypeChange }) {
         try {
             await logout()
             checkIsLoggedInUser(false)
-            handleModalTypeChange('user-nav')
+            handleModalTypeChange('', 'user-nav')
         } catch (err) {
             console.log(err)
             throw err
