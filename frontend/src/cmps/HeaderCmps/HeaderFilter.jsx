@@ -17,15 +17,13 @@ export function HeaderFilter({ modalType, handleModalTypeChange }) {
 
     useEffect(() => {
         const handleClickOutside = event => {
-            if (header.current && !header.current.contains(event.target)) {
-                handleModalTypeChange(event)
-            }
+            if (header.current && !header.current.contains(event.target)) handleModalTypeChange(event)
         }
+    
         document.addEventListener('click', handleClickOutside)
         return () => {
             document.removeEventListener('click', handleClickOutside)
         }
-
     }, [header])
 
     function onLoadStays(ev) {
