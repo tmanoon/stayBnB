@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { SvgWithNamesCmp } from "../HelperCmps/SvgWithNamesCmp"
+import { LabelsGroup } from "../HelperCmps/LabelsGroup"
 import { FilterModal } from '../FilterModal'
 import { filterLists } from "../../services/filterLists.service"
 import { SvgPathCmp } from "../HelperCmps/SvgPathCmp"
@@ -21,7 +21,7 @@ export function LabelsFilter({ filterBy, setStayFilter }) {
 		<>
 			<section className={'filter-labels-section grid'}>
 				<div className="labels-filter grid ">
-					<SvgWithNamesCmp
+					<LabelsGroup
 						svgNames={filterLists.filterLabels}
 						handleChange={handleChange}
 						selectedValue={selectedValue} />

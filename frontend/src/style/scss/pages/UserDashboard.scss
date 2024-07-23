@@ -13,7 +13,7 @@
         margin-block: 1rem;
 
         .user-stays-container {
-            border-block-end: 0.667px solid $gray2;
+            border-block-end: 0.667px solid $gray4;
             padding: 0 0.4rem;
             color: $darkGray;
 
@@ -49,9 +49,9 @@
                 gap: 0.3rem;
                 padding: 1rem 1.5rem;
                 margin-block: 1rem 2rem;
-                border-radius: 12px;
-                -webkit-box-shadow: 0 0 6px 6px $gray2;
-                -moz-box-shadow: 0 0 6px 6px $gray2;
+                border-radius: $border-radius-4;
+                -webkit-box-shadow: 0 0 6px 6px $gray4;
+                -moz-box-shadow: 0 0 6px 6px $gray4;
                 transition: scale 1s;
 
                 img {
@@ -59,7 +59,7 @@
                     max-width: 341px;
                     width: 100%;
                     aspect-ratio: 2/1;
-                    border-radius: 12px;
+                    border-radius: $border-radius-4;
                 }
 
                 h2 {
@@ -98,7 +98,7 @@
         .user-orders-container {
             li {
                 grid-template-columns: minmax(90px, 2fr) minmax(60px, 1fr) minmax(80px, 1fr);
-                border-block-end: 1px solid $gray2;
+                border-block-end: 1px solid $gray4;
                 padding: 0.5rem;
                 align-items: center;
                 gap: 0.5rem;
@@ -147,7 +147,7 @@
 
                     button {
                         color: white;
-                        background-color: $gray4;
+                        background-color: $gray3;
                         font-family: circular-medium;
 
                         transition: scale 0.5s;

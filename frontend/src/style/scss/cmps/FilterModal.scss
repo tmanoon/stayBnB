@@ -5,7 +5,7 @@
 
     color: $darkGray;
     background-color: white;
-    border-radius: $BR3;
+    border-radius: $border-radius-4;
 
     header,
     footer {
@@ -22,7 +22,7 @@
         inset: 0 0 auto;
         padding: 1rem 1.5rem;
         border-block-end: 0.667px solid $lightGray;
-        border-radius: $BR3 $BR3 0 0;
+        border-radius: $border-radius-4 $border-radius-4 0 0;
 
         h1 {
             font-family: circular-reg;
@@ -49,20 +49,20 @@
     .exit-btn {
         position: absolute;
         inset: 1rem auto auto 1rem;
-        border-radius: 50%;
+        border-radius: $border-radius-circle;
         height: 2rem;
         width: 2rem;
     }
 
     .clear-btn {
         font-family: circular-medium;
-        border-radius: $BR2;
+        border-radius: $border-radius-3;
     }
 
     .submit-btn {
         height: auto;
         padding: 0.9rem 1.7rem;
-        border-radius: $BR2;
+        border-radius: $border-radius-3;
         color: white;
         background-color: $darkGray;
 
@@ -80,14 +80,14 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        border-radius: 5px;
-        background-color: $gray2;
-        border: 0.667px solid $gray2;
+        border-radius: $border-radius-1;
+        background-color: $gray4;
+        border: 0.667px solid $gray4;
     }
 
     ::-webkit-scrollbar-track {
-        border-radius: 5px;
-        border: 0.667px solid $gray2;
+        border-radius: $border-radius-1;
+        border: 0.667px solid $gray4;
     }
 
     main {
@@ -133,7 +133,7 @@
 
                 .checkbox {
                     background-color: transparent;
-                    color: $gray2;
+                    color: $gray4;
                     
                     &:hover {
                         color: $darkGray;
@@ -221,8 +221,8 @@
                     gap: 1.5rem;
 
                     label {
-                        border: 1.5px solid $gray4;
-                        border-radius: $BR2;
+                        border: 1.5px solid $gray3;
+                        border-radius: $border-radius-3;
                         padding: 0.75rem;
 
                         flex-grow: 1;
@@ -251,7 +251,7 @@
                 }
 
                 .css-7o8aqz-MuiSlider-rail {
-                    background-color: $gray2;
+                    background-color: $gray4;
                     opacity: 1;
                 }
 
@@ -259,7 +259,7 @@
                     width: 32px;
                     height: 32px;
                     color: white;
-                    box-shadow: 0 6px 16px $gray4;
+                    box-shadow: 0 6px 16px $gray3;
                 }
 
                 .css-14gyywz-MuiSlider-valueLabel.MuiSlider-valueLabelOpen {
@@ -323,7 +323,7 @@
                 height: 100%;
                 width: 100%;
                 padding: 1rem;
-                border-radius: 12px;
+                border-radius: $border-radius-4;
                 font-family: circular-medium;
 
                 display: flex;
@@ -378,7 +378,7 @@
             }
 
             p {
-                color: $gray1;
+                color: $gray2;
             }
         }
 
@@ -413,7 +413,7 @@
         max-width: 48.75rem;
 
         footer {
-            border-radius: 0 0 $BR3 $BR3;
+            border-radius: 0 0 $border-radius-4 $border-radius-4;
         }
 
         main {

@@ -45,13 +45,16 @@ export function UserNavModal({ setIsLoginModal, handleModalTypeChange }) {
     }
 
     return <section className="user-nav-modal" >
-        {!isLoggedInUser && <button onClick={onLoginModal} className="grayTxt">Login</button>}
-        {!isLoggedInUser && <NavLink to="/" onClick={() => onGuestClick()}>Continue as Guest</NavLink>}
-        {isLoggedInUser && <NavLink to="/" className='grayTxt' onClick={(ev) => onLogoutClick(ev)}>Log out</NavLink>}
-        {/* TRY TO ADD SOCKETS OF CHAT ON SATURDAY 17.4 SHOVAL <NavLink to="/unActive" className='grayTxt'>Messages</NavLink> */} 
-        <NavLink to={"/trips"}  onClick={(ev) => checkNavigatePath(ev, '/trips')} className='grayTxt'>Trips</NavLink>
-        <NavLink to="/wishlist" className='grayTxt'>Wishlist</NavLink>
-        <NavLink to="/edit" className='grayTxt'>Airbnb your home</NavLink>
-        <NavLink to="/dashboard"  onClick={(ev) => checkNavigatePath(ev, '/dashboard')} className='grayTxt'>Dashboard</NavLink>
+        {!isLoggedInUser && <div onClick={onLoginModal}>Log-in / Sign-up</div>}
+        {!isLoggedInUser && <NavLink to="/" onClick={() => onGuestClick()} className='bordered'>Continue as Guest</NavLink>}
+
+        <NavLink to="/trips" onClick={(ev) => checkNavigatePath(ev, '/trips')} className="bold">Trips</NavLink>
+        <NavLink to="/unActive" className="bold">Messages</NavLink>
+        <NavLink to="/wishlist" onClick={(ev) => checkNavigatePath(ev, '/wishlist')} className='bordered bold'>Wishlist</NavLink>
+
+        <NavLink to="/edit" onClick={(ev) => checkNavigatePath(ev, '/edit')}>Staybnb your home</NavLink>
+        <NavLink to="/dashboard" onClick={(ev) => checkNavigatePath(ev, '/dashboard')} className={isLoggedInUser ? 'bordered' : ''}>Manage listings</NavLink>
+
+        {isLoggedInUser && <NavLink to="/" onClick={(ev) => onLogoutClick(ev)}>Log out</NavLink>}
     </section>
 }

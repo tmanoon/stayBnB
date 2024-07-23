@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import { useSelector } from 'react-redux'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useLocation } from 'react-router-dom'
 
 import { stayService } from "../../services/stay.service"
@@ -13,23 +13,34 @@ import { UserNavModal } from "./UserNavModal"
 import { LabelsFilter } from "./LabelsFilter"
 import { utilService } from "../../services/util.service"
 
-export function AppHeader({ scrolledPage }) {    
-    const filterBy = useSelector(storeState => storeState.stayModule.filterBy)
-    const modalTypes = [
-        { modalName: 'map', desc: filterBy.txt || 'Anywhere' },
-        { modalName: 'check-in', desc: filterBy.entryDate && filterBy.exitDate ? 
-        utilService.timestampsToShortDates(+filterBy.entryDate, +filterBy.exitDate) : 
-        'Any week' },
-        { modalName: 'guest', desc: checkIfFilterByGuests() ? utilService.calcGuestCountInFilterBy(filterBy) : 'Add guests' }]
-    const [modalType, setModalType] = useState('')
-    const [isLoginModal, setIsLoginModal] = useState(false)
+export function AppHeader({ scrolledPage }) {
     const navigate = useNavigate()
     const location = useLocation()
+
+    const [modalType, setModalType] = useState('')
+    const [isLoginModal, setIsLoginModal] = useState(false)
+    const [isLoggedInUser, checkIsLoggedInUser] = useState(false)
+
+    const filterBy = useSelector(storeState => storeState.stayModule.filterBy)
+    const modalTypes = [{ modalName: 'map', desc: filterBy.txt || 'Anywhere' }, { modalName: 'check-in', desc: filterBy.entryDate && filterBy.exitDate ? utilService.timestampsToShortDates(+filterBy.entryDate, +filterBy.exitDate) : 'Any week' }, { modalName: 'guest', desc: checkIfFilterByGuests() ? utilService.calcGuestCountInFilterBy(filterBy) : 'Add guests' }]
+
+    useEffect(() => {
+        checkIsLoggedInUser(Boolean(userService.getLoggedInUser()))
+    }, [])
 
     function goHome() {
         const defaultFilter = stayService.getDefaultFilter()
         setStayFilter(defaultFilter)
         navigate('/')
+    }
+
+    function checkNavigatePath(e, path) {
+        e.preventDefault()
+        isLoggedInUser ? navigate(`${path}`) : onLoginModal()
+    }
+
+    const onLoginModal = () => {
+        setIsLoginModal(true)
     }
 
     function checkIfFilterByGuests() {
@@ -91,7 +102,7 @@ export function AppHeader({ scrolledPage }) {
                     <HeaderFilter modalType={modalType} handleModalTypeChange={handleModalTypeChange} />
                 </section>
                 <section className="user-section flex align-center" >
-                    <NavLink to="/edit">Staybnb your home</NavLink>
+                    <NavLink to="/edit" onClick={(ev) => checkNavigatePath(ev, '/edit')}>Staybnb your home</NavLink>
                     <button className="flex align-center space-between" onClick={(e) => handleModalTypeChange(e, 'user-nav')}>
                         <span>☰</span>
                         {userService.getLoggedInUser() ? (<img src={userService.getLoggedInUser().imgUrl} alt="User Profile" />) : (<div className="profile"></div>)}

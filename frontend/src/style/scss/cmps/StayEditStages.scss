@@ -47,7 +47,7 @@
         padding-inline-start: 10%;
         align-self: start;
         font-size: 1.25rem;
-        color: $gray1;
+        color: $gray2;
         margin-block-end: 2rem;
         font-weight: normal;
     }
@@ -98,7 +98,7 @@
     }
 
     li:not(:last-of-type) {
-        border-block-end: 0.677px solid $gray2;
+        border-block-end: 0.677px solid $gray4;
     }
 
 }
@@ -153,7 +153,7 @@
         height: 100%;
         width: 100%;
         padding: 1rem;
-        border-radius: 12px;
+        border-radius: $border-radius-4;
         font-family: circular-medium;
 
         display: flex;
@@ -181,7 +181,7 @@
         height: 100%;
         width: 100%;
         padding: 1.2rem;
-        border-radius: 12px;
+        border-radius: $border-radius-4;
 
         @include buttons2;
 
@@ -223,7 +223,7 @@
             width: 100%;
             font-size: 1rem;
             border: none;
-            border-radius: $BR1;
+            border-radius: $border-radius-2;
             outline: none;
             padding-inline: 1rem;
         }
@@ -240,37 +240,37 @@
             }
 
             &.country {
-                border-block-start: 0.667px solid $gray4;
-                border-inline: 0.667px solid $gray4;
-                border-radius: $BR1 0 0 0;
+                border-block-start: 0.667px solid $gray3;
+                border-inline: 0.667px solid $gray3;
+                border-radius: $border-radius-2 0 0 0;
             }
 
             &.countryCode {
-                border-block-start: 0.667px solid $gray4;
-                border-inline-end: 0.667px solid $gray4;
-                border-radius: 0 $BR1 0 0;
+                border-block-start: 0.667px solid $gray3;
+                border-inline-end: 0.667px solid $gray3;
+                border-radius: 0 $border-radius-2 0 0;
             }
 
             &.city {
                 grid-column: 1 / 3;
                 width: 100%;
-                border-block-start: 0.667px solid $gray4;
-                border-inline: 0.667px solid $gray4;
+                border-block-start: 0.667px solid $gray3;
+                border-inline: 0.667px solid $gray3;
             }
 
             &.address {
                 grid-column: 1 / 3;
                 width: 100%;
-                border: 0.667px solid $gray4;
-                border-radius: 0 0 $BR1 $BR1; // remove when coordinates
+                border: 0.667px solid $gray3;
+                border-radius: 0 0 $border-radius-2 $border-radius-2; // remove when coordinates
             }
 
             &.coordinates {
                 grid-column: 1 / 3;
                 width: 100%;
-                // border-inline: 0.667px solid $gray4;  // uncomment when coordinates
-                // border-block-end: 0.667px solid $gray4;
-                border-radius: 0 0 $BR1 $BR1;
+                // border-inline: 0.667px solid $gray3;  // uncomment when coordinates
+                // border-block-end: 0.667px solid $gray3;
+                border-radius: 0 0 $border-radius-2 $border-radius-2;
             }
         }
     }
@@ -287,7 +287,7 @@
             align-items: center;
 
             padding-block: 1rem;
-            border-block-end: 0.667px $gray4 solid;
+            border-block-end: 0.667px $gray3 solid;
 
             &:first-of-type {
                 padding-block-start: 0;
@@ -313,12 +313,12 @@
 
         width: 1.875rem;
         height: 1.875rem;
-        border-radius: 50%;
+        border-radius: $border-radius-circle;
         font-size: 1.2em;
-        border: solid 1px $gray4;
+        border: solid 1px $gray3;
         background-color: white;
         padding: 0.7em;
-        color: $gray1;
+        color: $gray2;
 
         &:hover {
             border: solid 1px $darkGray;
@@ -393,10 +393,10 @@
     input,
     textarea {
         margin-block-start: 0.7em;
-        border-radius: $BR3;
-        border: 1px solid $gray1;
+        border-radius: $border-radius-4;
+        border: 1px solid $gray2;
         outline: none;
-        color: $gray1;
+        color: $gray2;
     }
 
     input {
@@ -417,6 +417,19 @@
         align-self: start;
         margin-block-end: 0.7em;
         padding-inline-start: 10%;
+    }
+}
+
+.stage-10 {
+    .btns .btn {
+        svg {
+            width: 1.8rem;
+            height: 1.8rem;
+
+            &>* {
+                scale: 0.28;
+            }
+        }
     }
 }
 
@@ -445,7 +458,7 @@
     }
 
     p {
-        color: $gray1;
+        color: $gray2;
     }
 
 }
@@ -460,7 +473,7 @@
         }
 
         input {
-            border-radius: $BR3;
+            border-radius: $border-radius-4;
             border: none;
             outline: none;
             max-width: 10vw;
@@ -525,7 +538,7 @@
             }
 
             .new span {
-                color: $gray1;
+                color: $gray2;
                 font-size: 0.9em;
                 margin-right: 0.3em;
             }

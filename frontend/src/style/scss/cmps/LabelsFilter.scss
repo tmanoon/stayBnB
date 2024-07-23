@@ -1,7 +1,7 @@
 .filter-labels-section {
     padding-block: 0.5rem 0rem;
-    margin-block-start: 0.5rem;
-    border-block-start: 1px solid $gray2;
+    margin-block-start: 0.25rem;
+    border-block-start: 1px solid $gray4;
     
     grid-template-columns: 1fr 5.75rem;
     column-gap: 1rem;
@@ -61,7 +61,7 @@
 
             &:hover {
                 opacity: 0.8;
-                border-block-end: 3px solid $gray2;
+                border-block-end: 3px solid $gray4;
             }
 
             &:active {
@@ -83,8 +83,8 @@
         width: 5.75rem;
         margin: 0.75rem 0.375rem 0 0;
         background-color: transparent;
-        border: 0.667px solid $gray2;
-        border-radius: 12px;
+        border: 0.667px solid $gray4;
+        border-radius: $border-radius-4;
         color: $darkGray;
 
         transition: 0s;

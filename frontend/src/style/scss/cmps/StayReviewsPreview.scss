@@ -1,5 +1,5 @@
 .stay-reviews {
-    border-block-start: 0.667px solid $gray2;
+    border-block-start: 0.667px solid $gray4;
     padding-block: 2.5rem;
     padding-inline: 1rem;
     color: $darkGray;
@@ -22,8 +22,8 @@
 
         height: 16.15rem;
         padding: 1.25rem;
-        border-radius: 12px;
-        box-shadow: $gray2 0px 6px 16px;
+        border-radius: $border-radius-4;
+        box-shadow: $gray4 0px 6px 16px;
 
         .not-flip-div {
             gap: 0.5rem;
@@ -44,7 +44,7 @@
                 object-fit: cover;
                 width: 3rem;
                 height: 3rem;
-                border-radius: 50%;
+                border-radius: $border-radius-circle;
             }
 
             .user-details-txt {
@@ -68,7 +68,7 @@
                 font-size: 0.8rem;
 
                 span {
-                    color: $gray2;
+                    color: $gray4;
                 }
             }
 
@@ -95,13 +95,13 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        border-radius: 5px;
-        background-color: $gray2;
-        border: 0.667px solid $gray2;
+        border-radius: $border-radius-1;
+        background-color: $gray4;
+        border: 0.667px solid $gray4;
     }
 
     ::-webkit-scrollbar-track {
-        border-radius: 5px;
+        border-radius: $border-radius-1;
     }
 }
 
@@ -112,7 +112,7 @@
 
     color: $darkGray;
     background-color: white;
-    border-radius: $BR3;
+    border-radius: $border-radius-4;
     padding: 2rem;
 
     overflow-y: auto;

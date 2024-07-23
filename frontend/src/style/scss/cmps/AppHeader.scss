@@ -1,8 +1,7 @@
 .full-app-header {
     color: $darkGray;
     background-color: white;
-    border-bottom: solid 0.667px $gray2;
-    padding-block: 0.5rem 1rem;
+    border-bottom: solid 0.667px $gray4;
     z-index: 1;
 
     &.header-condensed {
@@ -53,6 +52,7 @@
     &.header-fixed {
         position: fixed;
         inset: 0 0 auto 0;
+        padding-block: 0.5rem 0.25rem;
     }
 
     &.header-condensed {
@@ -84,7 +84,7 @@
             width: 2rem;
             height: 2rem;
             background-color: $siteColor;
-            border-radius: 50%;
+            border-radius: $border-radius-circle;
             padding-inline: 1rem 0.9rem;
             margin-inline-end: 0.4rem;
             align-self: center;
@@ -101,7 +101,7 @@
             }
 
             .guest {
-                color: $gray1;
+                color: $gray2;
                 font-weight: normal;
             }
         }
@@ -133,7 +133,7 @@
 
         img {
             width: 35px;
-            border-radius: 50%;
+            border-radius: $border-radius-circle;
         }
 
         a {
@@ -153,7 +153,7 @@
             width: 5.33rem;
             height: 3rem;
             padding: 8px 8px 8px 14px;
-            border: 0.667px solid $gray2;
+            border: 0.667px solid $gray4;
             border-radius: 32px;
             background-color: white;
             position: relative;
@@ -166,7 +166,7 @@
                 position: relative;
                 width: 2.4rem;
                 height: 2.4rem;
-                border-radius: 50%;
+                border-radius: $border-radius-circle;
                 margin: 0.25rem 0.5rem 0 0;
                 background-color: white;
 
@@ -177,12 +177,12 @@
                     position: absolute;
                     scale: 2.6;
                     transform-origin: top;
-                    color: $gray1; //switch to $gray1
+                    color: $gray2; //switch to $gray2
                 }
             }
 
             &:hover {
-                box-shadow: 1px 2px 2px 2px $gray2;
+                box-shadow: 1px 2px 2px 2px $gray4;
                 cursor: pointer;
             }
         }
