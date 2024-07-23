@@ -18,6 +18,10 @@
             transition: opacity 0.3s;
             width: 22rem;
 
+            .map, .check-in {
+                font-family: circular-reg, Tahoma;
+            }
+
             div {
                 text-align: center;
             }
