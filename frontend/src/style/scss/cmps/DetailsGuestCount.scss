@@ -3,7 +3,7 @@
     top: 103%;
     box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.15);
     border: 1px solid #dddddd;
-    border-radius: 5px;
+    border-radius: $border-radius-1;
     width: 20.0875rem;
     height: 25.5625rem;
     color: $darkGray;
@@ -74,16 +74,16 @@
                 & button {
                     width: 1.875rem;
                     height: 1.875rem;
-                    border-radius: 50%;
+                    border-radius: $border-radius-circle;
                     font-size: 1.4em;
                     display: flex;
                     justify-content: center;
                     text-align: center;
                     align-items: center;
-                    border: solid 1px $gray2;
+                    border: solid 1px $gray4;
                     background-color: white;
                     padding: 0.7em;
-                    color: $gray1;
+                    color: $gray2;
 
 
 

@@ -9,7 +9,7 @@
     height: 5rem;
     background-color: white;
     padding-inline: 1.5rem;
-    border-block-start: 0.667px solid $gray2;
+    border-block-start: 0.667px solid $gray4;
     color: $darkGray;
 
     span {
@@ -27,7 +27,7 @@
         font-family: circular-bold;
         color: #ffffff;
         background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
-        border-radius: $BR1;
+        border-radius: $border-radius-2;
         margin-block: 1rem;
     }
 }
@@ -45,8 +45,8 @@
         margin-block-end: rem(80px);
         max-width: 23.25rem;
         padding: 24px;
-        border: 1px solid $gray3;
-        border-radius: 12px;
+        border: 1px solid $gray4;
+        border-radius: $border-radius-4;
         box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
 
         .selectors-container label {
@@ -87,7 +87,7 @@
 
             .check-in,
             .checkout {
-                border: 1px solid $borderclr;
+                border: 1px solid $lightGray;
                 flex-grow: 1;
                 width: rem(160.66px);
                 height: rem(56px);
@@ -102,7 +102,7 @@
 
             div.txt-date {
                 font-size: rem(14px);
-                color: $gray5;
+                color: $gray1;
             }
 
             .txt {
@@ -113,13 +113,13 @@
 
             .guest-selector {
                 padding: 26px 12px 10px 12px;
-                border: 1px solid $borderclr;
+                border: 1px solid $lightGray;
                 height: rem(56px);
                 justify-content: flex-end;
                 position: relative;
 
                 .guest-container {
-                    color: $gray5;
+                    color: $gray1;
                 }
             }
         }
@@ -127,7 +127,7 @@
         .reserve-btn {
             height: rem(48px);
             background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
-            border-radius: $BR1;
+            border-radius: $border-radius-2;
             line-height: 19px;
             margin-block-start: 1rem;
             margin-block-end: rem(8px);
@@ -156,7 +156,7 @@
         }
 
         .fee-calc {
-            border-block-end: 0.667px solid $gray2;
+            border-block-end: 0.667px solid $gray4;
         }
 
         .sum-total {

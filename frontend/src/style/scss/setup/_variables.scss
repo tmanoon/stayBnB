@@ -1,25 +1,23 @@
 $darkGray: #222222;
 $headerGray: #838383;
-$borderclr: #DEDEDE;
-$gray1: #717171;
-$gray2: #dddddd;
-$gray3: #DDDDDC;
-$gray4: #b0b0b0;
-$gray5: #6a6a6a;
 $lightGray: #ebebeb;
 $btnHover: #f7f7f7;
+
+$gray1: #6a6a6a;
+$gray2: #717171;
+$gray3: #b0b0b0;
+$gray4: #dddddd;
 
 $siteColor: #ff385c;
 
 $approved: rgb(24, 198, 125);
 $rejected: rgb(253, 122, 122);
 
-
-$BR1: 8px;  //border-radius: 0.5rem
-$BR2: 9.6px;  //border-radius: 0.6rem
-$BR3: 12.8px;  //border-radius: 0.8rem
-
-
+$border-radius-1: 5px;  // border-radius: 0.3125rem
+$border-radius-2: 8px;  //border-radius: 0.5rem
+$border-radius-3: 9.6px;  //border-radius: 0.6rem
+$border-radius-4: 12.8px;  //border-radius: 0.8rem
+$border-radius-circle: 50%;
 
 :root {
     --grid-columns: 1;

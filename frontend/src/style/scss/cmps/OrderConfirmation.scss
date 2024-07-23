@@ -5,7 +5,7 @@
 
     color: $darkGray;
     background-color: white;
-    border-radius: $BR3 $BR3 0 0;
+    border-radius: $border-radius-4 $border-radius-4 0 0;
 
     header,
     footer {
@@ -19,12 +19,12 @@
         inset: 0 0 auto;
         padding: 1rem 1.5rem;
         border-block-end: 0.667px solid $lightGray;
-        border-radius: $BR3 $BR3 0 0;
+        border-radius: $border-radius-4 $border-radius-4 0 0;
 
         .exit-btn {
             position: absolute;
             inset: 1rem auto auto 1.25rem;
-            border-radius: 50%;
+            border-radius: $border-radius-circle;
             height: 2rem;
             width: 2rem;
             background-color: transparent;
@@ -55,7 +55,7 @@
             color: white;
             background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
             font-family: circular-bold;
-            border-radius: $BR1;
+            border-radius: $border-radius-2;
             padding: 0 1.5rem;
         }
     }
@@ -65,12 +65,12 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        border-radius: 5px;
-        background-color: $gray2;
+        border-radius: $border-radius-1;
+        background-color: $gray4;
     }
 
     ::-webkit-scrollbar-track {
-        border-radius: 5px;
+        border-radius: $border-radius-1;
         background-color: $lightGray;
     }
 
@@ -208,14 +208,14 @@
     .order-confirmation {
         inset: 2rem calc(50% - 24.5rem);
         max-width: 48.75rem;
-        border-radius: $BR3;
+        border-radius: $border-radius-4;
 
         header h1 {
             font-size: 2rem;
         }
 
         footer {
-            border-radius: 0 0 $BR3 $BR3;
+            border-radius: 0 0 $border-radius-4 $border-radius-4;
         }
 
         .order-details {

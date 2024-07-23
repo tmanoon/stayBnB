@@ -1,6 +1,6 @@
 @mixin buttons1 {
     background-color: white;
-    border: 0.667px $gray2 solid;
+    border: 0.667px $gray4 solid;
 
     &:hover {
         border: 0.667px $darkGray solid;
@@ -14,7 +14,7 @@
 
 @mixin buttons15 {
     background-color: white;
-    border: 0.667px $gray2 solid;
+    border: 0.667px $gray4 solid;
 
     &:hover {
         border: 0.667px $darkGray solid;
@@ -28,7 +28,7 @@
 
 @mixin buttons2 {
     background-color: white;
-    border: 0.667px $gray2 solid;
+    border: 0.667px $gray4 solid;
 
     &:hover {
         border: 0.667px $darkGray solid;

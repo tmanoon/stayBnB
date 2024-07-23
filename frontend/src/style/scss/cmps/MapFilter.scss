@@ -33,7 +33,7 @@
             font-weight: normal;
 
             &:hover {
-                background-color: $gray2;
+                background-color: $gray4;
                 border-radius: 10px;
 
                 cursor: pointer;
@@ -45,6 +45,6 @@
         width: 6.8rem;
         height: 6.8rem;
         border-radius: 10px;
-        border: solid 1px $gray2;
+        border: solid 1px $gray4;
     }
 }
