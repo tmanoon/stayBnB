@@ -2,23 +2,23 @@ import React from 'react'
 
 export function ProgressFooter({ editStage, setEditStage, onSaveStay, stay }) {
 
-    const progressBarWidth = editStage * 7.7 + '%'
+    const progressBarWidth = editStage * 5 + '%'
 
     function isNextBtnDisabled() {
         switch (editStage) {
             case 2:
-                return !stay.placeType
-            case 3:
                 return !stay.propertyType
+            case 3:
+                return !stay.placeType
             case 4:
                 return !stay.loc.country || !stay.loc.address || !stay.loc.city
             case 5:
                 return stay.capacity < 1 || stay.bathrooms < 1 || stay.sumOfBeds < 1 || stay.baths < 1
             case 9:
+                return !stay.name
+            case 11:
                 return !stay.summary
-            case 10:
-                return !stay.desc
-            case 12:
+            case 14:
                 return stay.price < 1
             default:
                 return false
@@ -28,36 +28,15 @@ export function ProgressFooter({ editStage, setEditStage, onSaveStay, stay }) {
     return (
         <section className="progress-footer">
             <button
-                onClick={() => {
-                    if (editStage > 1) {
-                        setEditStage(prevStage => prevStage - 1)
-                    }
-                }}
-                className={`back-btn ${editStage === 1 ? 'disabled' : ''}`}
-                disabled={editStage === 1}
-            >
-                Back
-            </button>
+                onClick={() => { if (editStage > 0) { setEditStage(prevStage => prevStage - 1) } }}
+                className={`back-btn ${editStage === 0 ? 'disabled' : ''}`}
+                disabled={editStage === 0}
+            >Back</button>
 
-            <div>
-                {editStage < 13 && (
-                    <div
-                        onClick={() => {
-                            if (!isNextBtnDisabled()) {
-                                setEditStage(prevStage => prevStage + 1)
-                            }
-                        }}
-                        className={`next-btn ${isNextBtnDisabled() ? 'disabled' : ''}`}
-                    >
-                        Next
-                    </div>
-                )}
-
-                {editStage >= 13 && (
-                    <div onClick={onSaveStay} className="Publish-btn">
-                        Publish
-                    </div>
-                )}
+            <div className='continue-btns'>
+                {editStage <= 0 && <button onClick={() => { if (!isNextBtnDisabled()) { setEditStage(prevStage => prevStage + 1) } }} className={`start-btn ${isNextBtnDisabled() ? 'disabled' : ''}`}>Get Started</button>}
+                {editStage < 15 && editStage > 0 && <button onClick={() => { if (!isNextBtnDisabled()) { setEditStage(prevStage => prevStage + 1) } }} className={`next-btn ${isNextBtnDisabled() ? 'disabled' : ''}`}>Next</button>}
+                {editStage >= 15 && <button onClick={onSaveStay} className="Publish-btn">Publish</button>}
             </div>
 
             <div className="progress-bar-background"></div>

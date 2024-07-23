@@ -5,6 +5,7 @@ import { filterLists } from "../services/filterLists.service"
 
 import { PriceRangeChart } from "./PriceRangeChart"
 import { ButtonGroup } from "./HelperCmps/ButtonGroup"
+import { ButtonGroupWithObjects } from "./HelperCmps/ButtonGroupWithObjects"
 import { CheckboxGroup } from "./HelperCmps/CheckboxGroup"
 import { Accordion } from "./HelperCmps/Accordion"
 import { SwitchCmp } from "./HelperCmps/SwitchCmp"
@@ -81,7 +82,8 @@ export function FilterModal({ setShowFilter, setStayFilter, filterBy }) {
                     {filterBy.placeType === 'any' && <p>Search rooms, entire homes, or any type of place</p>}
                     {filterBy.placeType === 'room' && <p>A room in a home, plus access to shared spaces.</p>}
                     {filterBy.placeType === 'entire home' && <p>A home all to yourself.</p>}
-                    <ButtonGroup
+                    
+                    <ButtonGroupWithObjects
                         type={'placeType'}
                         items={filterLists.placeTypeItems}
                         selectedValue={selected.placeType}

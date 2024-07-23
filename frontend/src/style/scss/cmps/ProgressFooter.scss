@@ -1,32 +1,64 @@
 .progress-footer {
     position: fixed;
     bottom: 0;
-    height: 5.5em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    height: 5.5rem;
     z-index: 1;
     color: $darkGray;
     background: white;
     width: 100%;
 
-    & .next-btn {
-        margin-right: 50px;
-        width: 6em;
-        background-color: $darkGray;
-        height: 3em;
-        color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .back-btn {
+        font-family: circular-medium;
+        margin-left: 50px;
+        font-size: 1rem;
         border-radius: 10px;
-        display: flex;
-        cursor: pointer;
-        justify-content: center;
-        align-items: center;
-        transition: opacity 0.2s, transform 0.2s; // Added opacity transition
+        text-decoration: underline;
+        background-color: transparent;
+
         user-select: none;
 
         &:hover {
-            transform: scale(1.02);
+            background-color: $btnHover;
         }
+
+        &.disabled {
+            opacity: 20%;
+            cursor: not-allowed;
+        }
+    }
+
+    .continue-btns button {
+        font-size: 1rem;
+        font-family: circular-bold;
+        height: 3rem;
+        margin-block-start: 0.8rem;
+        color: white;
+        border-radius: 10px;
+        user-select: none;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        transition: transform 0.2s;
+
+        cursor: pointer;
+        
+                &:hover {
+                    transform: scale(1.02);
+                }
+    }
+
+    .next-btn {
+        width: 6rem;
+        margin-right: 50px;
+        background-color: $darkGray;
+
+        transition: opacity 0.2s;
 
         &.disabled {
             opacity: 0.15;
@@ -35,53 +67,27 @@
         }
     }
 
-
-    & .back-btn {
-        margin-left: 50px;
-        text-decoration: underline;
-        font-size: 1em;
-        user-select: none;
-
-        &.disabled {
-            opacity: 20%;
-            cursor: not-allowed;
-        }
-    }
-
-
-    & .Publish-btn {
+    .Publish-btn,
+    .start-btn {
         margin-right: 50px;
-        width: 8em;
+        width: 10rem;
         background-color: $siteColor;
-        height: 3em;
-        color: white;
-        border-radius: 10px;
-        display: flex;
-        cursor: pointer;
-        justify-content: center;
-        align-items: center;
-        transition: transform 0.2s;
-        user-select: none;
-
-        &:hover {
-            transform: scale(1.02)
-        }
     }
 
-    & .progress-bar-filling,
+    .progress-bar-filling,
     .progress-bar-background {
         position: absolute;
-        height: 10px;
+        height: 5px;
 
         top: 0;
     }
 
-    & .progress-bar-background {
+     .progress-bar-background {
         background-color: $gray2;
         width: 100%;
     }
 
-    & .progress-bar-filling {
+     .progress-bar-filling {
         background-color: $darkGray;
         transition: width 0.3s ease;
     }
