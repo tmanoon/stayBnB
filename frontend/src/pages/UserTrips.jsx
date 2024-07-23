@@ -20,14 +20,14 @@ export function UserTrips() {
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_ORDER_UPDATE, onUpdateOrderStatus)
-
         const fetchData = async () => {
             try {
                 const user = userService.getLoggedInUser()
                 const trips = await orderService.getUserOrdersById(user._id)
                 setUserTrips(trips)
+            } catch (err) {
+                console.log(err)
             }
-            catch (err) { console.log(err) }
         }
         fetchData()
     }, [])
@@ -56,7 +56,7 @@ export function UserTrips() {
 
     function onUpdateOrderStatus(order) {
         setTrips(prevTrips => prevTrips.map(trip => {
-            if(trip._id === order._id) return order
+            if (trip._id === order._id) return order
             return trip
         }))
     }
@@ -97,9 +97,9 @@ export function UserTrips() {
         </header>
 
         {tripFilter.tense === 'all' && <h2>All reservations</h2>}
-            {tripFilter.tense === 'future' && <h2>Upcoming reservations</h2>}
-            {tripFilter.tense === 'current' && <h2>Current reservations</h2>}
-            {tripFilter.tense === 'past' && <h2>Past reservations</h2>}
+        {tripFilter.tense === 'future' && <h2>Upcoming reservations</h2>}
+        {tripFilter.tense === 'current' && <h2>Current reservations</h2>}
+        {tripFilter.tense === 'past' && <h2>Past reservations</h2>}
 
         <div>
             <h2>No trips to Show</h2>
