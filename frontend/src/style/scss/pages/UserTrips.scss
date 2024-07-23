@@ -18,7 +18,6 @@
                 padding: 0.5rem 0 0.5rem 0.5rem;
                 border-radius: $BR1;
                 color: $darkGray;
-
                 cursor: pointer;
 
                 &:focus-visible {
@@ -154,7 +153,6 @@
                 p {
                     position: absolute;
                     font-family: circular-reg;
-
                     background-color: rgba(255, 255, 255, 0.9);
                     padding: 0.25rem 0.5rem;
 
@@ -204,7 +202,6 @@
 
         .dates {
             grid-area: 2 / 1 / 3 / 2;
-
             margin-block: 1rem;
             padding-inline: 1rem;
             border-inline-end: 1px solid $gray2;
@@ -212,7 +209,6 @@
 
         .address {
             grid-area: 2 / 2 / 3 / 3;
-
             padding: 1rem;
         }
 
@@ -237,20 +233,17 @@
 
         .title {
             grid-area: 1 / 1 / 2 / 2;
-
             padding: 1rem;
             border-inline-end: 1px solid $gray2;
         }
 
         .dates {
             grid-area: 1 / 2 / 2 / 3;
-
             padding: 1rem;
         }
 
         .address {
             grid-area: 1 / 3 / 2 / 4;
-
             padding: 1rem;
             border-inline-start: 1px solid $gray2;
         }
