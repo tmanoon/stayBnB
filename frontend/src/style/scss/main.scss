@@ -25,20 +25,20 @@
 @import 'cmps/MapFilter.scss';
 @import 'cmps/GuestFilter.scss';
 @import 'cmps/UserNavModal.scss';
+@import 'cmps/LoginSignup.scss';
+@import 'cmps/LabelsFilter.scss';
+@import 'cmps/FilterModal.scss';
+
+@import 'cmps/StayPreview.scss';
+@import 'cmps/Loading.scss';
 @import 'cmps/AppFooter.scss';
+
 @import 'cmps/ProgressFooter.scss';
 @import 'cmps/StayEditStages.scss';
 @import 'cmps/StayEditHeader.scss';
-@import 'cmps/Loading.scss';
-
-@import 'cmps/LoginSignup.scss';
-
-@import 'cmps/LabelsFilter.scss';
-@import 'cmps/StayPreview.scss';
-@import 'cmps/FilterModal.scss';
 
 @import 'cmps/StayGalleryPreview.scss';
-// @import 'cmps/StayGalleryModal.scss';
+@import 'cmps/GalleryModal.scss';
 @import 'cmps/StayReviewsPreview.scss';
 @import 'cmps/DetailsGuestCount.scss';
 @import 'cmps/ReservationModal.scss';

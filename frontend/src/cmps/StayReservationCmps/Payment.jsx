@@ -34,7 +34,6 @@ export function Payment({ stay, params }) {
         }
     }
 
-
     function onChoosePaymentMethod(e) {
         e.stopPropagation()
         setIsDownUpArrow(isDownUpArrow === 'arrow-down' ? 'arrow-up' : 'arrow-down')

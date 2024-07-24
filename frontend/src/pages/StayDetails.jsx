@@ -7,9 +7,10 @@ import { utilService } from "../services/util.service"
 import { loadStayById } from "../store/actions/stay.actions"
 
 import { StayGalleryPreview } from '../cmps/StayDetailsCmps/StayGalleryPreview'
-import { ReservationModal } from '../cmps/StayDetailsCmps/ReservationModal'
 import { BedroomDetails } from '../cmps/StayDetailsCmps/BedroomDetails'
 import { StayReviewsPreview } from "../cmps/StayDetailsCmps/StayReviewsPreview"
+import { ReservationModal } from '../cmps/StayDetailsCmps/ReservationModal'
+import { GalleryModal } from '../cmps/StayDetailsCmps/GalleryModal'
 import { Loading } from "../cmps/Loading"
 import { SvgPathCmp } from '../cmps/HelperCmps/SvgPathCmp'
 import { Accordion } from "../cmps/HelperCmps/Accordion"
@@ -17,15 +18,17 @@ import { userService } from "../services/user.service"
 import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 
 export function StayDetails() {
+    const { stayId } = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
     const safetyAmenities = ['Carbon monoxide alarm', 'Smoke alarm']
     const { isLoading } = useSelector(storeState => storeState.stayModule)
-    const { stayId } = useParams()
+
     const { txt, adults, children, infants, pets, entryDate, exitDate } = Object.fromEntries(searchParams.entries())
     const paramsFromFilter = { txt, adults, children, infants, pets, entryDate, exitDate }
     const [params, updateParams] = useState(paramsFromFilter)
     const [stay, setStay] = useState('')
     const [longestBedsCount, setLongestBedsCount] = useState(1)
+    const [isGalleryModal, setGalleryModal] = useState(false)
     const [user, setUser] = useState(null)
     const [isWishlistStay, setIsWishlistStay] = useState(false)
 
@@ -93,7 +96,7 @@ export function StayDetails() {
                 </div>
             </header>
 
-            <StayGalleryPreview stay={stay} />
+            <StayGalleryPreview stay={stay} setGalleryModal={setGalleryModal}/>
 
             <main className="content-and-modal-container grid">
                 <section className="content">
@@ -158,5 +161,6 @@ export function StayDetails() {
             <StayReviewsPreview stay={stay} />
         </section>
         }
+        {isGalleryModal && <GalleryModal stay={stay} setGalleryModal={setGalleryModal}/>}
     </>
 }

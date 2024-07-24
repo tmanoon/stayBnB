@@ -4,7 +4,7 @@ import { StringToSvg } from './StringToSvg'
 import { DynamicLocalHeaderNav } from './DynamicHeader/DynamicLocalHeaderNav'
 import { changeGalleryVisibility } from '../../store/actions/stay.actions'
 
-export function StayGalleryPreview({ stay }) {
+export function StayGalleryPreview({ stay, setGalleryModal }) {
     const gallery = useRef()
     const [fivePicsPreview, setFivePicsPreview] = useState([])
     const [galleryObserver, setGalleryObserver] = useState(null)
@@ -39,6 +39,10 @@ export function StayGalleryPreview({ stay }) {
         setGalleryObserver(observer)
       }
 
+      function openModal() {
+        setGalleryModal(true)
+      }
+
     return (
         <>
             {!isGalleryIntersecting && <>
@@ -46,7 +50,7 @@ export function StayGalleryPreview({ stay }) {
             </>}
             <section className="gallery-stay-details" id="gallery" ref={gallery}>
                 {fivePicsPreview && fivePicsPreview.map((pic, idx) => <img key={idx} src={pic} className={`img${idx}`} />)}
-                <button className='show-all-btn flex align-center'>{<StringToSvg svgString={staySvgService['showallphotos']} />} Show all photos</button>
+                <button className='show-all-btn flex align-center' onClick={openModal}>{<StringToSvg svgString={staySvgService['showallphotos']} />} Show all photos</button>
             </section>
         </>
     )
