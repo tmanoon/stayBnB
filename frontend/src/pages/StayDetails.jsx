@@ -36,15 +36,9 @@ export function StayDetails() {
     const [isPreviousStayed, setIsPreviousStay] = useState(null)
 
     useEffect(() => {
-        try {
-            const user = userService.getLoggedInUser()
-            if (user) setUser(user)
-            if (stayId) {
-                loadStay(stayId)
-                const isStay = isPreviouslyStayedCheck()
-                setIsPreviousStay(isStay)
-            } 
-        } catch (err) { console.log(err) }
+        const user = userService.getLoggedInUser()
+        if (user) setUser(user)
+        if (stayId) loadStay(stayId)
     }, [])
 
     useEffect(() => {
@@ -52,12 +46,28 @@ export function StayDetails() {
         setUrlSearchParams(searchParams)
     }, [stay, searchParams])
 
+    useEffect(() => {
+        if (stay && user) {
+            isPreviouslyStayedCheck()
+        }
+    }, [stay, user])
+
     async function loadStay(stayId) {
         try {
             const loadedStay = await loadStayById(stayId)
             setStay(loadedStay)
         } catch (error) {
             console.error("Error loading stay:", error)
+        }
+    }
+
+    async function isPreviouslyStayedCheck() {
+        try {
+            const userOrders = await orderService.getUserOrdersById(user._id)
+            setIsPreviousStay(userOrders.some(order => order.stay._id === stayId))
+        } catch (err) {
+            console.log(err)
+            setIsPreviousStay(false)
         }
     }
 
@@ -86,16 +96,6 @@ export function StayDetails() {
             alert('URL copied to clipboard!')
         } catch (err) {
             console.error('Failed to copy: ', err)
-        }
-    }
-
-    async function isPreviouslyStayedCheck() {
-        try {
-            const userOrders = await orderService.getUserOrdersById(user._id)
-            return userOrders.some(order => order.stay._id === stayId)
-        } catch (err) {
-            console.log(err)
-            return false
         }
     }
 
