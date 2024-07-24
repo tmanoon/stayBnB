@@ -110,10 +110,8 @@ export function AppHeader({ scrolledPage }) {
 
                     {modalType === 'user-nav' && <UserNavModal setIsLoginModal={setIsLoginModal} handleModalTypeChange={handleModalTypeChange} />}
                 </section>
-
                 {location.pathname === '/' && <LabelsFilter filterBy={filterBy} setStayFilter={setStayFilter} />}
             </header>
-
             {isLoginModal && <LoginSignup setIsLoginModal={setIsLoginModal} />}
         </>
     )
