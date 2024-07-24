@@ -39,15 +39,16 @@ export function StayIndex({ scrolledPage }) {
         } else { return 'index-header-expanded' }
     }
 
-    return <section className={`index-section ${scrolledHeader()}`}>
-        {isLoading && <Loading />}
-        {!isLoading && <>
-            <StayList stays={stays} filterBy={filterBy} />
-
-            <section className='index-end-section flex column center'>
-                <h1>Continue exploring homes</h1>
-                <button onClick={onIncreasePagination}>Show more</button>
-            </section>
-        </>}
-    </section>
+    return (
+        <section className={`index-section ${scrolledHeader()}`}>
+            {isLoading && <Loading />}
+            {!isLoading && <>
+                <StayList stays={stays} filterBy={filterBy} />
+                <section className='index-end-section flex column center'>
+                    <h1>Continue exploring homes</h1>
+                    <button onClick={onIncreasePagination}>Show more</button>
+                </section>
+            </>}
+        </section>
+    )
 }
