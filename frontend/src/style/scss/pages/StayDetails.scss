@@ -158,7 +158,12 @@
                 cursor: pointer;
             }
         }
+    }
 
+    #amenities,
+    #reviews,
+    #location {
+        scroll-margin-top: 75px
     }
 }
 

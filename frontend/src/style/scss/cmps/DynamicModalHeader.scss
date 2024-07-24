@@ -1,13 +1,17 @@
 .dynamic-modal-header {
-    padding-inline-end: rem(286.5px);
+    display: none;
     position: fixed;
-    z-index: 30;
-    left: 0;
+    right: 0;
     top: 0;
-    justify-content: flex-end;
-    width: 100%;
-    gap: 24px;
+
+    width: 40%;
     color: $darkGray;
+    padding-inline-end: 3rem;
+    margin-block-start: 0.75rem;
+    z-index: 1;
+
+    gap: 24px;
+    justify-content: end;
 
     .txt-container {
         gap: 2px;
@@ -19,23 +23,21 @@
                 font-size: em(14px);
             }
         }
+
         .txt-reviews {
             font-size: em(12px);
         }
     }
 
     button {
-        height: rem(48px);
-        background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
-        border-radius: $border-radius-2;
+        @include coloredBtn;
+
         line-height: 19px;
-        margin-block-start: 1rem;
-        margin-block-end: rem(8px);
-        cursor: pointer;
-        
-        span {
-            color: #ffffff;
-            font-family: circular-medium;
-        }
+    }
+}
+
+@media(width > 742px) {
+    .dynamic-modal-header {
+        display: flex;
     }
 }

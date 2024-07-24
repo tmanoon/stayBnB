@@ -87,6 +87,12 @@
             }
         }
     }
+
+    .leave-review-btn {
+        @include coloredBtn;
+        
+        height: 2.5rem;
+    }
 }
 
 .stay-details {

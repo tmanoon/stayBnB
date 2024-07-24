@@ -24,6 +24,6 @@ export function DynamicModalHeader({ stay, searchParams }) {
             <h3>${stay.price} <span>night</span></h3>
             <p className="txt-reviews">★ {utilService.calcRate(stay).toFixed(2)} ・ {stay.reviews.length} reviews </p>
         </div>
-        <button className='flex center' onClick={() => validateAndMoveToPayment()}><span >Reserve</span></button>
+        <button className='flex center' onClick={() => validateAndMoveToPayment()}>Reserve</button>
     </div>
 }

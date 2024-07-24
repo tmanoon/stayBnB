@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 
 import { utilService } from "../../services/util.service"
 
-export function StayReviewsPreview({ stay }) {
+export function StayReviewsPreview({ stay, isPreviousStayed }) {
     const [firstReviews, setFirstReviews] = useState([])
     const [showAllReviews, setShowAllReviews] = useState(false)
 
@@ -27,7 +27,7 @@ export function StayReviewsPreview({ stay }) {
         setShowAllReviews(false)
     }
     return <>
-        {firstReviews.length > 0 && <section className="stay-reviews grid" id="reviews">
+        {firstReviews.length > 0 && <section className="stay-reviews grid">
             {firstReviews.map((review, idx) => {
                 return <article key={`${review.by.id}${idx}`} className="review flex column">
                     <div className="user flex align-center">
@@ -50,8 +50,8 @@ export function StayReviewsPreview({ stay }) {
                         </div>
                     </div>
                 </article>
-            })
-            }
+            })}
+            {isPreviousStayed && <button className="leave-review-btn">Leave Review</button>}
         </section>}
 
         {showAllReviews && <>

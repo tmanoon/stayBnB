@@ -3,8 +3,11 @@ import { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector } from "react-redux"
 
-import { utilService } from "../services/util.service"
 import { loadStayById } from "../store/actions/stay.actions"
+import { userService } from "../services/user.service"
+import { orderService } from '../services/order.service'
+import { utilService } from "../services/util.service"
+import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 
 import { StayGalleryPreview } from '../cmps/StayDetailsCmps/StayGalleryPreview'
 import { BedroomDetails } from '../cmps/StayDetailsCmps/BedroomDetails'
@@ -14,8 +17,7 @@ import { GalleryModal } from '../cmps/StayDetailsCmps/GalleryModal'
 import { Loading } from "../cmps/Loading"
 import { SvgPathCmp } from '../cmps/HelperCmps/SvgPathCmp'
 import { Accordion } from "../cmps/HelperCmps/Accordion"
-import { userService } from "../services/user.service"
-import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
+import { set } from "date-fns"
 
 export function StayDetails() {
     const { stayId } = useParams()
@@ -31,6 +33,7 @@ export function StayDetails() {
     const [isGalleryModal, setGalleryModal] = useState(false)
     const [user, setUser] = useState(null)
     const [isWishlistStay, setIsWishlistStay] = useState(false)
+    const [isPreviousStayed, setIsPreviousStay] = useState(null)
 
     useEffect(() => {
         const user = userService.getLoggedInUser()
@@ -43,12 +46,28 @@ export function StayDetails() {
         setUrlSearchParams(searchParams)
     }, [stay, searchParams])
 
+    useEffect(() => {
+        if (stay && user) {
+            isPreviouslyStayedCheck()
+        }
+    }, [stay, user])
+
     async function loadStay(stayId) {
         try {
             const loadedStay = await loadStayById(stayId)
             setStay(loadedStay)
         } catch (error) {
             console.error("Error loading stay:", error)
+        }
+    }
+
+    async function isPreviouslyStayedCheck() {
+        try {
+            const userOrders = await orderService.getUserOrdersById(user._id)
+            setIsPreviousStay(userOrders.some(order => order.stay._id === stayId))
+        } catch (err) {
+            console.log(err)
+            setIsPreviousStay(false)
         }
     }
 
@@ -70,36 +89,41 @@ export function StayDetails() {
         }
     }
 
+    async function copyUrlToClipboard() {
+        try {
+            const url = window.location.href
+            await navigator.clipboard.writeText(url)
+            alert('URL copied to clipboard!')
+        } catch (err) {
+            console.error('Failed to copy: ', err)
+        }
+    }
+
     return <>
         {isLoading && <Loading currentPage={'details'} />}
         {stay && <section className="stay-details">
             <header className="flex space-between">
                 <h1>{stay.summary}</h1>
                 <div className="header-btns flex">
-                    <button className="share-btn flex align-center">
+                    <button className="share-btn flex align-center" onClick={copyUrlToClipboard}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'none', height: '16px', width: '16px', stroke: 'currentcolor', strokeWidth: '2', overflow: 'visible' }}><g fill="none"><path d="M27 18v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-9M16 3v23V3zM6 13l9.3-9.3a1 1 0 0 1 1.4 0L26 13"></path></g></svg>
                         <span>Share</span>
                     </button>
                     <button className="save-btn flex align-center" onClick={() => onSaveBtn()}>
                         {!isWishlistStay &&
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'none', height: '16px', width: '16px', stroke: 'currentcolor', strokeWidth: 2, overflow: 'visible' }}>
-                                <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z">
-                                </path>
-                            </svg>}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'none', height: '16px', width: '16px', stroke: 'currentcolor', strokeWidth: 2, overflow: 'visible' }}><path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path></svg>}
                         {isWishlistStay &&
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'rgb(255, 56, 92)', height: '16px', width: '16px', stroke: 'rgb(255, 56, 92)', strokeWidth: '2', overflow: 'visible' }}>
-                                <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z">
-                                </path>
-                            </svg>}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'rgb(255, 56, 92)', height: '16px', width: '16px', stroke: 'rgb(255, 56, 92)', strokeWidth: '2', overflow: 'visible' }}><path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path></svg>}
                         <span>Save</span>
                     </button>
                 </div>
             </header>
 
-            <StayGalleryPreview stay={stay} setGalleryModal={setGalleryModal}/>
+            <StayGalleryPreview stay={stay} setGalleryModal={setGalleryModal} />
 
             <main className="content-and-modal-container grid">
                 <section className="content">
+
                     <article className="place-info flex column">
                         <h1>Entire {stay.propertyType} in {stay.loc.city}, {stay.loc.country}</h1>
                         <p>{stay.capacity > 1 ? stay.capacity + ' guests' : '1 guest'}・ {stay.bbb.bedrooms.length > 1 ? stay.bbb.bedrooms.length + ' bedrooms' : '1 bedroom'}  ・
@@ -134,6 +158,7 @@ export function StayDetails() {
                             })}
                         </div>
                     </article>
+
                     <article className="amenity-info" id="amenities">
                         <h1>What this place offers </h1>
                         <ul className="amenities-ul grid">
@@ -158,9 +183,12 @@ export function StayDetails() {
                 </section>
                 <ReservationModal stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} />
             </main>
-            <StayReviewsPreview stay={stay} />
+
+            <div id="reviews">
+                <StayReviewsPreview stay={stay} isPreviousStayed={isPreviousStayed} />
+            </div>
         </section>
         }
-        {isGalleryModal && <GalleryModal stay={stay} setGalleryModal={setGalleryModal}/>}
+        {isGalleryModal && <GalleryModal stay={stay} setGalleryModal={setGalleryModal} />}
     </>
 }

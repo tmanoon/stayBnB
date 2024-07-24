@@ -1,25 +1,32 @@
 .dynamic-header-nav {
-    display: flex;
-    padding-inline-start: rem(286.5px);
-    position: fixed;
-    z-index: 2;
-    left: 0;
-    top: 0;
-    color: $darkGray;
-    background-color: #fff;
-    width: 100%;
-    gap: 24px;
-    border-block-end: 0.667px solid $lightGray;
-    
-    a {
-        font-size: rem(14px);
-        color: $darkGray;
-        padding-block: 30px;
-        font-family: circular-reg;
+    display: none;
+}
 
-        &:hover {
-            border-block-end: 3px solid $darkGray;
+@media (width > 742px) {
+    .dynamic-header-nav {
+        position: fixed;
+        left: 0;
+        top: 0;
+        
+        width: 100%;
+        color: $darkGray;
+        background-color: #fff;
+        padding-inline-start: 3rem;
+        border-block-end: 0.667px solid $lightGray;
+        z-index: 1;
+    
+        display: flex;
+        gap: 24px;
+        
+        a {
+            font-size: rem(14px);
+            color: $darkGray;
+            padding-block: 30px;
+            font-family: circular-reg;
+    
+            &:hover {
+                border-block-end: 3px solid $darkGray;
+            }
         }
     }
 }
-
