@@ -183,7 +183,10 @@ export function StayDetails() {
                 </section>
                 <ReservationModal stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} />
             </main>
-            <StayReviewsPreview stay={stay} isPreviousStayed={isPreviousStayed} />
+
+            <div id="reviews">
+                <StayReviewsPreview stay={stay} isPreviousStayed={isPreviousStayed} />
+            </div>
         </section>
         }
         {isGalleryModal && <GalleryModal stay={stay} setGalleryModal={setGalleryModal} />}

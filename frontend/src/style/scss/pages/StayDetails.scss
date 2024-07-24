@@ -158,13 +158,12 @@
                 cursor: pointer;
             }
         }
+    }
 
-        #gallery,
-        #amenities,
-        #reviews,
-        #location {
-            scroll-margin-top: 77px
-        }
+    #amenities,
+    #reviews,
+    #location {
+        scroll-margin-top: 75px
     }
 }
 

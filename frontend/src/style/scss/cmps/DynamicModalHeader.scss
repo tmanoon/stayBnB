@@ -1,13 +1,17 @@
 .dynamic-modal-header {
-    padding-inline-end: rem(286.5px);
+    display: none;
     position: fixed;
-    z-index: 30;
-    left: 0;
+    right: 0;
     top: 0;
-    justify-content: flex-end;
-    width: 100%;
-    gap: 24px;
+
+    width: 40%;
     color: $darkGray;
+    padding-inline-end: 3rem;
+    margin-block-start: 0.75rem;
+    z-index: 1;
+
+    gap: 24px;
+    justify-content: end;
 
     .txt-container {
         gap: 2px;
@@ -19,6 +23,7 @@
                 font-size: em(14px);
             }
         }
+
         .txt-reviews {
             font-size: em(12px);
         }
@@ -26,7 +31,13 @@
 
     button {
         @include coloredBtn;
-        
+
         line-height: 19px;
+    }
+}
+
+@media(width > 742px) {
+    .dynamic-modal-header {
+        display: flex;
     }
 }

@@ -27,7 +27,7 @@ export function StayReviewsPreview({ stay, isPreviousStayed }) {
         setShowAllReviews(false)
     }
     return <>
-        {firstReviews.length > 0 && <section className="stay-reviews grid" id="reviews">
+        {firstReviews.length > 0 && <section className="stay-reviews grid">
             {firstReviews.map((review, idx) => {
                 return <article key={`${review.by.id}${idx}`} className="review flex column">
                     <div className="user flex align-center">
