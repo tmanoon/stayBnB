@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 
 import { utilService } from "../../services/util.service"
 
-export function StayReviewsPreview({ stay }) {
+export function StayReviewsPreview({ stay, isPreviousStayed }) {
     const [firstReviews, setFirstReviews] = useState([])
     const [showAllReviews, setShowAllReviews] = useState(false)
 
@@ -50,8 +50,8 @@ export function StayReviewsPreview({ stay }) {
                         </div>
                     </div>
                 </article>
-            })
-            }
+            })}
+            {isPreviousStayed && <button className="leave-review-btn">Leave Review</button>}
         </section>}
 
         {showAllReviews && <>

@@ -3,8 +3,11 @@ import { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector } from "react-redux"
 
-import { utilService } from "../services/util.service"
 import { loadStayById } from "../store/actions/stay.actions"
+import { userService } from "../services/user.service"
+import { orderService } from '../services/order.service'
+import { utilService } from "../services/util.service"
+import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 
 import { StayGalleryPreview } from '../cmps/StayDetailsCmps/StayGalleryPreview'
 import { BedroomDetails } from '../cmps/StayDetailsCmps/BedroomDetails'
@@ -14,8 +17,7 @@ import { GalleryModal } from '../cmps/StayDetailsCmps/GalleryModal'
 import { Loading } from "../cmps/Loading"
 import { SvgPathCmp } from '../cmps/HelperCmps/SvgPathCmp'
 import { Accordion } from "../cmps/HelperCmps/Accordion"
-import { userService } from "../services/user.service"
-import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
+import { set } from "date-fns"
 
 export function StayDetails() {
     const { stayId } = useParams()
@@ -31,11 +33,18 @@ export function StayDetails() {
     const [isGalleryModal, setGalleryModal] = useState(false)
     const [user, setUser] = useState(null)
     const [isWishlistStay, setIsWishlistStay] = useState(false)
+    const [isPreviousStayed, setIsPreviousStay] = useState(null)
 
     useEffect(() => {
-        const user = userService.getLoggedInUser()
-        if (user) setUser(user)
-        if (stayId) loadStay(stayId)
+        try {
+            const user = userService.getLoggedInUser()
+            if (user) setUser(user)
+            if (stayId) {
+                loadStay(stayId)
+                const isStay = isPreviouslyStayedCheck()
+                setIsPreviousStay(isStay)
+            } 
+        } catch (err) { console.log(err) }
     }, [])
 
     useEffect(() => {
@@ -80,6 +89,16 @@ export function StayDetails() {
         }
     }
 
+    async function isPreviouslyStayedCheck() {
+        try {
+            const userOrders = await orderService.getUserOrdersById(user._id)
+            return userOrders.some(order => order.stay._id === stayId)
+        } catch (err) {
+            console.log(err)
+            return false
+        }
+    }
+
     return <>
         {isLoading && <Loading currentPage={'details'} />}
         {stay && <section className="stay-details">
@@ -104,6 +123,7 @@ export function StayDetails() {
 
             <main className="content-and-modal-container grid">
                 <section className="content">
+
                     <article className="place-info flex column">
                         <h1>Entire {stay.propertyType} in {stay.loc.city}, {stay.loc.country}</h1>
                         <p>{stay.capacity > 1 ? stay.capacity + ' guests' : '1 guest'}・ {stay.bbb.bedrooms.length > 1 ? stay.bbb.bedrooms.length + ' bedrooms' : '1 bedroom'}  ・
@@ -138,6 +158,7 @@ export function StayDetails() {
                             })}
                         </div>
                     </article>
+
                     <article className="amenity-info" id="amenities">
                         <h1>What this place offers </h1>
                         <ul className="amenities-ul grid">
@@ -162,7 +183,7 @@ export function StayDetails() {
                 </section>
                 <ReservationModal stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} />
             </main>
-            <StayReviewsPreview stay={stay} />
+            <StayReviewsPreview stay={stay} isPreviousStayed={isPreviousStayed} />
         </section>
         }
         {isGalleryModal && <GalleryModal stay={stay} setGalleryModal={setGalleryModal} />}

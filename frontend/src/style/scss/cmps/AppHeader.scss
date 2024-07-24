@@ -128,6 +128,8 @@
     }
 
     .user-section {
+        position: relative;
+
         justify-content: end;
         gap: 1em;
 
@@ -136,10 +138,9 @@
             border-radius: $border-radius-circle;
         }
 
-        a {
+        .edit-btn {
             font-size: 0.875rem;
             border-radius: 40px;
-            ;
             padding: 0.5rem 0.75rem;
             font-family: circular-medium;
             text-wrap: nowrap;
@@ -197,7 +198,7 @@
     .full-app-header {
         margin-block-end: 0em;
 
-        .user-section a,
+        .user-section .edit-btn,
         .logo-section span {
             display: none;
         }
@@ -222,7 +223,6 @@
 
 @media (width < 500px) {
     .full-app-header {
-
         .filter-section .compact-filter {
             grid-template-columns: 1fr 2.4rem;
 
