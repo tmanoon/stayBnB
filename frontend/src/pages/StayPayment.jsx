@@ -97,7 +97,7 @@ export function StayPayment() {
                             <h4>Dates</h4>
                             <p>{utilService.timestampsToShortDates(+searchParams.entryDate, +searchParams.exitDate)}</p>
                         </div>
-                        <button onClick={() => onModal(modalType === 'dates' ? null : 'dates')}>Edit</button>
+                        <button onClick={() => onModal('dates')}>Edit</button>
                     </div>
 
                     <div className='guests flex space-between'>
@@ -105,7 +105,7 @@ export function StayPayment() {
                             <h4>Guests</h4>
                             <p>{stayService.guestCountStringForReservation(searchParams)}</p>
                         </div>
-                        <button onClick={() => onModal(modalType === 'guests' ? null : 'guests')}>Edit</button>
+                        <button onClick={() => onModal('guests')}>Edit</button>
                     </div>
 
                     {modalType === 'guests' && <><div className='clearOverlay' onClick={() => onModal(null)}></div> <GuestCountModal stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} onModal={onModal} /></>}
