@@ -43,10 +43,8 @@ export function StayPayment() {
 
     return (
         <section className="stay-payment grid">
-            <>
                 <Payment stay={stay} params={params} />
                 <PaymentModal stay={stay} params={params} />
-            </>
         </section>
     )
 }
