@@ -3,15 +3,15 @@ import { useSelector } from 'react-redux'
 import { useState, useEffect } from "react"
 import { useLocation } from 'react-router-dom'
 
-import { stayService } from "../../services/stay.service"
-import { userService } from "../../services/user.service"
-import { setStayFilter } from "../../store/actions/stay.actions"
+import { stayService } from "../services/stay.service"
+import { userService } from "../services/user.service"
+import { setStayFilter } from "../store/actions/stay.actions"
 
-import { LoginSignup } from "../LoginSignup"
-import { HeaderFilter } from "./HeaderFilter"
-import { UserNavModal } from "./UserNavModal"
-import { LabelsFilter } from "./LabelsFilter"
-import { utilService } from "../../services/util.service"
+import { LoginSignup } from "./LoginSignup"
+import { HeaderFilterSearch } from "./HeaderCmps/HeaderFilterSearch"
+import { UserNavModal } from "./HeaderCmps/UserNavModal"
+import { LabelsFilter } from "./HeaderCmps/LabelsFilter"
+import { utilService } from "../services/util.service"
 
 export function AppHeader({ scrolledPage }) {
     const navigate = useNavigate()
@@ -99,7 +99,7 @@ export function AppHeader({ scrolledPage }) {
                         }
                         <button className="search-btn flex center"></button>
                     </div>
-                    <HeaderFilter modalType={modalType} handleModalTypeChange={handleModalTypeChange} />
+                    <HeaderFilterSearch modalType={modalType} handleModalTypeChange={handleModalTypeChange} />
                 </section>
                 <section className="user-section flex align-center" >
                     <NavLink to="/edit" onClick={(ev) => checkNavigatePath(ev, '/edit')}>Staybnb your home</NavLink>

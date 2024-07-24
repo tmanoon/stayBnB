@@ -1,4 +1,4 @@
-export function GuestFilter({ filterByToEdit, setFilterByToEdit }) {
+export function HeaderGuestFilter({ filterByToEdit, setFilterByToEdit }) {
 
     function updateGuestCounts(guestType, countChange) {
         const newGuestCount = { ...filterByToEdit.guestCount }

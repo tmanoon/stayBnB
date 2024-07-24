@@ -1,4 +1,4 @@
-export function MapFilter({ handleModalTypeChange, filterByToEdit, setFilterByToEdit }) {
+export function HeaderMapFilter({ handleModalTypeChange, filterByToEdit, setFilterByToEdit }) {
 
     const regionsAndPics = [
         {region: '', imgSrc: 'https://res.cloudinary.com/db7t5amdv/image/upload/v1713173021/kmhnayfz9phpmfecbkqe.jpg', desc: 'I\'m flexible'},

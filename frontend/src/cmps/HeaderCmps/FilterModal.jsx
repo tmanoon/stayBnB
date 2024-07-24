@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 
-import { stayService } from "../services/stay.service"
-import { filterLists } from "../services/filterLists.service"
+import { stayService } from "../../services/stay.service"
+import { filterLists } from "../../services/filterLists.service"
 
-import { PriceRangeChart } from "./PriceRangeChart"
-import { ButtonGroup } from "./HelperCmps/ButtonGroup"
-import { ButtonGroupWithObjects } from "./HelperCmps/ButtonGroupWithObjects"
-import { CheckboxGroup } from "./HelperCmps/CheckboxGroup"
-import { Accordion } from "./HelperCmps/Accordion"
-import { SwitchCmp } from "./HelperCmps/SwitchCmp"
+import { PriceRangeChart } from "../PriceRangeChart"
+import { ButtonGroup } from "../HelperCmps/ButtonGroup"
+import { ButtonGroupWithObjects } from "../HelperCmps/ButtonGroupWithObjects"
+import { CheckboxGroup } from "../HelperCmps/CheckboxGroup"
+import { Accordion } from "../HelperCmps/Accordion"
+import { SwitchCmp } from "../HelperCmps/SwitchCmp"
 import Slider from '@mui/material/Slider'
 import { styled } from '@mui/material/styles'
 

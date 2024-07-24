@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { LabelsGroup } from "../HelperCmps/LabelsGroup"
-import { FilterModal } from '../FilterModal'
+import { FilterModal } from '../HeaderCmps/FilterModal'
 import { filterLists } from "../../services/filterLists.service"
 import { SvgPathCmp } from "../HelperCmps/SvgPathCmp"
 

@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { DateFilter } from './DateFilter'
-import { MapFilter } from './MapFilter'
-import { GuestFilter } from './GuestFilter'
+import { HeaderDateFilter } from './HeaderDateFilter'
+import { HeaderMapFilter } from './HeaderMapFilter'
+import { HeaderGuestFilter } from './HeaderGuestFilter'
 import { loadStays, setStayFilter } from '../../store/actions/stay.actions'
 import { utilService } from '../../services/util.service'
 import { stayService } from '../../services/stay.service'
 
-export function HeaderFilter({ modalType, handleModalTypeChange }) {
+export function HeaderFilterSearch({ modalType, handleModalTypeChange }) {
     const header = useRef(null)
     const navigate = useNavigate()
     let filterBy = useSelector(storeState => storeState.stayModule.filterBy)
@@ -65,9 +65,9 @@ export function HeaderFilter({ modalType, handleModalTypeChange }) {
                 <button onClick={onLoadStays} className={`search-btn ${modalType !== '' && modalType !== 'user-nav' ? 'compact' : ''}`} ><span>Search</span></button>
             </div>
 
-            {modalType === 'map' && <MapFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
-            {(modalType === 'check-in' || modalType === 'check-out') && <DateFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
-            {modalType === 'guest' && <GuestFilter filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
+            {modalType === 'map' && <HeaderMapFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
+            {(modalType === 'check-in' || modalType === 'check-out') && <HeaderDateFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
+            {modalType === 'guest' && <HeaderGuestFilter filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
         </section>
     )
 }
