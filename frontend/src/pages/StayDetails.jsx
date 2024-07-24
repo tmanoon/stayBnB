@@ -70,33 +70,37 @@ export function StayDetails() {
         }
     }
 
+    async function copyUrlToClipboard() {
+        try {
+            const url = window.location.href
+            await navigator.clipboard.writeText(url)
+            alert('URL copied to clipboard!')
+        } catch (err) {
+            console.error('Failed to copy: ', err)
+        }
+    }
+
     return <>
         {isLoading && <Loading currentPage={'details'} />}
         {stay && <section className="stay-details">
             <header className="flex space-between">
                 <h1>{stay.summary}</h1>
                 <div className="header-btns flex">
-                    <button className="share-btn flex align-center">
+                    <button className="share-btn flex align-center" onClick={copyUrlToClipboard}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'none', height: '16px', width: '16px', stroke: 'currentcolor', strokeWidth: '2', overflow: 'visible' }}><g fill="none"><path d="M27 18v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-9M16 3v23V3zM6 13l9.3-9.3a1 1 0 0 1 1.4 0L26 13"></path></g></svg>
                         <span>Share</span>
                     </button>
                     <button className="save-btn flex align-center" onClick={() => onSaveBtn()}>
                         {!isWishlistStay &&
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'none', height: '16px', width: '16px', stroke: 'currentcolor', strokeWidth: 2, overflow: 'visible' }}>
-                                <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z">
-                                </path>
-                            </svg>}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'none', height: '16px', width: '16px', stroke: 'currentcolor', strokeWidth: 2, overflow: 'visible' }}><path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path></svg>}
                         {isWishlistStay &&
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'rgb(255, 56, 92)', height: '16px', width: '16px', stroke: 'rgb(255, 56, 92)', strokeWidth: '2', overflow: 'visible' }}>
-                                <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z">
-                                </path>
-                            </svg>}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style={{ display: 'block', fill: 'rgb(255, 56, 92)', height: '16px', width: '16px', stroke: 'rgb(255, 56, 92)', strokeWidth: '2', overflow: 'visible' }}><path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path></svg>}
                         <span>Save</span>
                     </button>
                 </div>
             </header>
 
-            <StayGalleryPreview stay={stay} setGalleryModal={setGalleryModal}/>
+            <StayGalleryPreview stay={stay} setGalleryModal={setGalleryModal} />
 
             <main className="content-and-modal-container grid">
                 <section className="content">
@@ -161,6 +165,6 @@ export function StayDetails() {
             <StayReviewsPreview stay={stay} />
         </section>
         }
-        {isGalleryModal && <GalleryModal stay={stay} setGalleryModal={setGalleryModal}/>}
+        {isGalleryModal && <GalleryModal stay={stay} setGalleryModal={setGalleryModal} />}
     </>
 }
