@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { socketService, SOCKET_SERVICE_NOTIFICATION } from '../services/socket.service'
 export function UserNotification() {
     // const [isNotification, setIsNotification] = useState(false)
-    const [msg, SetMsg] = useState('')
-    
+    const [msg, SetMsg] = useState({ actionName: '' }, { txt: '' })
+
     // useEffect(() => {
     //     socketService.on(SOCKET_SERVICE_NOTIFICATION, promptNotification)
     // }, [])
@@ -15,8 +15,9 @@ export function UserNotification() {
     //     setTimeout(() => { SetMsg('')},1000)
     // }
 
-    if(!msg) return <span></span>
-    return <div className='notification-msg'>
-    {msg}
-    </div>
+    if (!msg) return <span></span>
+    return <section className='notification-msg'>
+        <h1>{Manager.actionName}</h1>
+        <p>{msg.txt}</p>
+    </section>
 }
