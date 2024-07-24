@@ -1,41 +1,41 @@
-import React, { useState } from "react";
-import { DateRangePicker } from "react-date-range";
+import React, { useState } from "react"
+import { DateRangePicker } from "react-date-range"
 
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import "react-date-range/dist/styles.css" // main css file
+import "react-date-range/dist/theme/default.css" // theme css file
 
-export function StayDetailsDateModal({ updateParams, params, stay }) {
+export function StayDetailsDateModal({ stay, searchParams, setSearchParams }) {
     const [dateRange, setDateRange] = useState([
         {
-            startDate: +params.entryDate,
-            endDate: +params.exitDate,
+            startDate: +searchParams.entryDate,
+            endDate: +searchParams.exitDate,
             key: "selection"
         }
-    ]);
+    ])
 
     const handleSelect = (ranges) => {
-        const startDateTimestamp = ranges.selection.startDate.getTime();
-        const endDateTimestamp = ranges.selection.endDate.getTime();
+        const startDateTimestamp = ranges.selection.startDate.getTime()
+        const endDateTimestamp = ranges.selection.endDate.getTime()
 
-        if (!params.entryDate && !params.exitDate) {
-            updateParams({ ...params, entryDate: startDateTimestamp });
-        } else if (params.entryDate && !params.exitDate) {
-            updateParams({ ...params, exitDate: endDateTimestamp });
+        if (!searchParams.entryDate && !searchParams.exitDate) {
+            setSearchParams({ ...searchParams, entryDate: startDateTimestamp })
+        } else if (searchParams.entryDate && !searchParams.exitDate) {
+            setSearchParams({ ...searchParams, exitDate: endDateTimestamp })
         } else {
-            updateParams({ ...params, entryDate: startDateTimestamp, exitDate: null });
+            setSearchParams({ ...searchParams, entryDate: startDateTimestamp, exitDate: null })
         }
 
-        setDateRange([ranges.selection]);
-    };
+        setDateRange([ranges.selection])
+    }
 
     const disabledDatesArray = stay.bookedDates.reduce((acc, booking) => {
-        const entryDate = new Date(booking.entryDate);
-        const exitDate = new Date(booking.exitDate);
+        const entryDate = new Date(booking.entryDate)
+        const exitDate = new Date(booking.exitDate)
 
-        const datesBetween = getDatesBetween(entryDate, exitDate);
+        const datesBetween = getDatesBetween(entryDate, exitDate)
 
-        return acc.concat(datesBetween);
-    }, []);
+        return acc.concat(datesBetween)
+    }, [])
 
     return (
         <section className='stay-details-date-filter '>
@@ -57,17 +57,16 @@ export function StayDetailsDateModal({ updateParams, params, stay }) {
                 }
             />
         </section>
-    );
+    )
 }
 
 function getDatesBetween(startDate, endDate) {
-    const dates = [];
-    const currentDate = new Date(startDate);
+    const dates = []
+    const currentDate = new Date(startDate)
 
     while (currentDate <= endDate) {
-        dates.push(new Date(currentDate));
-        currentDate.setDate(currentDate.getDate() + 1);
+        dates.push(new Date(currentDate))
+        currentDate.setDate(currentDate.getDate() + 1)
     }
-
-    return dates;
+    return dates
 }

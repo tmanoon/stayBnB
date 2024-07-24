@@ -20,7 +20,6 @@ export function StayIndex({ scrolledPage }) {
         const filterByParams = { txt, entryDate, exitDate, label, placeType, propType, amenities, accessibility, hostLngs, pagination, ...filterBy.guestCount, ...filterBy.priceRange, ...filterBy.bbb, ...filterBy.bookingOpts }
         setSearchParams(filterByParams)
         loadStays()
-
     }, [filterBy])
 
     useEffect(() => {
@@ -32,27 +31,23 @@ export function StayIndex({ scrolledPage }) {
     function onIncreasePagination() {
         const newPagination = (filterBy.pagination || 0) + 30
         setStayFilter({ ...filterBy, pagination: newPagination >= 60 ? newPagination : 60 })
-
     }
 
     const scrolledHeader = () => {
         if (scrolledPage) {
             return 'index-header-condensed'
-        } else {
-            return 'index-header-expanded'
-        }
+        } else { return 'index-header-expanded' }
     }
 
     return <section className={`index-section ${scrolledHeader()}`}>
         {isLoading && <Loading />}
-        {!isLoading && <><StayList
-            stays={stays}
-            filterBy={filterBy}
-            scrolledPage={scrolledPage}
-        />
+        {!isLoading && <>
+            <StayList stays={stays} filterBy={filterBy} />
+
             <section className='index-end-section flex column center'>
                 <h1>Continue exploring homes</h1>
                 <button onClick={onIncreasePagination}>Show more</button>
-            </section></>}
+            </section>
+        </>}
     </section>
 }

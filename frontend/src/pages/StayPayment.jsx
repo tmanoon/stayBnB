@@ -7,34 +7,27 @@ import { useLocation, useSearchParams } from 'react-router-dom'
 import { Loading } from '../cmps/Loading'
 
 export function StayPayment() {
+    const location = useLocation()
     const { stayId } = useParams()
     const [stay, setStay] = useState('')
-    const [searchParams, setSearchParams] = useSearchParams()
-    const location = useLocation()
-    const queryParams = new URLSearchParams(location.search)
 
-    const { txt, adults, children, infants, pets, entryDate, exitDate } = Object.fromEntries(queryParams.entries())
-    const paramsFromFilter = { txt, adults, children, infants, pets, entryDate, exitDate }
-
-    const [params, updateParams] = useState(paramsFromFilter)
+    const [URLSearchParams, setUrlSearchParams] = useSearchParams()
+    const { adults, children, infants, pets, entryDate, exitDate } = Object.fromEntries(URLSearchParams.entries())
+    const [searchParams, setSearchParams] = useState({ adults, children, infants, pets, entryDate, exitDate })
 
     useEffect(() => {
-        setSearchParams(params)
-    }, [params])
-
-    useEffect(() => {
-        if (stayId) {
-            loadStay()
-        }
+        if (stayId) { loadStay() }
     }, [])
+
+    useEffect(() => {
+        setUrlSearchParams(searchParams)
+    }, [searchParams])
 
     async function loadStay() {
         try {
             const stay = await stayService.getById(stayId)
             setStay(stay)
-        } catch (err) {
-            console.log(err)
-        }
+        } catch (err) { console.log(err) }
     }
 
     if (!stay) {
@@ -43,8 +36,8 @@ export function StayPayment() {
 
     return (
         <section className="stay-payment grid">
-                <Payment stay={stay} params={params} />
-                <PaymentModal stay={stay} params={params} />
+            <Payment stay={stay} searchParams={searchParams} />
+            <PaymentModal stay={stay} searchParams={searchParams} />
         </section>
     )
 }

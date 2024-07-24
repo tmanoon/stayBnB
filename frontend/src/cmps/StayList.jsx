@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { StayPreview } from './StayPreview.jsx'
 import { store } from '../store/store.js'
 
-export function StayList({ stays, filterBy, scrolledPage }) {
+export function StayList({ stays, filterBy }) {
     let { guestCount, entryDate, exitDate } = filterBy
 
     if (!entryDate && !exitDate) {
@@ -27,8 +27,8 @@ export function StayList({ stays, filterBy, scrolledPage }) {
                 <li key={stay._id}>
                     <Link to={{
                         pathname: `/${stay._id}`,
-                        search: condensedSP
-                        // target='_blank'
+                        search: condensedSP,
+                        // target: '_blank'
                     }}
                     >
                         <StayPreview

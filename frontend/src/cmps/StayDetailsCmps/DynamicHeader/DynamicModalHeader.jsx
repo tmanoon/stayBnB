@@ -1,18 +1,18 @@
 import { utilService } from "../../../services/util.service"
 import { useNavigate } from "react-router"
 
-export function DynamicModalHeader({ stay, params }) {
+export function DynamicModalHeader({ stay, searchParams }) {
     const navigate = useNavigate()
     
     function validateAndMoveToPayment() {
-        if (params.entryDate && params.exitDate &&
-            (params.adults || params.children || params.infants)) {
+        if (searchParams.entryDate && searchParams.exitDate &&
+            (searchParams.adults || searchParams.children || searchParams.infants)) {
             const queryParams = new URLSearchParams({
-                entryDate: params.entryDate,
-                exitDate: params.exitDate,
-                adults: params.adults || '',
-                children: params.children || '',
-                infants: params.infants || ''
+                entryDate: searchParams.entryDate,
+                exitDate: searchParams.exitDate,
+                adults: searchParams.adults || '',
+                children: searchParams.children || '',
+                infants: searchParams.infants || ''
             }).toString()
 
             navigate(`/${stay._id}/payment?${queryParams}`)

@@ -1,23 +1,17 @@
-import { useState, useEffect } from 'react'
-import { loadStays, removeStay, saveStay, setStayFilter } from '../../store/actions/stay.actions.js'
-import { store } from '../../store/store.js'
+export function GuestCount({ stay, searchParams, setSearchParams, setModal }) {
 
-export function GuestCount({ openModalType, params, updateParams, stay}) {
-
-    function onCloseModal(ev) {
-        ev.stopPropagation()
-
-        openModalType('')
+    function onCloseModal() {
+        setModal('')
     }
-    
+
     function updateGuestCounts(guestType, countChange) {
-        const newParams = { ...params }
+        const newParams = { ...searchParams }
 
         const currentCount = parseInt(newParams[guestType])
 
         newParams[guestType] = Math.max(0, currentCount + countChange)
 
-        updateParams(newParams)
+        setSearchParams(newParams)
     }
 
     return <section className="details-guest-count">
@@ -31,14 +25,14 @@ export function GuestCount({ openModalType, params, updateParams, stay}) {
                 </div>
 
                 <div className="count">
-                    <button className={+params.adults === 1 ? 'disabled' : ''} onClick={() => {
-                        if (params.adults > 1) {
+                    <button className={+searchParams.adults === 1 ? 'disabled' : ''} onClick={() => {
+                        if (searchParams.adults > 1) {
                             updateGuestCounts('adults', -1)
                         }
                     }}>-</button>
-                    {+params.adults}
-                    <button className={+params.adults + +params.children >= stay.capacity ? 'disabled' : ''} onClick={() => {
-                        if (+params.adults + +params.children < stay.capacity) {
+                    {+searchParams.adults}
+                    <button className={+searchParams.adults + +searchParams.children >= stay.capacity ? 'disabled' : ''} onClick={() => {
+                        if (+searchParams.adults + +searchParams.children < stay.capacity) {
                             updateGuestCounts('adults', +1)
                         }
                     }}>+</button>
@@ -53,14 +47,14 @@ export function GuestCount({ openModalType, params, updateParams, stay}) {
                 </div>
 
                 <div className="count">
-                    <button className={+params.children === 0 ? 'disabled' : ''} onClick={() => {
-                        if (+params.children > 0) {
+                    <button className={+searchParams.children === 0 ? 'disabled' : ''} onClick={() => {
+                        if (+searchParams.children > 0) {
                             updateGuestCounts('children', -1)
                         }
                     }}>-</button>
-                    {+params.children}
-                    <button className={+params.adults + +params.children >= stay.capacity ? 'disabled' : ''} onClick={() => {
-                        if (+params.adults + +params.children < stay.capacity) {
+                    {+searchParams.children}
+                    <button className={+searchParams.adults + +searchParams.children >= stay.capacity ? 'disabled' : ''} onClick={() => {
+                        if (+searchParams.adults + +searchParams.children < stay.capacity) {
                             updateGuestCounts('children', +1)
                         }
                     }}>+</button>
@@ -76,14 +70,14 @@ export function GuestCount({ openModalType, params, updateParams, stay}) {
                 </div>
 
                 <div className="count">
-                    <button className={+params.infants === 0 ? 'disabled' : ''} onClick={() => {
-                        if (+params.infants > 0) {
+                    <button className={+searchParams.infants === 0 ? 'disabled' : ''} onClick={() => {
+                        if (+searchParams.infants > 0) {
                             updateGuestCounts('infants', -1)
                         }
                     }}>-</button>
-                    {+params.infants}
-                    <button className={+params.infants === 5 ? 'disabled' : ''} onClick={() => {
-                        if (+params.infants < 5) {
+                    {+searchParams.infants}
+                    <button className={+searchParams.infants === 5 ? 'disabled' : ''} onClick={() => {
+                        if (+searchParams.infants < 5) {
                             updateGuestCounts('infants', +1)
                         }
                     }}>+</button>
@@ -97,14 +91,14 @@ export function GuestCount({ openModalType, params, updateParams, stay}) {
                 </div>
 
                 <div className="count">
-                    <button className={+params.pets === 0 ? 'disabled' : ''} onClick={() => {
-                        if (+params.pets > 0) {
+                    <button className={+searchParams.pets === 0 ? 'disabled' : ''} onClick={() => {
+                        if (+searchParams.pets > 0) {
                             updateGuestCounts('pets', -1)
                         }
                     }}>-</button>
-                    {+params.pets}
-                    <button className={+params.pets === 5 ? 'disabled' : ''} onClick={() => {
-                        if (+params.pets < 5) {
+                    {+searchParams.pets}
+                    <button className={+searchParams.pets === 5 ? 'disabled' : ''} onClick={() => {
+                        if (+searchParams.pets < 5) {
                             updateGuestCounts('pets', +1)
                         }
                     }}>+</button>

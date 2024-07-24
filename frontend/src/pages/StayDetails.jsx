@@ -19,13 +19,13 @@ import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 
 export function StayDetails() {
     const { stayId } = useParams()
-    const [searchParams, setSearchParams] = useSearchParams()
-    const safetyAmenities = ['Carbon monoxide alarm', 'Smoke alarm']
     const { isLoading } = useSelector(storeState => storeState.stayModule)
+    const safetyAmenities = ['Carbon monoxide alarm', 'Smoke alarm']
 
-    const { txt, adults, children, infants, pets, entryDate, exitDate } = Object.fromEntries(searchParams.entries())
-    const paramsFromFilter = { txt, adults, children, infants, pets, entryDate, exitDate }
-    const [params, updateParams] = useState(paramsFromFilter)
+    const [URLSearchParams, setUrlSearchParams] = useSearchParams()
+    const { adults, children, infants, pets, entryDate, exitDate } = Object.fromEntries(URLSearchParams.entries())
+    const [searchParams, setSearchParams] = useState({ adults, children, infants, pets, entryDate, exitDate })
+
     const [stay, setStay] = useState('')
     const [longestBedsCount, setLongestBedsCount] = useState(1)
     const [isGalleryModal, setGalleryModal] = useState(false)
@@ -40,8 +40,8 @@ export function StayDetails() {
 
     useEffect(() => {
         if (stay) setLongestBedsCount(utilService.calcLongestBedCount(stay))
-        setSearchParams(params)
-    }, [stay, params])
+        setUrlSearchParams(searchParams)
+    }, [stay, searchParams])
 
     async function loadStay(stayId) {
         try {
@@ -156,7 +156,7 @@ export function StayDetails() {
                         </ul>
                     </article>
                 </section>
-                <ReservationModal stay={stay} params={params} updateParams={updateParams} />
+                <ReservationModal stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} />
             </main>
             <StayReviewsPreview stay={stay} />
         </section>
