@@ -28,7 +28,7 @@ export function DatesModal({ stay, searchParams, setSearchParams }) {
     }, [])
 
     return (
-        <section className='stay-details-date-filter'>
+        <section className='date-filter-modal'>
             <DateRangePicker ranges={dateRange} onChange={handleSelect} months={2} showSelectionPreview={false} showPreview={false} showMonthAndYearPickers={false} showDateDisplay={false} direction="horizontal" staticRanges={[]} inputRanges={[]} enableOutsideDays={true} disabledDates={disabledDatesArray.map(date => date.getTime())} minDate={new Date()} rangeColors={['#c72d65']} />
         </section>
     )

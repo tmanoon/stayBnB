@@ -1,7 +1,8 @@
-export function GuestCountModal({ stay, searchParams, setSearchParams, setModal }) {
+export function GuestCountModal({ stay, searchParams, setSearchParams, onModal }) {
 
-    function onCloseModal() {
-        setModal()
+    function onClose(ev) {
+        ev.stopPropagation()
+        onModal(null)
     }
 
     function updateGuestCounts(guestType, countChange) {
@@ -12,7 +13,7 @@ export function GuestCountModal({ stay, searchParams, setSearchParams, setModal 
         setSearchParams(newParams)
     }
 
-    return <section className="details-guest-count">
+    return <section className="guest-count-modal">
         <article>
             <div className="description">
                 Adults
@@ -62,8 +63,8 @@ export function GuestCountModal({ stay, searchParams, setSearchParams, setModal 
             </div>
         </article>
 
-        <article className="btn-container">
-            <div onClick={onCloseModal} className='close-btn'>Close</div>
-        </article>
+        {/* <article className="btn-container">
+            <div onClick={onClose} className='close-btn'>Close</div>
+        </article> */}
     </section>
 }

@@ -70,6 +70,8 @@
     }
 
     .reservation-details {
+        position: relative;
+
         .dates {
             padding-block-end: 1.5rem;
         }
@@ -87,6 +89,20 @@
                 text-decoration: underline;
             }
         }
+    }
+
+    .guest-count-modal {
+        top: 75%;
+
+        article {
+            padding: 0;
+        }
+    }
+
+    .date-filter-modal {
+        top: 80%;
+
+        padding-block-start: 0;
     }
 
     .payment {
@@ -158,7 +174,12 @@
         .choose-payment-method {
             li {
                 gap: 1rem;
+
                 cursor: pointer;
+
+                &:hover {
+                    background-color: $btnHover;
+                }
             }
         }
 
@@ -308,6 +329,11 @@
                 border: none;
                 border-radius: $border-radius-circle;
 
+                &::before {
+                    content: "\58";
+                    font-family: fa-solid;
+                }
+
                 &:hover {
                     background-color: $btnHover;
                 }
@@ -359,6 +385,12 @@
 @media (width > 742px) {
     .stay-payment {
         grid-template-columns: minmax(1px, 6fr) minmax(1px, 5.05fr);
+
+        .reservation-details {
+            .guest-count-modal {
+                left: 100%;
+            }
+        }
 
         .payment-details {
             padding-inline-start: 0;

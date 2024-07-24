@@ -57,7 +57,8 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
         setBtnObserver(observer)
     }
 
-    function validateAndMoveToPayment() {
+    function validateAndMoveToPayment(ev) {
+        ev.stopPropagation()
         if (searchParams.entryDate && searchParams.exitDate && searchParams.adults) {
             const queryParams = utilService.getFormattedParams(searchParams)
             userService.getLoggedInUser() ? navigate(`/${stay._id}/payment?${queryParams}`) : setIsLoginModal(true)
@@ -106,7 +107,7 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
                     </div>
                 </div>
 
-                <div className='reserve-btn flex center' ref={btn} onClick={() => validateAndMoveToPayment()}><span >Reserve</span></div>
+                <div className='reserve-btn flex center' ref={btn} onClick={(event) => validateAndMoveToPayment(event)}><span >Reserve</span></div>
                 {+searchParams.entryDate && +searchParams.exitDate && <p className='charged-p'>You won't be charged yet.</p>}
             </div>
 
@@ -132,7 +133,7 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
                 <p>{utilService.timestampsToShortDates(+searchParams.entryDate, +searchParams.exitDate)}</p>
             </div>
 
-            <button className='flex center' onClick={() => validateAndMoveToPayment()}><span >Reserve</span></button>
+            <button className='flex center' onClick={(event) => validateAndMoveToPayment(event)}><span >Reserve</span></button>
         </div>
         {isLoginModal && <LoginSignup setIsLoginModal={setIsLoginModal} />}
     </>
