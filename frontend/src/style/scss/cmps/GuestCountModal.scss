@@ -1,9 +1,9 @@
-.details-guest-count {
+.guest-count-modal {
     position: absolute;
-    
+
     font-size: 1rem;
     width: 20.0875rem;
-    height: 25.5625rem;
+    max-width: 80vw;
     color: $darkGray;
     background-color: white;
     padding: 1rem 2rem;
@@ -16,7 +16,8 @@
     justify-content: center;
     flex-direction: column;
 
-    article:not(:last-of-type) {
+    // article:not(:last-of-type) { // when close button works
+    article {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -55,7 +56,7 @@
                 padding: 0.7em;
                 color: $gray2;
 
-                
+
                 &.disabled {
                     opacity: 20%;
                     cursor: not-allowed;

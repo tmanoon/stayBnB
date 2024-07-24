@@ -31,19 +31,18 @@
         }
     }
 
-    .details-guest-count {
+    .guest-count-modal {
         top: 103%;
         right: -0.3%;
     }
 
-    .stay-details-date-filter {
+    .date-filter-modal {
         top: -130%;
         right: -5%;
     }
 }
 
 @media (width > 900px) {
-
     .reserve-modal {
         display: block;
         z-index: 1;

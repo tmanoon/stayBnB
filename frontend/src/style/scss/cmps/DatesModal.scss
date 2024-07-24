@@ -1,36 +1,41 @@
-.stay-details-date-filter {
-    position: absolute;
+.date-filter-modal {
+   position: absolute;
 
-    box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.15);
-    width: 50rem;
-    height: 30rem;
-    border-radius: 24px;
-    background-color: white;
-    z-index: 1;
-    display: flex;
-    padding-top: 4em;
-    color: $darkGray;
+   width: 50rem;
+   max-width: 80vw;
+   color: $darkGray;
+   background-color: white;
+   padding-top: 4em;
+   border-radius: 24px;
+   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.15);
+   z-index: 1;
+   
+   display: flex;
+   align-content: center;
+   flex-direction: column;
+   
+   .rdrCalendarWrapper,
+   .rdrDateRangeWrapper {
+      max-width: 100%;
+   }
 
-    align-content: center;
-    flex-direction: column;
+   .rdrMonths {
+      font: size 0.875em;
+   }
 
-    & .rdrMonths {
-        font: size 0.875em;
-     }
- 
-     & .rdrDays {
-        font-size: 0.875em;
-     }
+   .rdrDays {
+      font-size: 0.875em;
+   }
 
-     & .rdrMonthAndYearPickers{
+   .rdrMonthAndYearPickers {
       opacity: 0;
-     }
- 
-     .hide-prev-btnP{
-        .rdrPprevButton{
-           opacity: 0;
-        }
-     }
+   }
+
+   .hide-prev-btnP {
+      .rdrPprevButton {
+         opacity: 0;
+      }
+   }
 }
 
 // .rdrDateRangePickerWrapper span {
