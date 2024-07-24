@@ -1,15 +1,17 @@
 .dynamic-header-nav {
-    display: flex;
-    padding-inline-start: rem(286.5px);
     position: fixed;
-    z-index: 2;
     left: 0;
     top: 0;
+    
+    width: 100%;
     color: $darkGray;
     background-color: #fff;
-    width: 100%;
-    gap: 24px;
+    padding-inline-start: rem(286.5px);
     border-block-end: 0.667px solid $lightGray;
+    z-index: 2;
+
+    display: flex;
+    gap: 24px;
     
     a {
         font-size: rem(14px);

@@ -107,7 +107,7 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
                     </div>
                 </div>
 
-                <div className='reserve-btn flex center' ref={btn} onClick={(event) => validateAndMoveToPayment(event)}><span >Reserve</span></div>
+                <button className='reserve-btn flex center' ref={btn} onClick={(event) => validateAndMoveToPayment(event)}>Reserve</button>
                 {+searchParams.entryDate && +searchParams.exitDate && <p className='charged-p'>You won't be charged yet.</p>}
             </div>
 

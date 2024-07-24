@@ -76,9 +76,9 @@ export function AppHeader({ scrolledPage }) {
     return (
         <>
             <header className={`full-app-header header-${getHeaderWidth()} header-${getHeaderSize()} ${getHeaderPosition()} grid`}>
-                <section className="logo-section flex align-center">
-                    <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="app-logo" onClick={goHome} />
-                    <span onClick={goHome}>Staybnb</span>
+                <section className="logo-section flex align-center" onClick={goHome}>
+                    <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="app-logo" />
+                    <span>Staybnb</span>
                 </section>
                 <section className="filter-section flex justify-center">
                     {/* <nav className="nav flex space-evenly">
@@ -102,18 +102,18 @@ export function AppHeader({ scrolledPage }) {
                     <HeaderFilterSearch modalType={modalType} handleModalTypeChange={handleModalTypeChange} />
                 </section>
                 <section className="user-section flex align-center" >
-                    <NavLink to="/edit" onClick={(ev) => checkNavigatePath(ev, '/edit')}>Staybnb your home</NavLink>
+                    <NavLink to="/edit" className="edit-btn" onClick={(ev) => checkNavigatePath(ev, '/edit')}>Staybnb your home</NavLink>
                     <button className="flex align-center space-between" onClick={(e) => handleModalTypeChange(e, 'user-nav')}>
                         <span>☰</span>
                         {userService.getLoggedInUser() ? (<img src={userService.getLoggedInUser().imgUrl} alt="User Profile" />) : (<div className="profile"></div>)}
                     </button>
+
+                    {modalType === 'user-nav' && <UserNavModal setIsLoginModal={setIsLoginModal} handleModalTypeChange={handleModalTypeChange} />}
                 </section>
 
                 {location.pathname === '/' && <LabelsFilter filterBy={filterBy} setStayFilter={setStayFilter} />}
-
             </header>
 
-            {modalType === 'user-nav' && <UserNavModal setIsLoginModal={setIsLoginModal} handleModalTypeChange={handleModalTypeChange} />}
             {isLoginModal && <LoginSignup setIsLoginModal={setIsLoginModal} />}
         </>
     )

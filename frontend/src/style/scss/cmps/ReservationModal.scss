@@ -2,35 +2,6 @@
     display: none;
     color: $darkGray;
 
-    .reserve-footer {
-        position: fixed;
-        inset: auto 0 0 0;
-        height: 5rem;
-        background-color: white;
-        padding-inline: 1.5rem;
-        border-block-start: 0.667px solid $gray4;
-        color: $darkGray;
-
-        span {
-            font-family: circular-bold;
-        }
-
-        p:last-of-type {
-            text-decoration: underline;
-        }
-
-        button {
-            height: 3rem;
-            width: 9.25rem;
-            font-size: 1.1rem;
-            font-family: circular-bold;
-            color: #ffffff;
-            background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
-            border-radius: $border-radius-2;
-            margin-block: 1rem;
-        }
-    }
-
     .guest-count-modal {
         top: 103%;
         right: -0.3%;
@@ -42,18 +13,45 @@
     }
 }
 
+.reserve-footer {
+    position: fixed;
+    inset: auto 0 0 0;
+
+    height: 5rem;
+    background-color: white;
+    padding-inline: 1.5rem;
+    border-block-start: 0.667px solid $gray4;
+    color: $darkGray;
+
+    span {
+        font-family: circular-bold;
+    }
+
+    p:last-of-type {
+        text-decoration: underline;
+    }
+
+    button {
+        @include coloredBtn;
+
+        width: 9.25rem;
+        font-size: 1.1rem;
+        margin-block: 1rem;
+    }
+}
+
 @media (width > 900px) {
     .reserve-modal {
         display: block;
-        z-index: 1;
         position: sticky;
         top: rem(100px);
-        margin-block-end: rem(80px);
         max-width: 23.25rem;
         padding: 24px;
         border: 1px solid $gray4;
         border-radius: $border-radius-4;
         box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+        margin-block-end: rem(80px);
+        z-index: 1;
 
         .selectors-container label {
             text-transform: uppercase;
@@ -131,19 +129,11 @@
         }
 
         .reserve-btn {
-            height: rem(48px);
-            background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
-            border-radius: $border-radius-2;
+            @include coloredBtn;
+
+            width: 100%;
             line-height: 19px;
-            margin-block-start: 1rem;
-            margin-block-end: rem(8px);
-
-            cursor: pointer;
-
-            span {
-                color: white;
-                font-family: circular-medium;
-            }
+            margin-block: 1rem 0.5rem;
         }
 
         .charged-p {
@@ -173,8 +163,9 @@
             }
         }
 
-        .reserve-footer {
-            display: none;
-        }
+    }
+
+    .reserve-footer {
+        display: none;
     }
 }
