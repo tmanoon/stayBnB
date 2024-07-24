@@ -7,7 +7,7 @@ import { stayService } from "../services/stay.service"
 import { userService } from "../services/user.service"
 import { setStayFilter } from "../store/actions/stay.actions"
 
-import { LoginSignup } from "./LoginSignup"
+import { LoginSignup } from "../cmps/Modals/LoginSignup"
 import { HeaderFilterSearch } from "./HeaderCmps/HeaderFilterSearch"
 import { UserNavModal } from "./HeaderCmps/UserNavModal"
 import { LabelsFilter } from "./HeaderCmps/LabelsFilter"

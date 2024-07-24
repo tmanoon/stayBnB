@@ -6,7 +6,7 @@ import { filterLists } from '../../services/filterLists.service'
 import { ButtonGroup } from '../HelperCmps/ButtonGroup'
 import { ButtonGroupWithTxt } from '../HelperCmps/ButtonGroupWithTxt'
 import { SwitchCmp } from '../HelperCmps/SwitchCmp'
-import { ImgUploader } from '../HelperCmps/ImgUploader'
+import { ImgUploader } from '../StayEditCmps/ImgUploader'
 
 export function Stage0() {
     const videoRef = useRef(null)

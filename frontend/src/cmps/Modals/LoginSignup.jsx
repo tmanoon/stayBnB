@@ -1,5 +1,5 @@
-import { login, signup } from "../store/actions/user.actions"
-import { userService } from "../services/user.service"
+import { login, signup } from "../../store/actions/user.actions"
+import { userService } from "../../services/user.service"
 import { useNavigate } from "react-router"
 import { useState } from "react"
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { stayService } from "../../services/stay.service"
 import { filterLists } from "../../services/filterLists.service"
 
-import { PriceRangeChart } from "../PriceRangeChart"
+import { PriceRangeChart } from "./PriceRangeChart"
 import { ButtonGroup } from "../HelperCmps/ButtonGroup"
 import { ButtonGroupWithObjects } from "../HelperCmps/ButtonGroupWithObjects"
 import { CheckboxGroup } from "../HelperCmps/CheckboxGroup"

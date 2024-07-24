@@ -11,7 +11,7 @@ import { stayService } from '../../services/stay.local.service'
 import { DatesModal } from '../Modals/DatesModal'
 import { DynamicModalHeader } from './DynamicHeader/DynamicModalHeader'
 import { userService } from '../../services/user.service'
-import { LoginSignup } from '../LoginSignup'
+import { LoginSignup } from '../Modals/LoginSignup'
 
 export function ReservationModal({ stay, searchParams, setSearchParams }) {
     const navigate = useNavigate()

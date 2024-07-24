@@ -20,6 +20,8 @@
     &>* {
         padding: 1rem;
 
+        cursor: pointer;
+
         &.bordered {
             border-block-end: $gray4 solid 1px;
         }

@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { userService } from '../../services/user.service'
 import { login, logout } from '../../store/actions/user.actions'
-import { LoginSignup } from '../LoginSignup'
+import { LoginSignup } from '../Modals/LoginSignup'
 import { useNavigate } from 'react-router-dom'
 
 export function UserNavModal({ setIsLoginModal, handleModalTypeChange }) {
