@@ -1,7 +1,6 @@
 .stay-details-date-filter {
     position: absolute;
-    top: -130%;
-    left: -142%;
+
     box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.15);
     width: 50rem;
     height: 30rem;
@@ -27,30 +26,18 @@
       opacity: 0;
      }
  
-
+     .hide-prev-btnP{
+        .rdrPprevButton{
+           opacity: 0;
+        }
+     }
 }
-
-.hide-prev-btnP{
-   .rdrPprevButton{
-      opacity: 0;
-   }
-}
-
-
-
-
-
-
-
-
-
 
 // .rdrDateRangePickerWrapper span {
 //     color: $darkGray;
 //     border-radius: $border-radius-circle;
 //     // height: 2.7em;
 // }
-
 
 // .rdrInRange{
 //     background-color: none !important;

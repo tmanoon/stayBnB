@@ -1,41 +1,48 @@
 .reserve-modal {
     display: none;
     color: $darkGray;
-}
 
-.reserve-footer {
-    position: fixed;
-    inset: auto 0 0 0;
-    height: 5rem;
-    background-color: white;
-    padding-inline: 1.5rem;
-    border-block-start: 0.667px solid $gray4;
-    color: $darkGray;
+    .reserve-footer {
+        position: fixed;
+        inset: auto 0 0 0;
+        height: 5rem;
+        background-color: white;
+        padding-inline: 1.5rem;
+        border-block-start: 0.667px solid $gray4;
+        color: $darkGray;
 
-    span {
-        font-family: circular-bold;
+        span {
+            font-family: circular-bold;
+        }
+
+        p:last-of-type {
+            text-decoration: underline;
+        }
+
+        button {
+            height: 3rem;
+            width: 9.25rem;
+            font-size: 1.1rem;
+            font-family: circular-bold;
+            color: #ffffff;
+            background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
+            border-radius: $border-radius-2;
+            margin-block: 1rem;
+        }
     }
 
-    p:last-of-type {
-        text-decoration: underline;
+    .details-guest-count {
+        top: 103%;
+        right: -0.3%;
     }
 
-    button {
-        height: 3rem;
-        width: 9.25rem;
-        font-size: 1.1rem;
-        font-family: circular-bold;
-        color: #ffffff;
-        background: radial-gradient(103.95% 1413.54% at -3.95% 100%, #D33753 0%, #D13660 52.83%, #C72D65 100%);
-        border-radius: $border-radius-2;
-        margin-block: 1rem;
+    .stay-details-date-filter {
+        top: -130%;
+        right: -5%;
     }
 }
 
 @media (width > 900px) {
-    .reserve-footer {
-        display: none;
-    }
 
     .reserve-modal {
         display: block;
@@ -131,9 +138,9 @@
             line-height: 19px;
             margin-block-start: 1rem;
             margin-block-end: rem(8px);
-            
+
             cursor: pointer;
-            
+
             span {
                 color: white;
                 font-family: circular-medium;
@@ -161,10 +168,14 @@
 
         .sum-total {
             margin-block-start: 1rem;
-            
+
             span {
                 font-family: circular-medium;
             }
+        }
+
+        .reserve-footer {
+            display: none;
         }
     }
 }

@@ -6,9 +6,9 @@ import { utilService } from '../../services/util.service'
 import { getDate, getMonth, getYear } from 'date-fns'
 import { GuestFilter } from '../HeaderCmps/GuestFilter'
 import { store } from '../../store/store'
-import { GuestCount } from './DetailsGuestCount'
+import { GuestCountModal } from '../Modals/GuestCountModal'
 import { stayService } from '../../services/stay.local.service'
-import { StayDetailsDateModal } from './StayDetailsDateModal'
+import { DatesModal } from '../Modals/DatesModal'
 import { DynamicModalHeader } from './DynamicHeader/DynamicModalHeader'
 import { userService } from '../../services/user.service'
 import { LoginSignup } from '../LoginSignup'
@@ -101,8 +101,8 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
                             <span className={`arrow-${modalType === 'guest' ? 'up' : 'down'}`}></span>
                         </div>
 
-                        {modalType === 'guest' && <GuestCount stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} setModal={setModal} />}
-                        {modalType === 'date' && <StayDetailsDateModal stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} />}
+                        {modalType === 'guest' && <GuestCountModal stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} setModal={setModal} />}
+                        {modalType === 'date' && <DatesModal stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} />}
                     </div>
                 </div>
 
