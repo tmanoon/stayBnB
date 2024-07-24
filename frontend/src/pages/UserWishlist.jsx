@@ -32,7 +32,7 @@ export function UserWishlist() {
                         return (
                             <article className="wishlist-item grid" key={stay._id} onClick={() => navigate(`/${stay._id}`)}>
                                 <img src={stay.imgUrls[0]} alt={stay.name} />
-                                <div className="text">
+                                <div className="text grid align-center">
                                     <h2>{stay.name}</h2>
                                     <p>{stay.loc.address}, {stay.loc.city}, {stay.loc.country}</p>
                                     <h3>{stay.price}</h3>
