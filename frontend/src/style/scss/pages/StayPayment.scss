@@ -7,33 +7,32 @@
     .payment-details {
         grid-area: 1 / 1 / 2 / 2;
         padding-inline: 1rem;
-    }
 
-    .payment-modal {
-        grid-area: 1 / 2 / 2 / 3;
-        align-self: start;
-        justify-self: end;
-    }
+        article {
+            padding-block: 2rem;
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        margin: 0;
-    }
-}
+            h2 {
+                font-size: 1.375rem;
+                padding-block-end: 1.5rem;
+            }
+        }
 
-.payment-details {
-    article {
-        padding-block: 2rem;
+        .payment-modal {
+            grid-area: 1 / 2 / 2 / 3;
+            align-self: start;
+            justify-self: end;
+        }
 
-        h2 {
-            font-size: 1.375rem;
-            padding-block-end: 1.5rem;
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
         }
     }
+
 
     article:not(:last-of-type) {
         border-block-end: 0.667px solid $gray4;
