@@ -14,7 +14,6 @@ export function StayIndex({ scrolledPage }) {
     const { stays } = useSelector(storeState => storeState.stayModule)
     const { filterBy } = useSelector(storeState => storeState.stayModule)
     const { isLoading } = useSelector(storeState => storeState.stayModule)
-    const { headerFilterBy } = store.getState().stayModule
 
     useEffect(() => {
         const { txt, entryDate, exitDate, label, placeType, propType, amenities, accessibility, hostLngs, pagination } = filterBy
