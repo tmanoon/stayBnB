@@ -2,6 +2,20 @@
     margin-block-end: 5rem;
     color: $darkGray;
 
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: $border-radius-1;
+        background-color: $gray4;
+        border: 0.667px solid $gray4;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: $border-radius-1;
+    }
+
     header {
         margin-block: 0 1rem;
         align-items: end;
