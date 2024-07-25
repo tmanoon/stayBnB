@@ -141,7 +141,7 @@ export function UserTrips() {
 
                 <ul className={`grid ${layoutType}`}>
                     {trips.map(trip => (
-                        <li key={trip._orderId} className={`trip-card grid ${trip.status}`} onClick={() => onChoose(trip)} >
+                        <li key={trip._id} className={`trip-card grid ${trip.status}`} onClick={() => onChoose(trip)} >
                             <div className='title flex column'>
                                 <h3>{trip.stay.name}</h3>
                                 <p><span>Booking number:</span>&nbsp;&nbsp;{trip._id.slice(18)}</p>
