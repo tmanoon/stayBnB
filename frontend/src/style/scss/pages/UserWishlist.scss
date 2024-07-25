@@ -1,20 +1,68 @@
 .user-wishlist {
-    
-    .back-btn {
-        font-family: fa-solid;
-        inset: -0.2rem auto auto -3.25rem;
-        font-size: 1rem;
-        height: 3rem;
-        width: 3rem;
-        border-radius: $border-radius-circle;
-        background-color: transparent;
+    @media (min-width: 100px) {            
+        margin-inline: rem(24px);
 
-        &::before {
-            content: '\f053';
+        .back-btn {
+            font-family: fa-solid;
+            inset: -0.2rem auto auto -3.25rem;
+            font-size: 1rem;
+            height: 3rem;
+            width: 3rem;
+            border-radius: $border-radius-circle;
+            background-color: transparent;
+
+            &::before {
+                content: '\f053';
+            }
+
+            &:hover {
+                background-color: #f7f7f7;
+            }
         }
 
-        &:hover {
-            background-color: #f7f7f7;
+        header {
+            border-block-end: 0.667px solid $gray4;
+            padding-block: 1.1rem 1.275rem;
+        }
+
+        .wishlist-items {
+            grid-auto-flow: row;
+            gap: rem(24px);
+
+            .wishlist-item {
+                grid-template-columns: rem(250px) 1fr;
+                height: rem(300px);
+                gap: 1rem;
+                border-radius: rem(9.6px);
+
+                img {
+                    grid-column: 1;
+                    object-fit: cover;
+                    max-width: 100%;
+                    height: 100%;
+                }
+
+                .text {
+                    grid-column: 2;
+                    text-align: center;
+                    grid-auto-flow: row;
+                }
+            }
         }
     }
 }
+
+// <div className="wishlist-items grid">
+// {userWishlist.map(stay => {
+//     return (
+//         <article className="wishlist-item" key={stay._id} onClick={() => navigate(`/${stay._id}`)}>
+//             <img src={stay.imgUrls[0]} alt={stay.name} />
+//             <div className="text">
+//                 <h2>{stay.name}</h2>
+//                 <p>{stay.loc.address}, {stay.loc.city}, {stay.loc.country}</p>
+//                 <h3>{stay.price}</h3>
+//             </div>
+//         </article>
+//     )
+// })}
+// </div>

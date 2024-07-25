@@ -3,16 +3,13 @@ import { StayPreview } from './StayPreview.jsx'
 import { store } from '../store/store.js'
 
 export function StayList({ stays, filterBy }) {
+    
     let { guestCount, entryDate, exitDate } = filterBy
-
     if (!entryDate && !exitDate) {
         entryDate = +new Date()
         exitDate = entryDate + (24 * 60 * 60 * 1000)
-    } else if (!exitDate) {
-        exitDate = entryDate + (24 * 60 * 60 * 1000)
-    } else if (entryDate === exitDate) {
-        exitDate = entryDate + (24 * 60 * 60 * 1000)
-    }
+    } else if (!exitDate) exitDate = entryDate + (24 * 60 * 60 * 1000)
+    else if (entryDate === exitDate) exitDate = entryDate + (24 * 60 * 60 * 1000)
     if (!guestCount.adults) guestCount.adults = 1
 
     const condensedSP = objectToQueryString({ ...guestCount, entryDate, exitDate })

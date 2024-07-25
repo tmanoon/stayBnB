@@ -36,7 +36,6 @@ export function LoginSignup({ setIsLoginModal }) {
 
     return <>
         <div className="overlay"></div>
-
         <section className="login-signup">
             <header className="flex column center">
                 <button className="back-btn flex center" onClick={onClose}></button>

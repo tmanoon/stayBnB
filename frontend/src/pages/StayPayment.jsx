@@ -32,7 +32,7 @@ export function StayPayment() {
     const [modalType, setModal] = useState(null)
 
     useEffect(() => {
-        if (stayId) { loadStay() }
+        if (stayId) loadStay()
     }, [])
 
     useEffect(() => {
@@ -69,7 +69,6 @@ export function StayPayment() {
 
     function onModal(type = null) {
         setModal(type)
-        console.log(type)
     }
 
     function onClose() {
@@ -114,10 +113,8 @@ export function StayPayment() {
 
                 {stay && <>
                     <PaymentForm userOrderDetails={userOrderDetails} onUserOrderDetails={onUserOrderDetails} />
-
                     <article className='required-info'>
                         <h2>Required for your trip</h2>
-
                         <div className='flex space-between'>
                             <div className='text flex column'>
                                 <h4>Phone number</h4>
@@ -126,15 +123,12 @@ export function StayPayment() {
 
                             <button onClick={() => onModal('phone')}>Add</button>
                         </div>
-
                         {modalType === 'phone' && <AddPhoneModal onModal={onModal} userOrderDetails={userOrderDetails} onUserOrderDetails={onUserOrderDetails} />}
                     </article>
-
                     <article className='cancellation-policy flex column'>
                         <h2>Cancellation policy</h2>
                         <p>This reservation is non-refundable. <span className='learn-policy'>Learn more</span></p>
                     </article>
-
                     <article className='ground-rules'>
                         <h2>Ground rules</h2>
                         <p>We ask every guest to remember a few simple things about what makes a great guest.</p>
@@ -143,7 +137,6 @@ export function StayPayment() {
                             <li>Treat your Host’s home like your own</li>
                         </ul>
                     </article>
-
                     <article className='confirmation flex column'>
                         <p>By selecting the button below, I agree to the <span>Host's House Rules</span>, <span>Ground rules for guests</span>, <span>Airbnb's Rebooking and Refund Policy</span>, and that Airbnb can <span>charge my payment method</span> if I’m responsible for damage.</p>
                         <button className='confirm-btn' onClick={checkAndValidateOrder}>Confirm and pay</button>
