@@ -19,13 +19,13 @@ export function AppHeader({ scrolledPage }) {
 
     const [modalType, setModalType] = useState('')
     const [isLoginModal, setIsLoginModal] = useState(false)
-    const [isLoggedInUser, checkIsLoggedInUser] = useState(false)
+    const [loggedInUser, setLoggedInUser] = useState(null)
 
     const filterBy = useSelector(storeState => storeState.stayModule.filterBy)
     const modalTypes = [{ modalName: 'map', desc: filterBy.txt || 'Anywhere' }, { modalName: 'check-in', desc: filterBy.entryDate && filterBy.exitDate ? utilService.timestampsToShortDates(+filterBy.entryDate, +filterBy.exitDate) : 'Any week' }, { modalName: 'guest', desc: checkIfFilterByGuests() ? utilService.calcGuestCountInFilterBy(filterBy) : 'Add guests' }]
 
     useEffect(() => {
-        checkIsLoggedInUser(Boolean(userService.getLoggedInUser()))
+        setLoggedInUser(userService.getLoggedInUser())
     }, [])
 
     function goHome() {
@@ -36,7 +36,7 @@ export function AppHeader({ scrolledPage }) {
 
     function checkNavigatePath(e, path) {
         e.preventDefault()
-        isLoggedInUser ? navigate(`${path}`) : onLoginModal()
+        loggedInUser ? navigate(`${path}`) : onLoginModal()
     }
 
     const onLoginModal = () => {
@@ -105,10 +105,14 @@ export function AppHeader({ scrolledPage }) {
                     <NavLink to="/edit" className="edit-btn" onClick={(ev) => checkNavigatePath(ev, '/edit')}>Staybnb your home</NavLink>
                     <button className="flex align-center space-between" onClick={(e) => handleModalTypeChange(e, 'user-nav')}>
                         <span>☰</span>
-                        {userService.getLoggedInUser() ? (<img src={userService.getLoggedInUser().imgUrl} alt="User Profile" />) : (<div className="profile"></div>)}
+                        {loggedInUser && (<img src={loggedInUser.imgUrl} alt="User Profile" />)}
+                        {!loggedInUser && <div className="profile"></div>}
                     </button>
 
-                    {modalType === 'user-nav' && <UserNavModal setIsLoginModal={setIsLoginModal} handleModalTypeChange={handleModalTypeChange} />}
+                    {modalType === 'user-nav' && <UserNavModal
+                        setIsLoginModal={setIsLoginModal}
+                        handleModalTypeChange={handleModalTypeChange}
+                        setLoggedInUser={setLoggedInUser} />}
                 </section>
                 {location.pathname === '/' && <LabelsFilter filterBy={filterBy} setStayFilter={setStayFilter} />}
             </header>
