@@ -28,12 +28,21 @@
         .wishlist-items {
             grid-auto-flow: row;
             gap: rem(24px);
+            margin-block: 1em;
 
             .wishlist-item {
                 grid-template-columns: rem(250px) 1fr;
                 height: rem(300px);
                 gap: 1rem;
                 border-radius: rem(9.6px);
+                position: relative;
+
+                .remove-btn {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    padding-inline: rem(12px);
+                }
 
                 img {
                     grid-column: 1;
@@ -46,6 +55,7 @@
                     grid-column: 2;
                     text-align: center;
                     grid-auto-flow: row;
+                    align-content: space-between;
                 }
             }
         }
