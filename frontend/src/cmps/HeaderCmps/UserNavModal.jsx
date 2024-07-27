@@ -49,7 +49,7 @@ export function UserNavModal({ setIsLoginModal, handleModalTypeChange }) {
             {!isLoggedInUser && <div onClick={onLoginModal}>Log-in / Sign-up</div>}
             {!isLoggedInUser && <NavLink to="/" onClick={() => onGuestClick()} className='bordered'>Continue as Guest</NavLink>}
             <NavLink to="/trips" onClick={(ev) => checkNavigatePath(ev, '/trips')} className="bold">Trips</NavLink>
-            <NavLink to="/unActive" className="bold">Messages</NavLink>
+            <NavLink to="/messages" onClick={(ev) => checkNavigatePath(ev, '/messages')} className="bold">Messages</NavLink>
             <NavLink to="/wishlist" onClick={(ev) => checkNavigatePath(ev, '/wishlist')} className='bordered bold'>Wishlist</NavLink>
             <NavLink to="/edit" onClick={(ev) => checkNavigatePath(ev, '/edit')}>Staybnb your home</NavLink>
             <NavLink to="/dashboard" onClick={(ev) => checkNavigatePath(ev, '/dashboard')} className={isLoggedInUser ? 'bordered' : ''}>Manage listings</NavLink>
