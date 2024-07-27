@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { userService } from "../services/user.service"
 import { useNavigate } from "react-router"
+import { loadStayById } from "../store/actions/stay.actions"
+import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 
 export function UserWishlist() {
     const user = userService.getLoggedInUser()
@@ -13,6 +15,18 @@ export function UserWishlist() {
     //         console.log(userWishlist)
     //     // }
     // }, [])
+
+    async function onRemoveFromWishlist(ev, id) {
+        ev.stopPropagation()
+        try {
+            const userToUpdate = await addRemoveStayToUserFavorites(id)
+            setUserWishlist(userToUpdate.wishlist.length > 0 ? userToUpdate.wishlist : null)
+        } catch (err) {
+            console.log('err', err)
+            throw err
+        }
+    }
+
     return (
         <section className="user-wishlist">
             <button className="back-btn" onClick={() => navigate('/')}></button>
@@ -31,11 +45,12 @@ export function UserWishlist() {
                     {userWishlist.map(stay => {
                         return (
                             <article className="wishlist-item grid" key={stay._id} onClick={() => navigate(`/${stay._id}`)}>
+                                <button className="remove-btn flex center" onClick={(ev) => onRemoveFromWishlist(ev, stay._id)}>x</button>
                                 <img src={stay.imgUrls[0]} alt={stay.name} />
                                 <div className="text grid align-center">
                                     <h2>{stay.name}</h2>
                                     <p>{stay.loc.address}, {stay.loc.city}, {stay.loc.country}</p>
-                                    <h3>{stay.price}</h3>
+                                    <h3>${stay.price}</h3>
                                 </div>
                             </article>
                         )
