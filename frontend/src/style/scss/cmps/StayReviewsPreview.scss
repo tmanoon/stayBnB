@@ -3,6 +3,8 @@
     color: $darkGray;
 
     .review {
+        position: relative;
+
         button {
             background-color: transparent;
             padding: 0.5rem 0;
@@ -60,6 +62,25 @@
                 font-size: 1rem;
             }
         }
+
+        .delete-btn {
+            position: absolute;
+            inset: 1rem 1rem auto auto;
+            border-radius: $border-radius-circle;
+            height: 2rem;
+            width: 2rem;
+            background-color: transparent;
+            transition: 0s;
+
+            &::before {
+                content: '\f2ed';
+                font-family: fa-reg;
+            }
+
+            &:hover {
+                background-color: $btnHover;
+            }
+        }
     }
 
 
@@ -98,7 +119,6 @@
     }
 
     .review {
-        position: relative;
         flex-direction: column-reverse;
         justify-content: space-between;
 
@@ -109,25 +129,6 @@
 
         .not-flip-div {
             gap: 0.5rem;
-        }
-
-        .delete-btn {
-            position: absolute;
-            inset: 1rem 1rem auto auto;
-            border-radius: $border-radius-circle;
-            height: 2rem;
-            width: 2rem;
-            background-color: transparent;
-            transition: 0s;
-
-            &::before {
-                content: '\f2ed';
-                font-family: fa-reg;
-            }
-
-            &:hover {
-                background-color: $btnHover;
-            }
         }
     }
 

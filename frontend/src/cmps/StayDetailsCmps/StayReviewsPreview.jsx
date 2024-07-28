@@ -72,7 +72,7 @@ export function StayReviewsPreview({ stay, userId, isReviewable, addStayReview, 
             </div>
         </section>}
 
-        {showAllReviews && <StayReviewsModal stay={stay} userReview={userReview} onReviewsModal={onReviewsModal} onAddReviewModal={onAddReviewModal} addStayReview={addStayReview} isReviewable={isReviewable} />}
+        {showAllReviews && <StayReviewsModal stay={stay} userReview={userReview} onReviewsModal={onReviewsModal} onAddReviewModal={onAddReviewModal} addStayReview={addStayReview} isReviewable={isReviewable} removeStayReview={removeStayReview} />}
         {addReviewModal && <StayAddReviewModal stay={stay} userId={userId} onAddReviewModal={onAddReviewModal} addStayReview={addStayReview} />}
     </>
 }

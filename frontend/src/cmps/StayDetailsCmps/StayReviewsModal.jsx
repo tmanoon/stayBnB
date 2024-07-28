@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 
 import { utilService } from "../../services/util.service"
 
-export function StayReviewsModal({ stay, userReview, onAddReviewModal, onReviewsModal, isReviewable }) {
+export function StayReviewsModal({ stay, userReview, onAddReviewModal, onReviewsModal, isReviewable, removeStayReview }) {
     
 
     return <>
