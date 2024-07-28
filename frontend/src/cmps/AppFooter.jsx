@@ -18,7 +18,7 @@ export function AppFooter() {
 
     const getFooterGone = () => {
         const { pathname } = location
-        if (pathname === '/edit') return 'invisible'
+        if (pathname === '/edit' || pathname === '/messages') return 'invisible'
         else return ''
     }
 

@@ -270,8 +270,6 @@ function guestCountStringForReservation(params) {
     return parts.join(', ')
 }
 
-
-
 function generateRandomDate(stayPrice) {
     const demoDates = [
         "Apr 25-26",

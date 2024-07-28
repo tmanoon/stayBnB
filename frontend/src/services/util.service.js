@@ -12,11 +12,12 @@ export const utilService = {
     calcRate,
     generateStays,
     calcSumToPay,
-    timestampToDate,
+    timestampToFullDate,
     timestampsToShortDates,
     timestampToMonthYear,
     timestampToMonthDay,
     timestampDaysAway,
+    timestampToDateAndTimeObj,
     calcSumOfDays,
     calcLongestBedCount,
     calcGuestCount,
@@ -123,7 +124,17 @@ function calcSumToPayAtTrips(params, stay) {
     return (diff * stay.price * (+params.guests.adults + +params.guests.children))
 }
 
-function timestampToDate(dateTimestamp) {
+function timestampToDateAndTimeObj(timestamp) {
+    const date = new Date(+timestamp)
+    const dayOfDate = date.toLocaleString('en-US', { weekday: 'short' })
+    const monthName = date.toLocaleString('en-US', { month: 'short' })
+    const dateOfDate = date.getDate()
+    const timeOfDate = date.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: true })
+
+    return {date: dayOfDate + ', ' + monthName + ' ' + dateOfDate, time: timeOfDate}
+}
+
+function timestampToFullDate(dateTimestamp) {
     const date = new Date(dateTimestamp)
     const dayOfDate = date.toLocaleString('en-US', { weekday: 'short' })
     const dateOfDate = date.getDate()

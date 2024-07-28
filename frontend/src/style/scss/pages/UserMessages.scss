@@ -1,0 +1,352 @@
+.user-messages {
+    grid-template-columns: 1fr;
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: $border-radius-1;
+        background-color: $gray4;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: $border-radius-1;
+    }
+
+    .message-list {
+        border-inline-end: solid 1px $gray4;
+        margin-block-end: 0.5rem;
+
+        header {
+            padding: 1rem 1rem 0;
+            border-block-end: solid 1px $gray4;
+            margin-block-end: 1rem;
+
+            .action-btns {
+                gap: 0.5rem;
+
+                padding-block: 0.85rem 1rem;
+
+                .unread-btn,
+                .filter {
+                    font-family: circular-bold;
+                    font-size: 0.9rem;
+                    height: 2.5rem;
+                    padding-inline: 1rem
+                }
+
+                .unread-btn {
+                    @include buttons2;
+                }
+
+                .filter {
+                    color: white;
+                    background-color: $darkGray;
+                    border-radius: 20px;
+                }
+            }
+        }
+
+        ul {
+            padding-inline: 1rem;
+            overflow-y: auto;
+            height: calc(100vh - 14rem);
+
+            li {
+                width: 100%;
+                padding: 1.5rem 1rem;
+                margin-block-end: 0.5rem;
+                border-radius: $border-radius-4;
+
+                cursor: pointer;
+
+                &:hover,
+                &.selected {
+                    background-color: $btnHover;
+                }
+
+                img {
+                    border-radius: $border-radius-1;
+                    width: 3.5rem;
+                    height: 3.5rem;
+                }
+
+                .msg-info {
+                    padding-inline-start: 1rem;
+                    width: 100%;
+
+                    &>div {
+                        width: 100%;
+                    }
+                }
+
+                .name {
+                    font-family: circular-reg;
+                    font-weight: normal;
+                    margin: 0;
+                }
+
+                .date {
+                    font-size: 0.75rem;
+                }
+
+                .stay-info {
+                    font-size: 0.75rem;
+                }
+
+                .msg-intro {
+                    padding-block: 0.15rem;
+                }
+            }
+        }
+    }
+
+    .read-messages {
+        position: relative;
+        border-inline-end: solid 1px $gray4;
+
+        .reserve-btn-tablet {
+            display: none;
+        }
+
+        header {
+            position: relative;
+            gap: 1rem;
+
+            padding: 0.5rem 2rem 0.5rem 4rem;
+            border-block-end: solid 1px $gray4;
+
+            img {
+                border-radius: $border-radius-circle;
+                width: 3rem;
+                height: 3rem;
+            }
+
+            .name {
+                font-size: 1.5rem;
+            }
+
+            button {
+                position: absolute;
+                inset: 1rem 1rem auto auto;
+                font-family: circular-reg;
+                font-size: 0.9rem;
+                height: 2.25rem;
+                padding-inline: 1rem;
+                background-color: $btnHover;
+            }
+
+            .back-list-btn {
+                inset: 1.25rem auto auto 1rem;
+                border-radius: $border-radius-circle;
+                height: 2rem;
+                width: 2rem;
+
+                &::before {
+                    content: "\f053";
+                    font-family: fa-solid;
+                }
+            }
+        }
+
+        ul {
+            padding-inline: 1rem;
+            overflow-y: auto;
+            height: calc(100vh - 9rem);
+
+            li {
+                &.host {
+                    background-color: $btnHover;
+
+                    align-self: start;
+                }
+
+                &.user {
+                    color: white;
+                    background-color: $darkGray;
+
+                    align-self: end;
+                }
+            }
+        }
+
+        footer {
+            position: absolute;
+            inset: auto 0 0 0;
+            padding: 1rem 2rem;
+            background-color: white;
+
+            input {
+                font-size: 1rem;
+                padding: 1rem;
+                width: 100%;
+                outline: none;
+                border: 1px solid $gray4;
+                border-radius: 60px;
+            }
+        }
+
+    }
+
+    .reservation-details {
+        padding-inline-end: 0.2rem;
+
+        header {
+            padding: 0.5rem 2rem;
+            border-block-end: solid 1px $gray4;
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        main {
+            padding-block: 1rem;
+            overflow-y: auto;
+            height: calc(100vh - 9rem);
+
+
+            .title {
+                font-size: 1.5rem;
+                padding-inline: 2rem;
+                margin-block-end: 1rem;
+            }
+
+            img {
+                border-radius: $border-radius-4;
+                margin-inline: 2rem;
+                width: calc(100% - 4rem);
+            }
+
+            .dates {
+                padding-inline: 2rem;
+                padding-block: 1.25rem;
+                border-block-end: solid 1px $gray4;
+
+                .start,
+                .end {
+                    width: 50%;
+
+                    gap: 0.5rem;
+
+                    h4 {
+                        margin: 0;
+                    }
+                }
+
+                .end {
+                    border-inline-start: solid 1px $gray4;
+                    align-items: end;
+                }
+            }
+
+            .confirmation,
+            .directions,
+            .payment-info {
+                padding: 1.25rem 2rem 2rem;
+                border-block-end: solid 0.5rem $gray4;
+
+                h3 {
+                    font-size: 1.4rem;
+                    margin-block: 0 1.5rem;
+                }
+
+                h4 {
+                    font-size: 1.2rem;
+                    margin-block: 0 0.5rem;
+                }
+
+                p {}
+            }
+        }
+    }
+
+    .reservation-details-modal {
+        position: fixed;
+        inset: 2.5rem 0 0 0;
+        z-index: 4;
+
+        color: $darkGray;
+        background-color: white;
+        border-radius: $border-radius-4 $border-radius-4 0 0;
+
+        header {
+            position: relative;
+
+            .exit-btn {
+                position: absolute;
+                inset: 1.25rem 1.5rem auto auto;
+                border-radius: $border-radius-circle;
+                height: 2rem;
+                width: 2rem;
+                background-color: transparent;
+                transition: 0s;
+
+                &::before {
+                    content: '\58';
+                    font-family: fa-solid;
+                }
+
+                &:hover {
+                    background-color: $btnHover;
+                }
+            }
+        }
+    }
+
+    .reservation-details-not-modal {
+        display: none;
+    }
+
+    .message-list {
+        display: none;
+    }
+}
+
+@media (width > 742px) {
+    .user-messages {
+        grid-template-columns: 2fr 3fr;
+
+        .read-messages {
+
+            header {
+                padding: 0.5rem 2rem;
+
+                .back-list-btn {
+                    display: none;
+                }
+            }
+
+            .reserve-btn-tablet {
+                display: block;
+            }
+
+            .reserve-btn-mobile {
+                display: none;
+            }
+        }
+
+        .message-list {
+            display: block;
+        }
+
+    }
+}
+
+@media (width > 1130px) {
+    .user-messages {
+        grid-template-columns: 2fr 3fr 2fr;
+
+        .read-messages {
+            .reserve-btn-tablet {
+                display: none;
+            }
+        }
+
+        .reservation-details-not-modal {
+            display: block;
+        }
+
+    }
+}

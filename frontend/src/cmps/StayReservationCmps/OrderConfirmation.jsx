@@ -53,12 +53,12 @@ export function OrderConfirmation({ stay, order }) {
                     <div className='dates grid'>
                         <div className='flex column'>
                             <p>Check-in:</p>
-                            <h5>{utilService.timestampToDate(+order.entryDate)}</h5>
+                            <h5>{utilService.timestampToFullDate(+order.entryDate)}</h5>
                         </div>
 
                         <div className='flex column'>
                             <p>Check-out:</p>
-                            <h5>{utilService.timestampToDate(+order.exitDate)}</h5>
+                            <h5>{utilService.timestampToFullDate(+order.exitDate)}</h5>
                         </div>
                     </div>
 

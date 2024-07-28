@@ -45,12 +45,12 @@ export function TripModal({ trip, setOnModal }) {
                 <div className='dates grid'>
                     <div className='flex column'>
                         <p>Check-in:</p>
-                        <h5>{utilService.timestampToDate(+trip.entryDate)}</h5>
+                        <h5>{utilService.timestampToFullDate(+trip.entryDate)}</h5>
                     </div>
 
                     <div className='flex column'>
                         <p>Check-out:</p>
-                        <h5>{utilService.timestampToDate(+trip.exitDate)}</h5>
+                        <h5>{utilService.timestampToFullDate(+trip.exitDate)}</h5>
                     </div>
                 </div>
 
