@@ -6,7 +6,7 @@ import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 
 export function UserWishlist() {
     const user = userService.getLoggedInUser()
-    const [userWishlist, setUserWishlist] = useState(user.wishlist)
+    const [userWishlist, setUserWishlist] = useState(user.wishlist.length > 0 ? user.wishlist : null)
     const navigate = useNavigate()
 
     // useEffect(() => {
