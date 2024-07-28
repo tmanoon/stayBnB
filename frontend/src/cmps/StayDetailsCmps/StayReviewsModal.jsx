@@ -2,14 +2,15 @@ import { useState, useEffect } from "react"
 
 import { utilService } from "../../services/util.service"
 
-export function StayReviewsModal({ stay, onCloseAll }) {
+export function StayReviewsModal({ stay, userReview, onAddReviewModal, onReviewsModal, isReviewable }) {
+    
 
     return <>
-        <div className="overlay" onClick={onCloseAll}></div>
+        <div className="overlay" onClick={onReviewsModal}></div>
 
         <div className="reviews-modal">
             <div className="action-div">
-                <button className="exit-btn" onClick={onCloseAll}></button>
+                <button className="exit-btn" onClick={onReviewsModal}></button>
             </div>
 
             <div className="modal-content">
@@ -33,9 +34,12 @@ export function StayReviewsModal({ stay, onCloseAll }) {
                                     <p>{review.txt}</p>
                                 </div>
                             </div>
+                            {(userReview && userReview.by._id === review.by._id) && <button className="delete-btn" onClick={() => removeStayReview(review.by._id)}></button>}
                         </article>
-                    })
-                    }
+                    })}
+                    <div className="actions-btns">
+                        {isReviewable && <button onClick={onAddReviewModal} className="leave-review-btn">Leave Review</button>}
+                    </div>
                 </section>
             </div>
 

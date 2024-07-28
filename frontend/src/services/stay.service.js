@@ -18,17 +18,13 @@ export const stayService = {
     getEmptyStay,
     getDefaultFilter,
     getEmptyModalFilter,
+    getUserReview,
     guestCountString,
     createDemoData,
     guestCountStringForReservation,
     generateRandomDate,
     generateRandomDistance
 }
-
-const amenityLabels = ['wifi', 'kitchen', 'washer', 'dryer', 'air_conditioning', 'refrigerator', 'heating', 'dedicated_workspace', 'TV', 'hair_dryer', 'iron', 'pool', 'hot_tub', 'free_parking', 'ev_charger', 'crib', 'king_bed', 'gym', 'BBQ_grill', 'breakfast', 'indoor_fireplace', 'smoking_allowed', 'pets_allowed']
-const filterLabels = ['iconic_cities', 'new', 'off-the-grid', 'rooms', 'creative_spaces',
-    'boats', 'grand_pianos', 'vineyards', 'historical_homes', 'mansions', 'lake', 'bed_&_breakfasts', 'treehouses', 'farms', 'skiing', 'earth_homes', 'countryside', 'amazing_views', 'beach', 'desert', 'a-frames',
-    'design', 'beachfront', 'caves', 'national_parks', 'castles', 'lakefront', 'islands', 'trulli', 'tropical', 'cabins', 'campers', 'camping', 'arctic', 'tiny_homes', 'surfing', 'barns', 'cycladic_homes', 'hanoks', 'ryokans', 'domes', 'shepard_huts', 'yurts', 'minsus', 'casas_particulares']
 
 function query(filterBy = getDefaultFilter()) {
     return httpService.get(BASE_URL, filterBy)
@@ -115,6 +111,7 @@ function getEmptyStay() {
         sumOfBeds: 0,
         amenities: [],
         labels: [],
+        reviews: [],
         imgUrls: [],
         bookingOpts: {
             instant: false,
@@ -130,7 +127,6 @@ function getEmptyStay() {
             country: "",
             countryCode: "",
             city: "",
-            reviews: [],
             address: "",
             lng: 0,
             lat: 0,
@@ -229,6 +225,9 @@ function getEmptyOrder() {
     }
 }
 
+function getUserReview(stay, userId) {
+    return stay.reviews.find(review => review.by._id === userId)
+}
 
 function createDemoData(key, value) {
     if (utilService.loadFromStorage(key)) return utilService.loadFromStorage(key)
@@ -340,7 +339,6 @@ function generateRandomDate(stayPrice) {
 
     return selectedDate;
 }
-
 
 function generateRandomDistance(stay) {
     const lowercaseCountry = stay.loc.country.toLowerCase()

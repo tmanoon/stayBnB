@@ -30,8 +30,8 @@ export function stayReducer(state = initialState, action = {}) {
             lastStays = [...action.stays]
             return { ...state, stays: action.stays, lastStays }
 
-            case SET_STAY:
-                return { ...state, stay: action.stay }
+        case SET_STAY:
+            return { ...state, stay: action.stay }
 
         case REMOVE_STAY:
             lastStays = [...state.stays]
@@ -59,7 +59,7 @@ export function stayReducer(state = initialState, action = {}) {
 
         case SET_IS_LOADING:
             return { ...state, isLoading: action.isLoading }
-   
+
         default:
             return state
     }
