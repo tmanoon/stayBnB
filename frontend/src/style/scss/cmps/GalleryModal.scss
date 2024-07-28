@@ -6,6 +6,7 @@
     color: $darkGray;
     background-color: white;
     border-radius: $border-radius-4 $border-radius-4 0 0;
+    padding: 0.5rem;
 
     header {
         background-color: white;
@@ -51,12 +52,10 @@
     ::-webkit-scrollbar-thumb {
         border-radius: $border-radius-1;
         background-color: $gray4;
-        border: 0.667px solid $gray4;
     }
 
     ::-webkit-scrollbar-track {
         border-radius: $border-radius-1;
-        border: 0.667px solid $gray4;
     }
 
     main {
@@ -64,7 +63,7 @@
         overflow-y: auto;
         overflow-x: hidden;
         margin-block-start: 4rem;
-        padding-inline: 1.5rem;
+        padding-inline: 1rem;
 
         grid-template-columns: 1fr 1fr;
         gap: 0.5rem;

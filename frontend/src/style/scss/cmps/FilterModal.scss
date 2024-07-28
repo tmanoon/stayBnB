@@ -6,6 +6,20 @@
     color: $darkGray;
     background-color: white;
     border-radius: $border-radius-4;
+    padding: 0.5rem;
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: $border-radius-1;
+        background-color: $gray4;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: $border-radius-1;
+    }
 
     header,
     footer {
@@ -14,6 +28,29 @@
 
         &>* {
             font-size: 1rem;
+        }
+
+        .exit-btn,
+        .clear-btn {
+            background-color: white;
+            transition: 0s;
+
+            &:hover {
+                background-color: $btnHover;
+            }
+        }
+
+        .exit-btn {
+            position: absolute;
+            inset: 1rem auto auto 1rem;
+            border-radius: $border-radius-circle;
+            height: 2rem;
+            width: 2rem;
+        }
+
+        .clear-btn {
+            font-family: circular-medium;
+            border-radius: $border-radius-3;
         }
     }
 
@@ -34,60 +71,22 @@
         inset: auto 0 0;
         padding: 1rem 1.5rem 1rem 0.9rem;
         border-block-start: 0.667px solid $lightGray;
-    }
 
-    .exit-btn,
-    .clear-btn {
-        background-color: white;
-        transition: 0s;
+        .submit-btn {
+            height: auto;
+            padding: 0.9rem 1.7rem;
+            border-radius: $border-radius-3;
+            color: white;
+            background-color: $darkGray;
 
-        &:hover {
-            background-color: $btnHover;
+            font-size: 0.92rem;
+            font-family: circular-bold;
         }
-    }
-
-    .exit-btn {
-        position: absolute;
-        inset: 1rem auto auto 1rem;
-        border-radius: $border-radius-circle;
-        height: 2rem;
-        width: 2rem;
-    }
-
-    .clear-btn {
-        font-family: circular-medium;
-        border-radius: $border-radius-3;
-    }
-
-    .submit-btn {
-        height: auto;
-        padding: 0.9rem 1.7rem;
-        border-radius: $border-radius-3;
-        color: white;
-        background-color: $darkGray;
-
-        font-size: 0.92rem;
-        font-family: circular-bold;
     }
 
     button:active {
         scale: 0.85;
         transition: scale 1s;
-    }
-
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        border-radius: $border-radius-1;
-        background-color: $gray4;
-        border: 0.667px solid $gray4;
-    }
-
-    ::-webkit-scrollbar-track {
-        border-radius: $border-radius-1;
-        border: 0.667px solid $gray4;
     }
 
     main {
@@ -125,7 +124,7 @@
             padding-block-end: 1rem;
 
             .checkbox-item {
-                cursor: pointer; 
+                cursor: pointer;
 
                 .Mui-checked {
                     color: $darkGray !important;
@@ -134,12 +133,12 @@
                 .checkbox {
                     background-color: transparent;
                     color: $gray4;
-                    
+
                     &:hover {
                         color: $darkGray;
                     }
                 }
-                
+
                 span {
                     font-family: circular-thin;
                 }
@@ -160,7 +159,7 @@
 
         /////////////////////////////////////////////////////////////
         .place-type {
-            padding-block: 1.4rem 1.5rem;
+            padding-block: 1rem 1.5rem;
 
             h2 {
                 padding-block-end: 1rem;
@@ -383,7 +382,7 @@
         }
 
         .host-lng {
-            padding-block: 1.9rem 2.5rem;
+            padding-block: 1.9rem 1.5rem;
             padding-inline: 0 0.75rem;
 
             h2 {
