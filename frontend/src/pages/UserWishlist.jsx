@@ -38,7 +38,6 @@ export function UserWishlist() {
 
     return (
         <section className="user-wishlist">
-            <button className="back-btn" onClick={() => navigate('/')}></button>
             <header>
                 <h1>Wishlist</h1>
             </header>
