@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { userService } from "../services/user.service"
 import { useNavigate } from "react-router"
-import { loadStayById } from "../store/actions/stay.actions"
 import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
+import { store } from "../store/store"
+import { utilService } from "../services/util.service"
 
 export function UserWishlist() {
     const user = userService.getLoggedInUser()
     const [userWishlist, setUserWishlist] = useState(user.wishlist.length > 0 ? user.wishlist : null)
     const navigate = useNavigate()
+    const filterBy = store.getState().stayModule.filterBy
 
     async function onRemoveFromWishlist(ev, id) {
         ev.stopPropagation()
@@ -18,6 +20,20 @@ export function UserWishlist() {
             console.log('err', err)
             throw err
         }
+    }
+
+    function navigateToStay(id) {
+        const today = new Date()
+        today.setDate(today.getDate() + 1)
+        const tomorrow = today.getTime()
+        let filterByParams = {
+            ...filterBy.guestCount,
+            entryDate: Date.now(),
+            exitDate: tomorrow
+        }
+        filterByParams.adults = 1
+        const paramsForUrl = utilService.getFormattedParams(filterByParams)
+        navigate(`/${id}?${paramsForUrl}`)
     }
 
     return (
@@ -37,8 +53,7 @@ export function UserWishlist() {
                 <div className="wishlist-items grid">
                     {userWishlist.map(stay => {
                         return (
-                            <article className="wishlist-item grid" key={stay._id} onClick={() => navigate(`/${stay._id}`)}>
-                            
+                            <article className="wishlist-item grid" key={stay._id} onClick={() => navigateToStay(stay._id)}>
                                 <img src={stay.imgUrls[0]} alt={stay.name} />
                                 <div className="text grid align-center">
                                     <h2>{stay.name}</h2>
