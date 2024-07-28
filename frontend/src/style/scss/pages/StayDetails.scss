@@ -1,6 +1,5 @@
 .stay-details {
     margin-block-end: 5rem;
-    padding-inline: 0;
     color: $darkGray;
 
     ::-webkit-scrollbar {
@@ -184,14 +183,20 @@
 }
 
 @media (width > 742px) {
-    .stay-details .content-and-modal-container {
-        .content {
-            padding-inline-start: 0;
+    .stay-details {
+        header {
+            padding-inline: 0;
         }
 
-        .amenity-info {
-            .amenities-ul {
-                grid-template-columns: repeat(2, minmax(1px, 1fr));
+        .content-and-modal-container {
+            .content {
+                padding-inline: 0;
+            }
+
+            .amenity-info {
+                .amenities-ul {
+                    grid-template-columns: repeat(2, minmax(1px, 1fr));
+                }
             }
         }
     }

@@ -3,6 +3,8 @@
     color: $darkGray;
 
     .review {
+        position: relative;
+
         button {
             background-color: transparent;
             padding: 0.5rem 0;
@@ -60,12 +62,42 @@
                 font-size: 1rem;
             }
         }
+
+        .delete-btn {
+            position: absolute;
+            inset: 1rem 1rem auto auto;
+            border-radius: $border-radius-circle;
+            height: 2rem;
+            width: 2rem;
+            background-color: transparent;
+            transition: 0s;
+
+            &::before {
+                content: '\f2ed';
+                font-family: fa-reg;
+            }
+
+            &:hover {
+                background-color: $btnHover;
+            }
+        }
     }
 
-    .leave-review-btn {
-        @include coloredBtn;
 
-        height: 2.5rem;
+    .actions-btns {
+        .show-all-btn {
+            height: 2.5rem;
+            background-color: transparent;
+            border-radius: $border-radius-1;
+            padding: 0.5rem 1rem;
+            border: solid $darkGray 1px;
+        }
+
+        .leave-review-btn {
+            @include coloredBtn;
+
+            height: 2.5rem;
+        }
     }
 }
 
@@ -98,6 +130,11 @@
         .not-flip-div {
             gap: 0.5rem;
         }
+    }
+
+    .actions-btns {
+        flex-direction: column;
+        justify-content: space-evenly;
     }
 }
 
@@ -150,6 +187,11 @@
 @media (width > 742px) {
     .stay-reviews-section {
         padding-block-start: 2.5rem;
+
+        .actions-btns {
+            justify-content: space-between;
+            flex-direction: row;
+        }
     }
 
     .stay-reviews-section,
@@ -187,6 +229,10 @@
             .not-flip-div {
                 gap: 0.45rem;
             }
+        }
+
+        .actions-btns {
+            grid-column: 1;
         }
     }
 

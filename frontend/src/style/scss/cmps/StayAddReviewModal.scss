@@ -1,0 +1,106 @@
+.add-review-modal {
+    position: fixed;
+    inset: 2.5rem 0 0 0;
+    z-index: 4;
+
+    color: $darkGray;
+    background-color: white;
+    border-radius: $border-radius-4 $border-radius-4 0 0;
+
+    header {
+        position: relative;
+        height: 4rem;
+        padding: 1rem 1.5rem;
+        border-block-end: 0.667px solid $lightGray;
+        border-radius: $border-radius-4 $border-radius-4 0 0;
+
+        .exit-btn {
+            position: absolute;
+            inset: 1rem 1rem auto auto;
+            border-radius: $border-radius-circle;
+            height: 2rem;
+            width: 2rem;
+            background-color: transparent;
+            transition: 0s;
+
+            &::before {
+                content: '\58';
+                font-family: fa-solid;
+            }
+
+            &:hover {
+                background-color: $btnHover;
+            }
+        }
+
+        h1 {
+            font-size: 1rem;
+        }
+    }
+
+    footer {
+        position: absolute;
+        height: 4rem;
+        inset: auto 0 0;
+        border-block-start: 0.667px solid $lightGray;
+
+        button {
+            @include coloredBtn;
+
+            height: 2.5rem;
+            padding: 0 1.5rem;
+        }
+    }
+
+    .modal-content {
+        .review-rate {
+            button {
+                font-size: 2rem;
+                background-color: transparent;
+
+                &:hover {
+                    text-shadow: 0 0 10px rgb(252, 252, 85), 0 0 15px rgb(252, 252, 85), 0 0 20px rgb(252, 252, 85);
+                }
+
+                &.yellow-star {
+                    color: #FC0;
+                }
+
+                &.gray-star {
+                    color: $gray4;
+                }
+            }
+        }
+
+        .review-content {
+            width: 100%;
+
+            textarea {
+                color: $darkGray;
+                font-size: 1rem;
+                margin-block-start: 0.7em;
+                padding: 1rem;
+                border-radius: $border-radius-4;
+                border: 1px solid $gray2;
+                outline: none;
+            }
+        }
+    }
+}
+
+
+@media (width > 742px) {
+    .add-review-modal {
+        inset: 2rem calc(50% - 24.5rem);
+        max-width: 48.75rem;
+        border-radius: $border-radius-4;
+
+        header h1 {
+            font-size: 2rem;
+        }
+
+        footer {
+            border-radius: 0 0 $border-radius-4 $border-radius-4;
+        }
+    }
+}

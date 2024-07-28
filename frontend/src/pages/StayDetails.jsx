@@ -1,12 +1,13 @@
 import { useParams } from "react-router"
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector } from "react-redux"
 
-import { loadStayById } from "../store/actions/stay.actions"
 import { userService } from "../services/user.service"
 import { orderService } from '../services/order.service'
+import { stayService } from "../services/stay.service"
 import { utilService } from "../services/util.service"
+import { loadStayById, saveStay } from "../store/actions/stay.actions"
 import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 
 import { StayGalleryPreview } from '../cmps/StayDetailsCmps/StayGalleryPreview'
@@ -17,7 +18,6 @@ import { GalleryModal } from '../cmps/StayDetailsCmps/GalleryModal'
 import { Loading } from "../cmps/Loading"
 import { SvgPathCmp } from '../cmps/HelperCmps/SvgPathCmp'
 import { Accordion } from "../cmps/HelperCmps/Accordion"
-import { set } from "date-fns"
 
 export function StayDetails() {
     const { stayId } = useParams()
@@ -33,7 +33,8 @@ export function StayDetails() {
     const [isGalleryModal, setGalleryModal] = useState(false)
     const [user, setUser] = useState(null)
     const [isWishlistStay, setIsWishlistStay] = useState(false)
-    const [isPreviousStayed, setIsPreviousStay] = useState(null)
+    const [isReviewable, setCanReview] = useState(null)
+    const [addReviewModal, setAddReviewModal] = useState(false)
 
     useEffect(() => {
         const user = userService.getLoggedInUser()
@@ -48,7 +49,7 @@ export function StayDetails() {
 
     useEffect(() => {
         if (stay && user) {
-            isPreviouslyStayedCheck()
+            isAllowedToReview()
         }
     }, [stay, user])
 
@@ -61,13 +62,14 @@ export function StayDetails() {
         }
     }
 
-    async function isPreviouslyStayedCheck() {
+    async function isAllowedToReview() {
         try {
             const userOrders = await orderService.getUserOrdersById(user._id)
-            setIsPreviousStay(userOrders.some(order => order.stay._id === stayId))
+            const userPreviousReview = stayService.getUserReview(stay, user._id)
+            setCanReview(userOrders.some(order => order.stay._id === stayId) && !userPreviousReview)
         } catch (err) {
             console.log(err)
-            setIsPreviousStay(false)
+            setCanReview(false)
         }
     }
 
@@ -97,6 +99,33 @@ export function StayDetails() {
         } catch (err) {
             console.error('Failed to copy: ', err)
         }
+    }
+
+    async function addStayReview(newReview) {  // object with rate and txt
+        newReview.at = new Date().getTime()
+        newReview.by = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl }
+        try {
+            const stayToSave = await stayService.save({ ...stay, reviews: [...stay.reviews, newReview] })
+            saveStay(stayToSave)
+            setStay(stayToSave)
+            setAddReviewModal(false)
+        } catch (err) { console.log(err) }
+    }
+
+    async function removeStayReview() {
+        try {
+            const reviewIdx = stay.reviews.findIndex(review => review.by._id === user._id)
+            if (reviewIdx !== -1) {
+                const reviews = [...stay.reviews]
+                reviews.splice(reviewIdx, 1)
+                const stayToSave = { ...stay, reviews: reviews }
+                const savedStay = await stayService.save(stayToSave)
+                saveStay(savedStay)
+                setStay(savedStay)
+            } else {
+                console.log("Review not found")
+            }
+        } catch (err) { console.log(err) }
     }
 
     return <>
@@ -185,7 +214,7 @@ export function StayDetails() {
             </main>
 
             <div id="reviews">
-                <StayReviewsPreview stay={stay} isPreviousStayed={isPreviousStayed} />
+                <StayReviewsPreview stay={stay} userId={user._id} isReviewable={isReviewable} addStayReview={addStayReview} removeStayReview={removeStayReview} setAddReviewModal={setAddReviewModal} addReviewModal={addReviewModal} />
             </div>
         </section>
         }
