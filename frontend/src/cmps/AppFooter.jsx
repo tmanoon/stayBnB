@@ -23,8 +23,7 @@ export function AppFooter() {
     }
 
     return (
-        <div className='footer-color'>
-        <section className={`app-footer footer-${getFooterWidth()} ${getFooterGone()} grid`}>
+        <footer className={`app-footer footer-${getFooterWidth()} ${getFooterGone()} grid`}>
             <div className="credits-and-links grid">
                 <p className="credits">© 2024 Staybnb, Inc.<span>·</span></p>
                 <div className="links flex">
@@ -44,7 +43,6 @@ export function AppFooter() {
                 <span className="twitter flex center" onClick={() => navigateTo("https://twitter.com/airbnb")}></span>
                 <span className="instagram flex center" onClick={() => navigateTo("https://www.instagram.com/airbnb/")}></span>
             </div>
-        </section>
-        </div>
+        </footer>
     )
 }
