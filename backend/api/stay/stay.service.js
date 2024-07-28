@@ -101,7 +101,6 @@ async function query(filterBy) {
 async function getById(stayId) {
     try {
         const collection = await dbService.getCollection('stay')
-        // console.log(collection);
         const stay = collection.findOne({ _id: new ObjectId(stayId) })
         return stay
     } catch (err) {
@@ -134,7 +133,8 @@ async function add(stay) {
 
 async function update(stay) {
     try {
-        const stayToSave = {...stay}
+        const stayToSave = { ...stay }
+        delete stayToSave._id
         const collection = await dbService.getCollection('stay')
         await collection.updateOne({ _id: new ObjectId(stay._id) }, { $set: stayToSave })
         return stay
