@@ -1,6 +1,12 @@
 .user-wishlist {
-    @media (min-width: 100px) {            
+    @media (min-width: 100px) {
+
         margin-inline: rem(24px);
+
+        h2,
+        h3 {
+            margin-block: 0;
+        }
 
         .back-btn {
             font-family: fa-solid;
@@ -25,23 +31,34 @@
             padding-block: 1.1rem 1.275rem;
         }
 
+        .no-items {
+
+            margin-block: 2em;
+
+            .search-btn {
+                margin-block: 1em;
+                font-family: circular-reg;
+            }
+        }
+
         .wishlist-items {
             grid-auto-flow: row;
             gap: rem(24px);
-            margin-block: 1em;
+            margin-block: 2em;
 
             .wishlist-item {
                 grid-template-columns: rem(250px) 1fr;
-                height: rem(300px);
+                height: rem(304px);
                 gap: 1rem;
                 border-radius: rem(9.6px);
+                box-shadow: $gray3 1px 1px 16px;
                 position: relative;
+                padding: 1rem;
+                cursor: pointer;
 
-                .remove-btn {
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    padding-inline: rem(12px);
+                &:hover {
+                    scale: 1.025;
+                    transition: scale 0.5s;
                 }
 
                 img {
@@ -49,30 +66,37 @@
                     object-fit: cover;
                     max-width: 100%;
                     height: 100%;
+                    border-radius: rem(9.6px);
                 }
 
                 .text {
                     grid-column: 2;
                     text-align: center;
                     grid-auto-flow: row;
+                    justify-items: center;
                     align-content: space-between;
                 }
             }
         }
     }
-}
 
-// <div className="wishlist-items grid">
-// {userWishlist.map(stay => {
-//     return (
-//         <article className="wishlist-item" key={stay._id} onClick={() => navigate(`/${stay._id}`)}>
-//             <img src={stay.imgUrls[0]} alt={stay.name} />
-//             <div className="text">
-//                 <h2>{stay.name}</h2>
-//                 <p>{stay.loc.address}, {stay.loc.city}, {stay.loc.country}</p>
-//                 <h3>{stay.price}</h3>
-//             </div>
-//         </article>
-//     )
-// })}
-// </div>
+    @media (min-width: 744px) {
+
+        .wishlist-items {
+            .wishlist-item {
+                grid-template-columns: rem(340px) 1fr;
+                height: rem(340px);
+            }
+        }
+    }
+
+    @media (min-width: 1128px) {
+
+        .wishlist-items {
+            .wishlist-item {
+                grid-template-columns: rem(500px) 1fr;
+                height: rem(380px);
+            }
+        }
+    }
+}
