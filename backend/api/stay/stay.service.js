@@ -101,7 +101,6 @@ async function query(filterBy) {
 async function getById(stayId) {
     try {
         const collection = await dbService.getCollection('stay')
-        // console.log(collection);
         const stay = collection.findOne({ _id: new ObjectId(stayId) })
         return stay
     } catch (err) {
