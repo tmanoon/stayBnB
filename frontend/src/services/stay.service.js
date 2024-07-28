@@ -60,7 +60,7 @@ function remove(stayId) {
 }
 
 function save(stay) {
-    if (stay._id) return httpService.put(BASE_URL, stay)
+    if (stay._id) return httpService.put(BASE_URL + stay._id, stay)
     else return httpService.post(BASE_URL, stay)
 }
 
