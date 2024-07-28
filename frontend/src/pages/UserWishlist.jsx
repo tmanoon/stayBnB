@@ -9,13 +9,6 @@ export function UserWishlist() {
     const [userWishlist, setUserWishlist] = useState(user.wishlist.length > 0 ? user.wishlist : null)
     const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     // if (user) {
-    //     //     setUserWishlist(user.wishlist)
-    //         console.log(userWishlist)
-    //     // }
-    // }, [])
-
     async function onRemoveFromWishlist(ev, id) {
         ev.stopPropagation()
         try {
@@ -37,7 +30,7 @@ export function UserWishlist() {
                 <div className="no-items">
                     <h2>No locations added to wishlist...yet!</h2>
                     <p>Feel free to explore our locations and find the ones for you!</p>
-                    <button onClick={() => navigate('/')}>Start searching</button>
+                    <button className="search-btn" onClick={() => navigate('/')}>Start searching</button>
                 </div>
             }
             {userWishlist &&
@@ -45,12 +38,14 @@ export function UserWishlist() {
                     {userWishlist.map(stay => {
                         return (
                             <article className="wishlist-item grid" key={stay._id} onClick={() => navigate(`/${stay._id}`)}>
-                                <button className="remove-btn flex center" onClick={(ev) => onRemoveFromWishlist(ev, stay._id)}>x</button>
+                            
                                 <img src={stay.imgUrls[0]} alt={stay.name} />
                                 <div className="text grid align-center">
                                     <h2>{stay.name}</h2>
                                     <p>{stay.loc.address}, {stay.loc.city}, {stay.loc.country}</p>
                                     <h3>${stay.price}</h3>
+                                    <p>Host: {stay.host.fullname}</p>
+                                    <button className="remove-btn flex center" onClick={(ev) => onRemoveFromWishlist(ev, stay._id)}>Remove</button>
                                 </div>
                             </article>
                         )
