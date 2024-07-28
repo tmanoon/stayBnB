@@ -34,7 +34,7 @@
         .no-items {
 
             margin-block: 2em;
-            
+
             .search-btn {
                 margin-block: 1em;
                 font-family: circular-reg;
@@ -48,7 +48,7 @@
 
             .wishlist-item {
                 grid-template-columns: rem(250px) 1fr;
-                height: rem(300px);
+                height: rem(304px);
                 gap: 1rem;
                 border-radius: rem(9.6px);
                 box-shadow: $gray3 1px 1px 16px;
@@ -75,7 +75,6 @@
                     grid-auto-flow: row;
                     justify-items: center;
                     align-content: space-between;
-                    margin-block: 1rem;
                 }
             }
         }
