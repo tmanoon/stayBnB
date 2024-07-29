@@ -53,7 +53,7 @@ export function StayReviewsPreview({ stay, userId, isReviewable, addStayReview, 
 
                         <div className="review-score flex align-center">
                             <p>{'★'.repeat(Math.floor(review.rate))}<span>{'★'.repeat(5 - Math.floor(review.rate))}</span></p>
-                            •
+                            ·
                             <h4>{utilService.timestampToMonthYear(review.at)}</h4>
                         </div>
 
