@@ -17,7 +17,8 @@
             transition: opacity 0.3s;
             width: 22rem;
 
-            .map, .check-in {
+            .map,
+            .check-in {
                 font-family: circular-reg, Tahoma;
             }
 
@@ -216,6 +217,7 @@
                 opacity: 1;
                 transition: opacity 0.3s;
                 width: 100%;
+                justify-items: center;
             }
         }
     }
@@ -230,7 +232,6 @@
             .guest {
                 display: none;
             }
-
         }
     }
 }
