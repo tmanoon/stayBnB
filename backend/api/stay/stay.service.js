@@ -20,29 +20,29 @@ async function query(filterBy) {
         }
 
         if (filterBy.guestCount.adults > 1 || filterBy.guestCount.children) {
-            const filterCapacity = parseInt(filterBy.guestCount.adults || 0) + parseInt(filterBy.guestCount.children || 0);
-            criteria.capacity = { $gte: filterCapacity };
+            const filterCapacity = parseInt(filterBy.guestCount.adults || 0) + parseInt(filterBy.guestCount.children || 0)
+            criteria.capacity = { $gte: filterCapacity }
         }
 
         if (+filterBy.guestCount.pets) {
-            criteria.amenities = { $in: ['pets allowed', 'Pets are welcome', 'Allows pets on property', 'Allows pets as host'] };
+            criteria.amenities = { $in: ['pets allowed', 'Pets are welcome', 'Allows pets on property', 'Allows pets as host'] }
         }
 
         if (+filterBy.guestCount.infants) {
-            criteria.amenities = { $in: ['Crib'] };
+            criteria.amenities = { $in: ['Crib'] }
         }
 
 
         if (filterBy.amenities && filterBy.amenities.length > 0) {
             const formattedAmenities = filterBy.amenities.map(amenity => {
-                return amenity.replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase());
-            });
-            criteria.amenities = { $all: formattedAmenities };
+                return amenity.replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase())
+            })
+            criteria.amenities = { $all: formattedAmenities }
         }
 
         if (filterBy.label) {
-            const formattedLabel = filterBy.label[0].replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase());
-            criteria.labels = { $in: [formattedLabel] };
+            const formattedLabel = filterBy.label[0].replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase())
+            criteria.labels = { $in: [formattedLabel] }
         }
 
         if (filterBy.entryDate && filterBy.exitDate) {
@@ -64,20 +64,20 @@ async function query(filterBy) {
         }
 
         if (filterBy.bathrooms !== 'any') {
-            criteria.bathrooms = { $gte: +filterBy.bathrooms };
+            criteria.bathrooms = { $gte: +filterBy.bathrooms }
         }
 
         if (filterBy.beds !== 'any') {
-            criteria.sumOfBeds = { $gte: +filterBy.beds };
+            criteria.sumOfBeds = { $gte: +filterBy.beds }
         }
 
         if (filterBy.placeType === "entire home") {
-            criteria.placeType = "An entire home";
+            criteria.placeType = "An entire home"
         } else if (filterBy.placeType === "room") {
-            criteria.placeType = "Room";
+            criteria.placeType = "Room"
         }
         // if (filterBy.bedrooms !== 'any') {
-        //     const requiredBedrooms = parseInt(filterBy.bedrooms);
+        //     const requiredBedrooms = parseInt(filterBy.bedrooms)
         //     criteria.bedroomsCount = { $gte: +requiredBedrooms };
         // }
 
@@ -137,7 +137,7 @@ async function update(stay) {
         delete stayToSave._id
         const collection = await dbService.getCollection('stay')
         await collection.updateOne({ _id: new ObjectId(stay._id) }, { $set: stayToSave })
-        return stay
+        return stayToSave
     } catch (err) {
         logger.error(`cannot update stay ${stay._id}`, err)
         throw err

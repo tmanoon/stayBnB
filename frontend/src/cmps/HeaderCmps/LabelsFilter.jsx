@@ -8,9 +8,9 @@ export function LabelsFilter({ filterBy, setStayFilter }) {
 	const [showFilterModal, setShowFilter] = useState(false)
 	const [selectedValue, setSelectedValue] = useState('')
 
-	function handleChange(label) {
+	const handleChange = (label) => {
 		setSelectedValue(label)
-		setStayFilter({ ...filterBy, label: [label] })
+		setStayFilter({ ...filterBy, label })
 	}
 
 	const openFilterModal = () => {
@@ -26,7 +26,6 @@ export function LabelsFilter({ filterBy, setStayFilter }) {
 						handleChange={handleChange}
 						selectedValue={selectedValue} />
 				</div>
-
 				<button className="flex center" onClick={openFilterModal}>
 					<SvgPathCmp name={'settings'} />
 					<span>Filters</span>
