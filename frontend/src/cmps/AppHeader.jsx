@@ -22,7 +22,12 @@ export function AppHeader({ scrolledPage }) {
     const [loggedInUser, setLoggedInUser] = useState(null)
 
     const filterBy = useSelector(storeState => storeState.stayModule.filterBy)
-    const modalTypes = [{ modalName: 'map', desc: filterBy.txt || 'Anywhere' }, { modalName: 'check-in', desc: filterBy.entryDate && filterBy.exitDate ? utilService.timestampsToShortDates(+filterBy.entryDate, +filterBy.exitDate) : 'Any week' }, { modalName: 'guest', desc: checkIfFilterByGuests() ? utilService.calcGuestCountInFilterBy(filterBy) : 'Add guests' }]
+    const modalTypes = [{
+        modalName: 'map',
+        desc: filterBy.txt || 'Anywhere'
+    },
+    { modalName: 'check-in', desc: filterBy.entryDate && filterBy.exitDate ? utilService.timestampsToShortDates(+filterBy.entryDate, +filterBy.exitDate) : 'Any week' },
+    { modalName: 'guest', desc: checkIfFilterByGuests() ? utilService.calcGuestCountInFilterBy(filterBy) : 'Add guests' }]
 
     useEffect(() => {
         setLoggedInUser(userService.getLoggedInUser())
