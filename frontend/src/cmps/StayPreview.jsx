@@ -1,10 +1,14 @@
 import { stayService } from "../services/stay.service"
 
+import { ImgCarousel } from "./HelperCmps/ImgCarousel"
+
 export function StayPreview({ stay, filterBy }) {
 
     return (
         <article className="stay-preview">
-            <img src={stay.imgUrls[0]} />
+            <div className="img-container">
+                <ImgCarousel imgUrls={stay.imgUrls} />
+            </div>
             {!filterBy.txt && <h1>{stay.loc.city}, {stay.loc.country}</h1>}
             {filterBy.txt && <h1>{stay.loc.address.split(', ')[0]}</h1>}
             {!filterBy.txt && <p className="grayTxt">{stayService.generateRandomDistance(stay) + " kilometers away"}</p>}

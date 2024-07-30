@@ -1,0 +1,74 @@
+.stay-list li:hover {
+
+    .carousel-prev-btn,
+    .carousel-next-btn {
+        color: $darkGray;
+        background-color: $btnHover;
+        opacity: 0.75;
+
+        transition: 0.5s;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+}
+
+.carousel-prev-btn,
+.carousel-next-btn {
+    width: 30px;
+    color: transparent;
+    background-color: transparent;
+
+    z-index: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel-prev-btn {
+    left: 4%;
+
+    &::before {
+        content: "\f053";
+        font-family: fa-solid;
+    }
+}
+
+.carousel-next-btn {
+    right: 4%;
+
+    &::before {
+        content: "\f105";
+        font-family: fa-solid;
+    }
+}
+
+.react-multi-carousel-dot-list {
+    width: 100%;
+    bottom: 10px;
+    align-items: center;
+    gap: 7px;
+    z-index: 0;
+    transform: translateY(-50%);
+
+    button {
+        border-radius: $border-radius-circle;
+        background: white;
+        border: none;
+        padding: 0;
+
+        &.active {
+            width: 6px;
+            height: 6px;
+            opacity: 1;
+        }
+        
+        &.inactive {
+            width: 5px;
+            height: 5px;
+            opacity: 0.6;
+        }
+    }
+}
