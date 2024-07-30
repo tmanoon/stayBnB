@@ -2,106 +2,110 @@
     width: 100%;
     height: fit-content;
     background-color: $btnHover;
+    position: sticky;
+    top: calc(100vh - 122px);
 }
 
 .app-footer {
-    @media (min-width: 100px) {
+    grid-template-rows: repeat(2, 1fr);
+    padding-block: rem(24px);
+    color: $darkGray;
+    background-color: $btnHover;
+    width: 100%;
+
+    &.invisible {
+        display: none;
+    }
+
+    .credits-and-links {
+        grid-row: 2;
         grid-template-rows: repeat(2, 1fr);
-        padding-block: rem(24px);
-        color: $darkGray;
-        background-color: $btnHover;
-        position: relative;
-        bottom: 0;
-        width: 100%;
 
-        &.invisible {
-            display: none;
-        }
-
-        .credits-and-links {
-            grid-row: 2;
-            grid-template-rows: repeat(2, 1fr);
-
-            .links span,
-            .credits span {
-                font-size: rem(12px);
-            }
-
-            .credits {
-                grid-row: 1;
-                margin-block-end: rem(2px);
-
-                span {
-                    display: none;
-                }
-            }
-
-            .links {
-                grid-row: 2;
-                align-items: center;
-                gap: rem(8px);
-            }
-        }
-
-        .locale span,
-        .links p {
-            &:hover {
-                text-decoration: underline;
-                cursor: pointer;
-            }
-        }
-
-        .credits-and-links .credits,
-        .credits-and-links .links p {
+        .links span,
+        .credits span {
             font-size: rem(12px);
         }
 
-        .locale {
+        .credits {
             grid-row: 1;
-            margin-block-end: rem(22px);
-            gap: rem(24px);
+            margin-block-end: rem(2px);
 
             span {
-                font-family: circular-medium, 'Tahoma';
-                font-size: em(12px);
+                display: none;
             }
         }
 
-        .social {
-            display: none;
-
-            .facebook,
-            .instagram,
-            .twitter {
-                width: rem(18px);
-                height: rem(18px);
-                font-size: em(12px);
-                background-color: $darkGray;
-                color: white;
-                cursor: pointer;
-                font-family: fa-brands, 'Courier New', Courier, monospace;
-            }
-
-            .facebook::before {
-                content: '\f39e';
-            }
-
-            .twitter::before {
-                content: '\f099';
-            }
-
-            .instagram::before {
-                content: '\f16d';
-            }
-
-            .twitter {
-                border-radius: 2px;
-            }
+        .links {
+            grid-row: 2;
+            align-items: center;
+            gap: rem(8px);
         }
-
     }
 
-    @media (min-width: 744px) {
+    .locale span,
+    .links p {
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    .credits-and-links .credits,
+    .credits-and-links .links p {
+        font-size: rem(12px);
+    }
+
+    .locale {
+        grid-row: 1;
+        margin-block-end: rem(22px);
+        gap: rem(24px);
+
+        span {
+            font-family: circular-medium, 'Tahoma';
+            font-size: em(12px);
+        }
+    }
+
+    .social {
+        display: none;
+
+        .facebook,
+        .instagram,
+        .twitter {
+            width: rem(18px);
+            height: rem(18px);
+            font-size: em(12px);
+            background-color: $darkGray;
+            color: white;
+            cursor: pointer;
+            font-family: fa-brands, 'Courier New', Courier, monospace;
+        }
+
+        .facebook::before {
+            content: '\f39e';
+        }
+
+        .twitter::before {
+            content: '\f099';
+        }
+
+        .instagram::before {
+            content: '\f16d';
+        }
+
+        .twitter {
+            border-radius: 2px;
+        }
+    }
+}
+
+@media (min-width: 744px) {
+
+    .footer-color {
+        top: calc(100vh - 116px);
+    }
+
+    .app-footer {
         justify-content: center;
         grid-template-columns: repeat(2, max-content);
 
@@ -113,7 +117,7 @@
             margin-inline-start: rem(23px);
             gap: 1rem;
 
-            & > * {
+            &>* {
                 grid-row: 1;
 
                 &:hover {
@@ -139,8 +143,15 @@
             margin-block-end: 1rem;
         }
     }
+}
 
-    @media(min-width: 1128px) {
+@media(min-width: 1128px) {
+
+    .footer-color {
+        top: calc(100vh - 66px);
+    }
+
+    .app-footer {
         grid-template-rows: 1fr;
         padding-inline: rem(80px);
         grid-template-columns: repeat(2, max-content);
@@ -168,7 +179,8 @@
             }
         }
 
-        .locale, .social {
+        .locale,
+        .social {
             grid-row: 1;
             grid-column: 2;
         }
@@ -182,6 +194,5 @@
         .social {
             justify-self: self-end;
         }
-
     }
 }
