@@ -1,12 +1,9 @@
-// #root {
-//     display: grid;
-//     grid-template-rows: max-content 1fr max-content;
-//     height: 100vh;
-
 .header-wide,
 .footer-wide,
 .index-section,
 .user-trips,
+.user-wishlist,
+.user-messages,
 .dashboard {
     padding-inline: 1.5rem;
     max-width: 2520px;
@@ -31,6 +28,8 @@
     .app-footer,
     .index-section,
     .user-trips,
+    .user-wishlist,
+    .user-messages,
     .dashboard,
     .stay-details,
     .stay-payment {
@@ -59,6 +58,8 @@
     .footer-wide,
     .index-section,
     .user-trips,
+    .user-wishlist,
+    .user-messages,
     .dashboard {
         padding-inline: 5rem;
     }

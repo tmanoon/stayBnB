@@ -54,8 +54,8 @@ export function AppHeader({ scrolledPage }) {
 
     const getHeaderWidth = () => {
         const { pathname } = location
-        if (pathname === '/' || pathname === '/trips' || pathname === '/wishlist' || pathname === '/dashboard') return 'wide' // wide header for the index/trips/dashboard/wishlist
-        else return 'narrow' // narrow header for details/payment/user-info/messages
+        if (pathname === '/' || pathname === '/trips' || pathname === '/wishlist' || pathname === '/dashboard' || pathname === '/messages') return 'wide' // wide header for the index/trips/dashboard/wishlist
+        else return 'narrow' // narrow header for details/payment/user-info
     }
 
     const getHeaderSize = () => {
