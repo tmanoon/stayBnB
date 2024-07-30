@@ -28,22 +28,11 @@ async function query(filterBy) {
             criteria.amenities = { $in: ['pets allowed', 'Pets are welcome', 'Allows pets on property', 'Allows pets as host'] }
         }
 
-        if (+filterBy.guestCount.infants) {
-            criteria.amenities = { $in: ['Crib'] }
-        }
+        if (+filterBy.guestCount.infants) criteria.amenities = { $in: ['crib'] }
 
+        if (filterBy.amenities.length > 0) criteria.amenities = { $all: filterBy.amenities }
 
-        if (filterBy.amenities && filterBy.amenities.length > 0) {
-            const formattedAmenities = filterBy.amenities.map(amenity => {
-                return amenity.replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase())
-            })
-            criteria.amenities = { $all: formattedAmenities }
-        }
-
-        if (filterBy.label) {
-            const formattedLabel = filterBy.label[0].replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase())
-            criteria.labels = { $in: [formattedLabel] }
-        }
+        if (filterBy.label) criteria.labels = { $in: [filterBy.label] }
 
         if (filterBy.entryDate && filterBy.exitDate) {
             criteria.$or = [
