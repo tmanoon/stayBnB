@@ -21,16 +21,26 @@
         cursor: pointer;
 
         &.selected {
+            background-color: white;
+            border: 1px solid transparent;
             box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.15);
             z-index: 1;
-            background-color: white;
+
+            input {
+                background-color: white;
+            }
         }
 
         &:not(.selected):hover {
             background-color: rgba(#71717123, 0.25);
+
+            input {
+                background-color: rgba(#71717123, 0);
+            }
         }
 
-        span {
+        span,
+        input {
             padding-top: 0.25em;
             font-size: 0.9rem;
             color: $headerGray;
@@ -44,8 +54,9 @@
     }
 
 
-    &.grey {
-        background-color: #ebebeb;
+    &.grey,
+    &.gray input {
+        background-color: $lightGray;
     }
 
     .splitter-1,
@@ -61,6 +72,11 @@
     .destination {
         grid-area: 1 / 1 / 2 / 2;
         font-size: 0.75rem;
+
+        input {
+            outline: none;
+            border: none;
+        }
     }
 
     .check-in {
@@ -79,7 +95,7 @@
         font-size: 0.75rem;
     }
 
-    & .search-btn {
+    .search-btn {
         height: 3rem;
         width: 3rem;
         background-color: $siteColor;
@@ -87,7 +103,7 @@
         align-self: center;
         transition: 0.2s;
 
-        & span {
+        span {
             display: none;
 
         }
@@ -96,7 +112,7 @@
             width: 7rem;
             border-radius: 25px;
 
-            & span {
+            span {
                 display: inline;
                 color: white;
                 margin-left: 0.4em;
@@ -111,17 +127,6 @@
             font-family: fa-solid;
             color: white;
         }
-    }
-
-    & .selected {
-        box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.15);
-        border: 1px solid transparent;
-        z-index: 1;
-        background-color: white;
-    }
-
-    &.grey {
-        background-color: #ebebeb;
     }
 }
 
