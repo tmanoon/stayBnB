@@ -40,10 +40,7 @@ async function query(filterBy) {
             criteria.amenities = { $all: formattedAmenities }
         }
 
-        if (filterBy.label) {
-            const formattedLabel = filterBy.label[0].replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase())
-            criteria.labels = { $in: [formattedLabel] }
-        }
+        if (filterBy.label) criteria.labels = { $in: [filterBy.label] }
 
         if (filterBy.entryDate && filterBy.exitDate) {
             criteria.$or = [
@@ -174,5 +171,5 @@ export const stayService = {
     add,
     update,
     addStayMsg,
-    removeStayMsg
+    removeStayMsg,
 }
