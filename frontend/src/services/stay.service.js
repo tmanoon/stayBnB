@@ -155,7 +155,7 @@ function getDefaultFilter() {
         placeType: 'any',
         priceRange: {
             min: 0,
-            max: 2000
+            max: Infinity
         },
         bbb: {
             bedrooms: 'any',
