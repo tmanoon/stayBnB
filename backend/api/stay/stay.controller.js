@@ -12,7 +12,7 @@ export async function getStays(req, res) {
             bookingOpts: req.query.bookingOpts || {},
             entryDate: req.query.entryDate || "",
             exitDate: req.query.exitDate || "",
-            guestCount: req.query.guestCount || { adults: "", children: "", infants: "", pets: "" },
+            guestCount: req.query.guestCount,
             hostLngs: req.query.hostLngs || [],
             label: req.query.label || "",
             loc: req.query.loc || {},
