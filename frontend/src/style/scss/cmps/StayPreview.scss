@@ -4,11 +4,17 @@
     letter-spacing: -0.4px;
     color: $darkGray;
 
-    img {
-        width: 100%;
-        aspect-ratio: 1 / 0.95;
+    .img-container {
         border-radius: 11.2px;
+        overflow: hidden;
         margin-block-end: 0.55rem;
+        
+        img {
+            display: block;
+            height: 100%;
+            width: 100%;
+            aspect-ratio: 1 / 0.95;
+        }
     }
 
     h1 {
