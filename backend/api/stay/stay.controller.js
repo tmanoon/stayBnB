@@ -21,7 +21,6 @@ export async function getStays(req, res) {
             propType: req.query.propType || [],
             pagination: req.query.pagination || 30
         }
-
         logger.debug('Getting Stays:', filterBy)
 
         const stays = await stayService.query(filterBy)
