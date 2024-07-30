@@ -20,8 +20,10 @@ export function StayReviewsPreview({ stay, userId, isReviewable, addStayReview, 
     }
 
     useEffect(() => {
-        const userReview = stayService.getUserReview(stay, userId)
-        setUserReview(userReview)
+        if (userId) {
+            const userReview = stayService.getUserReview(stay, userId)
+            setUserReview(userReview)
+        }
     }, [stay])
 
     useEffect(() => {
@@ -73,6 +75,6 @@ export function StayReviewsPreview({ stay, userId, isReviewable, addStayReview, 
         </section>}
 
         {showAllReviews && <StayReviewsModal stay={stay} userReview={userReview} onReviewsModal={onReviewsModal} onAddReviewModal={onAddReviewModal} addStayReview={addStayReview} isReviewable={isReviewable} removeStayReview={removeStayReview} />}
-        {addReviewModal && <StayAddReviewModal stay={stay} userId={userId} onAddReviewModal={onAddReviewModal} addStayReview={addStayReview} />}
+        {addReviewModal && userId && <StayAddReviewModal stay={stay} userId={userId} onAddReviewModal={onAddReviewModal} addStayReview={addStayReview} />}
     </>
 }

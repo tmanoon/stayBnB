@@ -214,7 +214,7 @@ export function StayDetails() {
             </main>
 
             <div id="reviews">
-                <StayReviewsPreview stay={stay} userId={user._id} isReviewable={isReviewable} addStayReview={addStayReview} removeStayReview={removeStayReview} setAddReviewModal={setAddReviewModal} addReviewModal={addReviewModal} />
+                <StayReviewsPreview stay={stay} userId={(user) ? user._id : null} isReviewable={isReviewable} addStayReview={addStayReview} removeStayReview={removeStayReview} setAddReviewModal={setAddReviewModal} addReviewModal={addReviewModal} />
             </div>
         </section>
         }
