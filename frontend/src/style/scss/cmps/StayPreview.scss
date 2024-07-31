@@ -5,10 +5,33 @@
     color: $darkGray;
 
     .img-container {
+        position: relative;
         border-radius: 11.2px;
         overflow: hidden;
-        margin-block-end: 0.55rem;
-        
+        margin-block-end: 0.6rem;
+
+        .favorite-btn {
+            position: absolute;
+            inset: 0.8rem 0.8rem auto auto;
+            background-color: transparent;
+
+            svg {
+                scale: 1.5;
+                transition: 0.5s;
+
+                &.not-wished {
+                    opacity: 0.8;
+                }
+            }
+
+            &:hover {
+                svg {
+                    opacity: 1;
+                    scale: 1.7;
+                }
+            }
+        }
+
         img {
             display: block;
             height: 100%;

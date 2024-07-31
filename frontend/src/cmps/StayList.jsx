@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 import { StayPreview } from './StayPreview.jsx'
-import { store } from '../store/store.js'
 
-export function StayList({ stays, filterBy }) {
+export function StayList({ stays, filterBy, user, setUser }) {
     
     let { guestCount, entryDate, exitDate } = filterBy
     if (!entryDate && !exitDate) {
@@ -31,6 +30,8 @@ export function StayList({ stays, filterBy }) {
                         <StayPreview
                             stay={stay}
                             filterBy={filterBy}
+                            user={user}
+                            setUser={setUser}
                         />
                     </Link>
                 </li>
