@@ -1,6 +1,9 @@
 import { stayService } from "./stay.service"
 import { utilService } from "./util.service"
 import { orderService } from "../services/order.service"
+import { saveStay } from "../store/actions/stay.actions"
+import { SET_STAYS } from "../store/reducers/stay.reducer"
+import { store } from "../store/store"
 
 const STAY_DB = 'stay_db'
 
@@ -224,9 +227,6 @@ function getRandomSummary() {
     return `${randomAdjective} ${randomType} ${randomLocation} ${randomPropertyType}`;
 }  
 
-
-
- 
 function createRoom() {
     const roomName = Math.random() < 0.5 ? 'Living Room' : 'Bedroom';
     const bedTypes = ['sofa bed', 'single bed', ' double bed', 'king bed', 'bunk bed','queen bed'];
@@ -237,53 +237,50 @@ function createRoom() {
 }
 
 function createRooms(numPeople) {
-    const rooms = [];
+    const rooms = []
 
     // Determine the number of rooms needed based on the number of people
-    const numRooms = Math.ceil(numPeople / 3); // Each room can accommodate up to 3 people
+    const numRooms = Math.ceil(numPeople / 3) // Each room can accommodate up to 3 people
 
     // Create rooms until the total number of beds is enough to accommodate all people
-    let totalBeds = 0;
+    let totalBeds = 0
     while (totalBeds < numPeople) {
-        const room = createRoom();
-        rooms.push(room);
-        totalBeds += room.beds.length;
+        const room = createRoom()
+        rooms.push(room)
+        totalBeds += room.beds.length
     }
 
     // If there are more beds than needed, remove excess beds
     while (totalBeds > numPeople) {
-        const roomToRemoveFrom = rooms[Math.floor(Math.random() * rooms.length)];
+        const roomToRemoveFrom = rooms[Math.floor(Math.random() * rooms.length)]
         if (roomToRemoveFrom.beds.length > 1) {
-            roomToRemoveFrom.beds.pop();
-            totalBeds--;
+            roomToRemoveFrom.beds.pop()
+            totalBeds--
         }
     }
 
-    return rooms;
+    return rooms
 
 }
 
 
 function generateStay() {
-    let currentDate = new Date();
+    const currentDate = new Date()
 
-    let minDate = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const minDate = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000)
 
-    let maxDate = new Date(currentDate.getTime() + 365 * 24 * 60 * 60 * 1000); // Adjusted to one year from current date
+    const maxDate = new Date(currentDate.getTime() + 365 * 24 * 60 * 60 * 1000) // Adjusted to one year from current date
 
-    let rangeInDays = (maxDate.getTime() - minDate.getTime()) / (24 * 60 * 60 * 1000);
+    const rangeInDays = (maxDate.getTime() - minDate.getTime()) / (24 * 60 * 60 * 1000)
 
-    let randomDays = Math.floor(Math.random() * (rangeInDays + 1));
+    const randomDays = Math.floor(Math.random() * (rangeInDays + 1))
 
-    let entryDate = new Date(minDate.getTime() + randomDays * 24 * 60 * 60 * 1000);
+    const entryDate = new Date(minDate.getTime() + randomDays * 24 * 60 * 60 * 1000)
 
-    let exitDate = new Date(entryDate.getTime() + 7 * 24 * 60 * 60 * 1000);
-
-    entryDate.setUTCHours(0, 0, 0, 0);
-
-    exitDate.setUTCHours(0, 0, 0, 0);
-
-    return { entryDate: entryDate.getTime(), exitDate: exitDate.getTime() };
+    const exitDate = new Date(entryDate.getTime() + 7 * 24 * 60 * 60 * 1000)
+    entryDate.setUTCHours(0, 0, 0, 0)
+    exitDate.setUTCHours(0, 0, 0, 0)
+    return { entryDate: entryDate.getTime(), exitDate: exitDate.getTime() }
 }
 
 
@@ -417,73 +414,91 @@ function getRandomAddress(addresses) {
 
 
 function generateReviews(numReviews) {
-    const reviews = [];
+    const reviews = []
    const users = [
-    { _id: utilService.makeId(10), fullName: "John Doe", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/11.jpg" },
-    { _id: utilService.makeId(10), fullName: "Jane Smith", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/11.jpg" },
-    // Add more user objects here
-    { _id: utilService.makeId(10), fullName: "Michael Johnson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/12.jpg" },
-    { _id: utilService.makeId(10), fullName: "Emily Brown", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/12.jpg" },
-    { _id: utilService.makeId(10), fullName: "Robert Williams", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/13.jpg" },
-    { _id: utilService.makeId(10), fullName: "Sophia Garcia", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/13.jpg" },
-    { _id: utilService.makeId(10), fullName: "William Martinez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/14.jpg" },
-    { _id: utilService.makeId(10), fullName: "Olivia Rodriguez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/14.jpg" },
-    { _id: utilService.makeId(10), fullName: "David Lopez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/15.jpg" },
-    { _id: utilService.makeId(10), fullName: "Emma Wilson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/15.jpg" },
-    // Add more users here as needed
-    { _id: utilService.makeId(10), fullName: "Daniel Lee", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/16.jpg" },
-    { _id: utilService.makeId(10), fullName: "Sophie Clark", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/16.jpg" },
-    { _id: utilService.makeId(10), fullName: "Alexander Garcia", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/17.jpg" },
-    { _id: utilService.makeId(10), fullName: "Isabella Johnson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/17.jpg" },
-    { _id: utilService.makeId(10), fullName: "Ethan Rodriguez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/18.jpg" },
-    { _id: utilService.makeId(10), fullName: "Ava Brown", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/18.jpg" },
-    { _id: utilService.makeId(10), fullName: "Alexander Martinez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/19.jpg" },
-    { _id: utilService.makeId(10), fullName: "Charlotte Wilson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/19.jpg" },
-    { _id: utilService.makeId(10), fullName: "James Taylor", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/20.jpg" },
-    { _id: utilService.makeId(10), fullName: "Mia Anderson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/20.jpg" },
-    // Add more users here as needed
-];
+    { _id: utilService.makeId(24), fullname: "John Doe", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/11.jpg" },
+    { _id: utilService.makeId(24), fullname: "Jane Smith", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/11.jpg" },
+    { _id: utilService.makeId(24), fullname: "Michael Johnson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/12.jpg" },
+    { _id: utilService.makeId(24), fullname: "Emily Brown", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/12.jpg" },
+    { _id: utilService.makeId(24), fullname: "Robert Williams", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/13.jpg" },
+    { _id: utilService.makeId(24), fullname: "Sophia Garcia", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/13.jpg" },
+    { _id: utilService.makeId(24), fullname: "William Martinez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/24.jpg" },
+    { _id: utilService.makeId(24), fullname: "Olivia Rodriguez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/24.jpg" },
+    { _id: utilService.makeId(24), fullname: "David Lopez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/15.jpg" },
+    { _id: utilService.makeId(24), fullname: "Emma Wilson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/15.jpg" },
+    { _id: utilService.makeId(24), fullname: "Daniel Lee", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/16.jpg" },
+    { _id: utilService.makeId(24), fullname: "Sophie Clark", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/16.jpg" },
+    { _id: utilService.makeId(24), fullname: "Alexander Garcia", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/17.jpg" },
+    { _id: utilService.makeId(24), fullname: "Isabella Johnson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/17.jpg" },
+    { _id: utilService.makeId(24), fullname: "Ethan Rodriguez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/18.jpg" },
+    { _id: utilService.makeId(24), fullname: "Ava Brown", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/18.jpg" },
+    { _id: utilService.makeId(24), fullname: "Alexander Martinez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/19.jpg" },
+    { _id: utilService.makeId(24), fullname: "Charlotte Wilson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/19.jpg" },
+    { _id: utilService.makeId(24), fullname: "James Taylor", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/20.jpg" },
+    { _id: utilService.makeId(24), fullname: "Mia Anderson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/20.jpg" },
+]
 
-    const titles = ["Amazing place!", "Lovely experience", "Disappointing", "Highly recommended!", "Not worth it"];
-    const texts = [
+    const titles = ["Amazing place!", "Lovely experience", "Disappointing", "Highly recommended!", "Not worth it", 'Awful!']
+    const goodTexts = [
         "It has been such a pleasure to spend our precious time at this place",
         "I had a wonderful time here. The ambiance was great and the staff were very friendly.",
-        "I had high expectations but unfortunately, the experience fell short. The service was slow and the food was mediocre.",
+        'I liked it a lot!',
         "This place exceeded my expectations. The food was delicious, the service was excellent, and the ambiance was delightful.",
-        "I regret spending money here. The food was overpriced and not tasty at all."
-    ];
-
-    // Add more user objects here
+    ]
+    const badTexts = [
+        "I had high expectations but unfortunately, the experience fell short. The service was slow and the food was mediocre.",
+        "I regret spending money here. The food was overpriced and not tasty at all.",
+        'I, honestly, did not like the attitude of the host at all. I did not feel comfortable. I will not return.'
+    ]
 
     for (let i = 0; i < numReviews; i++) {
-        const randomUserIndex = Math.floor(Math.random() * users.length);
-        const randomTitleIndex = Math.floor(Math.random() * titles.length);
-        const randomTextIndex = Math.floor(Math.random() * texts.length);
+        const randomUserIdx = Math.floor(Math.random() * users.length)
+        const randomTitleIdx = Math.floor(Math.random() * titles.length)
+        let isPositiveReview = false
+        let randomTextIdx
+        let randomScore
 
-        // Adjust the score based on sentiment, even if the description contradicts it
-        let randomScore;
-        if (texts[randomTextIndex].includes("amazing") || texts[randomTextIndex].includes("excellent") || texts[randomTextIndex].includes("recommended")) {
-            randomScore = Math.floor(Math.random() * 2) + 4; // Higher score for positive sentiment
-        } else if (texts[randomTextIndex].includes("disappointing") || texts[randomTextIndex].includes("regret")) {
-            randomScore = Math.floor(Math.random() * 2) + 1; // Lower score for negative sentiment
+        if (titles[randomTitleIdx].includes('Amazing') || titles[randomTitleIdx].includes("Excellent") || titles[randomTitleIdx].includes("recommended")) {
+            isPositiveReview = true
+            randomTextIdx = Math.floor(Math.random() * goodTexts.length)
+            randomScore = Math.floor(Math.random() * 2) + 4
+        } else if (titles[randomTitleIdx].includes("disappointing") || titles[randomTitleIdx].includes("regret") || titles[randomTitleIdx].includes('Awful')) {
+            randomTextIdx = Math.floor(Math.random() * badTexts.length)
+            randomScore = Math.floor(Math.random() * 2) + 1
         } else {
-            randomScore = Math.floor(Math.random() * 3) + 2; // Moderate score for neutral sentiment
+            randomScore = Math.floor(Math.random() * 3) + 2
+            randomTextIdx = Math.floor(Math.random() * badTexts.length)
         }
 
         const review = {
-            _id: utilService.makeId(10),
-            by: users[randomUserIndex],
-            title: titles[randomTitleIndex],
-            txt: texts[randomTextIndex],
-            score: randomScore
-        };
+            _id: utilService.makeId(14),
+            by: users[randomUserIdx],
+            title: titles[randomTitleIdx],
+            txt: isPositiveReview ? goodTexts[randomTextIdx] : badTexts[randomTextIdx],
+            rate: randomScore,
+            at: Date.now()
+        }
 
-        reviews.push(review);
+        reviews.push(review)
     }
 
-    return reviews;
+    return reviews
 }
 
+export async function createReviews() {
+    try {
+        const filterBy = stayService.getDefaultFilter()
+        filterBy.pagination = Infinity
+        const stays = await stayService.query()
+        for(let stay of stays) {
+            stay.reviews = generateReviews(10)
+            saveStay(stay)
+        }
+        store.dispatch( {type: SET_STAYS, stays})
+    } catch(err) {
+        console.log(err)
+    }
+}
 
 
 function randomStay() {
