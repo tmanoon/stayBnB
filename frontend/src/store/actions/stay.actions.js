@@ -58,3 +58,26 @@ export function setStayFilter(filterBy = stayService.getDefaultFilter()) {
 export function changeGalleryVisibility(visibility) {
     store.dispatch({ type: SET_GALLERY_OBSERVATION, isVisible: visibility })
 }
+
+export async function aggragateBBB() {
+    try {
+    const filterBy = stayService.getDefaultFilter()
+    filterBy.pagination = Infinity
+    const stays = await stayService.query(filterBy)
+    for(let stay of stays) {
+        const bbbObj = {
+            bathrooms: stay.bathrooms || 1,
+            bedrooms: stay.bedrooms || {
+                name: 'Living Room',
+                beds: ['sofa bed']
+            },
+            baths: stay.baths || 0
+        }
+        stay.bbb = bbbObj
+        await saveStay(stay)
+    }
+    } catch (err) {
+        console.log(err)
+        throw err
+    }
+}
