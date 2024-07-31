@@ -1,85 +1,100 @@
 .user-wishlist {
-    @media (min-width: 100px) {
+    margin-inline: rem(24px);
 
-        margin-inline: rem(24px);
+    h2,
+    h3 {
+        margin-block: 0;
+    }
 
-        h2,
-        h3 {
-            margin-block: 0;
+    .back-btn {
+        font-family: fa-solid;
+        inset: -0.2rem auto auto -3.25rem;
+        font-size: 1rem;
+        height: 3rem;
+        background-color: transparent;
+        padding-inline: 0;
+
+        &::before {
+            content: '\f053';
         }
 
-        .back-btn {
-            font-family: fa-solid;
-            inset: -0.2rem auto auto -3.25rem;
-            font-size: 1rem;
-            height: 3rem;
-            background-color: transparent;
-            padding-inline: 0;
-
-            &::before {
-                content: '\f053';
-            }
-
-            &:hover {
-                scale: 1.1;
-            }
-        }
-
-        header {
-            border-block-end: 0.667px solid $gray4;
-            padding-block: 1.1rem 1.275rem;
-        }
-
-        .no-items {
-
-            margin-block: 2em;
-
-            .search-btn {
-                margin-block: 1em;
-                font-family: circular-reg;
-            }
-        }
-
-        .wishlist-items {
-            grid-auto-flow: row;
-            gap: rem(24px);
-            margin-block: 2em;
-
-            .wishlist-item {
-                grid-template-columns: rem(250px) 1fr;
-                height: rem(304px);
-                gap: 1rem;
-                border-radius: rem(9.6px);
-                box-shadow: $gray3 1px 1px 16px;
-                padding: 1rem;
-                cursor: pointer;
-
-                &:hover {
-                    scale: 1.025;
-                    transition: scale 0.5s;
-                }
-
-                img {
-                    grid-column: 1;
-                    object-fit: cover;
-                    max-width: 100%;
-                    height: 100%;
-                    border-radius: rem(9.6px);
-                }
-
-                .text {
-                    grid-column: 2;
-                    text-align: center;
-                    grid-auto-flow: row;
-                    justify-items: center;
-                    align-content: space-between;
-                }
-            }
+        &:hover {
+            scale: 1.1;
         }
     }
 
-    @media (min-width: 744px) {
+    header {
+        border-block-end: 0.667px solid $gray4;
+        padding-block: 1.1rem 1.275rem;
+    }
 
+    .no-items {
+        padding-block: 2.1rem 3rem;
+        border-block-end: 0.667px solid $gray4;
+
+        h2 {
+            font-size: 1.375rem;
+            letter-spacing: 0.02rem;
+            margin: 0;
+        }
+
+        p {
+            font-size: 1rem;
+            padding-block: 0.55rem;
+        }
+
+        .search-btn {
+            font-size: 1rem;
+            width: 10.2rem;
+            height: 3rem;
+            border-radius: $border-radius-2;
+            margin-block-start: 0.55rem;
+
+            @include buttons3;
+        }
+    }
+
+    .wishlist-items {
+        grid-auto-flow: row;
+        gap: rem(24px);
+        margin-block: 2em;
+
+        .wishlist-item {
+            grid-template-columns: rem(250px) 1fr;
+            height: rem(304px);
+            gap: 1rem;
+            border-radius: rem(9.6px);
+            box-shadow: $gray3 1px 1px 16px;
+            padding: 1rem;
+            cursor: pointer;
+
+            &:hover {
+                scale: 1.025;
+                transition: scale 0.5s;
+            }
+
+            img {
+                grid-column: 1;
+                object-fit: cover;
+                max-width: 100%;
+                height: 100%;
+                border-radius: rem(9.6px);
+            }
+
+            .text {
+                grid-column: 2;
+                text-align: center;
+                grid-auto-flow: row;
+                justify-items: center;
+                align-content: space-between;
+            }
+        }
+    }
+}
+
+
+@media (min-width: 744px) {
+    .user-wishlist {
         .wishlist-items {
             .wishlist-item {
                 grid-template-columns: rem(340px) 1fr;
@@ -87,9 +102,10 @@
             }
         }
     }
+}
 
-    @media (min-width: 1128px) {
-
+@media (min-width: 1128px) {
+    .user-wishlist {
         .wishlist-items {
             .wishlist-item {
                 grid-template-columns: rem(500px) 1fr;
