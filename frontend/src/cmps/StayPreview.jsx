@@ -18,12 +18,11 @@ export function StayPreview({ stay, filterBy, user, setUser }) {
 
     async function onFavorite(ev) {
         ev.preventDefault()
-        ev.stopPropagation()
         try {
             if (user) {
-                setIsWishlistStay(!isWishlistStay)
                 const userToUpdate = await addRemoveStayToUserFavorites(stay._id)
                 setUser(userToUpdate)
+                setIsWishlistStay(!isWishlistStay)
             } else {
                 console.log('user notification to log-in or open modal but that didnt work well')
                 // setIsLoginModal(true)

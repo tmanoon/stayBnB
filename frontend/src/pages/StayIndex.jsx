@@ -17,11 +17,12 @@ export function StayIndex({ scrolledPage }) {
     const { isLoading } = useSelector(storeState => storeState.stayModule)
     const [user, setUser] = useState(null)
 
+    
     useEffect(() => {
         const user = userService.getLoggedInUser()
-        if (user) setUser(user)
+        setUser(user || null)
         loadStays()
-    }, [loggedInUser])
+    }, [loggedInUser._id])
 
     useEffect(() => {
         setTimeout(() => {
