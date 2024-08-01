@@ -6,12 +6,12 @@ import { useLocation } from 'react-router-dom'
 import { stayService } from "../services/stay.service"
 import { userService } from "../services/user.service"
 import { setStayFilter } from "../store/actions/stay.actions"
+import { utilService } from "../services/util.service"
 
 import { LoginSignup } from "../cmps/Modals/LoginSignup"
 import { HeaderFilterSearch } from "./HeaderCmps/HeaderFilterSearch"
 import { UserNavModal } from "./HeaderCmps/UserNavModal"
 import { LabelsFilter } from "./HeaderCmps/LabelsFilter"
-import { utilService } from "../services/util.service"
 
 export function AppHeader({ scrolledPage }) {
     const navigate = useNavigate()
@@ -22,12 +22,10 @@ export function AppHeader({ scrolledPage }) {
     const [loggedInUser, setLoggedInUser] = useState(null)
 
     const filterBy = useSelector(storeState => storeState.stayModule.filterBy)
-    const modalTypes = [{
-        modalName: 'map',
-        desc: filterBy.txt || 'Anywhere'
-    },
-    { modalName: 'check-in', desc: filterBy.entryDate && filterBy.exitDate ? utilService.timestampsToShortDates(+filterBy.entryDate, +filterBy.exitDate) : 'Any week' },
-    { modalName: 'guest', desc: checkIfFilterByGuests() ? utilService.calcGuestCountInFilterBy(filterBy) : 'Add guests' }]
+    const modalTypes = [
+        { modalName: 'map', desc: filterBy.txt || 'Anywhere' },
+        { modalName: 'check-in', desc: filterBy.entryDate && filterBy.exitDate ? utilService.timestampsToShortDates(+filterBy.entryDate, +filterBy.exitDate) : 'Any week' },
+        { modalName: 'guest', desc: checkIfFilterByGuests() ? utilService.calcGuestCountInFilterBy(filterBy) : 'Add guests' }]
 
     useEffect(() => {
         setLoggedInUser(userService.getLoggedInUser())
@@ -107,8 +105,8 @@ export function AppHeader({ scrolledPage }) {
                     <NavLink to="/edit" className="edit-btn" onClick={(ev) => checkNavigatePath(ev, '/edit')}>Staybnb your home</NavLink>
                     <button className="flex align-center space-between" onClick={(e) => handleModalTypeChange(e, 'user-nav')}>
                         <span>☰</span>
-                        {loggedInUser && (<img src={loggedInUser.imgUrl} alt="User Profile" />)}
-                        {!loggedInUser && <div className="profile"></div>}
+                        {loggedInUser && loggedInUser.imgUrl && (<img src={loggedInUser.imgUrl} alt="User Profile" />)}
+                        {(!loggedInUser || !loggedInUser.imgUrl) && <div className="profile"></div>}
                     </button>
 
                     {modalType === 'user-nav' && <UserNavModal
