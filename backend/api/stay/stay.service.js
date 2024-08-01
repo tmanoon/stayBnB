@@ -60,29 +60,17 @@ async function query(filterBy) {
             ]
         }
 
-        // if (filterBy.bathrooms !== 'any') {
-        //     criteria.bathrooms = { $gte: +filterBy.bathrooms }
-        // }
-
-        if (filterBy.bbb.bedrooms < Infinity || filterBy.bbb.beds < Infinity || filterBy.bbb.bathrooms < Infinity) {
-            if (filterBy.bbb.bedrooms) criteria.bbb.bedrooms = { $gte: +filterBy.bbb.bedrooms }
-            if (filterBy.bbb.beds) criteria.bbb.beds = { $gte: +filterBy.bbb.beds }
-            if (filterBy.bbb.bathrooms) criteria.bbb.bathrooms = { $gte: +filterBy.bbb.bathrooms }
+        if (filterBy.bbb.bedrooms !== 'any' || filterBy.bbb.beds !== 'any' || filterBy.bbb.bathrooms !== 'any') {
+            if (filterBy.bbb.bedrooms !== 'any') criteria['bbb.numOfBedrooms'] =  { $gte:  +(filterBy.bbb.bedrooms.replace('+', '')) }
+            if (filterBy.bbb.beds !== 'any') criteria['bbb.beds'] = { $gte: +(filterBy.bbb.beds.replace('+', '')) }
+            if (filterBy.bbb.bathrooms !== 'any') criteria['bbb.bathrooms'] = { $gte: +(filterBy.bbb.bathrooms.replace('+', '')) }
         }
-        // if (filterBy.beds !== 'any') {
-        //     criteria.sumOfBeds = { $gte: +filterBy.beds }
-        // }
 
         if (filterBy.placeType === "entire home") {
             criteria.placeType = "An entire home"
         } else if (filterBy.placeType === "room") {
             criteria.placeType = "Room"
         }
-        // if (filterBy.bbb.bedrooms !== 'any') {
-        //     const requiredBedrooms = parseInt(filterBy.bedrooms)
-        //     criteria.bbb.bedroomsCount = { $gte: +requiredBedrooms };
-        // }
-
 
         if (filterBy.propType && filterBy.propType.length > 0) {
             const capitalizedTypes = filterBy.propType.map(type => type.charAt(0).toUpperCase() + type.slice(1));
