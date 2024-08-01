@@ -154,12 +154,12 @@ function getDefaultFilter() {
         placeType: 'any',
         priceRange: {
             min: 0,
-            max: Infinity
+            max: 2000
         },
         bbb: {
-            bedrooms: Infinity,
-            beds: Infinity,
-            bathrooms: Infinity,
+            bedrooms: 'any',
+            beds: 'any',
+            bathrooms: 'any',
         },
         propType: [],
         amenities: [],
