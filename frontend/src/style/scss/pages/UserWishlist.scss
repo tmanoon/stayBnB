@@ -1,5 +1,5 @@
 .user-wishlist {
-    margin-inline: rem(24px);
+    margin-inline: rem(20px);
 
     h2,
     h3 {
@@ -86,19 +86,49 @@
                 text-align: center;
                 grid-auto-flow: row;
                 justify-items: center;
-                align-content: space-between;
+
+                h2 {
+                    font-size: 1em;
+                }
+
+                p {
+                    font-size: 0.8em;
+                }
+
+                h3 {
+                    font-size: 1em;
+                }
+            }
+
+            .remove-btn {
+
+                &:hover {
+                    scale: 1.1;
+                }
             }
         }
     }
 }
 
 
-@media (min-width: 744px) {
+@media (min-width: 650px) {
     .user-wishlist {
         .wishlist-items {
             .wishlist-item {
                 grid-template-columns: rem(340px) 1fr;
                 height: rem(340px);
+                gap: 1.2rem;
+
+                .text {
+                    align-content: space-between;
+                    h2 {
+                        font-size: 1.2em;
+                    }
+
+                    p {
+                        font-size: 1em;
+                    }
+                }
             }
         }
     }
@@ -109,7 +139,7 @@
         .wishlist-items {
             .wishlist-item {
                 grid-template-columns: rem(500px) 1fr;
-                height: rem(380px);
+                height: rem(410px);
             }
         }
     }
