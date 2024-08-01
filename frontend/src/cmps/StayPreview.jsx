@@ -4,7 +4,7 @@ import { stayService } from "../services/stay.service"
 import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 
 import { ImgCarousel } from "./HelperCmps/ImgCarousel"
-import { LoginSignup } from "../cmps/Modals/LoginSignup"
+// import { LoginSignup } from "../cmps/Modals/LoginSignup"
 
 export function StayPreview({ stay, filterBy, user, setUser }) {
     const [isWishlistStay, setIsWishlistStay] = useState(false)
@@ -21,9 +21,9 @@ export function StayPreview({ stay, filterBy, user, setUser }) {
         ev.stopPropagation()
         try {
             if (user) {
-                setIsWishlistStay(!isWishlistStay)
                 const userToUpdate = await addRemoveStayToUserFavorites(stay._id)
                 setUser(userToUpdate)
+                setIsWishlistStay(!isWishlistStay)
             } else {
                 console.log('user notification to log-in or open modal but that didnt work well')
                 // setIsLoginModal(true)

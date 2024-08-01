@@ -25,8 +25,7 @@ export function StayList({ stays, filterBy, user, setUser }) {
                         pathname: `/${stay._id}`,
                         search: condensedSP,
                         // target: '_blank'
-                    }}
-                    >
+                    }}>
                         <StayPreview
                             stay={stay}
                             filterBy={filterBy}

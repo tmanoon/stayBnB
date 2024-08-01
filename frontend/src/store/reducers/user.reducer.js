@@ -10,7 +10,7 @@ export const LOGOUT = 'LOGOUT'
 
 const initialState = {
     users: [],
-    loggedInUser: '',
+    loggedInUser: {_id: null},
     loggedInUserStays: [],
     userFavoriteStays: []
 }
@@ -18,7 +18,7 @@ const initialState = {
 export function userReducer(state = initialState, action = {}) {
     switch (action.type) {
         case SET_LOGGED_IN_USER:
-            return {...state, user: action.user}
+            return {...state, loggedInUser: action.user}
 
         case ADD_USER:
             return {...state, users: [...state.users, action.user]}
@@ -36,7 +36,7 @@ export function userReducer(state = initialState, action = {}) {
         return { ...state, favoriteStays: state.userFavoriteStays.filter(stay => stay._id !== action.stayToRemoveId)}
 
         case LOGOUT: 
-        return { ...state, loggedInUser: ''}
+        return { ...state, loggedInUser: {_id: null}}
 
         default:
             return state
