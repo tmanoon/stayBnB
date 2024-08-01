@@ -179,7 +179,7 @@ function getEmptyModalFilter() {
         placeType: 'any',
         priceRange: {
             min: 0,
-            max: Infinity
+            max: 2000
         },
         bbb: {
             bedrooms: 'any',
