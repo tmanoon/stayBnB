@@ -15,7 +15,7 @@ export function UserNotification() {
     //     setTimeout(() => { SetMsg('')},1000)
     // }
 
-    if (!msg) return <span></span>
+    if (!msg.txt) return <span></span>
     return <section className='notification-msg'>
         <h1>{msg.actionName}</h1>
         <p>{msg.txt}</p>
