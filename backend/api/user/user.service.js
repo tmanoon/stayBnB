@@ -72,7 +72,6 @@ async function remove(userId) {
 async function update(user) {
     try {
         const userToSave = {
-            _id: new ObjectId(user._id), // needed for the returnd obj
             fullname: user.fullname,
             gender: user.gender,
             location: user.location, 
@@ -80,7 +79,7 @@ async function update(user) {
             wishlist: user.wishlist
         }
         const collection = await dbService.getCollection('user')
-        await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
+        await collection.updateOne({ _id: user._id }, { $set: userToSave })
         return userToSave
     } catch (err) {
         logger.error(`cannot update user ${user._id}`, err)
@@ -120,9 +119,6 @@ function _buildCriteria(filterBy) {
                 fullname: txtCriteria
             }
         ]
-    }
-    if (filterBy.minBalance) {
-        criteria.score = { $gte: filterBy.minBalance }
     }
     return criteria
 }
