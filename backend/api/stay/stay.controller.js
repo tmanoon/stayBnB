@@ -4,22 +4,20 @@ import { logger } from '../../services/logger.service.js'
 export async function getStays(req, res) {
     try {
         const filterBy = {
-            accessibility: req.query.accessibility || [],
-            amenities: req.query.amenities || [],
-            bathrooms: req.query.bathrooms || 0,
-            bedrooms: req.query.bedrooms || "any",
-            beds: req.query.beds || "",
-            bookingOpts: req.query.bookingOpts || {},
-            entryDate: req.query.entryDate || "",
-            exitDate: req.query.exitDate || "",
+            accessibility: req.query.accessibility,
+            amenities: req.query.amenities,
+            bbb: req.query.bbb,
+            bookingOpts: req.query.bookingOpts,
+            entryDate: req.query.entryDate,
+            exitDate: req.query.exitDate,
             guestCount: req.query.guestCount,
-            hostLngs: req.query.hostLngs || [],
-            label: req.query.label || "",
-            loc: req.query.loc || {},
-            placeType: req.query.placeType || "",
-            priceRange: req.query.priceRange || { min: 0, max: Infinity },
-            propType: req.query.propType || [],
-            pagination: req.query.pagination || 30
+            hostLngs: req.query.hostLngs,
+            label: req.query.label,
+            txt: req.query.txt,
+            placeType: req.query.placeType,
+            priceRange: req.query.priceRange,
+            propType: req.query.propType,
+            pagination: req.query.pagination
         }
         logger.debug('Getting Stays:', filterBy)
 
