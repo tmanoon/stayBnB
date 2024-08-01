@@ -1,5 +1,4 @@
 .user-wishlist {
-    margin-inline: rem(20px);
 
     h2,
     h3 {
@@ -26,6 +25,11 @@
     header {
         border-block-end: 0.667px solid $gray4;
         padding-block: 1.1rem 1.275rem;
+
+        h1 {
+            font-size: 2em;
+            margin-block: 0;
+        }
     }
 
     .no-items {
@@ -111,7 +115,7 @@
 }
 
 
-@media (min-width: 650px) {
+@media (min-width: 742px) {
     .user-wishlist {
         .wishlist-items {
             .wishlist-item {
@@ -121,12 +125,17 @@
 
                 .text {
                     align-content: space-between;
+
                     h2 {
-                        font-size: 1.2em;
+                        font-size: 1.3em;
                     }
 
                     p {
                         font-size: 1em;
+                    }
+
+                    h3 {
+                        font-size: 1.2em;
                     }
                 }
             }
@@ -140,6 +149,21 @@
             .wishlist-item {
                 grid-template-columns: rem(500px) 1fr;
                 height: rem(410px);
+
+                .text {
+
+                    h2 {
+                        font-size: 1.5em;
+                    }
+
+                    p {
+                        font-size: 1.2em;
+                    }
+
+                    h3 {
+                        font-size: 1.4em;
+                    }
+                }
             }
         }
     }
