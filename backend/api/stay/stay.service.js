@@ -73,9 +73,9 @@ async function query(filterBy) {
         } else if (filterBy.placeType === "room") {
             criteria.placeType = "Room"
         }
-        // if (filterBy.bedrooms !== 'any') {
+        // if (filterBy.bbb.bedrooms !== 'any') {
         //     const requiredBedrooms = parseInt(filterBy.bedrooms)
-        //     criteria.bedroomsCount = { $gte: +requiredBedrooms };
+        //     criteria.bbb.bedroomsCount = { $gte: +requiredBedrooms };
         // }
 
  

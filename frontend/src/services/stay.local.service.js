@@ -92,13 +92,13 @@ export const stayService = {
 //         // //     stays = stays.filter(stay => stay.price >= filterBy.priceRange.min && stay.price <= filterBy.priceRange.max)
 //         // // }
 //         // if (filterBy.bedrooms !== 'any') {
-//         //     stays = stays.filter(stay => stay.bedrooms.length >= filterBy.bedrooms)
+//         //     stays = stays.filter(stay => stay.bbb.bedrooms.length >= filterBy.bedrooms)
 //         // }
 //         // if (filterBy.beds !== 'any') {
-//         //     stays = stays.filter(stay => stay.bedrooms.reduce((acc, room) => acc + room.beds.length, 0) >= filterBy.beds)
+//         //     stays = stays.filter(stay => stay.bbb.bedrooms.reduce((acc, room) => acc + room.beds.length, 0) >= filterBy.beds)
 //         // }
 //         // if (filterBy.bathrooms !== 'any') {
-//         //     stays = stays.filter(stay => stay.baths >= filterBy.bathrooms)
+//         //     stays = stays.filter(stay => stay.bbb.baths >= filterBy.bathrooms)
 //         // }
 //         // if (filterBy.propType.length) {
 //         //     stays = stays.filter(stay => filterBy.propType.includes(stay.propType))

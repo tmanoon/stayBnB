@@ -147,21 +147,21 @@ export function Stage5({ stay, editStay }) {
     const isCapacityZero = stay.capacity === 0
     const isCapacityMax = stay.capacity === 16
 
-    const isBedroomsZero = stay.sumOfBeds === 0
-    const isBedroomsMax = stay.sumOfBeds === 16
+    const isBedroomsZero = stay.bbb.beds === 0
+    const isBedroomsMax = stay.bbb.beds === 16
 
-    const isBathroomsZero = stay.bathrooms === 0
-    const isBathroomsMax = stay.bathrooms === 16
+    const isBathroomsZero = stay.bbb.bathrooms === 0
+    const isBathroomsMax = stay.bbb.bathrooms === 16
 
-    const isBathsZero = stay.baths === 0
-    const isBathsMax = stay.baths === 16
+    const isBathsZero = stay.bbb.baths === 0
+    const isBathsMax = stay.bbb.baths === 16
 
     return (
         <section className="stage-5">
             <h1>Share some basics about your place</h1>
             <h2>You'll add more details later, like bed types.</h2>
 
-            <form className='grid' onSubmit={(ev)=> {ev.preventDefault()}}>
+            <form className='grid' onSubmit={(ev) => { ev.preventDefault() }}>
                 <div>
                     <h3>Guests</h3>
                     <div>
@@ -174,25 +174,25 @@ export function Stage5({ stay, editStay }) {
                 <div>
                     <h3>Bedrooms</h3>
                     <div>
-                        <button onClick={() => editStay({ ...stay, sumOfBeds: Math.max(stay.sumOfBeds - 1, 0) })} className={isBedroomsZero ? 'disabled' : ''}>-</button>
-                        <span>{stay.sumOfBeds}</span>
-                        <button onClick={() => editStay({ ...stay, sumOfBeds: Math.min(stay.sumOfBeds + 1, 16) })} className={isBedroomsMax ? 'disabled' : ''}>+</button>
+                        <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, beds: Math.max(prevStay.bbb.beds - 1, 0) } }))} className={isBedroomsZero ? 'disabled' : ''}>-</button>
+                        <span>{stay.bbb.beds}</span>
+                        <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, beds: Math.min(prevStay.bbb.beds + 1, 16) } }))} className={isBedroomsMax ? 'disabled' : ''}>+</button>
                     </div>
                 </div>
 
                 <div>
                     <h3>Bathrooms</h3>
                     <div>
-                        <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, bathrooms: Math.max(prevStay.bbb.bathrooms - 1, 0) }, }))} className={isBathroomsZero ? 'disabled' : ''} >     - </button>
+                        <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, bathrooms: Math.max(prevStay.bbb.bathrooms - 1, 0) }, }))} className={isBathroomsZero ? 'disabled' : ''} > - </button>
                         <span>{stay.bbb.bathrooms}</span>
-                        <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, bathrooms: Math.min(prevStay.bbb.bathrooms + 1, 16) }, }))} className={isBathroomsMax ? 'disabled' : ''} >     + </button>
+                        <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, bathrooms: Math.min(prevStay.bbb.bathrooms + 1, 16) }, }))} className={isBathroomsMax ? 'disabled' : ''} > + </button>
                     </div>
                 </div>
 
                 <div>
                     <h3>Baths</h3>
                     <div>
-                        <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, baths: Math.max(prevStay.bbb.baths - 1, 0) }, }))} className={isBathsZero ? 'disabled' : ''} >     - </button>
+                        <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, baths: Math.max(prevStay.bbb.baths - 1, 0) }, }))} className={isBathsZero ? 'disabled' : ''} > - </button>
                         <span>{stay.bbb.baths}</span>
                         <button onClick={() => editStay((prevStay) => ({ ...prevStay, bbb: { ...prevStay.bbb, baths: Math.min(prevStay.bbb.baths + 1, 16) }, }))} className={isBathsMax ? 'disabled' : ''}>+</button>
                     </div>
@@ -357,7 +357,7 @@ export function Stage12() {
 export function Stage13({ stay, editStay }) {
 
     function handleChange(field, value) {
-        editStay(prevStay => ({...prevStay, bookingOpts: {  ...prevStay.bookingOpts,  [field]: value } }))
+        editStay(prevStay => ({ ...prevStay, bookingOpts: { ...prevStay.bookingOpts, [field]: value } }))
     }
 
     return <section className='stage-13 grid'>

@@ -171,7 +171,7 @@ export function StayDetails() {
                     <article className="room-info">
                         <h1>Where you'll sleep</h1>
                         <div className="rooms-container grid">
-                            {stay.bedrooms.map(room => {
+                            {stay.bbb.bedrooms.map(room => {
                                 const bedsLength = room.beds.length
                                 return (
                                     <div className="bedroom" key={room.name}

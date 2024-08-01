@@ -55,9 +55,9 @@ function addRandomBedrooms() {
     const possibleBeds = ['double bed', 'couch', 'sofa bed', 'king size bed', 'queen size bed', 'bunk bed']
     stayCollection.forEach(stay => {
         stay.capacity = 0
-        stay.bedrooms = []
-        let countOfPossibleBeds = stay.sumOfBeds
-        for (let i = 0; i < stay.sumOfBeds; i++) {
+        stay.bbb.bedrooms = []
+        let countOfPossibleBeds = stay.bbb.beds
+        for (let i = 0; i < stay.bbb.beds; i++) {
             if (countOfPossibleBeds === 0) return
             const currRoom = {}
             if (i === 0) {
@@ -77,7 +77,7 @@ function addRandomBedrooms() {
                     else stay.capacity++
                 }
             }
-            stay.bedrooms.push(currRoom)
+            stay.bbb.bedrooms.push(currRoom)
         }
     })
 }
@@ -95,8 +95,7 @@ function addIsInstantBooking() {
 
 function getRandomNumOfBeds() {
     stayCollection.forEach(stay => {
-        stay.sumOfBeds = utilService.getRandomIntInclusive(2, 7)
-        if (stay.beds) delete stay.beds
+        stay.bbb.beds = utilService.getRandomIntInclusive(2, 7)
     })
 }
 
@@ -232,7 +231,7 @@ function removeTypeProperty() {
 }
 
 function addBathsNumber() {
-    stayCollection.forEach(stay => stay.baths = utilService.getRandomIntInclusive(1, 2))
+    stayCollection.forEach(stay => stay.bbb.baths = utilService.getRandomIntInclusive(1, 2))
 }
 
 function modifyReviewersPics() {
