@@ -157,9 +157,9 @@ function getDefaultFilter() {
             max: Infinity
         },
         bbb: {
-            bedrooms: 'any',
-            beds: 'any',
-            bathrooms: 'any',
+            bedrooms: Infinity,
+            beds: Infinity,
+            bathrooms: Infinity,
         },
         propType: [],
         amenities: [],
