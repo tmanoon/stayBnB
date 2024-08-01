@@ -17,7 +17,7 @@ export function UserNotification() {
 
     if (!msg) return <span></span>
     return <section className='notification-msg'>
-        <h1>{Manager.actionName}</h1>
+        <h1>{msg.actionName}</h1>
         <p>{msg.txt}</p>
     </section>
 }
