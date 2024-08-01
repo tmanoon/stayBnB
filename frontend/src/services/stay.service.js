@@ -108,7 +108,6 @@ function getEmptyStay() {
         summary: "",
         price: 0,
         capacity: 0,
-        sumOfBeds: 0,
         amenities: [],
         labels: [],
         reviews: [],
@@ -122,6 +121,7 @@ function getEmptyStay() {
             bathrooms: 0,
             baths: 0,
             bedrooms: [],
+            beds: 0,
         },
         loc: {
             country: "",
@@ -139,7 +139,6 @@ function getEmptyStay() {
             responseTime: "",
             experience: { isSuperhost: false }
         },
-        roomType: "",
         bookedDates: [],
         likedByUsers: [],
     }
@@ -245,7 +244,6 @@ function guestCountString(filterBy) {
     return parts.join(', ')
 }
 
-
 function guestCountStringForReservation(params) {
     const guestsCount = +params.adults + +params.children
     let guests = ''
@@ -281,7 +279,7 @@ function generateRandomDate(stayPrice) {
         "June 15-18",
         "June 22-24",
         "June 28-30"
-    ];
+    ]
 
     let selectedDate;
 
