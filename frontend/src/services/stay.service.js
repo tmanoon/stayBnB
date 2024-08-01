@@ -23,7 +23,8 @@ export const stayService = {
     createDemoData,
     guestCountStringForReservation,
     generateRandomDate,
-    generateRandomDistance
+    generateRandomDistance,
+    getAllStays
 }
 
 function query(filterBy = getDefaultFilter()) {
@@ -40,6 +41,16 @@ async function getHostStaysById(userId) {
     } catch (err) {
         console.log(err)
         throw err
+    }
+}
+
+async function getAllStays() {
+    try {
+        const filterBy = stayService.getDefaultFilter()
+        filterBy.pagination = Infinity
+        return await stayService.query(filterBy)
+    } catch (err) {
+        console.log('err', err)
     }
 }
 
