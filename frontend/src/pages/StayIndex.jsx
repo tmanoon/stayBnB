@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+
 import { userService } from '../services/user.service.js'
 import { loadStays, setStayFilter } from '../store/actions/stay.actions.js'
 import { socketService, SOCKET_EVENT_ORDER_UPDATE } from '../services/socket.service.js'
+
 import { StayList } from '../cmps/StayList.jsx'
 import { Loading } from '../cmps/Loading.jsx'
 
@@ -48,14 +50,14 @@ export function StayIndex({ scrolledPage }) {
     return (
         <section className={`index-section ${scrolledHeader()}`}>
             {isLoading && <Loading />}
-            {!isLoading && 
-            <>
-                <StayList stays={stays} filterBy={filterBy} />
-                <section className='index-end-section flex column center'>
-                    <h1>Continue exploring homes</h1>
-                    <button onClick={onIncreasePagination}>Show more</button>
-                </section>
-            </>}
+            {!isLoading &&
+                <>
+                    <StayList stays={stays} filterBy={filterBy} user={user} setUser={setUser} />
+                    <section className='index-end-section flex column center'>
+                        <h1>Continue exploring homes</h1>
+                        <button onClick={onIncreasePagination}>Show more</button>
+                    </section>
+                </>}
         </section>
     )
 }
