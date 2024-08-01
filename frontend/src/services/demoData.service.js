@@ -563,4 +563,48 @@ function generateRandomStays(num) {
     }
 }
 
+export async function makeLabelsHaveAtLeast5() {
+    try {
+        const filterBy = stayService.getDefaultFilter()
+        const labelsAppearances = {}
+        const labels = filterLists.filterLabels
+        filterBy.pagination = Infinity
+        const stays = await stayService.query(filterBy)
+        const staysToEditLabels = []
+        for (let label of labels) {
+            labelsAppearances[label] = 0
+        }
 
+        for (let stay of stays) {
+            for (let label of stay.labels) {
+                labelsAppearances[label] += 1
+            }
+        }
+
+        for (let label in labelsAppearances) {
+            if (labelsAppearances[label] > 5) delete labelsAppearances[label]
+        }
+
+        for (let stay of stays) {
+            if (!stay.labels ||
+                !stay.labels.length ||
+                stay.labels.length < 5) staysToEditLabels.push(stay)
+        }
+
+        for (let stay of staysToEditLabels) {
+            for (let label in labelsAppearances) {
+                if (!stay.labels || !stay.labels.length) stay.labels = [label]
+                else {
+                    if (!stay.labels.includes(label) && stay.labels.length < 6) stay.labels.push(label)
+                }
+            }
+        }
+
+        for(let stay of staysToEditLabels) {
+            await saveStay(stay)
+        }
+    } catch (err) {
+        console.log(err)
+        throw err
+    }
+}
