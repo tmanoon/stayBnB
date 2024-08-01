@@ -1,6 +1,13 @@
 .index-section {
     color: $darkGray;
-    margin-block-start: 5rem;
+
+    &.index-header-condensed {
+        margin-block-start: 12rem;
+    }
+
+    &.index-header-expanded {
+        margin-block-start: 15rem;
+    }
 
     .stay-list {
         margin: 0.85rem 0.2rem 1rem;
@@ -41,14 +48,14 @@
     }
 }
 
-@media (width > 850px) {
+@media (width > 742px) {
     .index-section {
         &.index-header-condensed {
-            margin-block-start: 7rem;
+            margin-block-start: 12rem;
         }
 
         &.index-header-expanded {
-            margin-block-start: 16rem;
+            margin-block-start: 17rem;
         }
     }
 }

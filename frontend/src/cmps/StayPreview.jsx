@@ -4,7 +4,7 @@ import { stayService } from "../services/stay.service"
 import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 
 import { ImgCarousel } from "./HelperCmps/ImgCarousel"
-import { LoginSignup } from "../cmps/Modals/LoginSignup"
+// import { LoginSignup } from "../cmps/Modals/LoginSignup"
 
 export function StayPreview({ stay, filterBy, user, setUser }) {
     const [isWishlistStay, setIsWishlistStay] = useState(false)
@@ -18,6 +18,7 @@ export function StayPreview({ stay, filterBy, user, setUser }) {
 
     async function onFavorite(ev) {
         ev.preventDefault()
+        ev.stopPropagation()
         try {
             if (user) {
                 const userToUpdate = await addRemoveStayToUserFavorites(stay._id)
