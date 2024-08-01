@@ -60,13 +60,18 @@ async function query(filterBy) {
             ]
         }
 
-        if (filterBy.bathrooms !== 'any') {
-            criteria.bathrooms = { $gte: +filterBy.bathrooms }
-        }
+        // if (filterBy.bathrooms !== 'any') {
+        //     criteria.bathrooms = { $gte: +filterBy.bathrooms }
+        // }
 
-        if (filterBy.beds !== 'any') {
-            criteria.sumOfBeds = { $gte: +filterBy.beds }
+        if (filterBy.bbb.bedrooms < Infinity || filterBy.bbb.beds < Infinity || filterBy.bbb.bathrooms < Infinity) {
+            if (filterBy.bbb.bedrooms) criteria.bbb.bedrooms = { $gte: +filterBy.bbb.bedrooms }
+            if (filterBy.bbb.beds) criteria.bbb.beds = { $gte: +filterBy.bbb.beds }
+            if (filterBy.bbb.bathrooms) criteria.bbb.bathrooms = { $gte: +filterBy.bbb.bathrooms }
         }
+        // if (filterBy.beds !== 'any') {
+        //     criteria.sumOfBeds = { $gte: +filterBy.beds }
+        // }
 
         if (filterBy.placeType === "entire home") {
             criteria.placeType = "An entire home"
@@ -78,7 +83,7 @@ async function query(filterBy) {
         //     criteria.bbb.bedroomsCount = { $gte: +requiredBedrooms };
         // }
 
- 
+
         if (filterBy.propType && filterBy.propType.length > 0) {
             const capitalizedTypes = filterBy.propType.map(type => type.charAt(0).toUpperCase() + type.slice(1));
             criteria.propertyType = { $in: capitalizedTypes }
