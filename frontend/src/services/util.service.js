@@ -206,7 +206,7 @@ function calcSumOfDays(params) {
 }
 
 function countBedsInBedrooms(stay) {
-    const numOfBeds = stay.bedrooms.reduce((acc, bedroomObj) => {
+    const numOfBeds = stay.bbb.bedrooms.reduce((acc, bedroomObj) => {
         acc += bedroomObj.beds.length
         return acc
     }, 0)
@@ -224,7 +224,7 @@ function calcRate(stay) {
 
 function calcLongestBedCount(stay) {
     let maxBedCount = 0
-    stay.bedrooms.forEach((bedroom) => {
+    stay.bbb.bedrooms.forEach((bedroom) => {
         if (bedroom.beds.length > maxBedCount) {
             maxBedCount = bedroom.beds.length
         }

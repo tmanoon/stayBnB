@@ -78,7 +78,7 @@ export function OrderConfirmation({ stay, order }) {
 
                         <div className='rooms flex column'>
                             <p>Total Rooms:</p>
-                            <h5>{stay.bedrooms.length}</h5>
+                            <h5>{stay.bbb.bedrooms.length}</h5>
                         </div>
                     </div>
 
