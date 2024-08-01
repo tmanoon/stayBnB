@@ -16,6 +16,7 @@ import { UserMessages } from './pages/UseMessages'
 import { StayEdit } from './pages/StayEdit'
 
 import './style/main.css'
+import { UserNotification } from './cmps/UserNotification'
 
 export function RootCmp() {
 
@@ -50,6 +51,7 @@ export function RootCmp() {
             </Routes>
           </main>
         <AppFooter />
+        <UserNotification />
       </Router>
     </Provider>
   )
