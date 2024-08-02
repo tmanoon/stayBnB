@@ -72,7 +72,7 @@ export function LoginSignup({ setIsLoginModal }) {
                         </select>
                     </label>
                 </>}
-                <button type="submit">Continue</button>
+                <button type="submit">Signup</button>
             </form>
         </section>
     </>
