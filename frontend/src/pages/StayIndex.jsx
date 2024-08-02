@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 
 import { userService } from '../services/user.service.js'
 import { loadStays, setStayFilter } from '../store/actions/stay.actions.js'
-import { socketService, SOCKET_EVENT_ORDER_UPDATE } from '../services/socket.service.js'
 
 import { StayList } from '../cmps/StayList.jsx'
 import { Loading } from '../cmps/Loading.jsx'
@@ -23,12 +22,6 @@ export function StayIndex({ scrolledPage }) {
         setUser(user || null)
         loadStays()
     }, [loggedInUser._id])
-
-    useEffect(() => {
-        setTimeout(() => {
-            socketService.emit(SOCKET_EVENT_ORDER_UPDATE, 'order')
-        }, 1000)
-    }, [])
 
     useEffect(() => {
         const { txt, entryDate, exitDate, label, placeType, propType, amenities, accessibility, hostLngs, pagination } = filterBy
