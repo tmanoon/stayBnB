@@ -32,11 +32,11 @@ async function login({ username, password }) {
     }
 }
 
-async function signup({ username, password, fullname, about, imgUrl, location, gender, isAdmin = false }) {
+async function signup({ username, password, fullname, imgUrl, location, about, gender, isAdmin = false }) {
     try {
-        const user = { username, password, fullname, isAdmin, about, imgUrl, location, gender }
-        await httpService.post(BASE_URL + 'signup', user)
-        _setLoggedInUser(user)
+        const user = { username, password, fullname, imgUrl,location, about, gender, isAdmin }
+        const userToSave = await httpService.post(BASE_URL + 'signup', user)
+        _setLoggedInUser(userToSave)
         return user
     } catch (err) {
         console.log(err)
@@ -58,7 +58,7 @@ function getById(userId) {
 }
 
 function _setLoggedInUser(user) {
-    const userToSave = { _id: user._id, fullname: user.fullname, username: user.username, imgUrl: user.imgUrl, wishlist: user.wishlist }
+    const userToSave = { _id: user._id, fullname: user.fullname, username: user.username, imgUrl: user.imgUrl, wishlist: user.wishlist, about: user.about }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
     return userToSave
 }
@@ -71,7 +71,6 @@ function getEmptyCredentials() {
         imgUrl: 'https://thispersondoesnotexist.com/',
         location: '',
         about: '',
-        wishlist: [],
         gender: '',
         
     }
