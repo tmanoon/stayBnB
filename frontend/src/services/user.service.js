@@ -12,7 +12,10 @@ export const userService = {
     getById,
     getLoggedInUser,
     getEmptyCredentials,
-    addRemoveStayToUserFavorites
+    addRemoveStayToUserFavorites,
+    getAllUsers,
+    updateUser,
+    removeUser
 }
 
 async function login({ username, password }) {
@@ -97,4 +100,12 @@ async function addRemoveStayToUserFavorites(stayId, action) {
 
 function getAllUsers() {
     return httpService.get(USER_URL)
+}
+
+function updateUser(id, userToUpdate) {
+    return httpService.put(USER_URL + id, userToUpdate)
+}
+
+function removeUser(id) {
+    return httpService.delete(USER_URL + id)
 }
