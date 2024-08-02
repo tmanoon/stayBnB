@@ -1,6 +1,7 @@
 import { login, signup } from "../../store/actions/user.actions"
 import { userService } from "../../services/user.service"
 import { useState } from "react"
+import { socketService } from "../../services/socket.service"
 
 export function LoginSignup({ setIsLoginModal }) {
 
@@ -11,7 +12,10 @@ export function LoginSignup({ setIsLoginModal }) {
         try {
             ev.preventDefault()
             const user = isSignup ? await signup(credentials) : await login(credentials)
-            if (user) onClose()
+            if (user) {
+                socketService.login(user._id)
+                onClose()
+            }
         } catch (err) {
             console.log(err)
             throw err
