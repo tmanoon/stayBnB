@@ -34,14 +34,6 @@ async function getById(userId) {
     try {
         const collection = await dbService.getCollection('user')
         const user = await collection.findOne({ _id: new ObjectId(userId) })
-        delete user.password
-
-        user.givenReviews = await reviewService.query({ byUserId: new ObjectId(user._id) })
-        user.givenReviews = user.givenReviews.map(review => {
-            delete review.byUser
-            return review
-        })
-
         return user
     } catch (err) {
         logger.error(`while finding user by id: ${userId}`, err)
@@ -96,10 +88,14 @@ async function add(user) {
             imgUrl: user.imgUrl,
             location: user.location,
             about: user.about,
+            gender: user.gender,
             wishlist: []
         }
         const collection = await dbService.getCollection('user')
         await collection.insertOne(userToAdd)
+
+        delete userToAdd.password
+
         return userToAdd
     } catch (err) {
         logger.error('cannot add user', err)
