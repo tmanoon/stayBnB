@@ -34,7 +34,7 @@ function query(filterBy = getDefaultFilter()) {
 async function getHostStaysById(userId) {
     try {
         store.dispatch({ type: SET_IS_LOADING, isLoading: true })
-        const stays = await httpService.get(BASE_URL)
+        const stays = await getAllStays()
         const userStays = stays.filter(stay => stay.host.id === userId)
         store.dispatch({ type: SET_IS_LOADING, isLoading: false })
         return userStays
