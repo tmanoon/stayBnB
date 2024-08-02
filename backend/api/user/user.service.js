@@ -63,6 +63,7 @@ async function remove(userId) {
 
 async function update(user) {
     try {
+        logger.info(user)
         const userToSave = {
             fullname: user.fullname,
             gender: user.gender,
@@ -71,7 +72,7 @@ async function update(user) {
             wishlist: user.wishlist
         }
         const collection = await dbService.getCollection('user')
-        await collection.updateOne({ _id: user._id }, { $set: userToSave })
+        await collection.updateOne({ _id: new ObjectId(user._id) }, { $set: userToSave })
         return userToSave
     } catch (err) {
         logger.error(`cannot update user ${user._id}`, err)
