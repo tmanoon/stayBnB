@@ -94,3 +94,7 @@ async function addRemoveStayToUserFavorites(stayId, action) {
         throw err
     }
 }
+
+function getAllUsers() {
+    return httpService.get(USER_URL)
+}
