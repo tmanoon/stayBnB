@@ -68,10 +68,12 @@ function getEmptyCredentials() {
         username: '',
         password: '',
         fullname: '',
-        about: '',
+        imgUrl: 'https://thispersondoesnotexist.com/',
         location: '',
+        about: '',
+        wishlist: [],
         gender: '',
-        imgUrl: 'https://thispersondoesnotexist.com/'
+        
     }
 }
 
