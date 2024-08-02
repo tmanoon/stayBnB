@@ -4,9 +4,6 @@ import { utilService } from '../../services/util.service.js'
 import mongodb from 'mongodb'
 const { ObjectId } = mongodb
 
-const PAGE_SIZE = 3
-
-
 async function query(filterBy) {
     console.log("🚀 ~ query ~ filterBy:", filterBy)
     try {
