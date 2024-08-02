@@ -48,10 +48,10 @@ export function RootCmp() {
               <Route path='/messages' element={<UserMessages />} />
               <Route path='/edit' element={<StayEdit />} />
               <Route path='/edit/:stayId' element={<StayEdit />} />
-            </Routes>
+            </Routes>        
+            <UserNotification />
           </main>
         <AppFooter />
-        <UserNotification />
       </Router>
     </Provider>
   )
