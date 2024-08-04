@@ -42,28 +42,11 @@ export function StayIndex({ scrolledPage }) {
         } else { return 'index-header-expanded' }
     }
 
-    const modifyHosts = async () => {
-        try {
-            const guestUser = await userService.getById('661e6cb61e29f39397b25fec')
-            const jennyUser = await userService.getById('661e801f1e29f39397b25fee')
-            const shovalUser = await userService.getById('661e820c1e29f39397b25ff1')
-            // const stays = await stayService.getAllStays()
-            // for(let i = 0; i < 4; i++) {
-            //     const randIdx = 
-            // }
-
-            console.log('done')
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
     return (
         <section className={`index-section ${scrolledHeader()}`}>
             {isLoading && <Loading />}
             {!isLoading &&
                 <>
-                    <button onClick={modifyHosts}>HEEEEY</button>
                     <StayList stays={stays} filterBy={filterBy} user={user} setUser={setUser} />
                     <section className='index-end-section flex column center'>
                         <h1>Continue exploring homes</h1>
