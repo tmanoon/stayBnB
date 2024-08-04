@@ -46,7 +46,7 @@ async function getHostStaysById(userId) {
 
 async function getAllStays() {
     try {
-        const filterBy = stayService.getDefaultFilter()
+        const filterBy = getDefaultFilter()
         filterBy.pagination = Infinity
         return await stayService.query(filterBy)
     } catch (err) {
@@ -295,48 +295,48 @@ function generateRandomDate(stayPrice) {
     let selectedDate;
 
     if (stayPrice >= 0 && stayPrice <= 60) {
-        selectedDate = demoDates[0];
+        selectedDate = demoDates[0]
     } else if (stayPrice > 60 && stayPrice <= 120) {
-        selectedDate = demoDates[1];
+        selectedDate = demoDates[1]
     } else if (stayPrice > 120 && stayPrice <= 180) {
-        selectedDate = demoDates[2];
+        selectedDate = demoDates[2]
     } else if (stayPrice > 180 && stayPrice <= 240) {
-        selectedDate = demoDates[3];
+        selectedDate = demoDates[3]
     } else if (stayPrice > 240 && stayPrice <= 300) {
-        selectedDate = demoDates[4];
+        selectedDate = demoDates[4]
     } else if (stayPrice > 300 && stayPrice <= 360) {
-        selectedDate = demoDates[5];
+        selectedDate = demoDates[5]
     } else if (stayPrice > 360 && stayPrice <= 420) {
-        selectedDate = demoDates[6];
+        selectedDate = demoDates[6]
     } else if (stayPrice > 462 && stayPrice <= 480) {
-        selectedDate = "Apr 23-25";
+        selectedDate = "Apr 23-25"
     } else if (stayPrice > 480 && stayPrice <= 540) {
-        selectedDate = demoDates[8];
+        selectedDate = demoDates[8]
     } else if (stayPrice > 540 && stayPrice <= 600) {
-        selectedDate = demoDates[9];
+        selectedDate = demoDates[9]
     } else if (stayPrice > 600 && stayPrice <= 660) {
-        selectedDate = demoDates[10];
+        selectedDate = demoDates[10]
     } else if (stayPrice > 660 && stayPrice <= 720) {
-        selectedDate = demoDates[11];
+        selectedDate = demoDates[11]
     } else if (stayPrice > 720 && stayPrice <= 780) {
-        selectedDate = demoDates[12];
+        selectedDate = demoDates[12]
     } else if (stayPrice > 780 && stayPrice <= 840) {
-        selectedDate = demoDates[13];
+        selectedDate = demoDates[13]
     } else if (stayPrice > 840 && stayPrice <= 900) {
-        selectedDate = demoDates[14];
+        selectedDate = demoDates[14]
     } else if (stayPrice > 900 && stayPrice <= 960) {
-        selectedDate = demoDates[15];
+        selectedDate = demoDates[15]
     } else if (stayPrice > 960 && stayPrice <= 1020) {
-        selectedDate = demoDates[16];
+        selectedDate = demoDates[16]
     } else if (stayPrice > 1020 && stayPrice <= 1080) {
-        selectedDate = demoDates[17];
+        selectedDate = demoDates[17]
     } else if (stayPrice > 1080 && stayPrice <= 1140) {
-        selectedDate = demoDates[18];
+        selectedDate = demoDates[18]
     } else {
-        selectedDate = demoDates[19];
+        selectedDate = demoDates[19]
     }
 
-    return selectedDate;
+    return selectedDate
 }
 
 function generateRandomDistance(stay) {
