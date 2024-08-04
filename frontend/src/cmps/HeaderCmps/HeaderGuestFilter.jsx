@@ -7,7 +7,7 @@ export function HeaderGuestFilter({ filterByToEdit, setFilterByToEdit }) {
     }
 
     return (
-        <section className="guest-filter">
+        <section className="guest-filter modal">
             <div className="options">
                 <article className="option">
                     <div className="description">

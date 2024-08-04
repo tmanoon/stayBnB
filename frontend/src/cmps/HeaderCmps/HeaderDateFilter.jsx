@@ -30,7 +30,7 @@ export function HeaderDateFilter({ handleModalTypeChange, filterByToEdit, setFil
     }
 
     return (
-        <section className='date-filter'>
+        <section className='date-filter modal'>
             <DateRangePicker
                 ranges={dateRange}
                 onChange={handleSelect}

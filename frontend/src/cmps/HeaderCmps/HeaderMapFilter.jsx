@@ -15,7 +15,7 @@ export function HeaderMapFilter({ handleModalTypeChange, handleSearch }) {
         handleSearch(region.region)
     }
 
-    return <section className="map-filter">
+    return <section className="map-filter modal">
         <h1>Search by region</h1>
         <section className="regions">
             {

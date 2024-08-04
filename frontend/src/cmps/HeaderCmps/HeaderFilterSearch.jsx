@@ -20,7 +20,11 @@ export function HeaderFilterSearch({ modalType, handleModalTypeChange }) {
 
     useEffect(() => {
         const handleClickOutside = ev => {
-            if (header.current && !header.current.contains(ev.target)) handleModalTypeChange(ev)
+            if (header.current && !header.current.contains(ev.target)) {
+                if (!ev.target.closest('.modal')) {
+                    handleModalTypeChange(ev)
+                }
+            }
         }
 
         document.addEventListener('mousedown', handleClickOutside)

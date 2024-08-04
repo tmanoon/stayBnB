@@ -30,7 +30,12 @@ export function UserNavModal({ setIsLoginModal, handleModalTypeChange, setUser }
 
     function checkNavigatePath(e, path) {
         e.preventDefault()
-        isLoggedInUser ? navigate(`${path}`) : onLoginModal()
+        if (isLoggedInUser) {
+            handleModalTypeChange(e, '')
+            navigate(`${path}`)
+        } else { 
+            onLoginModal()
+        }
     }
 
     async function onLogoutClick(ev) {
@@ -52,7 +57,7 @@ export function UserNavModal({ setIsLoginModal, handleModalTypeChange, setUser }
     }
 
     return (
-        <section className="user-nav-modal" >
+        <section className="user-nav-modal modal" >
             {!isLoggedInUser && <div onClick={onLoginModal}>Log-in / Sign-up</div>}
             {!isLoggedInUser && <NavLink to="/" onClick={() => onGuestClick()} className='bordered'>Continue as Guest</NavLink>}
             <NavLink to="/trips" onClick={(ev) => checkNavigatePath(ev, '/trips')} className="bold">Trips</NavLink>
