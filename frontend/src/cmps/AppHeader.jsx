@@ -17,9 +17,10 @@ export function AppHeader({ scrolledPage }) {
     const navigate = useNavigate()
     const location = useLocation()
 
+    const { loggedInUser } = useSelector(storeState => storeState.userModule)
     const [modalType, setModalType] = useState('')
     const [isLoginModal, setIsLoginModal] = useState(false)
-    const [loggedInUser, setLoggedInUser] = useState(null)
+    const [user, setUser] = useState(null)
 
     const filterBy = useSelector(storeState => storeState.stayModule.filterBy)
     const modalTypes = [
@@ -28,8 +29,8 @@ export function AppHeader({ scrolledPage }) {
         { modalName: 'guest', desc: checkIfFilterByGuests() ? utilService.calcGuestCountInFilterBy(filterBy) : 'Add guests' }]
 
     useEffect(() => {
-        setLoggedInUser(userService.getLoggedInUser())
-    }, [])
+        setUser(userService.getLoggedInUser())
+    }, [loggedInUser._id])
 
     function goHome() {
         const defaultFilter = stayService.getDefaultFilter()
@@ -39,11 +40,11 @@ export function AppHeader({ scrolledPage }) {
 
     function checkNavigatePath(e, path) {
         e.preventDefault()
-        loggedInUser ? navigate(`${path}`) : onLoginModal()
+        user ? navigate(`${path}`) : onLoginModal()
     }
 
     const onLoginModal = () => {
-        setIsLoginModal(true)
+        if (!user) setIsLoginModal(true)
     }
 
     function checkIfFilterByGuests() {
@@ -105,14 +106,14 @@ export function AppHeader({ scrolledPage }) {
                     <NavLink to="/edit" className="edit-btn" onClick={(ev) => checkNavigatePath(ev, '/edit')}>Staybnb your home</NavLink>
                     <button className="flex align-center space-between" onClick={(e) => handleModalTypeChange(e, 'user-nav')}>
                         <span>☰</span>
-                        {loggedInUser && loggedInUser.imgUrl && (<img src={loggedInUser.imgUrl} alt="User Profile" />)}
-                        {(!loggedInUser || !loggedInUser.imgUrl) && <div className="profile"></div>}
+                        {user && user.imgUrl && (<img src={user.imgUrl} alt="User Profile" />)}
+                        {(!user || !user.imgUrl) && <div className="profile"></div>}
                     </button>
 
                     {modalType === 'user-nav' && <UserNavModal
                         setIsLoginModal={setIsLoginModal}
                         handleModalTypeChange={handleModalTypeChange}
-                        setLoggedInUser={setLoggedInUser} />}
+                        setUser={setUser} />}
                 </section>
                 {location.pathname === '/' && <LabelsFilter filterBy={filterBy} setStayFilter={setStayFilter} />}
             </header>
