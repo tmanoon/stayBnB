@@ -10,12 +10,9 @@ async function uploadImg(ev) {
   const FORM_DATA = new FormData()
   FORM_DATA.append('upload_preset', UPLOAD_PRESET)
   FORM_DATA.append('file', ev.target.files[0])
-  
+
   try {
-    const res = await fetch(UPLOAD_URL, {
-      method: 'POST',
-      body: FORM_DATA
-    })
+    const res = await fetch(UPLOAD_URL, { method: 'POST', body: FORM_DATA })
     const elImg = await res.json()
     return elImg
   } catch (err) {
