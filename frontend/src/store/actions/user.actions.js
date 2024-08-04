@@ -1,6 +1,6 @@
 import { storageService } from '../../services/async-storage.service'
 import { userService } from '../../services/user.service'
-import { utilService } from '../../services/util.service'
+import { socketService } from '../../services/socket.service'
 import { ADD_STAY_TO_FAVORITES, SET_LOGGED_IN_USER, SET_USERS, REMOVE_STAY_FROM_FAVORITES, ADD_USER, LOGOUT } from "../reducers/user.reducer"
 import { store } from "../store"
 
@@ -17,6 +17,7 @@ export async function loadUsers() {
 export async function login(credentials) {
     try {
         const user = await userService.login(credentials)
+        socketService.login(user._id)
         store.dispatch({ type: SET_LOGGED_IN_USER, user })
         return user
     } catch (err) {
@@ -27,6 +28,7 @@ export async function login(credentials) {
 export async function signup(credentials) {
     try {
         const user = await userService.signup(credentials)
+        socketService.login(user._id)
         store.dispatch({ type: ADD_USER, user: user })
         store.dispatch({ type: SET_LOGGED_IN_USER, user: user })
         return user
@@ -39,6 +41,7 @@ export async function signup(credentials) {
 export async function logout() {
     try {
         await userService.logout()
+        socketService.logout()
         store.dispatch({ type: LOGOUT })
     } catch (err) {
         console.log(err)
