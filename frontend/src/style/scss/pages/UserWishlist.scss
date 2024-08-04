@@ -1,27 +1,10 @@
 .user-wishlist {
-
+    
     h2,
     h3 {
         margin-block: 0;
     }
-
-    .back-btn {
-        font-family: fa-solid;
-        inset: -0.2rem auto auto -3.25rem;
-        font-size: 1rem;
-        height: 3rem;
-        background-color: transparent;
-        padding-inline: 0;
-
-        &::before {
-            content: '\f053';
-        }
-
-        &:hover {
-            scale: 1.1;
-        }
-    }
-
+    
     header {
         border-block-end: 0.667px solid $gray4;
         padding-block: 1.1rem 1.275rem;
@@ -59,22 +42,22 @@
     }
 
     .wishlist-items {
-        grid-auto-flow: row;
-        gap: rem(24px);
-        margin-block: 2em;
+        grid-auto-rows: fit-content;
+        gap: 1.5rem;
+        margin-block: 2rem;
 
         .wishlist-item {
-            grid-template-columns: rem(250px) 1fr;
-            height: rem(304px);
-            gap: 1rem;
-            border-radius: rem(9.6px);
+            grid-template-columns: 1fr 1fr;
+
+            border-radius: $border-radius-3;
             box-shadow: $gray3 1px 1px 16px;
-            padding: 1rem;
+            transition: scale 0.5s;
+            
             cursor: pointer;
 
             &:hover {
-                scale: 1.025;
-                transition: scale 0.5s;
+                scale: 1.02;
+                transition-delay: 0.5s;
             }
 
             img {
@@ -82,12 +65,14 @@
                 object-fit: cover;
                 max-width: 100%;
                 height: 100%;
-                border-radius: rem(9.6px);
+                border-radius: $border-radius-3 0 0 $border-radius-3;
             }
 
             .text {
+                position: relative;
+                padding: 1rem;
                 grid-column: 2;
-                text-align: center;
+
                 grid-auto-flow: row;
                 justify-items: center;
 
@@ -105,9 +90,19 @@
             }
 
             .remove-btn {
+                position: absolute;
+                inset: auto 0.5rem 0.5rem auto;
+                font-size: 1rem;
+                color: $gray3;
+                background-color: transparent;
+
+                &::before {
+                    content: '\f2ed';
+                    font-family: fa-reg;
+                }
 
                 &:hover {
-                    scale: 1.1;
+                    background-color: $btnHover;
                 }
             }
         }
@@ -115,17 +110,13 @@
 }
 
 
-@media (min-width: 742px) {
+@media (width > 742px) {
     .user-wishlist {
         .wishlist-items {
             .wishlist-item {
                 grid-template-columns: rem(340px) 1fr;
-                height: rem(340px);
-                gap: 1.2rem;
 
                 .text {
-                    align-content: space-between;
-
                     h2 {
                         font-size: 1.3em;
                     }
@@ -143,27 +134,13 @@
     }
 }
 
-@media (min-width: 1128px) {
+@media (width > 1130px) {
     .user-wishlist {
         .wishlist-items {
+            grid-template-columns: 1fr 1fr;
+            
             .wishlist-item {
-                grid-template-columns: rem(500px) 1fr;
-                height: rem(410px);
-
-                .text {
-
-                    h2 {
-                        font-size: 1.5em;
-                    }
-
-                    p {
-                        font-size: 1.2em;
-                    }
-
-                    h3 {
-                        font-size: 1.4em;
-                    }
-                }
+                grid-template-columns: 1fr 1fr;
             }
         }
     }
