@@ -39,7 +39,7 @@ export function UserNavModal({ setIsLoginModal, handleModalTypeChange, setLogged
             await logout()
             checkIsLoggedInUser(false)
             setLoggedInUser(null)
-            socketService.logout(userService.getLoggedInUser()._id)
+            // socketService.logout(userService.getLoggedInUser()._id)
             handleModalTypeChange('', 'user-nav')
         } catch (err) {
             console.log(err)
