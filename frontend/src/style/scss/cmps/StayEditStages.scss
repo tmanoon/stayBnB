@@ -343,43 +343,70 @@
 }
 
 .stage-8 {
-
-    // .upload-btn {
-    //     width: 200px;
-    // }
     .upload-preview {
-        padding: 1rem 1rem 0.3rem 1rem;
         margin-top: 1.5em;
         box-shadow: 1px -1px 16px 5px rgba(0, 0, 0, 0.1215686275);
-        width: 80%;
-        height: 25vh;
-        border-radius: 30px;
-        position: relative;
+        width: 90%;
+        min-height: 25vh;
+        border-radius: $border-radius-4;
+        background-color: $btnHover;
 
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        & img {
-            border-radius: 20px;
+        cursor: pointer;
+
+        .img-gallery {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            padding: 0.5rem;
+            overflow: hidden;
 
-            &:hover {
-                opacity: 0.8;
-            }
+            display: grid;
+            gap: 0.5rem;
 
-            &:hover .replace-img-txt {
-                display: inline;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+            .img {
+                position: relative;
+
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                    border-radius: $border-radius-4;
+                    box-shadow: 0 0 0.3rem $gray3;
+                }
+
+                &:hover {
+                    opacity: 0.9;
+                }
+
+                &:hover .replace-img-txt {
+                    display: inline;
+                }
+
+                .delete-btn {
+                    position: absolute;
+                    inset: 0.5rem 0.5rem auto auto;
+                    font-size: 0.75rem;
+                    background-color: transparent;
+
+                    &::before {
+                        content: '\f2ed';
+                        font-family: fa-reg;
+                    }
+
+                    &:hover {
+                        background-color: rgba(247, 247, 247, 0.6);
+                    }
+                }
             }
         }
 
-        & .replace-img-txt {
-            position: absolute;
-            top: 50%;
-            font-size: 2em;
-            display: none;
+        .replace-img-txt {
+            padding-block: 10vh;
+            font-size: 1.5em;
         }
     }
 }
@@ -548,7 +575,7 @@
             padding: 3rem 4rem;
 
             h3 {
-                padding:0;
+                padding: 0;
                 margin: 0;
                 font-size: 1.5rem;
             }

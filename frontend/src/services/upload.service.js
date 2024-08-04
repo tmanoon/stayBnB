@@ -7,17 +7,17 @@ async function uploadImg(ev) {
   const UPLOAD_PRESET = "Stay_imgs"
   const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
 
+  const FORM_DATA = new FormData()
+  FORM_DATA.append('upload_preset', UPLOAD_PRESET)
+  FORM_DATA.append('file', ev.target.files[0])
+  
   try {
-    const formData = new FormData()
-    formData.append('upload_preset', UPLOAD_PRESET)
-    formData.append('file', ev.target.files[0])
-
     const res = await fetch(UPLOAD_URL, {
       method: 'POST',
-      body: formData
+      body: FORM_DATA
     })
-    const imgUrl = await res.json()
-    return imgUrl
+    const elImg = await res.json()
+    return elImg
   } catch (err) {
     console.error('Failed to upload', err)
     throw err

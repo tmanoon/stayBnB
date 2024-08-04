@@ -2,25 +2,28 @@ import React, { useState, useRef } from 'react'
 import { uploadService } from '../../services/upload.service'
 
 export function ImgUploader({ onUploaded = null, placeholder = null, editStay = null, stay = null }) {
-  const [imgData, setImgData] = useState({
-    imgUrl: 'click here to upload',
-    height: 500,
-    width: 500,
-  })
+
+  const [imgData, setImgData] = useState(stay.imgUrls || [])
   const [isUploading, setIsUploading] = useState(false)
   const fileInputRef = useRef(null)
 
   async function uploadImg(ev) {
     setIsUploading(true)
-    const { secure_url, height, width } = await uploadService.uploadImg(ev)
-    setImgData({ imgUrl: secure_url, width, height })
-    setIsUploading(false)
-    onUploaded && onUploaded(secure_url)
+    const files = ev.target.files
+    const newImgUrls = []
 
-    if (secure_url) {
-      const updatedImgUrls = [...stay.imgUrls]
-      updatedImgUrls[0] = secure_url
-      editStay({ ...stay, imgUrls: updatedImgUrls })
+    for (const file of files) {
+      const { secure_url } = await uploadService.uploadImg({ target: { files: [file] } })
+      newImgUrls.push(secure_url)
+    }
+
+    const updatedImgUrls = [...(stay.imgUrls || []), ...newImgUrls]
+    editStay({ ...stay, imgUrls: updatedImgUrls })
+    setImgData(updatedImgUrls)
+    setIsUploading(false)
+
+    if (onUploaded) {
+      newImgUrls.forEach(url => onUploaded(url))
     }
   }
 
@@ -28,22 +31,34 @@ export function ImgUploader({ onUploaded = null, placeholder = null, editStay = 
     fileInputRef.current.click()
   }
 
+  const handleDeleteImg = (ev, idx) => {
+    ev.stopPropagation()
+    const updatedImgUrls = imgData.filter((_, index) => index !== idx)
+    setImgData(updatedImgUrls)
+    editStay({ ...stay, imgUrls: updatedImgUrls })
+  }
+
   return (
-    <div className="upload-preview">
-      <img
-        src={stay.imgUrls[0]}
-        style={{ maxWidth: '100%', maxHeight: '100%', float: 'right', cursor: 'pointer' }}
-        onClick={handleImageClick}
-        alt="Uploaded Image"
-      />
-      <div className='replace-img-txt'>Replace photo</div>
+    <div className="upload-preview" onClick={handleImageClick}>
+      {!!imgData.length && <div className="img-gallery">
+        {imgData.map((url, idx) => (
+          <div className='img'>
+            <img
+              key={idx}
+              src={url}
+              alt={`Uploaded Image ${idx}`}
+            />
+            <button className='delete-btn' onClick={(ev) => handleDeleteImg(ev, idx)}></button>
+          </div>
+        ))}
+      </div>}
+      {!imgData.length && <div className='replace-img-txt'>Add photos</div>}
       <input
         ref={fileInputRef}
-        className="upload-btn"
         type="file"
         onChange={uploadImg}
         accept="image/*"
-        id="imgUpload"
+        multiple
         style={{ display: 'none' }}
       />
     </div>

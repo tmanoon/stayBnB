@@ -13,7 +13,7 @@ export function ProgressFooter({ editStage, setEditStage, onSaveStay, stay }) {
             case 4:
                 return !stay.loc.country || !stay.loc.address || !stay.loc.city
             case 5:
-                return stay.capacity < 1 || stay.bbb.bathrooms < 1 || stay.bbb.beds < 1 || stay.bbb.baths < 1
+                return stay.capacity < 1 || stay.bbb.bathrooms < 1 || stay.bbb.beds < 1
             case 9:
                 return !stay.name
             case 11:
