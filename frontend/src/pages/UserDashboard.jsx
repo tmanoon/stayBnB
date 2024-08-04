@@ -82,7 +82,12 @@ export function UserDashboard() {
 
     function navToDetails(ev, stayId) {
         ev.stopPropagation()
-        navigate(`/${stayId}`)
+
+        const entryDate = new Date().setHours(0, 0, 0, 0)
+        const exitDate = new Date(entryDate).setDate(new Date(entryDate).getDate() + 1)
+        const searchParams = new URLSearchParams({ adults: 2, children: 0, infants: 0, pets: 0, entryDate, exitDate }).toString()
+
+        navigate(`/${stayId}?${searchParams}`)
     }
 
     function onChooseOrder(order) {
@@ -128,19 +133,20 @@ export function UserDashboard() {
                         const isAnswered = (order.status !== 'pending') ? true : false
 
                         return (
-                        <li key={order._id} className="user-order grid" onClick={() => onChooseOrder(order)}>
-                            <p className="title">{order.stay.name}</p>
-                            <p>{utilService.timestampsToShortDates(order.entryDate, order.exitDate)}</p>
-                            <p className="also-tablet num">{order._id.slice(18)}</p>
-                            <p className="only-desktop">{order.buyer.fullname}</p>
-                            <p className="also-tablet num">{utilService.calcGuestCount(order)}</p>
-                            <p className="only-desktop num">$ {Math.round((utilService.calcSumToPay(datesAndGuests, order.stay)) + Math.round((utilService.calcSumToPay(datesAndGuests, order.stay) * 0.14125))).toLocaleString()}</p>
-                            <div className={`flex space-evenly ${isAnswered ? 'answered' : ''}`}>
-                                <button onClick={(ev) => onChangeOrderStatus('approved', order, ev)} className={`approve-btn ${(order.status === 'approved') ? 'approved' : ''}`}>Approve</button>
-                                <button onClick={(ev) => onChangeOrderStatus('rejected', order, ev)} className={`reject-btn ${(order.status === 'rejected') ? 'rejected' : ''}`}>Reject</button>
-                            </div>
-                        </li>
-                    )})}
+                            <li key={order._id} className="user-order grid" onClick={() => onChooseOrder(order)}>
+                                <p className="title">{order.stay.name}</p>
+                                <p>{utilService.timestampsToShortDates(order.entryDate, order.exitDate)}</p>
+                                <p className="also-tablet num">{order._id.slice(18)}</p>
+                                <p className="only-desktop">{order.buyer.fullname}</p>
+                                <p className="also-tablet num">{utilService.calcGuestCount(order)}</p>
+                                <p className="only-desktop num">$ {Math.round((utilService.calcSumToPay(datesAndGuests, order.stay)) + Math.round((utilService.calcSumToPay(datesAndGuests, order.stay) * 0.14125))).toLocaleString()}</p>
+                                <div className={`flex space-evenly ${isAnswered ? 'answered' : ''}`}>
+                                    <button onClick={(ev) => onChangeOrderStatus('approved', order, ev)} className={`approve-btn ${(order.status === 'approved') ? 'approved' : ''}`}>Approve</button>
+                                    <button onClick={(ev) => onChangeOrderStatus('rejected', order, ev)} className={`reject-btn ${(order.status === 'rejected') ? 'rejected' : ''}`}>Reject</button>
+                                </div>
+                            </li>
+                        )
+                    })}
                 </ul>
             </div>}
         </section>
