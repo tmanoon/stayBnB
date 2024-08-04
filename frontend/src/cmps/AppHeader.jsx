@@ -30,7 +30,7 @@ export function AppHeader({ scrolledPage }) {
 
     useEffect(() => {
         setUser(userService.getLoggedInUser())
-    }, [loggedInUser._id])
+    }, [loggedInUser])
 
     function goHome() {
         const defaultFilter = stayService.getDefaultFilter()

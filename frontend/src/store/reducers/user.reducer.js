@@ -38,7 +38,7 @@ export function userReducer(state = initialState, action = {}) {
         return { ...state, favoriteStays: state.userFavoriteStays.filter(stay => stay._id !== action.stayToRemoveId)}
 
         case LOGOUT: 
-        return { ...state, loggedInUser: {_id: null}}
+        return { ...state, loggedInUser: null}
 
         default:
             return state

@@ -20,9 +20,9 @@ export function StayIndex({ scrolledPage }) {
 
     useEffect(() => {
         const user = userService.getLoggedInUser()
-        setUser(user || null)
-        loadStays()
-    }, [loggedInUser._id])
+        setUser(user)
+        if (!user) loadStays()
+    }, [loggedInUser])
 
     useEffect(() => {
         const { txt, entryDate, exitDate, label, placeType, propType, amenities, accessibility, hostLngs, pagination } = filterBy

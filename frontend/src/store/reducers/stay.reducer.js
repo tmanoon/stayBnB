@@ -17,8 +17,39 @@ const initialState = {
     stays: [],
     stay: null,
     isLoading: true,
-    filterBy: stayService.getDefaultFilter(),
-    isGalleryVisible: true
+    // filterBy: stayService.getDefaultFilter(),
+    filterBy: getDefaultFilter(),
+    isGalleryVisible: true,
+}
+
+function getDefaultFilter() {
+    return {
+        txt: '',
+        entryDate: '',
+        exitDate: '',
+        guestCount: { adults: 0, children: 0, infants: 0, pets: 0 },
+        label: '',
+        placeType: 'any',
+        priceRange: {
+            min: 0,
+            max: 2000
+        },
+        bbb: {
+            bedrooms: 'any',
+            beds: 'any',
+            bathrooms: 'any',
+        },
+        propType: [],
+        amenities: [],
+        bookingOpts: {
+            instant: false,
+            selfCheckIn: false,
+            allowsPets: false
+        },
+        accessibility: [],
+        hostLngs: [],
+        pagination: 30
+    }
 }
 
 export function stayReducer(state = initialState, action = {}) {
