@@ -17,13 +17,7 @@ const initialState = {
     stays: [],
     stay: null,
     isLoading: true,
-    // filterBy: stayService.getDefaultFilter(),
-    filterBy: getDefaultFilter(),
-    isGalleryVisible: true,
-}
-
-function getDefaultFilter() {
-    return {
+    filterBy: {
         txt: '',
         entryDate: '',
         exitDate: '',
@@ -49,7 +43,8 @@ function getDefaultFilter() {
         accessibility: [],
         hostLngs: [],
         pagination: 30
-    }
+    },
+    isGalleryVisible: true
 }
 
 export function stayReducer(state = initialState, action = {}) {
