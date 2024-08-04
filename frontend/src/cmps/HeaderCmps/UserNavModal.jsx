@@ -4,7 +4,6 @@ import { userService } from '../../services/user.service'
 import { login, logout } from '../../store/actions/user.actions'
 import { LoginSignup } from '../Modals/LoginSignup'
 import { useNavigate } from 'react-router-dom'
-import { socketService } from '../../services/socket.service'
 
 export function UserNavModal({ setIsLoginModal, handleModalTypeChange, setUser }) {
     const [isLoggedInUser, checkIsLoggedInUser] = useState(false)
@@ -44,7 +43,6 @@ export function UserNavModal({ setIsLoginModal, handleModalTypeChange, setUser }
             await logout()
             checkIsLoggedInUser(false)
             setUser(null)
-            // socketService.logout(userService.getLoggedInUser()._id)
             handleModalTypeChange('', 'user-nav')
         } catch (err) {
             console.log(err)
