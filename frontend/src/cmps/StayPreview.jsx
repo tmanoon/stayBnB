@@ -4,27 +4,23 @@ import { stayService } from "../services/stay.service"
 import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 
 import { ImgCarousel } from "./HelperCmps/ImgCarousel"
+import { SOCKET_SERVICE_NOTIFICATION, socketService } from "../services/socket.service"
 
 export function StayPreview({ stay, filterBy, user, setUser }) {
     const [isWishlistStay, setIsWishlistStay] = useState(false)
 
     useEffect(() => {
-        if (stay && user) {
-            setIsWishlistStay(!!user.wishlist.find(wishListStay => wishListStay._id === stay._id))
-        }
+        if (stay && user) setIsWishlistStay(!!user.wishlist.find(wishListStay => wishListStay._id === stay._id))
     }, [stay, user])
 
     async function onFavorite(ev) {
         ev.preventDefault()
-        ev.stopPropagation()
         try {
             if (user) {
                 const userToUpdate = await addRemoveStayToUserFavorites(stay._id)
                 setUser(userToUpdate)
                 setIsWishlistStay(!isWishlistStay)
-            } else {
-                console.log('log-in to add to favorites')
-            }
+            } else socketService.emit(SOCKET_SERVICE_NOTIFICATION, ['Please login first', 0])
         } catch (err) {
             console.log('err', err)
             throw err
