@@ -2,12 +2,14 @@ import { SET_ORDERS, ADD_ORDER, REMOVE_ORDER, UPDATE_ORDER } from '../reducers/o
 import { orderService } from '../../services/order.service'
 import { store } from '../store'
 import { userService } from '../../services/user.service'
+import { SOCKET_SERVICE_ADD_ORDER } from '../../services/socket.service'
 
 export async function addOrder(params, stay) {
     try {
         const user = userService.getLoggedInUser()
         const order = await orderService.getOrder(stay, user, params)
-        const orderToAdd = await orderService.save(order)
+        const orderToAdd = await orderService.save(order)        
+        socketService.emit(SOCKET_SERVICE_ADD_ORDER, orderToAdd)
         store.dispatch({ type: ADD_ORDER, order: orderToAdd })
         return orderToAdd
     } catch (err) {

@@ -44,7 +44,9 @@ async function getHostOrdersById(userId, sortBy) {
     try {
         store.dispatch({type: SET_IS_LOADING, isLoading: true})
         let orders = await query()
-        orders = orders.filter(order => order.hostId === userId).filter(order => order.entryDate > new Date())        
+        orders = orders.filter(order => order.hostId === userId).filter(order => {
+            return new Date(+order.entryDate).getMonth() >= new Date().getMonth()
+        })
         store.dispatch({type: SET_IS_LOADING, isLoading: false})
         if (sortBy === 'date') return orders.sort((a,b) => a.entryDate - b.entryDate)
         if (sortBy === 'name') return orders.sort((a,b) => a.stay._id.localeCompare(b.stay._id))

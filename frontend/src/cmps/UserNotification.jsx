@@ -12,14 +12,13 @@ export function UserNotification() {
     }, [])
 
     function promptNotification(data) {
-        console.log(data)
-        setMsg(`The order status of your Staybnb place: ${data.stay.name} has been updated.`)
+        setMsg(data)
         setTimeout(() => {
             setMsg('')
-        }, 1000)
+        }, 3500)
     }
 
-    if (!msg.txt) return <span></span>
+    if (!msg) return <span></span>
     return (
         <section className='notification-msg'>
             <p>{msg}</p>
