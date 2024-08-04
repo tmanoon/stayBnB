@@ -4,7 +4,6 @@ import { useLocation, useSearchParams } from 'react-router-dom'
 
 import { stayService } from '../services/stay.service'
 import { utilService } from '../services/util.service'
-import { socketService, SOCKET_SERVICE_ADD_ORDER } from '../services/socket.service'
 import { addOrder } from '../store/actions/order.actions'
 
 import { PaymentModal } from '../cmps/StayReservationCmps/PaymentModal'
@@ -49,7 +48,6 @@ export function StayPayment() {
     async function checkAndValidateOrder() {
         try {
             const orderToAdd = await addOrder(searchParams, stay)
-            socketService.emit(SOCKET_SERVICE_ADD_ORDER, orderToAdd)
             setOrder(orderToAdd)
             setIsOrder(true)
         } catch (err) {
