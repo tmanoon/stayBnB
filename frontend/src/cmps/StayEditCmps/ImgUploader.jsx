@@ -42,9 +42,8 @@ export function ImgUploader({ onUploaded = null, placeholder = null, editStay = 
     <div className="upload-preview" onClick={handleImageClick}>
       {!!imgData.length && <div className="img-gallery">
         {imgData.map((url, idx) => (
-          <div className='img'>
+          <div className='img' key={idx} >
             <img
-              key={idx}
               src={url}
               alt={`Uploaded Image ${idx}`}
             />
