@@ -19,11 +19,15 @@ export function HeaderFilterSearch({ modalType, handleModalTypeChange }) {
     const [filterByToEdit, setFilterByToEdit] = useState({ txt, entryDate, exitDate, guestCount })
 
     useEffect(() => {
-        const handleClickOutside = event => { if (header.current && !header.current.contains(event.target)) handleModalTypeChange(event) }
+        const handleClickOutside = ev => {
+            if (header.current && !header.current.contains(ev.target)) handleModalTypeChange(ev)
+        }
 
-        document.addEventListener('click', handleClickOutside)
-        return () => { document.removeEventListener('click', handleClickOutside) }
-    }, [header])
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [header, handleModalTypeChange])
 
     // useEffect(() => {
     //     setMiniSearch()
@@ -88,7 +92,7 @@ export function HeaderFilterSearch({ modalType, handleModalTypeChange }) {
                 <button onClick={onLoadStays} className={`search-btn ${modalType !== '' && modalType !== 'user-nav' ? 'compact' : ''}`} ><span>Search</span></button>
             </div>
 
-            {modalType === 'map' && <HeaderMapFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} handleSearch={handleSearch} />}
+            {modalType === 'map' && <HeaderMapFilter handleModalTypeChange={handleModalTypeChange} handleSearch={handleSearch} />}
             {(modalType === 'check-in' || modalType === 'check-out') && <HeaderDateFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
             {modalType === 'guest' && <HeaderGuestFilter filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
         </section>
