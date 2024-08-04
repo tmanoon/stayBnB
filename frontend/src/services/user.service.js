@@ -37,7 +37,7 @@ async function signup({ username, password, fullname, imgUrl, location, about, g
         const user = { username, password, fullname, imgUrl,location, about, gender, isAdmin }
         const userToSave = await httpService.post(BASE_URL + 'signup', user)
         _setLoggedInUser(userToSave)
-        return user
+        return userToSave
     } catch (err) {
         console.log(err)
         throw err
