@@ -13,7 +13,6 @@ export function LoginSignup({ setIsLoginModal }) {
             ev.preventDefault()
             const user = isSignup ? await signup(credentials) : await login(credentials)
             if (user) {
-                socketService.login(user._id)
                 onClose()
             }
         } catch (err) {

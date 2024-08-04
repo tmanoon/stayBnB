@@ -24,7 +24,9 @@ export function StayEdit() {
         try {
             const stayToLoad = await stayService.getById(params.stayId)
             editStay(stayToLoad)
-        } catch (err) { console.log(err) }
+        } catch (err) { 
+            console.log(err)
+         }
     }
 
     async function onSaveStay() {
