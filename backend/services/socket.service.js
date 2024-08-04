@@ -11,6 +11,7 @@ export function setupSocketAPI(server) {
     })
     gIo.on('connection', socket => {
         logger.info(`New connected socket [id: ${socket.id}]`)
+        socket.join('self' + socket.id)
         socket.on('disconnect', socket => {
             logger.info(`Socket disconnected [id: ${socket.id}]`)
         })
@@ -33,14 +34,14 @@ export function setupSocketAPI(server) {
             socket.broadcast.to(socket.myTopic).emit('chat-add-msg', msg)
         })
 
-        socket.on('order-update', async(data) => {
+        socket.on('order-update', async data => {
             logger.info(`New update about order: ${data._id}, connected socket: ${socket.id}`)
+            console.log(data)
             // emits to all sockets:
             // gIo.emit('chat addMsg', msg)
-            // emits only to sockets in the same room except the sender!
+            // emits only to sockets in the same room except the sender!// 
             gIo.emit('order-update', data)
             await emitToUser({type: 'prompt-notification', data: `A new update about order ${data._id}`, userId: data.buyer._id })
-            // broadcast({ type: 'order-update', data })
         })
 
         socket.on('user-watch', userId => {
@@ -61,13 +62,21 @@ export function setupSocketAPI(server) {
         socket.on('add-order' , async orderToAdd => {
             logger.info(`Adding order for user id: ${orderToAdd.buyer._id}`)
             emitTo({ type: 'add-order', data: orderToAdd })
-            await emitToUser({ type: 'prompt-notification', data: `You got a new order to take care of`, userId: orderToAdd.hostId })
+            // gIo.emit('prompt-notification', [`You got a new order by ${orderToAdd.buyer.fullname}`, orderToAdd.hostId])
+            await emitToUser({ type: 'prompt-notification', data: `You got a new order by ${orderToAdd.buyer.fullname}`, userId: orderToAdd.hostId })
         })
+
+        socket.on('prompt-notification', async data => {
+            logger.info(`emitting notification to ${data[1] || 'self'}`)
+            if(!data[1]) emitTo({ type: 'prompt-notification', data: data[0], label: 'self' + socket.id })
+            else await emitToUser({ type: 'prompt-notification', data: data[0], userId: data[1]})
+        })
+
     })
 }
 
 function emitTo({ type, data, label }) {
-    if (label) gIo.to('watching:' + label.toString()).emit(type, data)
+    if (label) gIo.to(label).emit(type, data)
     else gIo.emit(type, data)
 }
 
