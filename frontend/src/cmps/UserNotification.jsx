@@ -1,23 +1,28 @@
 import { useState, useEffect } from 'react'
 import { socketService, SOCKET_SERVICE_NOTIFICATION } from '../services/socket.service'
+
 export function UserNotification() {
-    // const [isNotification, setIsNotification] = useState(false)
-    const [msg, SetMsg] = useState({ actionName: '' }, { txt: '' })
+    const [msg, setMsg] = useState('')
 
-    // useEffect(() => {
-    //     socketService.on(SOCKET_SERVICE_NOTIFICATION, promptNotification)
-    // }, [])
+    useEffect(() => {
+        socketService.on(SOCKET_SERVICE_NOTIFICATION, promptNotification)
+        return () => {
+            socketService.off(SOCKET_SERVICE_NOTIFICATION, promptNotification)
+        }
+    }, [])
 
-    // function promptNotification(data) {
-    //     // setIsNotification(true)
-    //     console.log(data)
-    //     SetMsg(`The order status of your Staybnb place: ${data.stay.name} has been updated.`)
-    //     setTimeout(() => { SetMsg('')},1000)
-    // }
+    function promptNotification(data) {
+        console.log(data)
+        setMsg(`The order status of your Staybnb place: ${data.stay.name} has been updated.`)
+        setTimeout(() => {
+            setMsg('')
+        }, 1000)
+    }
 
     if (!msg.txt) return <span></span>
-    return <section className='notification-msg'>
-        <h1>{msg.actionName}</h1>
-        <p>{msg.txt}</p>
-    </section>
+    return (
+        <section className='notification-msg'>
+            <p>{msg}</p>
+        </section>
+    )
 }
