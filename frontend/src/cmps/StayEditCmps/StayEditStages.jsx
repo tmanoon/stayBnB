@@ -8,7 +8,13 @@ import { ButtonGroupWithTxt } from '../HelperCmps/ButtonGroupWithTxt'
 import { SwitchCmp } from '../HelperCmps/SwitchCmp'
 import { ImgUploader } from '../StayEditCmps/ImgUploader'
 
-export function Stage0() {
+export const StageComponents = {
+    0: Stage0, 1: Stage1, 2: Stage2, 3: Stage3, 4: Stage4, 5: Stage5,
+    6: Stage6, 7: Stage7, 8: Stage8, 9: Stage9, 10: Stage10,
+    11: Stage11, 12: Stage12, 13: Stage13, 14: Stage14, 15: Stage15
+}
+
+function Stage0() {
     const videoRef = useRef(null)
 
     useEffect(() => {
@@ -46,7 +52,7 @@ export function Stage0() {
     )
 }
 
-export function Stage1() {
+function Stage1() {
     const videoRef = useRef(null)
 
     useEffect(() => {
@@ -63,7 +69,7 @@ export function Stage1() {
     )
 }
 
-export function Stage2({ stay, editStay }) {
+function Stage2({ stay, editStay }) {
 
     function handleChange(field, value) {
         editStay(prevStay => { return { ...prevStay, propertyType: value } })
@@ -83,7 +89,7 @@ export function Stage2({ stay, editStay }) {
     )
 }
 
-export function Stage3({ stay, editStay }) {
+function Stage3({ stay, editStay }) {
 
     function handleChange(field, value) {
         editStay(prevStay => { return { ...prevStay, placeType: value } })
@@ -101,7 +107,7 @@ export function Stage3({ stay, editStay }) {
     </section>
 }
 
-export function Stage4({ stay, editStay }) {
+function Stage4({ stay, editStay }) {
 
     function handleInputChange(ev) {
         const { id, value } = ev.target
@@ -143,7 +149,7 @@ export function Stage4({ stay, editStay }) {
     )
 }
 
-export function Stage5({ stay, editStay }) {
+function Stage5({ stay, editStay }) {
     const isCapacityZero = stay.capacity === 0
     const isCapacityMax = stay.capacity === 16
 
@@ -202,7 +208,7 @@ export function Stage5({ stay, editStay }) {
     )
 }
 
-export function Stage6() {
+function Stage6() {
     const videoRef = useRef(null)
 
     useEffect(() => {
@@ -217,7 +223,7 @@ export function Stage6() {
     </section>
 }
 
-export function Stage7({ stay, editStay }) {
+function Stage7({ stay, editStay }) {
 
     function handleChange(field, value) {
         const updatedAmenities = stay.amenities.includes(value) ? stay.amenities.filter(item => item !== value) : [...stay.amenities, value]
@@ -256,7 +262,7 @@ export function Stage7({ stay, editStay }) {
     )
 }
 
-export function Stage8({ stay, editStay }) {
+function Stage8({ stay, editStay }) {
 
     return (
         <section className="stage-8">
@@ -267,7 +273,7 @@ export function Stage8({ stay, editStay }) {
     )
 }
 
-export function Stage9({ stay, editStay }) {
+function Stage9({ stay, editStay }) {
     const [inputValue, setInputValue] = useState(stay.name)
 
     const handleInputChange = (event) => {
@@ -291,7 +297,7 @@ export function Stage9({ stay, editStay }) {
     )
 }
 
-export function Stage10({ stay, editStay }) {
+function Stage10({ stay, editStay }) {
 
     function handleChange(field, value) {
         const updatedLabels = stay.labels.includes(value) ? stay.labels.filter(item => item !== value) : [...stay.labels, value]
@@ -314,7 +320,7 @@ export function Stage10({ stay, editStay }) {
 }
 
 
-export function Stage11({ stay, editStay }) {
+function Stage11({ stay, editStay }) {
     const [inputValue, setInputValue] = useState(stay.summary)
 
     const handleInputChange = (event) => {
@@ -339,7 +345,7 @@ export function Stage11({ stay, editStay }) {
     )
 }
 
-export function Stage12() {
+function Stage12() {
     const videoRef = useRef(null)
 
     useEffect(() => {
@@ -354,7 +360,7 @@ export function Stage12() {
     </section>
 }
 
-export function Stage13({ stay, editStay }) {
+function Stage13({ stay, editStay }) {
 
     function handleChange(field, value) {
         editStay(prevStay => ({ ...prevStay, bookingOpts: { ...prevStay.bookingOpts, [field]: value } }))
@@ -402,7 +408,7 @@ export function Stage13({ stay, editStay }) {
     </section>
 }
 
-export function Stage14({ stay, editStay }) {
+function Stage14({ stay, editStay }) {
     const [price, setPrice] = useState(stay.price || '')
 
     const handleChange = (event) => {
@@ -425,7 +431,7 @@ export function Stage14({ stay, editStay }) {
     )
 }
 
-export function Stage15({ stay }) {
+function Stage15({ stay }) {
 
     function formatPrice(price) {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
