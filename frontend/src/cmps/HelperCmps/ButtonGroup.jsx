@@ -9,7 +9,7 @@ export function ButtonGroup({ type, items, selectedValue, handleChange }) {
                 onClick={() => handleChange(type, item)}
                 className={(type !== 'propType' && type !== 'editAmenities' && type !== 'editLabels') ? `btn ${selectedValue === item ? 'selected' : ''}` : `btn ${selectedValue.includes(item) ? 'selected' : ''}`}
             >
-                {(type === 'propType' || type === 'editAmenities' || type === 'editLabels') && <SvgPathCmp name={item.replaceAll(' ', '').toLowerCase()} />}
+                {(type === 'propType' || type === 'editAmenities' || type === 'editLabels' || type === 'propertyType') && <SvgPathCmp name={item.replaceAll(' ', '').toLowerCase()} />}
                 {item}
             </button>
         ))}

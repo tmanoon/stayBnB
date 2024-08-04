@@ -74,7 +74,7 @@ export function Stage2({ stay, editStay }) {
             <h1>Which of these best describes your place?</h1>
 
             <ButtonGroup
-                type={'propType'}
+                type={'propertyType'}
                 items={filterLists.propTypeItems}
                 selectedValue={stay.propertyType}
                 handleChange={handleChange}
