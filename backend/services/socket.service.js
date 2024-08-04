@@ -33,14 +33,13 @@ export function setupSocketAPI(server) {
             socket.broadcast.to(socket.myTopic).emit('chat-add-msg', msg)
         })
 
-        socket.on('order-update', data => {
-            logger.info(`New chat msg from socket [id: ${socket.id}], emitting to topic ${socket.myTopic}`)
+        socket.on('order-update', async(data) => {
+            logger.info(`New update about order: ${data._id}, connected socket: ${socket.id}`)
             // emits to all sockets:
             // gIo.emit('chat addMsg', msg)
             // emits only to sockets in the same room except the sender!
             gIo.emit('order-update', data)
-            
-            gIo.emit('prompt-notification', data)
+            await emitToUser('prompt-notification', `A new update about order ${data._id}`, data.buyer._id)
             // broadcast({ type: 'order-update', data })
         })
 
@@ -59,11 +58,11 @@ export function setupSocketAPI(server) {
             delete socket.userId
         })
 
-        socket.on('add-order' , orderToAdd => {
+        socket.on('add-order' , async orderToAdd => {
             logger.info(`Adding order for user id: ${orderToAdd.buyer._id}`)
             emitTo({ type: 'add-order', data: orderToAdd })
+            await emitToUser( 'prompt-notification', `You got a new order to take care of`, orderToAdd.hostId)
         })
-
     })
 }
 
@@ -109,12 +108,12 @@ async function broadcast({ type, data, room = null, userId }) {
 
 async function _getUserSocket(userId) {
     const sockets = await _getAllSockets()
-    console.log('getuscerscokeets test',userId);
+    console.log('getusersockets test', userId);
     const socket = sockets.find(s => s.userId === userId)
     return socket
 }
+
 async function _getAllSockets() {
-    // return all Socket instances
     const sockets = await gIo.fetchSockets()
     return sockets
 }
