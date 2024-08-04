@@ -39,7 +39,7 @@ export function setupSocketAPI(server) {
             // gIo.emit('chat addMsg', msg)
             // emits only to sockets in the same room except the sender!
             gIo.emit('order-update', data)
-            await emitToUser('prompt-notification', `A new update about order ${data._id}`, data.buyer._id)
+            await emitToUser({type: 'prompt-notification', data: `A new update about order ${data._id}`, userId: data.buyer._id })
             // broadcast({ type: 'order-update', data })
         })
 
@@ -61,7 +61,7 @@ export function setupSocketAPI(server) {
         socket.on('add-order' , async orderToAdd => {
             logger.info(`Adding order for user id: ${orderToAdd.buyer._id}`)
             emitTo({ type: 'add-order', data: orderToAdd })
-            await emitToUser( 'prompt-notification', `You got a new order to take care of`, orderToAdd.hostId)
+            await emitToUser({ type: 'prompt-notification', data: `You got a new order to take care of`, userId: orderToAdd.hostId })
         })
     })
 }
