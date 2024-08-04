@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import MiniSearch from 'minisearch'
+// import MiniSearch from 'minisearch'
 
 import { utilService } from '../../services/util.service'
 import { stayService } from '../../services/stay.service'
@@ -25,9 +25,9 @@ export function HeaderFilterSearch({ modalType, handleModalTypeChange }) {
         return () => { document.removeEventListener('click', handleClickOutside) }
     }, [header])
 
-    useEffect(() => {
-        setMiniSearch()
-    }, [])
+    // useEffect(() => {
+    //     setMiniSearch()
+    // }, [])
 
     function onLoadStays(ev) {
         ev.stopPropagation()
@@ -37,24 +37,23 @@ export function HeaderFilterSearch({ modalType, handleModalTypeChange }) {
         loadStays()
     }
 
-    let miniSearch = new MiniSearch({
-        fields: ['name', 'loc.country', 'loc.city', 'loc.address'], // fields to index for full-text search
-        storeFields: ['name', 'loc.country', 'loc.city', 'loc.address'] // fields to return with search results
-    })
+    // let miniSearch = new MiniSearch({
+    //     fields: ['name', 'loc.country', 'loc.city', 'loc.address'], // fields to index for full-text search
+    //     storeFields: ['name', 'loc.country', 'loc.city', 'loc.address'] // fields to return with search results
+    // })
 
-    async function setMiniSearch() {
-        try {
-            const allStays = await stayService.query()
-            const allStaysWithId = allStays.map((stay, idx) => ({ ...stay, id: idx }))
-            miniSearch.addAll(allStaysWithId)
-        }
-        catch (err) { console.log(err) }
-    }
+    // async function setMiniSearch() {
+    //     try {
+    //         const allStays = await stayService.query()
+    //         const allStaysWithId = allStays.map((stay, idx) => ({ ...stay, id: idx }))
+    //         miniSearch.addAll(allStaysWithId)
+    //     }
+    //     catch (err) { console.log(err) }
+    // }
 
-    function handleSearch(ev) {
-        const txt = ev.target.value
-        let results = miniSearch.search(txt)
-        console.log(results)  // empty array
+    function handleSearch(input) {
+        const txt = (typeof input === 'string') ? input : input.target.value
+        // let results = miniSearch.search(txt)
         setFilterByToEdit({ ...filterByToEdit, txt })
     }
 
@@ -62,7 +61,7 @@ export function HeaderFilterSearch({ modalType, handleModalTypeChange }) {
         <section ref={header} className={`header-filter grid align-center ${modalType && modalType !== 'user-nav' ? 'grey' : ''}`}>
             <div className={`destination ${modalType === 'map' ? 'selected' : ''} flex column justify-center`} onClick={(e) => handleModalTypeChange(e, 'map')}>
                 Where
-                <input className=' grayTxt' placeholder={filterByToEdit.txt ? filterByToEdit.txt : "Search destinations"} onChange={handleSearch}></input>
+                <input className=' grayTxt' placeholder={filterByToEdit.txt ? filterByToEdit.txt : "Search destinations"} onChange={handleSearch} value={filterByToEdit.txt}></input>
             </div>
 
             <span className='splitter-1'></span>
@@ -89,7 +88,7 @@ export function HeaderFilterSearch({ modalType, handleModalTypeChange }) {
                 <button onClick={onLoadStays} className={`search-btn ${modalType !== '' && modalType !== 'user-nav' ? 'compact' : ''}`} ><span>Search</span></button>
             </div>
 
-            {modalType === 'map' && <HeaderMapFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
+            {modalType === 'map' && <HeaderMapFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} handleSearch={handleSearch} />}
             {(modalType === 'check-in' || modalType === 'check-out') && <HeaderDateFilter handleModalTypeChange={handleModalTypeChange} filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
             {modalType === 'guest' && <HeaderGuestFilter filterByToEdit={filterByToEdit} setFilterByToEdit={setFilterByToEdit} />}
         </section>

@@ -1,4 +1,4 @@
-export function HeaderMapFilter({ handleModalTypeChange, filterByToEdit, setFilterByToEdit }) {
+export function HeaderMapFilter({ handleModalTypeChange, filterByToEdit, setFilterByToEdit, handleSearch }) {
 
     const regionsAndPics = [
         {region: '', imgSrc: 'https://res.cloudinary.com/db7t5amdv/image/upload/v1713173021/kmhnayfz9phpmfecbkqe.jpg', desc: 'I\'m flexible'},
@@ -13,8 +13,8 @@ export function HeaderMapFilter({ handleModalTypeChange, filterByToEdit, setFilt
         handleModalTypeChange(e, 'check-in')
     }
 
-    function onSelectRegion(str) {
-        setFilterByToEdit({ ...filterByToEdit, txt: str })
+    function onSelectRegion(region) {
+        handleSearch(region.region)
     }
 
     return <section className="map-filter">
@@ -23,7 +23,7 @@ export function HeaderMapFilter({ handleModalTypeChange, filterByToEdit, setFilt
             {
                 regionsAndPics.map(region => {
                     return (
-                        <article className="region" onClick={(e) => { switchToDatesFilter(e), onSelectRegion(region.region)}} key={region.region}>
+                        <article className="region" onClick={(e) => { switchToDatesFilter(e), onSelectRegion(region)}} key={region.region}>
                             <img src={region.imgSrc} alt={region.region} />
                             <p>{region.desc || region.region}</p>
                         </article>
