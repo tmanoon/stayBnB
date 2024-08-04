@@ -127,7 +127,8 @@ export function UserDashboard() {
                         const datesAndGuests = { entryDate: order.entryDate, exitDate: order.exitDate, adults: order.guests?.adults, children: order.guests?.children }
                         const isAnswered = (order.status !== 'pending') ? true : false
 
-                        return <li key={order._id} className="user-order grid" onClick={() => onChooseOrder(order)}>
+                        return (
+                        <li key={order._id} className="user-order grid" onClick={() => onChooseOrder(order)}>
                             <p className="title">{order.stay.name}</p>
                             <p>{utilService.timestampsToShortDates(order.entryDate, order.exitDate)}</p>
                             <p className="also-tablet num">{order._id.slice(18)}</p>
@@ -139,7 +140,7 @@ export function UserDashboard() {
                                 <button onClick={(ev) => onChangeOrderStatus('rejected', order, ev)} className={`reject-btn ${(order.status === 'rejected') ? 'rejected' : ''}`}>Reject</button>
                             </div>
                         </li>
-                    })}
+                    )})}
                 </ul>
             </div>}
         </section>
