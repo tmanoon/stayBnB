@@ -1,6 +1,7 @@
 .dashboard {
     color: $darkGray;
     height: 83vh;
+    margin-block-end: 10rem;
 
     h1 {
         font-family: circular-reg;
@@ -192,6 +193,8 @@
 
 @media (width > 742px) {
     .dashboard {
+        margin-block-end: 12rem;
+
         .user-orders {
             .user-orders-container {
                 li {
@@ -219,5 +222,11 @@
                 }
             }
         }
+    }
+}
+
+@media(width > 1130px) {
+    .dashboard {
+        // margin-block-end: 5rem;
     }
 }
