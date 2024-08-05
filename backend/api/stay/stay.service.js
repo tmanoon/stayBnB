@@ -25,17 +25,11 @@ async function query(filterBy) {
             criteria.amenities = { $in: ['pets allowed', 'Pets are welcome', 'Allows pets on property', 'Allows pets as host'] }
         }
 
-        if (+filterBy.guestCount.infants) {
-            criteria.amenities = { $in: ['Crib'] }
-        }
-
-
         if (filterBy.amenities && filterBy.amenities.length > 0) {
-            const formattedAmenities = filterBy.amenities.map(amenity => {
-                return amenity.replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase())
-            })
-            criteria.amenities = { $all: formattedAmenities }
+            criteria.amenities = { $all: filterBy.guestCount.infants ? [...filterBy.amenities, 'crib'] : filterBy.amenities }
         }
+
+        if (filterBy.accessibility && filterBy.accessibility.length > 0) criteria.accessibility = { $all: filterBy.accessibility }
 
         if (filterBy.label) criteria.labels = { $in: [filterBy.label] }
 
@@ -57,17 +51,22 @@ async function query(filterBy) {
             ]
         }
 
+        if (filterBy.bookingOpts.instant === 'true' || filterBy.bookingOpts.selfCheckIn === 'true' || Boolean(filterBy.bookingOpts.allowsPets === 'true')) {
+            criteria.$and = []
+            if (filterBy.bookingOpts.instant === 'true') criteria.$and.push({ "bookingOpts.instant": true })
+            if (filterBy.bookingOpts.selfCheckIn === 'true') criteria.$and.push({ "bookingOpts.selfCheckIn": true })
+            if (filterBy.bookingOpts.allowsPets === 'true') criteria.$and.push({ "bookingOpts.allowsPets": true })
+                console.log(criteria)
+        }
+
         if (filterBy.bbb.bedrooms !== 'any' || filterBy.bbb.beds !== 'any' || filterBy.bbb.bathrooms !== 'any') {
-            if (filterBy.bbb.bedrooms !== 'any') criteria['bbb.numOfBedrooms'] =  { $gte:  +(filterBy.bbb.bedrooms.replace('+', '')) }
+            if (filterBy.bbb.bedrooms !== 'any') criteria['bbb.numOfBedrooms'] = { $gte: +(filterBy.bbb.bedrooms.replace('+', '')) }
             if (filterBy.bbb.beds !== 'any') criteria['bbb.beds'] = { $gte: +(filterBy.bbb.beds.replace('+', '')) }
             if (filterBy.bbb.bathrooms !== 'any') criteria['bbb.bathrooms'] = { $gte: +(filterBy.bbb.bathrooms.replace('+', '')) }
         }
 
-        if (filterBy.placeType === "entire home") {
-            criteria.placeType = "An entire home"
-        } else if (filterBy.placeType === "room") {
-            criteria.placeType = "Room"
-        }
+        if (filterBy.placeType === "entire home") criteria.placeType = "An entire home"
+        else if (filterBy.placeType === "room") criteria.placeType = "Room"
 
         if (filterBy.propType && filterBy.propType.length > 0) {
             const capitalizedTypes = filterBy.propType.map(type => type.charAt(0).toUpperCase() + type.slice(1));
@@ -75,6 +74,7 @@ async function query(filterBy) {
         }
 
         logger.info(criteria)
+
         const collection = await dbService.getCollection('stay')
         const stayCursor = await collection.find(criteria).limit(+filterBy.pagination)
         const stays = await stayCursor.toArray()
