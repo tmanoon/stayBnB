@@ -6,7 +6,7 @@ import { filterLists } from '../../services/filterLists.service'
 import { ButtonGroup } from '../HelperCmps/ButtonGroup'
 import { ButtonGroupWithTxt } from '../HelperCmps/ButtonGroupWithTxt'
 import { SwitchCmp } from '../HelperCmps/SwitchCmp'
-import { ImgUploader } from '../StayEditCmps/ImgUploader'
+import { StayImgsUploader } from '../StayEditCmps/StayImgsUploader'
 
 export const StageComponents = {
     0: Stage0, 1: Stage1, 2: Stage2, 3: Stage3, 4: Stage4, 5: Stage5,
@@ -268,7 +268,7 @@ function Stage8({ stay, editStay }) {
         <section className="stage-8">
             <h1>Add photos of your place</h1>
             <h2>You'll need 5 photos to get started. You can add more or make changes later.</h2>
-            <ImgUploader editStay={editStay} stay={stay} />
+            <StayImgsUploader editStay={editStay} stay={stay} />
         </section>
     )
 }
