@@ -1,7 +1,10 @@
+import { useState } from "react"
+
 import { login, signup } from "../../store/actions/user.actions"
 import { userService } from "../../services/user.service"
-import { useState } from "react"
 import { socketService } from "../../services/socket.service"
+
+import { SignupImgUploader } from "../SignupImgUploader"
 
 export function LoginSignup({ setIsLoginModal }) {
 
@@ -24,10 +27,14 @@ export function LoginSignup({ setIsLoginModal }) {
     function onChangeLoginSignup() {
         setIsSignup(!isSignup)
     }
-    
+
     function onChangeField(ev) {
         const { value, id } = ev.target
         setCredentials(prevCredentials => ({ ...prevCredentials, [id]: value }))
+    }
+
+    function onAddImg(imgUrl) {
+        setCredentials(prevCredentials => ({ ...prevCredentials, imgUrl }))
     }
 
     function onClose() {
@@ -43,19 +50,24 @@ export function LoginSignup({ setIsLoginModal }) {
                 <button className="back-btn flex center" onClick={onClose}></button>
                 <h1>Welcome to Staybnb</h1>
                 {!isSignup && <p>Don't have an account? <span onClick={onChangeLoginSignup}>Click here to sign up</span></p>}
+                {isSignup && <p>Have have an account? <span onClick={onChangeLoginSignup}>Click here to log in</span></p>}
             </header>
 
-            <form className="flex column" onSubmit={onSubmitLoginSignup}>
+            <form className="grid" onSubmit={onSubmitLoginSignup}>
 
-                <label htmlFor="username" className="flex column space-between">Username&nbsp;
+                <label htmlFor="username" className={`${isSignup ? 'username' : ''} flex column space-between`}>Username&nbsp;
                     <input id="username" type="text" value={credentials.username} onChange={onChangeField} required />
                 </label>
 
-                <label htmlFor="password" className="flex column space-between">Password&nbsp;
+                <label htmlFor="password" className={`${isSignup ? 'username' : ''} flex column space-between`}>Password&nbsp;
                     <input id="password" type="password" value={credentials.password} onChange={onChangeField} required />
                 </label>
 
                 {isSignup && <>
+                    <label htmlFor="img-uploader" className="img-upload flex column space-between"><span>Image</span>
+                        <SignupImgUploader onAddImg={onAddImg} />
+                    </label>
+
                     <label htmlFor="fullname" className="flex column space-between">Fullname&nbsp;
                         <input id="fullname" type="text" value={credentials.fullname} onChange={onChangeField} required />
                     </label>
@@ -77,7 +89,7 @@ export function LoginSignup({ setIsLoginModal }) {
                         </select>
                     </label>
                 </>}
-                <button>{!isSignup? 'Login' : 'Signup'}</button>
+                <button>{!isSignup ? 'Login' : 'Signup'}</button>
             </form>
         </section>
     </>

@@ -8,6 +8,7 @@ export const utilService = {
     saveToStorage,
     animateCSS,
     debounce,
+    throttle,
     countBedsInBedrooms,
     calcRate,
     generateStays,
@@ -87,6 +88,17 @@ function debounce(func, timeout = 300) {
         timer = setTimeout(() => {
             func.apply(this, args)
         }, timeout)
+    }
+}
+
+function throttle(func, wait) {
+    let timer
+    return function (...args) {
+        if (timer) return
+        timer = setTimeout(() => {
+            func.apply(this, args)
+            timer = undefined
+        }, wait)
     }
 }
 
