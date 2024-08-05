@@ -12,8 +12,9 @@ export const chatService = {
     createEmptyChat
 }
 
-async function query(userId) {
+async function query() {
     try {
+        const userId = (userService.getLoggedInUser())._id
         const chats = await httpService.get(BASE_URL + userId)
         return chats
     }
@@ -53,7 +54,7 @@ async function getByOrderId(orderId) {
 async function save(chat) {
     try {
         if (chat._id) {
-            const updatedChat = await httpService.put(BASE_URL + chat._id)
+            const updatedChat = await httpService.put(BASE_URL + chat._id, chat)
             return updatedChat
         } else {
             const addedChat = await await httpService.post(BASE_URL, chat)
