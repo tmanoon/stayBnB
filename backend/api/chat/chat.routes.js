@@ -4,9 +4,9 @@ import { getChats, getChat, getChatByOrderId, deleteChat, updateChat } from './c
 
 const router = express.Router()
 
-router.get('/', getChats)
-router.get('/:id', getChat)
-router.get('/order/:id', getChatByOrderId)
+router.get('/:userId', getChats)
+router.get('/:userId/:id', getChat)
+router.get('/order/:orderId', getChatByOrderId)
 router.put('/:id', requireAuth, updateChat)
 router.delete('/:id', requireAuth, requireAdmin, deleteChat)
 
