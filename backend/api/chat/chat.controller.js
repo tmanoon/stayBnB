@@ -3,6 +3,7 @@ import { chatService } from './chat.service.js'
 
 export async function getChats(req, res) {
     try {
+        const userId = req.params.id
         const chats = await chatService.query(userId)
         res.send(chats)
     } catch (err) {
@@ -51,4 +52,8 @@ export async function updateChat(req, res) {
         logger.error('Failed to update chat', err)
         res.status(400).send({ err: 'Failed to update chat' })
     }
+}
+
+export async function addChat(req, res) {
+
 }
