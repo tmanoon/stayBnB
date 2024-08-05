@@ -143,11 +143,9 @@ function getEmptyStay() {
             fullname: "",
             location: "",
             about: "",
-            responseTime: "",
-            experience: { isSuperhost: false }
         },
+        hostLngs: [],
         bookedDates: [],
-        likedByUsers: [],
     }
 }
 
