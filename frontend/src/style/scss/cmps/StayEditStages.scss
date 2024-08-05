@@ -855,14 +855,6 @@
     }
 }
 
-.add-stay> :nth-child(2) {
-    opacity: 0;
-    animation: fadeIn 0.5s ease forwards;
-    animation-delay: 0.2s;
-    font-size: 1.125em;
-    margin-bottom: 1em;
-}
-
 video {
     opacity: 0;
     animation: fadeIn 0.5s ease forwards;
