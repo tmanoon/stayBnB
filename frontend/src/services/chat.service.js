@@ -5,11 +5,11 @@ const BASE_URL = 'chat/'
 
 export const chatService = {
     query,
-    save,
     remove,
+    update,
+    add,
     getById,
     getByOrderId,
-    createEmptyChat
 }
 
 async function query() {
@@ -51,21 +51,16 @@ async function getByOrderId(orderId) {
     }
 }
 
-async function save(chat) {
+async function update(chat) {
     try {
-        if (chat._id) {
-            const updatedChat = await httpService.put(BASE_URL + chat._id, chat)
-            return updatedChat
-        } else {
-            const addedChat = await await httpService.post(BASE_URL, chat)
-            return addedChat
-        }
+        const updatedChat = await httpService.put(BASE_URL + chat._id, chat)
+        return updatedChat
     } catch (err) {
         console.log(err)
     }
 }
 
-async function createEmptyChat(order) {
+async function add(order) {
     try {
         const hostOfOrder = await userService.getById(order.hostId)
         const buyerOfOrder = await userService.getById(order.buyer._id)
@@ -83,7 +78,8 @@ async function createEmptyChat(order) {
             },
             msgs: []
         }
-        return emptyChat
+        const addedChat = await httpService.post(BASE_URL, emptyChat)
+        return addedChat
     } catch (err) {
         console.log('err', err)
         throw err

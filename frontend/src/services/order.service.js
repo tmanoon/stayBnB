@@ -106,12 +106,13 @@ async function getOrder(stay, loggedInUser, params) {
         return {
             hostId: stay.host.id,
             buyer: {
-                _id: loggedInUser._id || '0000000',
-                fullname: loggedInUser.fullname || 'Guest'
+                _id: loggedInUser._id,
+                fullname: loggedInUser.fullname,
             },
             totalPrice: utilService.calcSumToPay(params, stay),
             entryDate: params.entryDate,
             exitDate: params.exitDate,
+            status: "pending",
             guests: {
                 adults: +params.adults || 0,
                 children: +params.children || 0,
@@ -127,10 +128,9 @@ async function getOrder(stay, loggedInUser, params) {
                     city : stay.loc.city,
                     country:stay.loc.country
                 },
-                img: stay.imgUrls[0]
+                img: stay.imgUrls[0],
+                sumOfBedrooms: stay.bbb.numOfBedrooms,
             },
-            msgs: [],
-            status: "pending"
         }
     } catch (err) {
         console.log('err', err)

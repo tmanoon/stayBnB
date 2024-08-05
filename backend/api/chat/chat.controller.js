@@ -55,5 +55,12 @@ export async function updateChat(req, res) {
 }
 
 export async function addChat(req, res) {
-
+    try {
+        const chat = req.body
+        const savedChat = await chatService.add(chat)
+        res.send(savedChat)
+    } catch (err) {
+        logger.error('Failed to add chat', err)
+        res.status(400).send({ err: 'Failed to add chat' })
+    }
 }
