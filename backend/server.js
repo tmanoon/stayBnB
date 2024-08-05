@@ -34,6 +34,7 @@ import { userRoutes } from './api/user/user.routes.js'
 import { reviewRoutes } from './api/review/review.routes.js'
 import { orderRoutes } from './api/order/order.routes.js'
 import { stayRoutes } from './api/stay/stay.routes.js'
+import { chatRoutes } from './api/chat/chat.routes.js'
 import { setupSocketAPI } from './services/socket.service.js'
 
 // routes
@@ -45,6 +46,7 @@ app.use('/api/user', userRoutes)
 app.use('/api/order',orderRoutes)
 app.use('/api/review', reviewRoutes)
 app.use('/api/stay', stayRoutes)
+app.use('/api/chat', chatRoutes)
 setupSocketAPI(server)
 
 // Make every server-side-route to match the index.html
@@ -56,6 +58,7 @@ app.get('/**', (req, res) => {
 
 
 import { logger } from './services/logger.service.js'
+
 const port = process.env.PORT || 3030
 server.listen(port, () => {
     logger.info('Server is running on port: ' + port)
