@@ -8,9 +8,9 @@ export function CheckboxGroup({ type, items, selectedValues = [], handleChange }
                     <FormControlLabel control={
                         <Checkbox
                             className='checkbox'
-                            value={item.replaceAll(' ', '').toLowerCase()}
-                            checked={selectedValues.includes(item.replaceAll(' ', '').toLowerCase())}
-                            onChange={() => handleChange(type, item.replaceAll(' ', '').toLowerCase())}
+                            value={item.toLowerCase()}
+                            checked={selectedValues.includes(item.toLowerCase())}
+                            onChange={() => handleChange(type, item.toLowerCase())}
                             sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }}
                             style={{ padding: 0, paddingInlineStart: 7, paddingInlineEnd: 13 }}
                         />}
