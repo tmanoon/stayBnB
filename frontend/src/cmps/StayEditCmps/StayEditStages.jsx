@@ -5,13 +5,14 @@ import { filterLists } from '../../services/filterLists.service'
 
 import { ButtonGroup } from '../HelperCmps/ButtonGroup'
 import { ButtonGroupWithTxt } from '../HelperCmps/ButtonGroupWithTxt'
+import { CheckboxGroup } from '../HelperCmps/CheckboxGroup'
 import { SwitchCmp } from '../HelperCmps/SwitchCmp'
 import { StayImgsUploader } from '../StayEditCmps/StayImgsUploader'
 
 export const StageComponents = {
     0: Stage0, 1: Stage1, 2: Stage2, 3: Stage3, 4: Stage4, 5: Stage5,
     6: Stage6, 7: Stage7, 8: Stage8, 9: Stage9, 10: Stage10,
-    11: Stage11, 12: Stage12, 13: Stage13, 14: Stage14, 15: Stage15
+    11: Stage11, 12: Stage12, 13: Stage13, 14: Stage14, 15: Stage15, 16: Stage16
 }
 
 function Stage0() {
@@ -409,6 +410,28 @@ function Stage13({ stay, editStay }) {
 }
 
 function Stage14({ stay, editStay }) {
+
+    function handleChange(field, value) {
+        const updatedLanguages = stay.hostLngs.includes(value) ? stay.hostLngs.filter(item => item !== value) : [...stay.hostLngs, value]
+        editStay({ ...stay, hostLngs: updatedLanguages })
+    }
+
+    return (
+        <section className="stage-14">
+            <h1>Next, let's add languages</h1>
+            <h2>Choose languages spoken at your place.</h2>
+
+            <CheckboxGroup
+                type={'hostLngs'}
+                items={[...filterLists.hostLngsShown, ...filterLists.hostLngsHidden]}
+                selectedValues={stay.hostLngs}
+                handleChange={handleChange}
+            />
+        </section>
+    )
+}
+
+function Stage15({ stay, editStay }) {
     const [price, setPrice] = useState(stay.price || '')
 
     const handleChange = (event) => {
@@ -418,8 +441,8 @@ function Stage14({ stay, editStay }) {
     }
 
     return (
-        <section className="stage-14">
-            <h1 >Now, set your price</h1>
+        <section className="stage-15">
+            <h1 >Lastly, set your price</h1>
             <h2 >You can change it anytime.</h2>
 
             <div className='flex align-center'>
@@ -431,13 +454,13 @@ function Stage14({ stay, editStay }) {
     )
 }
 
-function Stage15({ stay }) {
+function Stage16({ stay }) {
 
     function formatPrice(price) {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
 
-    return <section className="stage-15">
+    return <section className="stage-16">
         <h1>Review your listing</h1>
         <h2>Here's what we'll show to guests. Make sure everything looks good.</h2>
 
