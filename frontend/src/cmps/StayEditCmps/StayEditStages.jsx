@@ -61,7 +61,7 @@ function Stage1() {
     }, [])
 
     return (
-        <section className="stage-1">
+        <section className="stage-1 title-stage">
             <p className="step">Step 1</p>
             <h1 className="title">Tell us about your place</h1>
             <p className="description">In this step, we'll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know the location and how many guests can stay.</p>
@@ -77,7 +77,7 @@ function Stage2({ stay, editStay }) {
     }
 
     return (
-        <section className="stage-2">
+        <section className="stage-2 buttons-section">
             <h1>Which of these best describes your place?</h1>
 
             <ButtonGroup
@@ -216,7 +216,7 @@ function Stage6() {
         if (videoRef.current) { videoRef.current.play() }
     }, [])
 
-    return <section className="stage-6">
+    return <section className="stage-6 title-stage">
         <p className="step">Step 2</p>
         <h1 className="title">Make your place stand out</h1>
         <p className="description">In this step, you’ll add some of the amenities your place offers, plus 5 or more photos. Then, you’ll create a title and description.</p>
@@ -232,7 +232,7 @@ function Stage7({ stay, editStay }) {
     }
 
     return (
-        <section className="stage-7">
+        <section className="stage-7 buttons-section">
             <h1>Tell guests what your place has to offer</h1>
             <h2>You can add more amenities after you publish your listing.</h2>
 
@@ -306,7 +306,7 @@ function Stage10({ stay, editStay }) {
     }
 
     return (
-        <section className="stage-10">
+        <section className="stage-10 buttons-section">
             <h1>Next, let's describe your place</h1>
             <h2>Choose highlights. We'll use these to get your description started.</h2>
 
@@ -353,7 +353,7 @@ function Stage12() {
         if (videoRef.current) { videoRef.current.play() }
     }, [])
 
-    return <section className="stage-12">
+    return <section className="stage-12 title-stage">
         <p className="step">Step 3</p>
         <h1 className="title">Finish up and publish</h1>
         <p className="description">Finally, you’ll choose if you'd like to start with an experienced guest, then you'll set your nightly price. Answer a few quick questions and publish when you're ready.</p>
@@ -417,7 +417,7 @@ function Stage14({ stay, editStay }) {
     }
 
     return (
-        <section className="stage-14">
+        <section className="stage-14 buttons-section">
             <h1>Next, let's add languages</h1>
             <h2>Choose languages spoken at your place.</h2>
 
@@ -472,7 +472,7 @@ function Stage16({ stay }) {
                 <div className='preview-text'>
                     <div className='info'>
                         <h4>{stay.name}</h4>
-                        <p>${formatPrice(stay.price)}<span className="per-night">night</span></p>
+                        <p>${formatPrice(stay.price)}<span className="per-night"> night</span></p>
                     </div>
 
                     <div className='new'><span>New</span>★</div>

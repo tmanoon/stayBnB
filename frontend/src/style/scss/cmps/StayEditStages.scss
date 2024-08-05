@@ -1,4 +1,4 @@
-.stay-edit main section {
+.stay-edit main>section {
     color: $darkGray;
     padding-inline: 1.5rem;
 
@@ -8,25 +8,15 @@
 }
 
 .stay-edit {
-
-    .stage-2,
-    .stage-3,
-    .stage-4,
-    .stage-5,
-    .stage-7,
-    .stage-8,
-    .stage-9,
-    .stage-10,
-    .stage-11,
-    .stage-13,
-    .stage-14,
-    .stage-15,
-    .stage-16 {
+    main>section:not(.title-stage):not(.stage-0) {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
 
+    .stage-2,
+    .stage-3 {
         padding-block: 0.5rem 6.5rem;
 
         h1 {
@@ -46,15 +36,10 @@
     .stage-14,
     .stage-15,
     .stage-16 {
-
-        h1,
-        h2,
-        h3 {
-            align-self: start;
-            padding-inline-start: 0;
-        }
+        padding-block: 1.5rem 6.5rem;
 
         h1 {
+            font-size: 1.5rem;
             margin: 0;
         }
 
@@ -66,20 +51,8 @@
         }
     }
 
-    .stage-0,
-    .stage-2,
-    .stage-4,
-    .stage-5,
-    .stage-7,
-    .stage-8,
-    .stage-9,
-    .stage-10,
-    .stage-11,
-    .stage-14 {
-        padding-block: 1.5rem 6.5rem;
-    }
-
     .stage-0 {
+        padding-block: 1.5rem 6.5rem;
         grid-template-rows: 2fr 3fr;
 
         h1 {
@@ -133,9 +106,7 @@
         }
     }
 
-    .stage-1,
-    .stage-6,
-    .stage-12 {
+    .title-stage {
         display: grid;
         grid-template-columns: 1fr 0;
         grid-template-rows: 1fr fit-content fit-content max-content 1fr;
@@ -169,14 +140,11 @@
         }
     }
 
-    .stage-2,
-    .stage-7,
-    .stage-10,
-    .stage-14 {
+    .buttons-section {
         .btns {
             grid-template-columns: repeat(1, minmax(5rem, 10rem));
             grid-auto-flow: row;
-            gap: 1rem;
+            gap: 1.1rem;
             justify-content: center;
 
             padding-block: 1rem 2rem;
@@ -186,14 +154,14 @@
             font-size: 12px;
             height: 100%;
             width: 100%;
-            padding: 1rem;
-            border-radius: $border-radius-4;
+            padding: 1.5rem 1rem 1rem;
+            border-radius: 9px;
             font-family: circular-medium;
 
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            gap: 1rem;
+            gap: 0.25rem;
             text-transform: capitalize;
 
             @include buttons2;
@@ -345,7 +313,7 @@
         button {
             display: flex;
             justify-content: center;
-            text-align: center;
+            justify-items: center;
             align-items: center;
 
             width: 1.875rem;
@@ -354,7 +322,7 @@
             font-size: 1.2em;
             border: solid 1px $gray3;
             background-color: white;
-            padding: 0.7em;
+            padding-block-end: 0.25rem;
             color: $gray2;
 
             &:hover {
@@ -589,21 +557,23 @@
     }
 
     .stage-16 {
-        padding-block: 1rem 6rem;
+        padding-block: 1rem 5rem;
 
         h1,
         h2 {
-            padding-inline-start: 0;
             margin-block-end: 0;
         }
 
         .preview-edit-page {
-            grid-template-columns: 4fr 6fr;
+            grid-template-rows: fit-content fit-content;
             column-gap: 5vw;
 
             .edit-preview {
+                justify-self: center;
                 width: 24rem;
                 height: 25rem;
+                max-width: 80vw;
+                max-height: 80vw;
                 padding: 1rem 1rem 0.3rem 1rem;
                 margin-top: 1.5em;
                 box-shadow: 1px -1px 16px 5px rgba(0, 0, 0, 0.1215686275);
@@ -615,7 +585,7 @@
 
                 img {
                     width: 100%;
-                    height: 100%;
+                    height: calc(100% - 4.08rem);
                     object-fit: cover;
                     border-radius: 16px;
                     background-color: #e5e5e5;
@@ -623,21 +593,24 @@
 
                 .preview-text {
                     width: 100%;
-                    padding: 0.3em;
+                    padding: 0.3rem;
 
                     display: flex;
                     justify-content: space-between;
-                }
 
-                .new span {
-                    color: $gray2;
-                    font-size: 0.9em;
-                    margin-right: 0.3em;
+                    p:not(span) {
+                        font-family: circular-medium;
+                    }
+
+                    .new span {
+                        font-size: 1rem;
+                        margin-right: 0.3rem;
+                    }
                 }
             }
 
             .next-article {
-                padding: 3rem 4rem;
+                padding-block: 3rem;
 
                 h3 {
                     padding: 0;
@@ -664,12 +637,9 @@
 
     .stay-edit {
 
-        .stage-2,
-        .stage-7,
-        .stage-10,
-        .stage-14 {
+        .buttons-section {
             .btns {
-                grid-template-columns: repeat(2, 10rem);
+                grid-template-columns: repeat(2, 12.25rem);
             }
 
             .btn {
@@ -729,41 +699,9 @@
 
 @media (width > 600px) {
     .stay-edit {
-
-        .stage-2,
-        .stage-3,
-        .stage-4,
-        .stage-5,
-        .stage-7,
-        .stage-8,
-        .stage-9,
-        .stage-10,
-        .stage-11,
-        .stage-13,
-        .stage-14,
-        .stage-15,
-        .stage-16 {
+        main>section:not(.title-stage):not(.stage-0) {
             h1 {
                 font-size: 2rem;
-            }
-        }
-
-        .stage-4,
-        .stage-5,
-        .stage-7,
-        .stage-8,
-        .stage-9,
-        .stage-10,
-        .stage-11,
-        .stage-13,
-        .stage-14,
-        .stage-15,
-        .stage-16 {
-            h1,
-            h2,
-            h3 {
-                padding-inline-start: 10%;
-
             }
 
             h2 {
@@ -779,9 +717,7 @@
     }
 
     .stay-edit {
-        .stage-1,
-        .stage-6,
-        .stage-12 {
+        .title-stage {
             grid-template-columns: 1fr 1fr;
 
             .step,
@@ -798,12 +734,9 @@
             }
         }
 
-        .stage-2,
-        .stage-7,
-        .stage-10,
-        .stage-14 {
+        .buttons-section {
             .btns {
-                grid-template-columns: repeat(3, 10rem);
+                grid-template-columns: repeat(3, 12.25rem);
             }
         }
 
@@ -884,6 +817,28 @@
 
                 p {
                     display: block;
+                }
+            }
+        }
+
+        .stage-16 {
+            padding-block: 1rem 5rem;
+
+            h1,
+            h2 {
+                margin-block-end: 0;
+            }
+
+            .preview-edit-page {
+                grid-template-columns: 4fr 6fr;
+                grid-template-rows: fit-content;
+
+                .edit-preview {
+                    justify-self: start;
+                }
+
+                .next-article {
+                    max-width: 40vw;
                 }
             }
         }
