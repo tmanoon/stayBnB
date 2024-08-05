@@ -18,6 +18,10 @@ export function OrderConfirmation({ stay, order }) {
         navigate('/trips')
     }
 
+    function onNavigate() {
+        navigate('/messages')
+    }
+
     return (
         isShownModal &&
         <>
@@ -41,7 +45,6 @@ export function OrderConfirmation({ stay, order }) {
 
                     <div className='stay-name flex column'>
                         <p>Property name:</p>
-                        {/* <h5>{stay.name}</h5> */}
                         <h5>{stay.propertyType} in {stay.loc.city}, {stay.loc.country}</h5>
                     </div>
 
@@ -78,7 +81,7 @@ export function OrderConfirmation({ stay, order }) {
 
                         <div className='rooms flex column'>
                             <p>Total Rooms:</p>
-                            <h5>{stay.bbb.bedrooms.length}</h5>
+                            <h5>{order.stay.sumOfBedrooms}</h5>
                         </div>
                     </div>
 
@@ -99,8 +102,9 @@ export function OrderConfirmation({ stay, order }) {
                     </div>
                 </div>
 
-                <footer className='flex center'>
+                <footer className='flex align-center space-evenly'>
                     <button className="close-btn flex center" onClick={onCloseModal}>Close</button>
+                    <button className="msg-btn flex center" onClick={onNavigate}>Message host</button>
                 </footer>
             </section>
 

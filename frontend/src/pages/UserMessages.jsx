@@ -97,11 +97,11 @@ export function UserMessages() {
             </header>
 
             <ul className="flex column">
-                {order.msgs.map((msg, idx) =>
-                    <li key={idx} className={msg.by}>  {/* user or host*/}
+                {/* {map((msg, idx) =>
+                    <li key={idx} className={msg.by}>
                         <div>{msg.by} {msg.at}</div>
                         <pre>{msg.txt}</pre>
-                    </li>)}
+                    </li>)} */}
             </ul>
 
             <footer>

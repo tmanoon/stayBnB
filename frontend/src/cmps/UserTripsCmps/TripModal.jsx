@@ -1,6 +1,10 @@
+import { stayService } from "../../services/stay.service"
 import { utilService } from "../../services/util.service"
 
+import { useNavigate } from "react-router"
+
 export function TripModal({ trip, setOnModal }) {
+    const navigate = useNavigate()
 
     function onCloseModal(e) {
         e.stopPropagation()
@@ -9,6 +13,10 @@ export function TripModal({ trip, setOnModal }) {
 
     function guestSum() {
         return Object.values(trip.guests).reduce((acc, count) => acc + count, 0)
+    }
+
+    function onNavigate() {
+        navigate('/messages')
     }
 
     return <>
@@ -70,8 +78,7 @@ export function TripModal({ trip, setOnModal }) {
 
                     <div className='rooms flex column'>
                         <p>Total Rooms:</p>
-                        {<h5>3</h5> }{/* //FIXXXXXXX */}
-                        
+                        <h5>{trip.stay.sumOfBedrooms}</h5>
                     </div>
                 </div>
 
@@ -86,7 +93,7 @@ export function TripModal({ trip, setOnModal }) {
                         <p>Service fee:</p>
                         <p>$ {(utilService.calcSumToPayAtTrips(trip, trip.stay) * 0.14125).toFixed(2)}</p>
                     </div>
-                    
+
                     <div className='flex space-between'>
                         <h4>Total:</h4>
                         <p><span>$ {((utilService.calcSumToPayAtTrips(trip, trip.stay) + (utilService.calcSumToPayAtTrips(trip, trip.stay) * 0.14125))).toLocaleString()}</span></p>
@@ -96,7 +103,7 @@ export function TripModal({ trip, setOnModal }) {
 
             <footer className='order-details-footer flex center'>
                 <button className="close-btn flex center" onClick={onCloseModal}>Close</button>
-                <button className="msg-btn flex center" >Message host</button>
+                <button className="msg-btn flex center" onClick={onNavigate}>Message host</button>
             </footer>
         </section>
     </>
