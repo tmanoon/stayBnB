@@ -69,7 +69,8 @@ export function LoginSignup({ setIsLoginModal }) {
                     </label>
 
                     <label htmlFor="gender" className="flex column space-between">Gender&nbsp;
-                        <select id="gender" value={credentials.gender || 'female'} onChange={onChangeField}>
+                        <select id="gender" value={credentials.gender} onChange={onChangeField}>
+                            <option id="default" value="" disabled>Choose gender</option>
                             <option id="female" value="female">Female</option>
                             <option id="male" value="male">Male</option>
                             <option id="other" value="other">Other</option>
