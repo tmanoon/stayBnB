@@ -41,7 +41,7 @@ export function setupSocketAPI(server) {
             // gIo.emit('chat addMsg', msg)
             // emits only to sockets in the same room except the sender!// 
             gIo.emit('order-update', data)
-            await emitToUser({type: 'prompt-notification', data: `A new update about order ${data._id}`, userId: data.buyer._id })
+            await emitToUser({type: 'prompt-notification', data: `A new update about order ${data._id.slice(-4, data._id.length - 1)}`, userId: data.buyer._id })
         })
 
         socket.on('user-watch', userId => {
