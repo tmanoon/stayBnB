@@ -12,7 +12,7 @@ import { StayPayment } from './pages/StayPayment'
 import { UserTrips } from './pages/UserTrips'
 import { UserDashboard } from './pages/UserDashboard'
 import { UserWishlist } from './pages/UserWishlist'
-import { UserMessages } from './pages/UseMessages'
+import { UserMessages } from './pages/UserMessages'
 import { StayEdit } from './pages/StayEdit'
 
 import './style/main.css'
