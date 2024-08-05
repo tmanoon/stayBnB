@@ -1,9 +1,10 @@
 import { stayService } from "./stay.service"
 import { utilService } from "./util.service"
-import { orderService } from "../services/order.service"
+import { orderService } from "./order.service"
 import { saveStay } from "../store/actions/stay.actions"
 import { SET_STAYS } from "../store/reducers/stay.reducer"
 import { store } from "../store/store"
+import { filterLists } from "./filterLists.service"
 
 const STAY_DB = 'stay_db'
 
@@ -225,11 +226,11 @@ function getRandomSummary() {
     const randomPropertyType = propertyTypes[Math.floor(Math.random() * propertyTypes.length)];
 
     return `${randomAdjective} ${randomType} ${randomLocation} ${randomPropertyType}`;
-}  
+}
 
 function createRoom() {
     const roomName = Math.random() < 0.5 ? 'Living Room' : 'Bedroom';
-    const bedTypes = ['sofa bed', 'single bed', ' double bed', 'king bed', 'bunk bed','queen bed'];
+    const bedTypes = ['sofa bed', 'single bed', ' double bed', 'king bed', 'bunk bed', 'queen bed'];
     const numBeds = Math.floor(Math.random() * 3) + 1; // Random number of beds from 1 to 3
     const beds = Array.from({ length: numBeds }, () => bedTypes[Math.floor(Math.random() * bedTypes.length)]);
 
@@ -415,28 +416,28 @@ function getRandomAddress(addresses) {
 
 function generateReviews(numReviews) {
     const reviews = []
-   const users = [
-    { _id: utilService.makeId(24), fullname: "John Doe", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/11.jpg" },
-    { _id: utilService.makeId(24), fullname: "Jane Smith", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/11.jpg" },
-    { _id: utilService.makeId(24), fullname: "Michael Johnson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/12.jpg" },
-    { _id: utilService.makeId(24), fullname: "Emily Brown", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/12.jpg" },
-    { _id: utilService.makeId(24), fullname: "Robert Williams", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/13.jpg" },
-    { _id: utilService.makeId(24), fullname: "Sophia Garcia", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/13.jpg" },
-    { _id: utilService.makeId(24), fullname: "William Martinez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/24.jpg" },
-    { _id: utilService.makeId(24), fullname: "Olivia Rodriguez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/24.jpg" },
-    { _id: utilService.makeId(24), fullname: "David Lopez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/15.jpg" },
-    { _id: utilService.makeId(24), fullname: "Emma Wilson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/15.jpg" },
-    { _id: utilService.makeId(24), fullname: "Daniel Lee", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/16.jpg" },
-    { _id: utilService.makeId(24), fullname: "Sophie Clark", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/16.jpg" },
-    { _id: utilService.makeId(24), fullname: "Alexander Garcia", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/17.jpg" },
-    { _id: utilService.makeId(24), fullname: "Isabella Johnson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/17.jpg" },
-    { _id: utilService.makeId(24), fullname: "Ethan Rodriguez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/18.jpg" },
-    { _id: utilService.makeId(24), fullname: "Ava Brown", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/18.jpg" },
-    { _id: utilService.makeId(24), fullname: "Alexander Martinez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/19.jpg" },
-    { _id: utilService.makeId(24), fullname: "Charlotte Wilson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/19.jpg" },
-    { _id: utilService.makeId(24), fullname: "James Taylor", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/20.jpg" },
-    { _id: utilService.makeId(24), fullname: "Mia Anderson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/20.jpg" },
-]
+    const users = [
+        { _id: utilService.makeId(24), fullname: "John Doe", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/11.jpg" },
+        { _id: utilService.makeId(24), fullname: "Jane Smith", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/11.jpg" },
+        { _id: utilService.makeId(24), fullname: "Michael Johnson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/12.jpg" },
+        { _id: utilService.makeId(24), fullname: "Emily Brown", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/12.jpg" },
+        { _id: utilService.makeId(24), fullname: "Robert Williams", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/13.jpg" },
+        { _id: utilService.makeId(24), fullname: "Sophia Garcia", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/13.jpg" },
+        { _id: utilService.makeId(24), fullname: "William Martinez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/24.jpg" },
+        { _id: utilService.makeId(24), fullname: "Olivia Rodriguez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/24.jpg" },
+        { _id: utilService.makeId(24), fullname: "David Lopez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/15.jpg" },
+        { _id: utilService.makeId(24), fullname: "Emma Wilson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/15.jpg" },
+        { _id: utilService.makeId(24), fullname: "Daniel Lee", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/16.jpg" },
+        { _id: utilService.makeId(24), fullname: "Sophie Clark", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/16.jpg" },
+        { _id: utilService.makeId(24), fullname: "Alexander Garcia", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/17.jpg" },
+        { _id: utilService.makeId(24), fullname: "Isabella Johnson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/17.jpg" },
+        { _id: utilService.makeId(24), fullname: "Ethan Rodriguez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/18.jpg" },
+        { _id: utilService.makeId(24), fullname: "Ava Brown", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/18.jpg" },
+        { _id: utilService.makeId(24), fullname: "Alexander Martinez", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/19.jpg" },
+        { _id: utilService.makeId(24), fullname: "Charlotte Wilson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/19.jpg" },
+        { _id: utilService.makeId(24), fullname: "James Taylor", imgUrl: "https://xsgames.co/randomusers/assets/avatars/male/20.jpg" },
+        { _id: utilService.makeId(24), fullname: "Mia Anderson", imgUrl: "https://xsgames.co/randomusers/assets/avatars/female/20.jpg" },
+    ]
 
     const titles = ["Amazing place!", "Lovely experience", "Disappointing", "Highly recommended!", "Not worth it", 'Awful!']
     const goodTexts = [
@@ -490,23 +491,45 @@ export async function createReviews() {
         const filterBy = stayService.getDefaultFilter()
         filterBy.pagination = Infinity
         const stays = await stayService.query()
-        for(let stay of stays) {
+        for (let stay of stays) {
             stay.reviews = generateReviews(10)
             saveStay(stay)
         }
-        store.dispatch( {type: SET_STAYS, stays})
-    } catch(err) {
+        store.dispatch({ type: SET_STAYS, stays })
+    } catch (err) {
         console.log(err)
     }
 }
 
+export async function addAccessibility() {
+    try {
+        const stays = await stayService.getAllStays()
+        const allAccessibilityFeatures = [...filterLists.accessBathrooms, ...filterLists.accessBedrooms,
+        ...filterLists.accessEntrance, ...filterLists.accessEquipment]
+        for (let stay of stays) {
+            const stayToUpdate = { ...stay}
+            stayToUpdate.accessibility = []
+            for (let i = 0; i < 8; i++) {
+                const randIdx = utilService.getRandomIntInclusive(0, allAccessibilityFeatures.length - 1)
+                if(stayToUpdate.accessibility.includes(allAccessibilityFeatures[randIdx])) continue
+                else stayToUpdate.accessibility.push(allAccessibilityFeatures[randIdx])
+            }
+            await saveStay(stayToUpdate)
+            store.dispatch({ type: UPDATE_STAY, stay: stayToUpdate })
+        }
+        console.log('finished!')
+    } catch (err) {
+        console.log('err', err)
+        throw err
+    }
+}
 
 function randomStay() {
     const fullName = generateFullName();
     return {
         _id: utilService.makeId(10),
         type: getRandomStayType(),
-        previewImg : `https://picsum.photos/id/${utilService.getRandomIntInclusive(1,150)}/600/600`,
+        previewImg: `https://picsum.photos/id/${utilService.getRandomIntInclusive(1, 150)}/600/600`,
         price: getRandomPrice(),
         imgUrls: ["https://cdn.pixabay.com/photo/2014/07/31/21/41/apartment-406901_1280.jpg",
             "https://cdn.pixabay.com/photo/2021/02/21/04/24/mahrous-houses-6035253_1280.jpg",
@@ -519,18 +542,18 @@ function randomStay() {
         capacity: utilService.getRandomIntInclusive(2, 16),
         bedrooms: [
             {
-              name: 'Living Room',
-              beds: ['couch']
+                name: 'Living Room',
+                beds: ['couch']
             },
             {
-              name: 'Bedroom 1',
-              beds: ['double bed', 'double bed', 'sofa bed']
+                name: 'Bedroom 1',
+                beds: ['double bed', 'double bed', 'sofa bed']
             },
             {
-              name: 'Bedroom 2',
-              beds: ['single bed', 'sofa bed', 'king size bed']
+                name: 'Bedroom 2',
+                beds: ['single bed', 'sofa bed', 'king size bed']
             }
-          ],
+        ],
         booked: generateStays(),
         baths: utilService.getRandomIntInclusive(1, 3),
         labels: getRandomFilterLabels(3),
@@ -600,7 +623,7 @@ export async function makeLabelsHaveAtLeast5() {
             }
         }
 
-        for(let stay of staysToEditLabels) {
+        for (let stay of staysToEditLabels) {
             await saveStay(stay)
         }
     } catch (err) {
