@@ -1,14 +1,12 @@
 import React, { useState, useRef } from 'react'
 import { uploadService } from '../../services/upload.service'
 
-export function ImgUploader({ onUploaded = null, placeholder = null, editStay = null, stay = null }) {
+export function StayImgsUploader({ onUploaded = null, editStay, stay }) {
 
   const [imgData, setImgData] = useState(stay.imgUrls || [])
-  const [isUploading, setIsUploading] = useState(false)
   const fileInputRef = useRef(null)
 
-  async function uploadImg(ev) {
-    setIsUploading(true)
+  async function addImgs(ev) {
     const files = ev.target.files
     const newImgUrls = []
 
@@ -20,7 +18,6 @@ export function ImgUploader({ onUploaded = null, placeholder = null, editStay = 
     const updatedImgUrls = [...(stay.imgUrls || []), ...newImgUrls]
     editStay({ ...stay, imgUrls: updatedImgUrls })
     setImgData(updatedImgUrls)
-    setIsUploading(false)
 
     if (onUploaded) {
       newImgUrls.forEach(url => onUploaded(url))
@@ -55,7 +52,7 @@ export function ImgUploader({ onUploaded = null, placeholder = null, editStay = 
       <input
         ref={fileInputRef}
         type="file"
-        onChange={uploadImg}
+        onChange={addImgs}
         accept="image/*"
         multiple
         style={{ display: 'none' }}
