@@ -73,7 +73,7 @@ async function add(chatToAdd) {
     try {
         const collection = await dbService.getCollection('chat')
         await collection.insertOne(chatToAdd)
-        return userToAdd
+        return chatToAdd
     } catch (err) {
         logger.error('cannot add chat', err)
         throw err
