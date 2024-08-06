@@ -51,6 +51,7 @@
         ul {
             padding-inline: 1rem;
             overflow: auto;
+            overflow: auto;
             height: calc(100vh - 14rem);
 
             li {
@@ -204,7 +205,6 @@
 
                     &>div {
                         align-self: end;
-
                         span {
                             display: none;
                         }
