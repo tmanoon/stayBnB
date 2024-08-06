@@ -7,7 +7,6 @@ import { loadStays, setStayFilter } from '../store/actions/stay.actions.js'
 
 import { StayList } from '../cmps/StayList.jsx'
 import { Loading } from '../cmps/Loading.jsx'
-import { stayService } from '../services/stay.service.js'
 
 export function StayIndex({ scrolledPage }) {
     const [searchParams, setSearchParams] = useSearchParams()
