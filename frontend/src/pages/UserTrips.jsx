@@ -155,7 +155,7 @@ export function UserTrips() {
                             </div>
 
                             <div className='image'>
-                                <img src={trip.stay.img} alt={trip.stay.name} />
+                                <img src={trip.stay.imgUrl} alt={trip.stay.name} />
                                 <p>{utilService.timestampDaysAway(+trip.entryDate, +trip.exitDate)} |
                                     <span className={`status ${trip.status}`}> {trip.status}</span>
                                 </p>

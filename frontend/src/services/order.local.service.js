@@ -93,7 +93,7 @@ async function getOrder(stay, loggedInUser, params) {
                 name: stay.name,
                 price: stay.price,
                 location: stay.loc,
-                img: stay.imgUrls[0]
+                imgUrl: stay.imgUrls[0]
             },
             msgs: [],
             status: "pending"

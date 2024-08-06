@@ -31,7 +31,7 @@ export function TripModal({ trip, setOnModal }) {
             </header>
 
             <div className='order-details grid'>
-                <img src={trip.stay.img} alt={trip.stay.name} />
+                <img src={trip.stay.imgUrl} alt={trip.stay.name} />
 
                 <h1>Trip details</h1>
 

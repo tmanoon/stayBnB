@@ -13,7 +13,7 @@ export function ReservationInfoModal({ order, onReserveInfoModal }) {
 
             <main>
                 <h2 className="title">{order.stay.name}</h2>
-                <img src={order.stay.img} />
+                <img src={order.stay.imgUrl} />
 
                 <div className="dates flex space-between">
                     <div className="start flex column">
