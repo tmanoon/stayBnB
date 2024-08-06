@@ -1,4 +1,5 @@
 import { utilService } from "../../services/util.service"
+import { ImgCarousel } from "../HelperCmps/ImgCarousel"
 
 export function ReservationInfoModal({ order, onReserveInfoModal }) {
 
@@ -13,7 +14,7 @@ export function ReservationInfoModal({ order, onReserveInfoModal }) {
 
             <main>
                 <h2 className="title">{order.stay.name}</h2>
-                <img src={order.stay.imgUrls[0]} />
+                <ImgCarousel imgUrls={order.stay.imgUrls} />
 
                 <div className="dates flex space-between">
                     <div className="start flex column">
