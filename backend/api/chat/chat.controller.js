@@ -3,7 +3,7 @@ import { chatService } from './chat.service.js'
 
 export async function getChats(req, res) {
     try {
-        const userId = req.params.id
+        const userId = req.params.userId        
         const chats = await chatService.query(userId)
         res.send(chats)
     } catch (err) {

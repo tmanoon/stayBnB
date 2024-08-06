@@ -14,7 +14,7 @@ export const chatService = {
 
 async function query() {
     try {
-        const userId = (userService.getLoggedInUser())._id
+        const userId = (userService.getLoggedInUser())._id        
         const chats = await httpService.get(BASE_URL + userId)
         return chats
     }
@@ -65,6 +65,7 @@ async function add(order) {
         const hostOfOrder = await userService.getById(order.hostId)
         const buyerOfOrder = await userService.getById(order.buyer._id)
         const emptyChat = {
+            createdAt: new Date().getTime(),
             orderId: order._id,
             host: {
                 _id: order.hostId,

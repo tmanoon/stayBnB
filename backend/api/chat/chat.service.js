@@ -12,7 +12,7 @@ export const chatService = {
     query,          
 }
 
-async function query(userId) {
+async function query(userId) {    
     try {
         const collection = await dbService.getCollection('chat')
         const chats = await collection.find({ $or: [
