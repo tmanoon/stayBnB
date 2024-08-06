@@ -144,7 +144,7 @@ function timestampToDateAndTimeObj(timestamp) {
     const dateOfDate = date.getDate()
     const timeOfDate = date.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: true })
 
-    return { date: dayOfDate + ', ' + monthName + ' ' + dateOfDate, time: timeOfDate }
+    return { date: dayOfDate + ', ' + monthName + ' ' + dateOfDate, time: timeOfDate, shortDate: monthName + ' ' + dateOfDate }
 }
 
 function timestampToFullDate(dateTimestamp) {
