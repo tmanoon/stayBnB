@@ -18,6 +18,7 @@ export function UserMessages() {
     const [filter, setFilter] = useState({ type: 'all', unread: false })
 
     const [newTxt, setNewTxt] = useState('')
+    const [chosenContent, setChosenContent] = useState('chat')
 
     const [isReserveInfoModal, setReserveInfoModal] = useState(false)
 
@@ -76,6 +77,11 @@ export function UserMessages() {
 
     function handleMsgChange(chat) {
         setCurrChat(chat)
+        setChosenContent('chat')
+    }
+
+    function goBackToList() {
+        setChosenContent('list')
     }
 
     function onMsgInput(ev) {
@@ -100,7 +106,7 @@ export function UserMessages() {
 
     if (!orders || !orders.length) return <Loading />
     return <section className="user-messages grid">
-        <section className="chat-list">
+        <section className={`chat-list ${chosenContent === 'list' ? '': 'hidden'}`}>
             <header>
                 <h1>Messages</h1>
                 <div className="action-btns flex">
@@ -109,7 +115,7 @@ export function UserMessages() {
                         <option value="host">Hosting</option>
                         <option value="buyer">Traveling</option>
                     </select>
-                    <button onClick={() => handleFilterChange('unread')} className={`unread-btn ${(filter.unread) ? 'selected' : ''}`}>Unread</button>
+                    {/* <button onClick={() => handleFilterChange('unread')} className={`unread-btn ${(filter.unread) ? 'selected' : ''}`}>Unread</button> */}
                 </div>
             </header>
 
@@ -129,9 +135,9 @@ export function UserMessages() {
                 </ul>}
         </section>
 
-        <section className="read-chat">
+        <section className={`read-chat ${chosenContent === 'chat' ? '': 'hidden'}`}>
             <header className="flex align-center">
-                <button className="back-list-btn flex center"></button>
+                <button className="back-list-btn flex center" onClick={goBackToList}></button>
                 {currChat && currOrder && <>
                     <img src={chatService.getUserPosition(user._id, currChat) === 'host' ? currChat.buyer.imgUrl : currChat.host.imgUrl} />
                     <h5 className="name">{chatService.getUserPosition(user._id, currChat) === 'host' ? currChat.buyer.fullname.split(' ')[0] : currChat.host.fullname.split(' ')[0]}</h5>

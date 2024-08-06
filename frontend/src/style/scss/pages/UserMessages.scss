@@ -51,6 +51,7 @@
         ul {
             padding-inline: 1rem;
             overflow: auto;
+            overflow: auto;
             height: calc(100vh - 14rem);
 
             li {
@@ -144,7 +145,7 @@
             }
 
             .back-list-btn {
-                inset: 1.25rem auto auto 1rem;
+                inset: 1.25rem auto auto 0;
                 border-radius: $border-radius-circle;
                 height: 2rem;
                 width: 2rem;
@@ -158,6 +159,7 @@
 
         ul {
             padding: 1rem 2rem;
+            padding-block-end: 5rem;
             overflow: auto;
             overflow-x: hidden;
             height: calc(100vh - 9rem);
@@ -178,9 +180,9 @@
                 }
                 
                 pre {
-                    font-family: circular-reg;
+                    font-family: circular-reg, Arial;
                     width: 100%;
-                    max-width: calc((100vw - 6rem));
+                    max-width: calc((100vw - 7rem));
                     padding: 1rem;
                     white-space: pre-wrap;
                     word-wrap: break-word;
@@ -204,7 +206,6 @@
 
                     &>div {
                         align-self: end;
-
                         span {
                             display: none;
                         }
@@ -344,8 +345,10 @@
     .reservation-details-not-modal {
         display: none;
     }
+}
 
-    .chat-list {
+@media(width <= 742px) {
+    .hidden {
         display: none;
     }
 }
@@ -375,8 +378,13 @@
                 display: none;
             }
 
-            ul li pre {
-                max-width: calc((100vw - 8rem) * 0.5);
+            ul {
+                padding-block-end: 0;
+                height: calc(100vh - 15rem);
+
+                li pre {
+                    max-width: calc((100vw - 12rem) * 0.5);
+                }
             }
         }
 
@@ -403,12 +411,8 @@
             }
 
             ul li pre {
-                max-width: calc((100vw - 8rem) * 0.3286);
+                max-width: calc((100vw - 9rem) * 0.3286);
             }
-        }
-
-        ul li pre {
-            max-width: calc((100vw - 8rem) * 0.3286);
         }
 
         .reservation-details-not-modal {
