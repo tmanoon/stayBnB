@@ -7,6 +7,7 @@ import { utilService } from "../services/util.service"
 
 import { Loading } from '../cmps/Loading'
 import { ReservationInfoModal } from "../cmps/UserMessageCmps/ReservationInfoModal"
+import { ImgCarousel } from "../cmps/HelperCmps/ImgCarousel"
 
 export function UserMessages() {
     const [user, setUser] = useState(userService.getLoggedInUser())
@@ -14,8 +15,10 @@ export function UserMessages() {
     const [orders, setOrders] = useState(null)
     const [currChat, setCurrChat] = useState(null)
     const [currOrder, setCurrOrder] = useState(null)
-
     const [filter, setFilter] = useState({ type: 'all', unread: false })
+
+    const [newTxt, setNewTxt] = useState('')
+
     const [isReserveInfoModal, setReserveInfoModal] = useState(false)
 
     useEffect(() => {
@@ -35,7 +38,6 @@ export function UserMessages() {
         async function getChats() {
             try {
                 const fetchedChats = await chatService.query(filter)
-                console.log('chats from back: ', fetchedChats)
 
                 if (fetchedChats) {
                     setChats(fetchedChats)
@@ -76,13 +78,21 @@ export function UserMessages() {
         setCurrChat(chat)
     }
 
-    function handleKeyDown(ev) {
-        if (ev.key === 'Enter') console.log(ev)
+    function onMsgInput(ev) {
+        const val = ev.target.value
+        setNewTxt(val)
     }
 
-    function sendMsg({ target }) {
-        const { value, name } = target
-        console.log(value, name)
+    async function onSendMsg(ev) {
+        ev.preventDefault()
+        const newMsg = chatService.getEmptyMsg()
+        newMsg.txt = newTxt
+        currChat.msgs.push(newMsg)
+        setNewTxt('')
+        try {
+            await chatService.update(currChat)
+        } catch (err) { console.log(err) }
+        console.log(newMsg)
     }
 
     function onReserveInfoModal() {
@@ -107,13 +117,13 @@ export function UserMessages() {
             {chats && chats.length && currChat && orders &&
                 <ul>{chats.map(chat =>
                     <li key={chat._id} onClick={() => handleMsgChange(chat)} className={`flex ${(chat._id === currChat._id) ? 'selected' : ''}`}>
-                        <img src={`${orderDetails(chat).stay.imgUrl}`} />
+                        <img src={`${orderDetails(chat).stay.imgUrls[0]}`} />
                         <div className="msg-info flex column">
                             <div className="flex space-between align-center">
                                 <h5 className="name">{chatService.getUserPosition(user._id, chat) === 'host' ? chat.buyer.fullname : chat.host.fullname}</h5>
                                 <p className="date">{utilService.timestampToFullSlashedDate(chat.createdAt)}</p>
                             </div>
-                            <p className="msg-intro">{(chat.msgs && chat.msgs.length) ? chat.msgs[-1].slice(0, 10) : ''}</p>
+                            <p className="msg-intro">{(chat.msgs && chat.msgs.length) ? chat.msgs[chat.msgs.length - 1].txt.slice(0, 30) : ''}</p>
                             <p className="stay-info">{utilService.timestampsToShortDates(orderDetails(chat).entryDate, orderDetails(chat).exitDate)} · {orderDetails(chat).stay.location.city}, {orderDetails(chat).stay.location.country}</p>
                         </div>
                     </li>)}
@@ -125,7 +135,7 @@ export function UserMessages() {
                 <button className="back-list-btn flex center"></button>
                 {currChat && currOrder && <>
                     <img src={chatService.getUserPosition(user._id, currChat) === 'host' ? currChat.buyer.imgUrl : currChat.host.imgUrl} />
-                    <h5 className="name">{chatService.getUserPosition(user._id, currChat) === 'host' ? currChat.buyer.fullname : currChat.host.fullname}</h5>
+                    <h5 className="name">{chatService.getUserPosition(user._id, currChat) === 'host' ? currChat.buyer.fullname.split(' ')[0] : currChat.host.fullname.split(' ')[0]}</h5>
                 </>}
                 {currOrder && <button className="reserve-btn-tablet" onClick={onReserveInfoModal}>Show reservation</button>}
                 {currOrder && <button className="reserve-btn-mobile" onClick={onReserveInfoModal}>Details</button>}
@@ -133,17 +143,18 @@ export function UserMessages() {
 
             <ul className="flex column">
                 {currChat && currChat.msgs.length && <>
-                    {currChat.map((msg, idx) =>
-                        <li key={idx} className={msg.by}>
-                            <div>{msg.by} {msg.at}</div>
+                    {currChat.msgs.map((msg, idx) =>
+                        <li key={idx}  className={`flex column ${(user._id === msg.by)? 'user' : 'other'}`}>
+                            {(currChat.host._id === msg.by) && <div><span>{currChat.host.fullname.split(' ')[0]}</span>  &nbsp; &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).shortDate} {utilService.timestampToDateAndTimeObj(msg.at).time}</div>}
+                            {(currChat.host._id !== msg.by) && <div><span>{currChat.buyer.fullname.split(' ')[0]}</span>  &nbsp; &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).shortDate} {utilService.timestampToDateAndTimeObj(msg.at).time}</div>}
                             <pre>{msg.txt}</pre>
                         </li>)}
                 </>}
             </ul>
 
             <footer>
-                <form onSubmit={sendMsg}>
-                    <input type="text" name='msg' placeholder="Type a message" onKeyDown={handleKeyDown} />
+                <form onSubmit={onSendMsg}>
+                    <input type="text" placeholder="Type a message" name='msg' value={newTxt} onChange={onMsgInput} />
                 </form>
             </footer>
         </section>
@@ -155,7 +166,7 @@ export function UserMessages() {
 
             {currOrder && <main>
                 <h2 className="title">{currOrder.stay.name}</h2>
-                <img src={currOrder.stay.imgUrl} />
+                <ImgCarousel imgUrls={currOrder.stay.imgUrls} />
 
                 <div className="dates flex space-between">
                     <div className="start flex column">
