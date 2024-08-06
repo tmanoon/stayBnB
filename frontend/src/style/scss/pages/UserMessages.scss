@@ -403,6 +403,10 @@
             }
         }
 
+        ul li pre {
+            max-width: calc((100vw - 8rem) * 0.3286);
+        }
+
         .reservation-details-not-modal {
             display: block;
         }
