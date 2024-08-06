@@ -14,6 +14,7 @@ export const utilService = {
     generateStays,
     calcSumToPay,
     timestampToFullDate,
+    timestampToFullSlashedDate,
     timestampsToShortDates,
     timestampToMonthYear,
     timestampToMonthDay,
@@ -143,7 +144,7 @@ function timestampToDateAndTimeObj(timestamp) {
     const dateOfDate = date.getDate()
     const timeOfDate = date.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: true })
 
-    return {date: dayOfDate + ', ' + monthName + ' ' + dateOfDate, time: timeOfDate}
+    return { date: dayOfDate + ', ' + monthName + ' ' + dateOfDate, time: timeOfDate }
 }
 
 function timestampToFullDate(dateTimestamp) {
@@ -153,7 +154,16 @@ function timestampToFullDate(dateTimestamp) {
     const monthName = date.toLocaleString('en-US', { month: 'short' })
     const yearOfDate = date.getFullYear()
     let str = dayOfDate + ', ' + dateOfDate + ' ' + monthName + ' ' + yearOfDate
-    return str // need to change to be clearer as in airbnb
+    return str
+}
+
+function timestampToFullSlashedDate(dateTimestamp) {
+    const date = new Date(dateTimestamp)
+    const dateNum = date.getDate()
+    const monthNum = date.getMonth() + 1
+    const yearOfDate = date.getFullYear()
+    let str = dateNum + '/' + monthNum + '/' + yearOfDate
+    return str
 }
 
 function timestampsToShortDates(entryTimestamp, exitTimestamp) {
