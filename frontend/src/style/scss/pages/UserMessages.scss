@@ -364,6 +364,17 @@
         .chat-list {
             display: block;
         }
+
+        .reservation-details-modal {
+            overflow: hidden;
+            margin: 0 auto 2.5rem;
+            max-width: 48.75rem;
+            border-radius: $border-radius-4;
+
+            main {
+                height: calc(100vh - 10rem);
+            }
+        }
     }
 }
 
