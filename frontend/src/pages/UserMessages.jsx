@@ -120,7 +120,7 @@ export function UserMessages() {
                         <img src={`${orderDetails(chat).stay.imgUrls[0]}`} />
                         <div className="msg-info flex column">
                             <div className="flex space-between align-center">
-                                <h5 className="name">{chatService.getUserPosition(user._id, chat) === 'host' ? chat.buyer.fullname : chat.host.fullname}</h5>
+                                <h5 className="name">{chatService.getUserPosition(user._id, chat) === 'host' ? chat.buyer.fullname.split(' ')[0] : chat.host.fullname.split(' ')[0]}</h5>
                                 <p className="date">{utilService.timestampToFullSlashedDate(chat.createdAt)}</p>
                             </div>
                             <p className="msg-intro">{(chat.msgs && chat.msgs.length) ? chat.msgs[chat.msgs.length - 1].txt.slice(0, 30) : ''}</p>
