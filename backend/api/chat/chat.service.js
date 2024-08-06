@@ -4,21 +4,23 @@ import mongodb from 'mongodb'
 const { ObjectId } = mongodb
 
 export const chatService = {
-    add,          
-    getById,  
-    getByOrderId,  
-    update,       
-    remove,         
-    query,          
+    add,
+    getById,
+    getByOrderId,
+    update,
+    remove,
+    query,
 }
 
-async function query(userId) {    
+async function query(userId) {
     try {
         const collection = await dbService.getCollection('chat')
-        const chats = await collection.find({ $or: [
-            {"host._id": userId},
-            {"buyer._id": userId}
-         ]}).toArray()
+        const chats = await collection.find({
+            $or: [
+                { "host._id": userId },
+                { "buyer._id": userId }
+            ]
+        }).toArray()
         return chats
     } catch (err) {
         logger.error('cannot find chats', err)
@@ -58,11 +60,13 @@ async function remove(chatId) {
     }
 }
 
-async function update(updatedChat) {
+async function update(chat) {
     try {
-        logger.info('got a new chat to update', updatedChat)
+        logger.info('got a chat to update', chat)
+        const updatedChat = { ...chat }
+        delete updatedChat._id
         const collection = await dbService.getCollection('chat')
-        await collection.updateOne({ _id: new ObjectId(updatedChat._id) }, { $set: updatedChat })
+        await collection.updateOne({ _id: new ObjectId(chat._id) }, { $set: updatedChat })
         return updatedChat
     } catch (err) {
         logger.error(`cannot update chat ${chat._id}`, err)
