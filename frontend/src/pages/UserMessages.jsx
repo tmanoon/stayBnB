@@ -92,7 +92,6 @@ export function UserMessages() {
         try {
             await chatService.update(currChat)
         } catch (err) { console.log(err) }
-        console.log(newMsg)
     }
 
     function onReserveInfoModal() {
@@ -142,14 +141,15 @@ export function UserMessages() {
             </header>
 
             <ul className="flex column">
-                {currChat && currChat.msgs.length && <>
+                {currChat && currChat.msgs.length > 0 && <>
                     {currChat.msgs.map((msg, idx) =>
-                        <li key={idx}  className={`flex column ${(user._id === msg.by)? 'user' : 'other'}`}>
+                        <li key={idx} className={`flex column ${(user._id === msg.by) ? 'user' : 'other'}`}>
                             {(currChat.host._id === msg.by) && <div><span>{currChat.host.fullname.split(' ')[0]}</span>  &nbsp; &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).shortDate} &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).time}</div>}
                             {(currChat.host._id !== msg.by) && <div><span>{currChat.buyer.fullname.split(' ')[0]}</span>  &nbsp; &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).shortDate} &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).time}</div>}
                             <pre>{msg.txt}</pre>
                         </li>)}
-                </>}
+                </>
+                }
             </ul>
 
             <footer>
