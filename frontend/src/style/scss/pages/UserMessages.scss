@@ -163,6 +163,7 @@
 
             li {
                 padding-block: 1rem;
+                max-width: 100%;
 
                 div {
                     color: $gray1;
@@ -175,8 +176,14 @@
                     }
                 }
 
+                overflow-x: hidden;
+
                 pre {
                     padding: 1rem;
+                    white-space: pre-wrap;
+                    word-wrap: break-word;
+                    width: 100%;
+                    max-width: calc((100vw - 6rem));
                 }
 
                 &.other {
@@ -343,6 +350,10 @@
     .user-messages {
         grid-template-columns: 2fr 3fr;
 
+        .chat-list {
+            display: block;
+        }
+
         .read-chat {
             header {
                 padding: 0.5rem 2rem;
@@ -359,10 +370,10 @@
             .reserve-btn-mobile {
                 display: none;
             }
-        }
 
-        .chat-list {
-            display: block;
+            ul li pre {
+                max-width: calc((100vw - 8rem) * 0.5);
+            }
         }
 
         .reservation-details-modal {
@@ -385,6 +396,10 @@
         .read-chat {
             .reserve-btn-tablet {
                 display: none;
+            }
+
+            ul li pre {
+                max-width: calc((100vw - 8rem) * 0.3286);
             }
         }
 
