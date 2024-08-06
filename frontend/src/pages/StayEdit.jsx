@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
-import { NavLink, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 import { stayService } from "../services/stay.service.js"
-import { loadStays, removeStay, saveStay, setStayFilter } from '../store/actions/stay.actions.js'
+import { saveStay } from '../store/actions/stay.actions.js'
 
 import { StageComponents } from "../cmps/StayEditCmps/StayEditStages.jsx"
 import { ProgressFooter } from "../cmps/StayEditCmps/ProgressFooter"
 import { StayEditHeader } from "../cmps/StayEditCmps/StayEditHeader"
 import { userService } from "../services/user.service.js"
+import { utilService } from "../services/util.service.js"
 
 export function StayEdit() {
     const params = useParams()
@@ -32,7 +33,7 @@ export function StayEdit() {
     async function onSaveStay() {
         try {
             const host = await userService.getLoggedInUser()
-            const updatedStay = { ...stay, host: { ...stay.host, username: host.username, fullname: host.fullname, imgUrl: host.imgUrl } }
+            const updatedStay = { ...stay, host: { ...stay.host, username: host.username, fullname: host.fullname, imgUrl: host.imgUrl, responseTime: utilService.getRandomIntInclusive(0,24) } }
             const stayToSave = await saveStay(updatedStay)
             navigate(`/${stayToSave._id}`)
         } catch (err) {

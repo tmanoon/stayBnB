@@ -164,7 +164,7 @@ export function StayDetails() {
                         <img src={stay.host.hostImg} className="host-img" />
                         <div className="flex column">
                             <h3>Hosted by {_findHostName()}</h3>
-                            <p>{stay.host.experience.isSuper ? 'Superhost ・' : ''}  {stay.host.experience.hostingTime > 1 ? `${stay.host.experience.hostingTime} years` : 'year'} hosting</p>
+                            <p>{stay.host.about}</p>
                         </div>
                     </article>
 
