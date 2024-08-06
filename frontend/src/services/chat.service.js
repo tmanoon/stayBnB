@@ -13,14 +13,17 @@ export const chatService = {
     getUserPosition,
 }
 
-async function query(filter = { type: 'all', unread: false }) {
+async function query(filterBy = { type: 'all', unread: false }) {
     try {
         const userId = (userService.getLoggedInUser())._id
-        const chats = await httpService.get(BASE_URL + userId)
+        let chats = await httpService.get(BASE_URL + userId)
 
-        if (filter.unread) { } // add later when there's support
-        if (filter.type !== 'all') {
-            chats = chats.filter(chat => getUserPosition(userId, chat) === filter.type)
+        if (filterBy.unread) { } // add later when there's support
+        if (filterBy.type !== 'all') {
+            chats = chats.filter(chat => {
+                const position = getUserPosition(userId, chat)
+                return position === 'both' || position === filterBy.type
+            })
         }
         return chats
     }
@@ -94,6 +97,7 @@ async function add(order) {
 }
 
 function getUserPosition(userId, chat) {
+    if (userId === chat.host._id && userId === chat.buyer._id) return 'both'
     if (userId === chat.host._id) return 'host'
     if (userId === chat.buyer._id) return 'buyer'
 }

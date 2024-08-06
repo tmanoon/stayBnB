@@ -11,11 +11,25 @@ import { ReservationInfoModal } from "../cmps/UserMessageCmps/ReservationInfoMod
 export function UserMessages() {
     const [user, setUser] = useState(userService.getLoggedInUser())
     const [chats, setChats] = useState(null)
+    const [orders, setOrders] = useState(null)
     const [currChat, setCurrChat] = useState(null)
     const [currOrder, setCurrOrder] = useState(null)
 
     const [filter, setFilter] = useState({ type: 'all', unread: false })
     const [isReserveInfoModal, setReserveInfoModal] = useState(false)
+
+    useEffect(() => {
+        async function getOrders() {
+            try {
+                const fetchedOrders = await orderService.getUserOrHostOrdersById(user._id)
+                if (fetchedOrders) {
+                    setOrders(fetchedOrders)
+                }
+            } catch (err) { console.log(err) }
+        }
+
+        getOrders()
+    }, [])
 
     useEffect(() => {
         async function getChats() {
@@ -33,25 +47,25 @@ export function UserMessages() {
         getChats()
     }, [filter])
 
-
-    useEffect(() => {
-        console.log('chats from state: ', chats)
-    }, [chats])
-
     useEffect(() => {
         async function fetchOrder() {
             if (currChat) {
-                console.log('currChat: ', currChat)
-
                 try {
                     const fetchedOrder = await orderService.getById(currChat.orderId)
                     setCurrOrder(fetchedOrder)
                 } catch (err) { console.log(err) }
+            } else {
+                setCurrOrder(null)
             }
         }
 
         fetchOrder()
     }, [currChat])
+
+    const orderDetails = (chat) => {
+        const order = orders.find(order => order._id === chat.orderId)
+        return order
+    }
 
     function handleFilterChange(val) {
         if (val === 'unread') setFilter({ ...filter, unread: !filter.unread })
@@ -75,13 +89,13 @@ export function UserMessages() {
         setReserveInfoModal(!isReserveInfoModal)
     }
 
-    if (!chats || !chats.length) return <Loading />
+    if (!orders || !orders.length) return <Loading />
     return <section className="user-messages grid">
         <section className="chat-list">
             <header>
                 <h1>Messages</h1>
                 <div className="action-btns flex">
-                    <select className="filter" name="filter" onChange={handleFilterChange}>
+                    <select className="filter" name="type" onChange={handleFilterChange}>
                         <option value="all">All</option>
                         <option value="host">Hosting</option>
                         <option value="buyer">Traveling</option>
@@ -90,17 +104,17 @@ export function UserMessages() {
                 </div>
             </header>
 
-            {chats && chats.length && currChat && currOrder &&
+            {chats && chats.length && currChat && orders &&
                 <ul>{chats.map(chat =>
                     <li key={chat._id} onClick={() => handleMsgChange(chat)} className={`flex ${(chat._id === currChat._id) ? 'selected' : ''}`}>
-                        <img src={`${currOrder.stay.imgUrl}`} />
+                        <img src={`${orderDetails(chat).stay.imgUrl}`} />
                         <div className="msg-info flex column">
                             <div className="flex space-between align-center">
-                                <h5 className="name">{chatService.getUserPosition(user._id, chat) === 'host' ? chat.host.fullname : chat.buyer.fullname}</h5>
+                                <h5 className="name">{chatService.getUserPosition(user._id, chat) === 'host' ? chat.buyer.fullname : chat.host.fullname}</h5>
                                 <p className="date">{utilService.timestampToFullSlashedDate(chat.createdAt)}</p>
                             </div>
-                            <p className="msg-intro">{(chat.msgs && chat.msgs.length) ?chat.msgs[-1].slice(0, 10) : ''}</p>
-                            <p className="stay-info">{utilService.timestampsToShortDates(currOrder.entryDate, currOrder.exitDate)} · {currOrder.stay.location.city}</p>
+                            <p className="msg-intro">{(chat.msgs && chat.msgs.length) ? chat.msgs[-1].slice(0, 10) : ''}</p>
+                            <p className="stay-info">{utilService.timestampsToShortDates(orderDetails(chat).entryDate, orderDetails(chat).exitDate)} · {orderDetails(chat).stay.location.city}, {orderDetails(chat).stay.location.country}</p>
                         </div>
                     </li>)}
                 </ul>}
@@ -110,20 +124,22 @@ export function UserMessages() {
             <header className="flex align-center">
                 <button className="back-list-btn flex center"></button>
                 {currChat && currOrder && <>
-                    <img src={`${currOrder.stay.imgUrl}`} />
-                    <h5 className="name">{chatService.getUserPosition(user._id, currChat) === 'host' ? currChat.host.fullname : currChat.buyer.fullname}</h5>
+                    <img src={chatService.getUserPosition(user._id, currChat) === 'host' ? currChat.buyer.imgUrl : currChat.host.imgUrl} />
+                    <h5 className="name">{chatService.getUserPosition(user._id, currChat) === 'host' ? currChat.buyer.fullname : currChat.host.fullname}</h5>
                 </>}
-                <button className="reserve-btn-tablet" onClick={onReserveInfoModal}>Show reservation</button>
-                <button className="reserve-btn-mobile" onClick={onReserveInfoModal}>Details</button>
+                {currOrder && <button className="reserve-btn-tablet" onClick={onReserveInfoModal}>Show reservation</button>}
+                {currOrder && <button className="reserve-btn-mobile" onClick={onReserveInfoModal}>Details</button>}
             </header>
 
-            {currChat.msgs && currChat.msgs.length &&
-                <ul className="flex column">{currChat.map((msg, idx) =>
-                    <li key={idx} className={msg.by}>
-                        <div>{msg.by} {msg.at}</div>
-                        <pre>{msg.txt}</pre>
-                    </li>)}
-                </ul>}
+            <ul className="flex column">
+                {currChat && currChat.msgs.length && <>
+                    {currChat.map((msg, idx) =>
+                        <li key={idx} className={msg.by}>
+                            <div>{msg.by} {msg.at}</div>
+                            <pre>{msg.txt}</pre>
+                        </li>)}
+                </>}
+            </ul>
 
             <footer>
                 <form onSubmit={sendMsg}>
@@ -174,6 +190,6 @@ export function UserMessages() {
             </main>}
         </section>
 
-        {isReserveInfoModal && <ReservationInfoModal order={currOrder} onReserveInfoModal={onReserveInfoModal} />}
+        {isReserveInfoModal && currOrder && <ReservationInfoModal order={currOrder} onReserveInfoModal={onReserveInfoModal} />}
     </section>
 }
