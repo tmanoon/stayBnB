@@ -193,7 +193,7 @@ export function StayDetails() {
                             {stay.amenities.slice(0, 9).map(amenity =>
                                 <li key={amenity} className="flex align-center">
                                     <SvgPathCmp name={amenity.replaceAll(' ', '').toLowerCase()} />
-                                    <p>{amenity}</p>
+                                    <p>{amenity[0].toUpperCase() + amenity.slice(1)}</p>
                                 </li>)}
                             <li className={`${stay.amenities.includes(safetyAmenities[0]) ? '' : 'no-safety-amenity'} flex align-center`}>
                                 <SvgPathCmp name={safetyAmenities[0].replaceAll(' ', '').toLowerCase()} />
@@ -202,8 +202,8 @@ export function StayDetails() {
                             <Accordion>
                                 {stay.amenities.slice(9).map(amenity =>
                                     <li key={amenity} className="flex align-center">
-                                        <SvgPathCmp name={amenity.replaceAll(' ', '').toLowerCase()} />
-                                        <p>{amenity}</p>
+                                        <SvgPathCmp name={amenity.replaceAll(' ', '').replaceAll(`'`, '').toLowerCase()} />
+                                        <p>{amenity[0].toUpperCase() + amenity.slice(1)}</p>
                                     </li>)}
                             </Accordion>
                         </ul>
