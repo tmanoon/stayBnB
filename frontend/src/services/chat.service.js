@@ -10,12 +10,18 @@ export const chatService = {
     add,
     getById,
     getByOrderId,
+    getUserPosition,
 }
 
-async function query() {
+async function query(filter = { type: 'all', unread: false }) {
     try {
-        const userId = (userService.getLoggedInUser())._id        
+        const userId = (userService.getLoggedInUser())._id
         const chats = await httpService.get(BASE_URL + userId)
+
+        if (filter.unread) { } // add later when there's support
+        if (filter.type !== 'all') {
+            chats = chats.filter(chat => getUserPosition(userId, chat) === filter.type)
+        }
         return chats
     }
     catch (err) {
@@ -85,4 +91,9 @@ async function add(order) {
         console.log('err', err)
         throw err
     }
+}
+
+function getUserPosition(userId, chat) {
+    if (userId === chat.host._id) return 'host'
+    if (userId === chat.buyer._id) return 'buyer'
 }

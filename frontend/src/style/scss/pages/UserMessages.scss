@@ -14,7 +14,7 @@
         border-radius: $border-radius-1;
     }
 
-    .message-list {
+    .chat-list {
         border-inline-end: solid 1px $gray4;
         margin-block-end: 0.5rem;
 
@@ -102,7 +102,7 @@
         }
     }
 
-    .read-messages {
+    .read-chat {
         position: relative;
         border-inline-end: solid 1px $gray4;
 
@@ -297,7 +297,7 @@
         display: none;
     }
 
-    .message-list {
+    .chat-list {
         display: none;
     }
 }
@@ -306,7 +306,7 @@
     .user-messages {
         grid-template-columns: 2fr 3fr;
 
-        .read-messages {
+        .read-chat {
 
             header {
                 padding: 0.5rem 2rem;
@@ -325,7 +325,7 @@
             }
         }
 
-        .message-list {
+        .chat-list {
             display: block;
         }
 
@@ -336,7 +336,7 @@
     .user-messages {
         grid-template-columns: 2fr 3fr 2fr;
 
-        .read-messages {
+        .read-chat {
             .reserve-btn-tablet {
                 display: none;
             }
