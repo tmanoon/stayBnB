@@ -139,7 +139,7 @@ export function UserDashboard() {
                                 <p className="also-tablet num">{order._id.slice(18)}</p>
                                 <p className="only-desktop">{order.buyer.fullname}</p>
                                 <p className="also-tablet num">{utilService.calcGuestCount(order)}</p>
-                                <p className="only-desktop num">$ {Math.round((utilService.calcSumToPay(datesAndGuests, order.stay)) + Math.round((utilService.calcSumToPay(datesAndGuests, order.stay) * 0.14125))).toLocaleString()}</p>
+                                <p className="only-desktop num">$ {Math.ceil((utilService.calcSumToPay(datesAndGuests, order.stay)) + Math.ceil((utilService.calcSumToPay(datesAndGuests, order.stay) * 0.14125)))}</p>
                                 <div className={`flex space-evenly ${isAnswered ? 'answered' : ''}`}>
                                     <button onClick={(ev) => onChangeOrderStatus('approved', order, ev)} className={`approve-btn ${(order.status === 'approved') ? 'approved' : ''}`}>Approve</button>
                                     <button onClick={(ev) => onChangeOrderStatus('rejected', order, ev)} className={`reject-btn ${(order.status === 'rejected') ? 'rejected' : ''}`}>Reject</button>
