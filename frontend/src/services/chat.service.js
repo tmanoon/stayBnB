@@ -11,6 +11,7 @@ export const chatService = {
     getById,
     getByOrderId,
     getUserPosition,
+    getEmptyMsg,
 }
 
 async function query(filterBy = { type: 'all', unread: false }) {
@@ -100,4 +101,13 @@ function getUserPosition(userId, chat) {
     if (userId === chat.host._id && userId === chat.buyer._id) return 'both'
     if (userId === chat.host._id) return 'host'
     if (userId === chat.buyer._id) return 'buyer'
+}
+
+function getEmptyMsg() {
+    const user = userService.getLoggedInUser()
+    return {
+        at: new Date().getTime(),
+        by: user._id,
+        txt: '',
+    }
 }
