@@ -106,7 +106,7 @@ export function UserMessages() {
 
     if (!orders || !orders.length) return <Loading />
     return <section className="user-messages grid">
-        <section className={`chat-list ${chosenContent === 'list' ? '': 'hidden'}`}>
+        <section className={`chat-list ${chosenContent === 'list' ? '' : 'hidden'}`}>
             <header>
                 <h1>Messages</h1>
                 <div className="action-btns flex">
@@ -135,7 +135,7 @@ export function UserMessages() {
                 </ul>}
         </section>
 
-        <section className={`read-chat ${chosenContent === 'chat' ? '': 'hidden'}`}>
+        <section className={`read-chat ${chosenContent === 'chat' ? '' : 'hidden'}`}>
             <header className="flex align-center">
                 <button className="back-list-btn flex center" onClick={goBackToList}></button>
                 {currChat && currOrder && <>
@@ -172,7 +172,9 @@ export function UserMessages() {
 
             {currOrder && <main>
                 <h2 className="title">{currOrder.stay.name}</h2>
-                <ImgCarousel imgUrls={currOrder.stay.imgUrls} />
+                <div className="img-container">
+                    <ImgCarousel imgUrls={currOrder.stay.imgUrls} />
+                </div>
 
                 <div className="dates flex space-between">
                     <div className="start flex column">

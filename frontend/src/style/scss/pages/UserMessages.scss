@@ -167,18 +167,18 @@
             li {
                 padding-block: 1rem;
                 max-width: 100%;
-                
+
                 div {
                     color: $gray1;
                     font-size: 0.75rem;
                     margin: 0 0 0.5rem 1rem;
                     width: fit-content;
-                    
+
                     span {
                         font-family: circular-medium;
                     }
                 }
-                
+
                 pre {
                     font-family: circular-reg, Arial;
                     width: 100%;
@@ -206,6 +206,7 @@
 
                     &>div {
                         align-self: end;
+
                         span {
                             display: none;
                         }
@@ -262,11 +263,20 @@
                 margin-block-end: 1rem;
             }
 
-            img {
-                border-radius: $border-radius-4;
-                margin-inline: 2rem;
+            .img-container {
                 width: calc(100% - 4rem);
+                margin-inline: 2rem;
+                overflow: hidden;
+                border-radius: $border-radius-4;
+                
+                img {
+                    display: block;
+                    object-fit: cover;
+                    border-radius: 0;
+                    width: 100%;
+                }
             }
+
 
             .dates {
                 padding-inline: 2rem;
@@ -344,10 +354,20 @@
 
     .reservation-details-not-modal {
         display: none;
+
+        main .img-container {
+            width: calc((100vw - 12rem) * 0.286);
+            height: calc((80vw - 12rem) * 0.286);
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
     }
 }
 
-@media(width <= 742px) {
+@media(width <=742px) {
     .hidden {
         display: none;
     }

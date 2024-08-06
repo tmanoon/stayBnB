@@ -14,7 +14,9 @@ export function ReservationInfoModal({ order, onReserveInfoModal }) {
 
             <main>
                 <h2 className="title">{order.stay.name}</h2>
-                <ImgCarousel imgUrls={order.stay.imgUrls} />
+                <div className="img-container">
+                    <ImgCarousel imgUrls={order.stay.imgUrls} />
+                </div>
 
                 <div className="dates flex space-between">
                     <div className="start flex column">
