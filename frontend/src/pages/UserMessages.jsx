@@ -115,7 +115,7 @@ export function UserMessages() {
                         <option value="host">Hosting</option>
                         <option value="buyer">Traveling</option>
                     </select>
-                    <button onClick={() => handleFilterChange('unread')} className={`unread-btn ${(filter.unread) ? 'selected' : ''}`}>Unread</button>
+                    {/* <button onClick={() => handleFilterChange('unread')} className={`unread-btn ${(filter.unread) ? 'selected' : ''}`}>Unread</button> */}
                 </div>
             </header>
 
