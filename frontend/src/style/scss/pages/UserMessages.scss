@@ -50,7 +50,7 @@
 
         ul {
             padding-inline: 1rem;
-            overflow-y: auto;
+            overflow: auto;
             height: calc(100vh - 14rem);
 
             li {
@@ -158,32 +158,32 @@
 
         ul {
             padding: 1rem 2rem;
-            overflow-y: auto;
+            overflow: auto;
+            overflow-x: hidden;
             height: calc(100vh - 9rem);
 
             li {
                 padding-block: 1rem;
                 max-width: 100%;
-
+                
                 div {
                     color: $gray1;
                     font-size: 0.75rem;
                     margin: 0 0 0.5rem 1rem;
                     width: fit-content;
-
+                    
                     span {
                         font-family: circular-medium;
                     }
                 }
-
-                overflow-x: hidden;
-
+                
                 pre {
+                    font-family: circular-reg;
+                    width: 100%;
+                    max-width: calc((100vw - 6rem));
                     padding: 1rem;
                     white-space: pre-wrap;
                     word-wrap: break-word;
-                    width: 100%;
-                    max-width: calc((100vw - 6rem));
                 }
 
                 &.other {
@@ -204,12 +204,16 @@
 
                     &>div {
                         align-self: end;
+
+                        span {
+                            display: none;
+                        }
                     }
 
                     pre {
                         color: white;
+                        background-color: #3f3f3f;
                         border-radius: $border-radius-4 $border-radius-4 0 $border-radius-4;
-                        background-color: $darkGray;
                     }
                 }
             }
