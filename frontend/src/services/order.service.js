@@ -13,6 +13,7 @@ export const orderService = {
     getById,
     getHostOrdersById,
     getUserOrdersById,
+    getUserOrHostOrdersById,
     filterUserOrders,
     save,
     remove,
@@ -60,6 +61,16 @@ async function getUserOrdersById(userId) {
     try {
         let orders = await query()
         orders = orders.filter(order => order.buyer._id === userId)
+        return orders
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+async function getUserOrHostOrdersById(userId) {
+    try {
+        let orders = await query()
+        orders = orders.filter(order => (order.buyer._id === userId) || (order.hostId === userId))
         return orders
     } catch (err) {
         console.log(err)
