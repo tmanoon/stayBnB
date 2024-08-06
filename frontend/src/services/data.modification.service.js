@@ -255,3 +255,37 @@ function limitSummaryLength() {
 export function getAmenities(){
     return amenities
 }
+
+export async function updateHostsAndHostLngs() {
+    try {
+        const stays = await stayService.getAllStays()
+        const users = await userService.getAllUsers()
+        const lngs = [...filterLists.hostLngsHidden, ...filterLists.hostLngsShown]
+
+        for (let stay of stays) {
+            const stayToUpdate = { ...stay }
+            stayToUpdate.hostLngs = ['english']
+            if(Math.random() > 0.5) stayToUpdate.hostLngs.push('hebrew')
+            const randIdx = utilService.getRandomIntInclusive(0, users.length - 1)
+            stayToUpdate.host = {
+                id: users[randIdx]._id,
+                fullname: users[randIdx].fullname,
+                location: users[randIdx].location,
+                about: users[randIdx].about,
+                responseTime: utilService.getRandomIntInclusive(1, 24),
+                imgUrl: users[randIdx].imgUrl,
+            }
+
+            while(stayToUpdate.hostLngs.length <= 5) {
+                const randIdx = utilService.getRandomIntInclusive(0, lngs.length - 1)
+                if(!stayToUpdate.hostLngs.includes(lngs[randIdx])) stayToUpdate.hostLngs.push(lngs[randIdx])
+            }
+
+            await saveStay(stayToUpdate)
+        }
+        console.log('finished')
+    } catch (err) {
+        console.log('err', err)
+        throw err
+    }
+}
