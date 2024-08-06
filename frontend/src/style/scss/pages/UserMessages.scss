@@ -345,8 +345,10 @@
     .reservation-details-not-modal {
         display: none;
     }
+}
 
-    .chat-list {
+@media(width <= 742px) {
+    .hidden {
         display: none;
     }
 }
