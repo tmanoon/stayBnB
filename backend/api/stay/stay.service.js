@@ -16,7 +16,7 @@ async function query(filterBy) {
             }
         }
 
-        if (filterBy.guestCount.adults > 1 || filterBy.guestCount.children) {
+        if (+filterBy.guestCount.adults > 1 || +filterBy.guestCount.children) {
             const filterCapacity = parseInt(filterBy.guestCount.adults || 0) + parseInt(filterBy.guestCount.children || 0)
             criteria.capacity = { $gte: filterCapacity }
         }
@@ -56,7 +56,7 @@ async function query(filterBy) {
             if (filterBy.bookingOpts.instant === 'true') criteria.$and.push({ "bookingOpts.instant": true })
             if (filterBy.bookingOpts.selfCheckIn === 'true') criteria.$and.push({ "bookingOpts.selfCheckIn": true })
             if (filterBy.bookingOpts.allowsPets === 'true') criteria.$and.push({ "bookingOpts.allowsPets": true })
-                console.log(criteria)
+            console.log(criteria)
         }
 
         if (filterBy.bbb.bedrooms !== 'any' || filterBy.bbb.beds !== 'any' || filterBy.bbb.bathrooms !== 'any') {
@@ -65,13 +65,9 @@ async function query(filterBy) {
             if (filterBy.bbb.bathrooms !== 'any') criteria['bbb.bathrooms'] = { $gte: +(filterBy.bbb.bathrooms.replace('+', '')) }
         }
 
-        if (filterBy.placeType === "entire home") criteria.placeType = "An entire home"
-        else if (filterBy.placeType === "room") criteria.placeType = "Room"
+        if (filterBy.placeType !== 'any') criteria.placeType = filterBy.placeType === 'house' ? 'house' : 'room'
 
-        if (filterBy.propType && filterBy.propType.length > 0) {
-            const capitalizedTypes = filterBy.propType.map(type => type.charAt(0).toUpperCase() + type.slice(1));
-            criteria.propertyType = { $in: capitalizedTypes }
-        }
+        if (filterBy.propType && filterBy.propType.length) criteria.propertyType = { $in: filterBy.propType }
 
         logger.info(criteria)
 
