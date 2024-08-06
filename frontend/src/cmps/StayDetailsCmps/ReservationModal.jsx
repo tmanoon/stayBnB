@@ -1,10 +1,8 @@
 
 import { useState, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { utilService } from '../../services/util.service'
 import { getDate, getMonth, getYear } from 'date-fns'
-import { HeaderGuestFilter } from '../HeaderCmps/HeaderGuestFilter'
 import { store } from '../../store/store'
 import { GuestCountModal } from '../Modals/GuestCountModal'
 import { stayService } from '../../services/stay.local.service'
@@ -18,7 +16,6 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
     const [numOfDays, setNumOfDays] = useState(0)
     const [fee, setFee] = useState(0)
     const [isLoginModal, setIsLoginModal] = useState(false)
-    const [currArrow, setCurrArrow] = useState('down')
     const [modalType, setModal] = useState(null)
     const [isBtnScrolled, setIsBtnScrolled] = useState(false)
     const [btnObserver, setBtnObserver] = useState(null)
@@ -33,15 +30,15 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (modal.current && !modal.current.contains(event.target)) { setModal('') }
+            if (modal.current && !modal.current.contains(event.target)) setModal('')
         }
         document.addEventListener('click', handleClickOutside)
-        return () => { document.removeEventListener('click', handleClickOutside) }
+        return () => document.removeEventListener('click', handleClickOutside) 
     }, [modal])
 
     useEffect(() => {
         if (btnObserver) btnObserver.observe(btn.current)
-        return () => { btnObserver?.disconnect() }
+        return () => btnObserver?.disconnect() 
     }, [btnObserver])
 
     function loadBtnScrolledObserver() {
@@ -50,8 +47,8 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
             observationCount++
             if (observationCount > 2) {
                 const isGalleryVisible = store.getState().stayModule.isGalleryVisible
-                if (!entries[0].isIntersecting && !isGalleryVisible) { setIsBtnScrolled(true) }
-                else { setIsBtnScrolled(false) }
+                if (!entries[0].isIntersecting && !isGalleryVisible) setIsBtnScrolled(true)
+                else setIsBtnScrolled(false)
             }
         })
         setBtnObserver(observer)
@@ -70,7 +67,7 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
         <div className="reserve-modal" ref={modal}>
             <div className='container-price-selectors'>
                 <div className="price-logo flex align-center">
-                    <h2>${stay.price.toLocaleString()} &nbsp;</h2><span>night</span>
+                    <h2>${Math.ceil(stay.price)} &nbsp;</h2><span>night</span>
                 </div>
             
                 <div className='selectors-container flex column'>
@@ -112,8 +109,8 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
             </div>
 
             <div className='price-calc flex space-between'>
-                <span>${stay.price.toLocaleString()} X {numOfDays === 1 ? `${numOfDays} night` : `${numOfDays} nights`}</span>
-                <span className='sum'>${(stay.price * numOfDays * (+searchParams.adults + +searchParams.children)).toLocaleString()}</span>
+                <span>${stay.price} X {numOfDays === 1 ? `${numOfDays} night` : `${numOfDays} nights`}</span>
+                <span className='sum'>${Math.ceil(stay.price * numOfDays * (+searchParams.adults + +searchParams.children))}</span>
             </div>
 
             {fee && <div className='fee-calc flex space-between'>
@@ -123,16 +120,15 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
             
             {fee > 0 && <div className='sum-total flex space-between'>
                 <span>Total</span>
-                <span>${(stay.price * numOfDays * (+searchParams.adults + +searchParams.children) + fee).toLocaleString()}</span>
+                <span>${Math.ceil(stay.price * numOfDays * (+searchParams.adults + +searchParams.children) + fee)}</span>
             </div>}
         </div>
 
         <div className='reserve-footer flex align-center space-between'>
             <div className='flex column'>
-                <p><span>${stay.price.toLocaleString()}</span> &nbsp;night</p>
+                <p><span>${stay.price}</span> &nbsp;night</p>
                 <p>{utilService.timestampsToShortDates(+searchParams.entryDate, +searchParams.exitDate)}</p>
             </div>
-
             <button className='flex center' onClick={(event) => validateAndMoveToPayment(event)}><span >Reserve</span></button>
         </div>
         {isLoginModal && <LoginSignup setIsLoginModal={setIsLoginModal} />}
