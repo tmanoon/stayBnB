@@ -9,12 +9,7 @@ async function query(filterBy) {
     try {
         const criteria = {}
 
-        if (filterBy.priceRange.min && filterBy.priceRange.max < Infinity) {
-            criteria.price = {
-                $gte: +filterBy.priceRange.min,
-                $lte: +filterBy.priceRange.max
-            }
-        }
+        if (filterBy.priceRange.min && filterBy.priceRange.max < Infinity) criteria.price = { $gte: +filterBy.priceRange.min, $lte: +filterBy.priceRange.max }
 
         if (+filterBy.guestCount.adults > 1 || +filterBy.guestCount.children) {
             const filterCapacity = parseInt(filterBy.guestCount.adults || 0) + parseInt(filterBy.guestCount.children || 0)
@@ -56,7 +51,6 @@ async function query(filterBy) {
             if (filterBy.bookingOpts.instant === 'true') criteria.$and.push({ "bookingOpts.instant": true })
             if (filterBy.bookingOpts.selfCheckIn === 'true') criteria.$and.push({ "bookingOpts.selfCheckIn": true })
             if (filterBy.bookingOpts.allowsPets === 'true') criteria.$and.push({ "bookingOpts.allowsPets": true })
-            console.log(criteria)
         }
 
         if (filterBy.bbb.bedrooms !== 'any' || filterBy.bbb.beds !== 'any' || filterBy.bbb.bathrooms !== 'any') {
@@ -68,6 +62,8 @@ async function query(filterBy) {
         if (filterBy.placeType !== 'any') criteria.placeType = filterBy.placeType === 'house' ? 'house' : 'room'
 
         if (filterBy.propType && filterBy.propType.length) criteria.propertyType = { $in: filterBy.propType }
+
+        if (filterBy.hostLngs && filterBy.hostLngs.length) criteria.hostLngs = { $all: filterBy.hostLngs }
 
         logger.info(criteria)
 
