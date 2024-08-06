@@ -139,7 +139,7 @@ async function getOrder(stay, loggedInUser, params) {
                     city : stay.loc.city,
                     country:stay.loc.country
                 },
-                imgUrl: stay.imgUrls[0],
+                imgUrls: stay.imgUrls,
                 sumOfBedrooms: stay.bbb.numOfBedrooms,
             },
         }
