@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { utilService } from '../../services/util.service'
 
 export function OrderConfirmation({ stay, order }) {
     const [isShownModal, setIsShownModal] = useState(true)
-    const sumToPay = Math.round(utilService.calcSumToPay({
+    const sumToPay = Math.ceil(utilService.calcSumToPay({
         entryDate: +order.entryDate,
         exitDate: +order.exitDate,
         adults: order.guests.adults,
@@ -88,23 +88,23 @@ export function OrderConfirmation({ stay, order }) {
                     <div className='price flex column'>
                         <div className='flex space-between'>
                             <p>Price:</p>
-                            <p className='flex align-center'>$ {stay.price.toLocaleString()} X {utilService.calcSumOfDays({entryDate: order.entryDate, exitDate: order.exitDate})} nights
-                                <span>$ {(Math.round(sumToPay)).toLocaleString()}</span></p>
+                            <p className='flex align-center'>$ {stay.price} X {utilService.calcSumOfDays({entryDate: order.entryDate, exitDate: order.exitDate})} nights
+                                <span>$ {(Math.ceil(sumToPay))}</span></p>
                         </div>
                         <div className='flex space-between'>
                             <p>Service fee:</p>
-                            <p>$ {(Math.round(sumToPay * 0.14125)).toLocaleString()}</p>
+                            <p>$ {(Math.ceil(sumToPay * 0.14125))}</p>
                         </div>
                         <div className='flex space-between'>
                             <h4>Total:</h4>
-                            <p><span>$ {(Math.round(sumToPay) + Math.round(sumToPay * 0.14125)).toLocaleString()}</span></p>
+                            <p><span>$ {(Math.ceil(sumToPay) + Math.ceil(sumToPay * 0.14125))}</span></p>
                         </div>
                     </div>
                 </div>
 
                 <footer className='flex align-center space-evenly'>
                     <button className="close-btn flex center" onClick={onCloseModal}>Close</button>
-                    <button className="msg-btn flex center" onClick={onNavigate}>Message host</button>
+                    <button className="msg-btn flex center" onClick={() => onNavigate()}>Message host</button>
                 </footer>
             </section>
 
