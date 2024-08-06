@@ -161,7 +161,7 @@ export function StayDetails() {
                     </article>
 
                     <article className="host-info flex">
-                        <img src={stay.host.hostImg} className="host-img" />
+                        <img src={stay.host.imgUrl} className="host-img" />
                         <div className="flex column">
                             <h3>Hosted by {_findHostName()}</h3>
                             <p>{stay.host.about}</p>
