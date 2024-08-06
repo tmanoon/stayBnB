@@ -14,9 +14,10 @@ export const chatService = {
 
 async function query(userId) {
     try {
-        const chats = await dbService.getCollection('chat').find({ $or: [
-            {"host._id": new ObjectId(userId)},
-            {"buyer._id": new ObjectId(userId)}
+        const collection = await dbService.getCollection('chat')
+        const chats = await collection.find({ $or: [
+            {"host._id": userId},
+            {"buyer._id": userId}
          ]}).toArray()
         return chats
     } catch (err) {
