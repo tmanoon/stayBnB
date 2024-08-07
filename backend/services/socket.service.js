@@ -28,18 +28,11 @@ export function setupSocketAPI(server) {
 
         socket.on('chat-send-msg', msg => {
             logger.info(`New chat msg from socket [id: ${socket.id}], emitting to topic ${socket.myTopic}`)
-            // emits to all sockets:
-            // gIo.emit('chat addMsg', msg)
-            // emits only to sockets in the same room except the sender!
             socket.broadcast.to(socket.myTopic).emit('chat-add-msg', msg)
         })
 
         socket.on('order-update', async data => {
             logger.info(`New update about order: ${data._id}, connected socket: ${socket.id}`)
-            console.log(data)
-            // emits to all sockets:
-            // gIo.emit('chat addMsg', msg)
-            // emits only to sockets in the same room except the sender!// 
             gIo.emit('order-update', data)
             await emitToUser({type: 'prompt-notification', data: `A new update about order ${data._id.slice(-4, data._id.length - 1)}`, userId: data.buyer._id })
         })
@@ -62,7 +55,6 @@ export function setupSocketAPI(server) {
         socket.on('add-order' , async orderToAdd => {
             logger.info(`Adding order for user id: ${orderToAdd.buyer._id}`)
             emitTo({ type: 'add-order', data: orderToAdd })
-            // gIo.emit('prompt-notification', [`You got a new order by ${orderToAdd.buyer.fullname}`, orderToAdd.hostId])
             await emitToUser({ type: 'prompt-notification', data: `You got a new order by ${orderToAdd.buyer.fullname}`, userId: orderToAdd.hostId })
         })
 
@@ -89,7 +81,6 @@ async function emitToUser({ type, data, userId }) {
         socket.emit(type, data)
     } else {
         logger.info(`No active socket for user: ${userId}`)
-        // _printSockets()
     }
 }
 
