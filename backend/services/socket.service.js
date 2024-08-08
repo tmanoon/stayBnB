@@ -16,8 +16,9 @@ export function setupSocketAPI(server) {
             logger.info(`Socket disconnected [id: ${socket.id}]`)
         })
 
-        socket.on('chat-send-msg', msg => {
-            logger.info(`New chat msg from socket [id: ${socket.id}], emitting to topic ${socket.myTopic}`)
+        socket.on('chat-send-msg', chat => {
+            logger.info(`New chat msg from socket [id: ${socket.id}]`)
+            const userId = chat.msgs[chat.msgs.length -1].by === chat.host._id ? chat.buyer._id : chat.host._id
             socket.broadcast.to(socket.myTopic).emit('chat-add-msg', msg)
         })
 
@@ -73,8 +74,6 @@ async function emitToUser({ type, data, userId }) {
     }
 }
 
-// If possible, send to all sockets BUT not the current socket 
-// Optionally, broadcast to a room / to all
 async function broadcast({ type, data, room = null, userId }) {
     userId = userId.toString()
 
