@@ -16,15 +16,16 @@ export function setupSocketAPI(server) {
             logger.info(`Socket disconnected [id: ${socket.id}]`)
         })
 
-        socket.on('chat-send-msg', chat => {
+        socket.on('chat-send-msg', async chat => {
             logger.info(`New chat msg from socket [id: ${socket.id}]`)
             const userId = chat.msgs[chat.msgs.length -1].by === chat.host._id ? chat.buyer._id : chat.host._id
+            await emitToUser({ type: 'chat-add-msg', data: chat.msgs[chat.msgs.length - 1], userId})
         })
 
         socket.on('order-update', async data => {
             logger.info(`New update about order: ${data._id}, connected socket: ${socket.id}`)
             gIo.emit('order-update', data)
-            await emitToUser({type: 'prompt-notification', data: `A new update about order ${data._id.slice(-4, data._id.length - 1)}`, userId: data.buyer._id })
+            await emitToUser({ type: 'prompt-notification', data: `A new update about order ${data._id.slice(-4, data._id.length - 1)}`, userId: data.buyer._id })
         })
 
         socket.on('set-user-socket', userId => {
@@ -37,7 +38,7 @@ export function setupSocketAPI(server) {
             delete socket.userId
         })
 
-        socket.on('add-order' , async orderToAdd => {
+        socket.on('add-order', async orderToAdd => {
             logger.info(`Adding order for user id: ${orderToAdd.buyer._id}`)
             emitTo({ type: 'add-order', data: orderToAdd })
             await emitToUser({ type: 'prompt-notification', data: `You got a new order by ${orderToAdd.buyer.fullname}`, userId: orderToAdd.hostId })
