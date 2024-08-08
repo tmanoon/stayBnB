@@ -19,7 +19,7 @@ export function setupSocketAPI(server) {
         socket.on('chat-send-msg', async chat => {
             logger.info(`New chat msg from socket [id: ${socket.id}]`)
             const userId = chat.msgs[chat.msgs.length -1].by === chat.host._id ? chat.buyer._id : chat.host._id
-            await emitToUser({ type: 'chat-add-msg', data: chat.msgs[chat.msgs.length - 1], userId})
+            await emitToUser({ type: 'chat-add-msg', data: chat, userId})
         })
 
         socket.on('order-update', async data => {
