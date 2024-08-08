@@ -16,7 +16,6 @@ export function UserMessages() {
     const [currChat, setCurrChat] = useState(null)
     const [currOrder, setCurrOrder] = useState(null)
     const [filter, setFilter] = useState({ type: 'all', unread: false })
-
     const [newTxt, setNewTxt] = useState('')
     const [chosenContent, setChosenContent] = useState('chat')
 
@@ -105,110 +104,112 @@ export function UserMessages() {
     }
 
     if (!orders || !orders.length) return <Loading />
-    return <section className="user-messages grid">
-        <section className={`chat-list ${chosenContent === 'list' ? '' : 'hidden'}`}>
-            <header>
-                <h1>Messages</h1>
-                <div className="action-btns flex">
-                    <select className="filter" name="type" onChange={handleFilterChange}>
-                        <option value="all">All</option>
-                        <option value="host">Hosting</option>
-                        <option value="buyer">Traveling</option>
-                    </select>
-                    {/* <button onClick={() => handleFilterChange('unread')} className={`unread-btn ${(filter.unread) ? 'selected' : ''}`}>Unread</button> */}
-                </div>
-            </header>
+    return (
+        <section className="user-messages grid">
+            <section className={`chat-list ${chosenContent === 'list' ? '' : 'hidden'}`}>
+                <header>
+                    <h1>Messages</h1>
+                    <div className="action-btns flex">
+                        <select className="filter" name="type" onChange={handleFilterChange}>
+                            <option value="all">All</option>
+                            <option value="host">Hosting</option>
+                            <option value="buyer">Traveling</option>
+                        </select>
+                        {/* <button onClick={() => handleFilterChange('unread')} className={`unread-btn ${(filter.unread) ? 'selected' : ''}`}>Unread</button> */}
+                    </div>
+                </header>
 
-            {chats && chats.length && currChat && orders &&
-                <ul>{chats.map(chat =>
-                    <li key={chat._id} onClick={() => handleMsgChange(chat)} className={`flex ${(chat._id === currChat._id) ? 'selected' : ''}`}>
-                        <img src={`${orderDetails(chat).stay.imgUrls[0]}`} />
-                        <div className="msg-info flex column">
-                            <div className="flex space-between align-center">
-                                <h5 className="name">{chatService.getUserPosition(user._id, chat) === 'host' ? chat.buyer.fullname.split(' ')[0] : chat.host.fullname.split(' ')[0]}</h5>
-                                <p className="date">{utilService.timestampToFullSlashedDate(chat.createdAt)}</p>
+                {chats && chats.length && currChat && orders &&
+                    <ul>{chats.map(chat =>
+                        <li key={chat._id} onClick={() => handleMsgChange(chat)} className={`flex ${(chat._id === currChat._id) ? 'selected' : ''}`}>
+                            <img src={`${orderDetails(chat).stay.imgUrls[0]}`} />
+                            <div className="msg-info flex column">
+                                <div className="flex space-between align-center">
+                                    <h5 className="name">{chatService.getUserPosition(user._id, chat) === 'host' ? chat.buyer.fullname.split(' ')[0] : chat.host.fullname.split(' ')[0]}</h5>
+                                    <p className="date">{utilService.timestampToFullSlashedDate(chat.createdAt)}</p>
+                                </div>
+                                <p className="msg-intro">{(chat.msgs && chat.msgs.length) ? chat.msgs[chat.msgs.length - 1].txt.slice(0, 30) : ''}</p>
+                                <p className="stay-info">{utilService.timestampsToShortDates(orderDetails(chat).entryDate, orderDetails(chat).exitDate)} · {orderDetails(chat).stay.location.city}, {orderDetails(chat).stay.location.country}</p>
                             </div>
-                            <p className="msg-intro">{(chat.msgs && chat.msgs.length) ? chat.msgs[chat.msgs.length - 1].txt.slice(0, 30) : ''}</p>
-                            <p className="stay-info">{utilService.timestampsToShortDates(orderDetails(chat).entryDate, orderDetails(chat).exitDate)} · {orderDetails(chat).stay.location.city}, {orderDetails(chat).stay.location.country}</p>
-                        </div>
-                    </li>)}
-                </ul>}
-        </section>
-
-        <section className={`read-chat ${chosenContent === 'chat' ? '' : 'hidden'}`}>
-            <header className="flex align-center">
-                <button className="back-list-btn flex center" onClick={goBackToList}></button>
-                {currChat && currOrder && <>
-                    <img src={chatService.getUserPosition(user._id, currChat) === 'host' ? currChat.buyer.imgUrl : currChat.host.imgUrl} />
-                    <h5 className="name">{chatService.getUserPosition(user._id, currChat) === 'host' ? currChat.buyer.fullname.split(' ')[0] : currChat.host.fullname.split(' ')[0]}</h5>
-                </>}
-                {currOrder && <button className="reserve-btn-tablet" onClick={onReserveInfoModal}>Show reservation</button>}
-                {currOrder && <button className="reserve-btn-mobile" onClick={onReserveInfoModal}>Details</button>}
-            </header>
-
-            <ul className="flex column">
-                {currChat && currChat.msgs.length > 0 && <>
-                    {currChat.msgs.map((msg, idx) =>
-                        <li key={idx} className={`flex column ${(user._id === msg.by) ? 'user' : 'other'}`}>
-                            {(currChat.host._id === msg.by) && <div><span>{currChat.host.fullname.split(' ')[0]}</span>  &nbsp; &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).shortDate} &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).time}</div>}
-                            {(currChat.host._id !== msg.by) && <div><span>{currChat.buyer.fullname.split(' ')[0]}</span>  &nbsp; &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).shortDate} &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).time}</div>}
-                            <pre>{msg.txt}</pre>
                         </li>)}
-                </>
-                }
-            </ul>
+                    </ul>}
+            </section>
 
-            <footer>
-                <form onSubmit={onSendMsg}>
-                    <input type="text" placeholder="Type a message" name='msg' value={newTxt} onChange={onMsgInput} />
-                </form>
-            </footer>
-        </section>
+            <section className={`read-chat ${chosenContent === 'chat' ? '' : 'hidden'}`}>
+                <header className="flex align-center">
+                    <button className="back-list-btn flex center" onClick={goBackToList}></button>
+                    {currChat && currOrder && <>
+                        <img src={chatService.getUserPosition(user._id, currChat) === 'host' ? currChat.buyer.imgUrl : currChat.host.imgUrl} />
+                        <h5 className="name">{chatService.getUserPosition(user._id, currChat) === 'host' ? currChat.buyer.fullname.split(' ')[0] : currChat.host.fullname.split(' ')[0]}</h5>
+                    </>}
+                    {currOrder && <button className="reserve-btn-tablet" onClick={onReserveInfoModal}>Show reservation</button>}
+                    {currOrder && <button className="reserve-btn-mobile" onClick={onReserveInfoModal}>Details</button>}
+                </header>
 
-        <section className="reservation-details reservation-details-not-modal">
-            <header>
-                <h1>Reservation</h1>
-            </header>
+                <ul className="flex column">
+                    {currChat && currChat.msgs.length > 0 && <>
+                        {currChat.msgs.map((msg, idx) =>
+                            <li key={idx} className={`flex column ${(user._id === msg.by) ? 'user' : 'other'}`}>
+                                {(currChat.host._id === msg.by) && <div><span>{currChat.host.fullname.split(' ')[0]}</span>  &nbsp; &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).shortDate} &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).time}</div>}
+                                {(currChat.host._id !== msg.by) && <div><span>{currChat.buyer.fullname.split(' ')[0]}</span>  &nbsp; &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).shortDate} &nbsp; {utilService.timestampToDateAndTimeObj(msg.at).time}</div>}
+                                <pre>{msg.txt}</pre>
+                            </li>)}
+                    </>
+                    }
+                </ul>
 
-            {currOrder && <main>
-                <h2 className="title">{currOrder.stay.name}</h2>
-                <div className="img-container">
-                    <ImgCarousel imgUrls={currOrder.stay.imgUrls} />
-                </div>
+                <footer>
+                    <form onSubmit={onSendMsg}>
+                        <input type="text" placeholder="Type a message" name='msg' value={newTxt} onChange={onMsgInput} />
+                    </form>
+                </footer>
+            </section>
 
-                <div className="dates flex space-between">
-                    <div className="start flex column">
-                        <h4>Starts</h4>
-                        <p>{utilService.timestampToDateAndTimeObj(+currOrder.entryDate).date}</p>
-                        <p>{utilService.timestampToDateAndTimeObj(+currOrder.entryDate).time}</p>
+            <section className="reservation-details reservation-details-not-modal">
+                <header>
+                    <h1>Reservation</h1>
+                </header>
+
+                {currOrder && <main>
+                    <h2 className="title">{currOrder.stay.name}</h2>
+                    <div className="img-container">
+                        <ImgCarousel imgUrls={currOrder.stay.imgUrls} />
                     </div>
 
-                    <div className="end flex column">
-                        <h4>Ends</h4>
-                        <p>{utilService.timestampToDateAndTimeObj(+currOrder.exitDate).date}</p>
-                        <p>{utilService.timestampToDateAndTimeObj(+currOrder.exitDate).time}</p>
+                    <div className="dates flex space-between">
+                        <div className="start flex column">
+                            <h4>Starts</h4>
+                            <p>{utilService.timestampToDateAndTimeObj(+currOrder.entryDate).date}</p>
+                            <p>{utilService.timestampToDateAndTimeObj(+currOrder.entryDate).time}</p>
+                        </div>
+
+                        <div className="end flex column">
+                            <h4>Ends</h4>
+                            <p>{utilService.timestampToDateAndTimeObj(+currOrder.exitDate).date}</p>
+                            <p>{utilService.timestampToDateAndTimeObj(+currOrder.exitDate).time}</p>
+                        </div>
                     </div>
-                </div>
 
-                <div className="confirmation">
-                    <h4>Confirmation code</h4>
-                    <p>{currOrder._id.slice(18)}</p>
-                </div>
+                    <div className="confirmation">
+                        <h4>Confirmation code</h4>
+                        <p>{currOrder._id.slice(18)}</p>
+                    </div>
 
-                <div className="directions">
-                    <h3>Getting there</h3>
-                    <h4>Address</h4>
-                    <p>{currOrder.stay.location.address}, {currOrder.stay.location.city}, {currOrder.stay.location.country}</p>
-                </div>
+                    <div className="directions">
+                        <h3>Getting there</h3>
+                        <h4>Address</h4>
+                        <p>{currOrder.stay.location.address}, {currOrder.stay.location.city}, {currOrder.stay.location.country}</p>
+                    </div>
 
-                <div className="payment-info">
-                    <h3>Payment info</h3>
-                    <h4>Total cost</h4>
-                    <p>$ {currOrder.stay.price} USD</p>
-                </div>
-            </main>}
+                    <div className="payment-info">
+                        <h3>Payment info</h3>
+                        <h4>Total cost</h4>
+                        <p>$ {currOrder.stay.price} USD</p>
+                    </div>
+                </main>}
+            </section>
+
+            {isReserveInfoModal && currOrder && <ReservationInfoModal order={currOrder} onReserveInfoModal={onReserveInfoModal} />}
         </section>
-
-        {isReserveInfoModal && currOrder && <ReservationInfoModal order={currOrder} onReserveInfoModal={onReserveInfoModal} />}
-    </section>
+    )
 }
