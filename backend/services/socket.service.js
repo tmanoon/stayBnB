@@ -19,18 +19,12 @@ export function setupSocketAPI(server) {
         socket.on('chat-send-msg', chat => {
             logger.info(`New chat msg from socket [id: ${socket.id}]`)
             const userId = chat.msgs[chat.msgs.length -1].by === chat.host._id ? chat.buyer._id : chat.host._id
-            socket.broadcast.to(socket.myTopic).emit('chat-add-msg', msg)
         })
 
         socket.on('order-update', async data => {
             logger.info(`New update about order: ${data._id}, connected socket: ${socket.id}`)
             gIo.emit('order-update', data)
             await emitToUser({type: 'prompt-notification', data: `A new update about order ${data._id.slice(-4, data._id.length - 1)}`, userId: data.buyer._id })
-        })
-
-        socket.on('user-watch', userId => {
-            logger.info(`user-watch from socket [id: ${socket.id}], on user ${userId}`)
-            socket.join('watching:' + userId)
         })
 
         socket.on('set-user-socket', userId => {
@@ -47,12 +41,6 @@ export function setupSocketAPI(server) {
             logger.info(`Adding order for user id: ${orderToAdd.buyer._id}`)
             emitTo({ type: 'add-order', data: orderToAdd })
             await emitToUser({ type: 'prompt-notification', data: `You got a new order by ${orderToAdd.buyer.fullname}`, userId: orderToAdd.hostId })
-        })
-
-        socket.on('prompt-notification', async data => {
-            logger.info(`emitting notification to ${data[1] || 'self'}`)
-            if(!data[1]) emitTo({ type: 'prompt-notification', data: data[0], label: 'self' + socket.id })
-            else await emitToUser({ type: 'prompt-notification', data: data[0], userId: data[1]})
         })
     })
 }
