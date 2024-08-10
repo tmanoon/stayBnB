@@ -8,7 +8,7 @@ import { utilService } from "../services/util.service"
 import { Loading } from '../cmps/Loading'
 import { ReservationInfoModal } from "../cmps/UserMessageCmps/ReservationInfoModal"
 import { ImgCarousel } from "../cmps/HelperCmps/ImgCarousel"
-import { SOCKET_EMIT_SEND_MSG, SOCKET_EVENT_ADD_MSG, socketService } from "../services/socket.service"
+import { SOCKET_EMIT_SEND_MSG, SOCKET_EVENT_ADD_MSG, SOCKET_SERVICE_SCROLL_CHAT, socketService } from "../services/socket.service"
 
 export function UserMessages() {
     const [user, setUser] = useState(userService.getLoggedInUser())
@@ -24,6 +24,7 @@ export function UserMessages() {
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_ADD_MSG, updateMsgs)
+        socketService.on(SOCKET_SERVICE_SCROLL_CHAT, scrollChat)
         async function getOrders() {
             try {
                 const fetchedOrders = await orderService.getUserOrHostOrdersById(user._id)
@@ -67,8 +68,7 @@ export function UserMessages() {
                 console.log(err)
             }
         }
-
-        chatRef.current?.scrollTo(0, chatRef.current.scrollHeight)
+        scrollChat()
         fetchOrder()
     }, [currChat])
 
@@ -87,6 +87,8 @@ export function UserMessages() {
         })
         setChats(prevChats => (chatsToUpdate))
     }
+
+
 
     const orderDetails = chat => {
         const order = orders.find(order => order._id === chat.orderId)
@@ -128,6 +130,10 @@ export function UserMessages() {
 
     function onReserveInfoModal() {
         setReserveInfoModal(!isReserveInfoModal)
+    }
+
+    function scrollChat() {
+        chatRef.current?.scrollTo(0, chatRef.current.scrollHeight)
     }
 
     if (!orders || !orders.length) return <Loading />
