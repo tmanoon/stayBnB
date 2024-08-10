@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 import { chatService } from "../services/chat.service"
 import { userService } from '../services/user.service'
@@ -8,6 +8,7 @@ import { utilService } from "../services/util.service"
 import { Loading } from '../cmps/Loading'
 import { ReservationInfoModal } from "../cmps/UserMessageCmps/ReservationInfoModal"
 import { ImgCarousel } from "../cmps/HelperCmps/ImgCarousel"
+import { SOCKET_EMIT_SEND_MSG, SOCKET_EVENT_ADD_MSG, socketService } from "../services/socket.service"
 
 export function UserMessages() {
     const [user, setUser] = useState(userService.getLoggedInUser())
@@ -18,32 +19,36 @@ export function UserMessages() {
     const [filter, setFilter] = useState({ type: 'all', unread: false })
     const [newTxt, setNewTxt] = useState('')
     const [chosenContent, setChosenContent] = useState('chat')
-
     const [isReserveInfoModal, setReserveInfoModal] = useState(false)
+    const chatRef = useRef()
 
     useEffect(() => {
+        socketService.on(SOCKET_EVENT_ADD_MSG, updateMsgs)
         async function getOrders() {
             try {
                 const fetchedOrders = await orderService.getUserOrHostOrdersById(user._id)
-                if (fetchedOrders) {
-                    setOrders(fetchedOrders)
-                }
-            } catch (err) { console.log(err) }
+                if (fetchedOrders) setOrders(fetchedOrders)
+            } catch (err) {
+                console.log(err)
+            }
         }
 
         getOrders()
+
+        return () => socketService.off(SOCKET_EVENT_ADD_MSG)
     }, [])
 
     useEffect(() => {
         async function getChats() {
             try {
                 const fetchedChats = await chatService.query(filter)
-
                 if (fetchedChats) {
                     setChats(fetchedChats)
                     setCurrChat(fetchedChats[0])
                 }
-            } catch (err) { console.log(err) }
+            } catch (err) {
+                console.log(err)
+            }
         }
 
         getChats()
@@ -51,20 +56,39 @@ export function UserMessages() {
 
     useEffect(() => {
         async function fetchOrder() {
-            if (currChat) {
-                try {
+            try {
+                if (currChat && !currOrder) {
                     const fetchedOrder = await orderService.getById(currChat.orderId)
                     setCurrOrder(fetchedOrder)
-                } catch (err) { console.log(err) }
-            } else {
-                setCurrOrder(null)
+                } else {
+                    setCurrOrder(null)
+                }
+            } catch (err) {
+                console.log(err)
             }
         }
 
+        chatRef.current?.scrollTo(0, chatRef.current.scrollHeight)
         fetchOrder()
     }, [currChat])
 
-    const orderDetails = (chat) => {
+    useEffect(() => {
+        if (currChat) {
+            const chatToUpdate = chats.find(chat => chat._id === currChat._id)
+            setCurrChat(chatToUpdate)
+        }
+    }, [chats])
+
+    const updateMsgs = async updatedChat => {
+        const chats = await await chatService.query(filter)
+        const chatsToUpdate = chats.map(chat => {
+            if (chat._id === updatedChat._id) return updatedChat
+            return chat
+        })
+        setChats(prevChats => (chatsToUpdate))
+    }
+
+    const orderDetails = chat => {
         const order = orders.find(order => order._id === chat.orderId)
         return order
     }
@@ -93,10 +117,13 @@ export function UserMessages() {
         const newMsg = chatService.getEmptyMsg()
         newMsg.txt = newTxt
         currChat.msgs.push(newMsg)
+        socketService.emit(SOCKET_EMIT_SEND_MSG, currChat)
         setNewTxt('')
         try {
             await chatService.update(currChat)
-        } catch (err) { console.log(err) }
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     function onReserveInfoModal() {
@@ -146,7 +173,7 @@ export function UserMessages() {
                     {currOrder && <button className="reserve-btn-mobile" onClick={onReserveInfoModal}>Details</button>}
                 </header>
 
-                <ul className="flex column">
+                <ul className="flex column" ref={chatRef}>
                     {currChat && currChat.msgs.length > 0 && <>
                         {currChat.msgs.map((msg, idx) =>
                             <li key={idx} className={`flex column ${(user._id === msg.by) ? 'user' : 'other'}`}>
