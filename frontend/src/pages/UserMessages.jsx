@@ -76,6 +76,7 @@ export function UserMessages() {
         if (currChat) {
             const chatToUpdate = chats.find(chat => chat._id === currChat._id)
             setCurrChat(chatToUpdate)
+            scrollChat()
         }
     }, [chats])
 
@@ -87,8 +88,6 @@ export function UserMessages() {
         })
         setChats(prevChats => (chatsToUpdate))
     }
-
-
 
     const orderDetails = chat => {
         const order = orders.find(order => order._id === chat.orderId)
