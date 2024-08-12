@@ -95,61 +95,63 @@ export function UserDashboard() {
         setOnModal(true)
     }
 
-    return <>
-        {(!userStays && !userOrders) && <Loading currentPage={"dashBoard"} />}
-        <section className="dashboard">
-            {userStays && (
-                <div className="user-stays">
-                    <h2>My properties</h2>
-                    <div className="user-stays-container grid">
-                        {userStays.map(stay => (
-                            <article key={stay._id} className="user-stay-card flex column" onClick={(ev) => navToDetails(ev, stay._id)}>
-                                <img src={stay.imgUrls[0]} />
-                                <h2>{stay.name}</h2>
-                                <p><span>Capacity:</span> {stay.capacity}</p>
-                                <p><span>Price:</span> ${stay.price}</p>
-                                <button onClick={(ev) => navToEditStay(ev, stay._id)}>Edit</button>
-                            </article>
-                        ))}
+    return (
+        <>
+            {(!userStays && !userOrders) && <Loading currentPage={"dashBoard"} />}
+            <section className="dashboard">
+                {userStays && (
+                    <div className="user-stays">
+                        <h2>My properties</h2>
+                        <div className="user-stays-container grid">
+                            {userStays.map(stay => (
+                                <article key={stay._id} className="user-stay-card flex column" onClick={(ev) => navToDetails(ev, stay._id)}>
+                                    <img src={stay.imgUrls[0]} />
+                                    <h2>{stay.name}</h2>
+                                    <p><span>Capacity:</span> {stay.capacity}</p>
+                                    <p><span>Price:</span> ${stay.price}</p>
+                                    <button onClick={(ev) => navToEditStay(ev, stay._id)}>Edit</button>
+                                </article>
+                            ))}
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {userOrders && <div className="user-orders flex column">
-                <h2>My orders</h2>
-                <ul className="user-orders-container flex column">
-                    <li className="grid">
-                        <h3 onClick={() => onSortBy('name')} className={`title ${sortBy === 'name' ? 'selected' : ''}`}>Property name</h3>
-                        <h3 onClick={() => onSortBy('date')} className={sortBy === 'date' ? 'selected' : ''}>Dates</h3>
-                        <h3 className="also-tablet num">Order number</h3>
-                        <h3 className="only-desktop">Guest</h3>
-                        <h3 className="also-tablet num">Guests</h3>
-                        <h3 className="only-desktop num">Price</h3>
-                        <h3 className="actions">Actions</h3>
-                    </li>
+                {userOrders && <div className="user-orders flex column">
+                    <h2>My orders</h2>
+                    <ul className="user-orders-container flex column">
+                        <li className="grid">
+                            <h3 onClick={() => onSortBy('name')} className={`title ${sortBy === 'name' ? 'selected' : ''}`}>Property name</h3>
+                            <h3 onClick={() => onSortBy('date')} className={sortBy === 'date' ? 'selected' : ''}>Dates</h3>
+                            <h3 className="also-tablet num">Order number</h3>
+                            <h3 className="only-desktop">Guest</h3>
+                            <h3 className="also-tablet num">Guests</h3>
+                            <h3 className="only-desktop num">Price</h3>
+                            <h3 className="actions">Actions</h3>
+                        </li>
 
-                    {userOrders && userOrders.map(order => {
-                        const datesAndGuests = { entryDate: order.entryDate, exitDate: order.exitDate, adults: order.guests?.adults, children: order.guests?.children }
-                        const isAnswered = (order.status !== 'pending') ? true : false
+                        {userOrders && userOrders.map(order => {
+                            const datesAndGuests = { entryDate: order.entryDate, exitDate: order.exitDate, adults: order.guests?.adults, children: order.guests?.children }
+                            const isAnswered = (order.status !== 'pending') ? true : false
 
-                        return (
-                            <li key={order._id} className="user-order grid" onClick={() => onChooseOrder(order)}>
-                                <p className="title">{order.stay.name}</p>
-                                <p>{utilService.timestampsToShortDates(order.entryDate, order.exitDate)}</p>
-                                <p className="also-tablet num">{order._id.slice(18)}</p>
-                                <p className="only-desktop">{order.buyer.fullname}</p>
-                                <p className="also-tablet num">{utilService.calcGuestCount(order)}</p>
-                                <p className="only-desktop num">$ {Math.ceil((utilService.calcSumToPay(datesAndGuests, order.stay)) + Math.ceil((utilService.calcSumToPay(datesAndGuests, order.stay) * 0.14125)))}</p>
-                                <div className={`flex space-evenly ${isAnswered ? 'answered' : ''}`}>
-                                    <button onClick={(ev) => onChangeOrderStatus('approved', order, ev)} className={`approve-btn ${(order.status === 'approved') ? 'approved' : ''}`}>Approve</button>
-                                    <button onClick={(ev) => onChangeOrderStatus('rejected', order, ev)} className={`reject-btn ${(order.status === 'rejected') ? 'rejected' : ''}`}>Reject</button>
-                                </div>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </div>}
-        </section>
-        {/* {onModal && chosenOrder && <TripModal trip={chosenOrder} setOnModal={setOnModal} />} */}
-    </>
+                            return (
+                                <li key={order._id} className="user-order grid" onClick={() => onChooseOrder(order)}>
+                                    <p className="title">{order.stay.name}</p>
+                                    <p>{utilService.timestampsToShortDates(order.entryDate, order.exitDate)}</p>
+                                    <p className="also-tablet num">{order._id.slice(18)}</p>
+                                    <p className="only-desktop">{order.buyer.fullname}</p>
+                                    <p className="also-tablet num">{utilService.calcGuestCount(order)}</p>
+                                    <p className="only-desktop num">$ {Math.ceil((utilService.calcSumToPay(datesAndGuests, order.stay)) + Math.ceil((utilService.calcSumToPay(datesAndGuests, order.stay) * 0.14125)))}</p>
+                                    <div className={`flex space-evenly ${isAnswered ? 'answered' : ''}`}>
+                                        <button onClick={(ev) => onChangeOrderStatus('approved', order, ev)} className={`approve-btn ${(order.status === 'approved') ? 'approved' : ''}`}>Approve</button>
+                                        <button onClick={(ev) => onChangeOrderStatus('rejected', order, ev)} className={`reject-btn ${(order.status === 'rejected') ? 'rejected' : ''}`}>Reject</button>
+                                    </div>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </div>}
+            </section>
+            {/* {onModal && chosenOrder && <TripModal trip={chosenOrder} setOnModal={setOnModal} />} */}
+        </>
+    )
 }

@@ -33,7 +33,7 @@ export function StayEdit() {
     async function onSaveStay() {
         try {
             const host = await userService.getLoggedInUser()
-            const updatedStay = { ...stay, host: { ...stay.host, username: host.username, fullname: host.fullname, imgUrl: host.imgUrl, responseTime: utilService.getRandomIntInclusive(0,24) } }
+            const updatedStay = { ...stay, host: { ...stay.host, username: host.username, fullname: host.fullname, imgUrl: host.imgUrl, responseTime: utilService.getRandomIntInclusive(0, 24) } }
             const stayToSave = await saveStay(updatedStay)
             navigate(`/${stayToSave._id}`)
         } catch (err) {
@@ -43,14 +43,13 @@ export function StayEdit() {
 
     const CurrentStageComponent = StageComponents[editStage]
 
-    return <section className="stay-edit">
-
-        <StayEditHeader />
-
-        <main>
-            {CurrentStageComponent && <CurrentStageComponent stay={stay} editStay={editStay} />}
-        </main>
-
-        <ProgressFooter onSaveStay={onSaveStay} stay={stay} editStage={editStage} setEditStage={setEditStage} />
-    </section>
+    return (
+        <section className="stay-edit">
+            <StayEditHeader />
+            <main>
+                {CurrentStageComponent && <CurrentStageComponent stay={stay} editStay={editStay} />}
+            </main>
+            <ProgressFooter onSaveStay={onSaveStay} stay={stay} editStage={editStage} setEditStage={setEditStage} />
+        </section>
+    )
 }

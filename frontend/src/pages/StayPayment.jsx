@@ -73,10 +73,7 @@ export function StayPayment() {
         navigate(`/${stay._id}?${utilService.getFormattedParams(searchParams)}`)
     }
 
-    if (!stay) {
-        return <Loading currentPage={"payment"} />
-    }
-
+    if (!stay) return <Loading currentPage={"payment"} />
     return (
         <section className="stay-payment grid">
             <section className="payment-details">
