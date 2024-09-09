@@ -72,8 +72,7 @@ function getEmptyCredentials() {
         location: '',
         about: '',
         gender: '',
-        wishlist: [],
-        
+        wishlist: []
     }
 }
 
