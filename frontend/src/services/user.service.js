@@ -21,11 +21,8 @@ export const userService = {
 async function login({ username, password }) {
     try {
         const user = await httpService.post(BASE_URL + 'login', { username, password })
-        if (user) {
-            return _setLoggedInUser(user)
-        } else {
-            return Promise.reject('Invalid login')
-        }
+        if (user) return _setLoggedInUser(user)
+        else return Promise.reject('Invalid login')
     } catch (error) {
         console.error('Error occurred during login:', error)
         throw error
@@ -34,7 +31,7 @@ async function login({ username, password }) {
 
 async function signup({ username, password, fullname, imgUrl, location, about, gender, isAdmin = false }) {
     try {
-        const user = { username, password, fullname, imgUrl,location, about, gender, isAdmin }
+        const user = { username, password, fullname, imgUrl, location, about, gender, isAdmin }
         const userToSave = await httpService.post(BASE_URL + 'signup', user)
         _setLoggedInUser(userToSave)
         return userToSave
