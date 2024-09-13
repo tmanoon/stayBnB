@@ -56,9 +56,9 @@ If you want to run the project locally, follow these steps:
 For questions or feedback, please reach out to:
 
 ### Shoval Sabag
-[GitHub] (https://github.com/tmanoon)
-[LinkedIn] (https://www.linkedin.com/in/shoval-sabag-2b2305308)
+[GitHub](https://github.com/tmanoon)
+[LinkedIn](https://www.linkedin.com/in/shoval-sabag-2b2305308)
 
 ### Jenny Lottner
-[GitHub] (https://github.com/JennyLottner)
-[LinkedIn] (www.linkedin.com/in/jenny-lottner-tover-7b1357261)
+[GitHub](https://github.com/JennyLottner)
+[LinkedIn](www.linkedin.com/in/jenny-lottner-tover-7b1357261)
