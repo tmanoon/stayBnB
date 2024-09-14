@@ -8,7 +8,7 @@ export function PaymentModal({ stay, searchParams }) {
             <img src={stay.imgUrls[0]} />
             <div className="text-details flex column">
                 <h2>{stay.summary}</h2>
-                <p>{stay.propertyType}</p>
+                <p className="property-type">{stay.propertyType}</p>
                 <p>★ {utilService.calcRate(stay).toFixed(2)} ({stay.reviews.length} reviews)</p>
             </div>
         </div>
