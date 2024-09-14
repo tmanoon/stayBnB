@@ -1,7 +1,6 @@
 .payment-modal {
     display: none;
     position: sticky;
-
     color: $darkGray;
     top: rem(100px);
     height: 28rem;
@@ -63,15 +62,16 @@
             }
 
             .total {
+                padding-block-start: rem(24px);
+
                 p {
                     font-family: circular-medium;
+
                     span {
                         font-family: circular-medium;
                         text-decoration: underline;
                     }
                 }
-
-                padding-block-start: rem(24px);
             }
         }
     }
