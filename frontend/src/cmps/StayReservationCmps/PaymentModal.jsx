@@ -1,13 +1,17 @@
-import { useSelector } from "react-redux"
 import { utilService } from "../../services/util.service"
 
 export function PaymentModal({ stay, searchParams }) {
+
+    function getTitle(title) {
+        if(title.length > 141) return title.slice(0, 141) + '...'
+        return title
+    }
 
     return <div className="payment-modal flex column">
         <div className="stay-details flex">
             <img src={stay.imgUrls[0]} />
             <div className="text-details flex column">
-                <h2>{stay.summary}</h2>
+                <h2>{getTitle(stay.summary)}</h2>
                 <p className="property-type">{stay.propertyType}</p>
                 <p>★ {utilService.calcRate(stay).toFixed(2)} ({stay.reviews.length} reviews)</p>
             </div>
