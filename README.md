@@ -26,7 +26,9 @@ StayBnB is a replica of the popular vacation rental marketplace, Airbnb. This pr
 - **Hosting**: Render
 
 ## Installation
+This project is hosted on Render and can be accessed [here](https://staybnb-1.onrender.com)
 
+If you want to run the project locally, follow these steps:
 ### Prerequisites
 - Node.js and npm installed
 - MongoDB installed and running
@@ -53,8 +55,10 @@ StayBnB is a replica of the popular vacation rental marketplace, Airbnb. This pr
 ## Contact
 For questions or feedback, please reach out to:
 
-### Shoval Sabag
-GitHub: tmanoon
+**Shoval Sabag**
+[GitHub](https://github.com/tmanoon)
+[LinkedIn](https://www.linkedin.com/in/shoval-sabag-2b2305308)
 
-### Jenny Lottner
-GitHub: JennyLottner
+**Jenny Lottner**
+[GitHub](https://github.com/JennyLottner)
+[LinkedIn](https://www.linkedin.com/in/jenny-lottner-tover-7b1357261)
