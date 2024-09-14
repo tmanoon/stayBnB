@@ -34,12 +34,16 @@
         .text-details {
             justify-content: space-around;
 
+            .property-type {
+                text-transform: capitalize;
+            }
+
             &>* {
                 margin-block-end: rem(5px);
             }
 
             h2 {
-                font-size: rem(16px);
+                font-size: 1rem;
             }
 
             p {
