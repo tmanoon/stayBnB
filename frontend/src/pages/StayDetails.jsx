@@ -27,7 +27,6 @@ export function StayDetails() {
     const [URLSearchParams, setUrlSearchParams] = useSearchParams()
     const { adults, children, infants, pets, entryDate, exitDate } = Object.fromEntries(URLSearchParams.entries())
     const [searchParams, setSearchParams] = useState({ adults, children, infants, pets, entryDate, exitDate })
-
     const [stay, setStay] = useState('')
     const [longestBedsCount, setLongestBedsCount] = useState(1)
     const [isGalleryModal, setGalleryModal] = useState(false)
@@ -35,11 +34,27 @@ export function StayDetails() {
     const [isWishlistStay, setIsWishlistStay] = useState(false)
     const [isReviewable, setCanReview] = useState(null)
     const [addReviewModal, setAddReviewModal] = useState(false)
+    const [bottomClass, setBottomClass] = useState('')
 
     useEffect(() => {
         const user = userService.getLoggedInUser()
         if (user) setUser(user)
         if (stayId) loadStay(stayId)
+    }, [])
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setBottomClass('')
+            if (Math.ceil(window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
+                console.log('hi')
+                if (window.innerWidth <= 742) setBottomClass('bottom-mobile')
+                if (window.innerWidth > 742) setBottomClass('bottom-tablet')
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll)
+
+        return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
     useEffect(() => {
@@ -210,7 +225,7 @@ export function StayDetails() {
                             </ul>
                         </article>
                     </section>
-                    <ReservationModal stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} />
+                    <ReservationModal stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} bottomClass={bottomClass} />
                 </main>
 
                 <div id="reviews">
