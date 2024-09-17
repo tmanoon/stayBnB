@@ -102,7 +102,7 @@ export function StayDetails() {
         }
     }
 
-    async function addStayReview(newReview) {  // object with rate and txt
+    async function addStayReview(newReview) {
         newReview.at = new Date().getTime()
         newReview.by = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl }
         try {
@@ -110,7 +110,9 @@ export function StayDetails() {
             saveStay(stayToSave)
             setStay(stayToSave)
             setAddReviewModal(false)
-        } catch (err) { console.log(err) }
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     async function removeStayReview() {
@@ -126,7 +128,9 @@ export function StayDetails() {
             } else {
                 console.log("Review not found")
             }
-        } catch (err) { console.log(err) }
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return (
