@@ -2,14 +2,12 @@ import { useParams } from "react-router"
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector } from "react-redux"
-
 import { userService } from "../services/user.service"
 import { orderService } from '../services/order.service'
 import { stayService } from "../services/stay.service"
 import { utilService } from "../services/util.service"
 import { loadStayById, saveStay } from "../store/actions/stay.actions"
 import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
-
 import { StayGalleryPreview } from '../cmps/StayDetailsCmps/StayGalleryPreview'
 import { BedroomDetails } from '../cmps/StayDetailsCmps/BedroomDetails'
 import { StayReviewsPreview } from "../cmps/StayDetailsCmps/StayReviewsPreview"
@@ -72,8 +70,8 @@ export function StayDetails() {
         try {
             const loadedStay = await loadStayById(stayId)
             setStay(loadedStay)
-        } catch (error) {
-            console.error("Error loading stay:", error)
+        } catch (err) {
+            throw Error('err', err)
         }
     }
 
@@ -83,7 +81,7 @@ export function StayDetails() {
             const userPreviousReview = stayService.getUserReview(stay, user._id)
             setCanReview(userOrders.some(order => order.stay._id === stayId) && !userPreviousReview)
         } catch (err) {
-            console.log(err)
+            console.error('err', err)
             setCanReview(false)
         }
     }
@@ -101,7 +99,6 @@ export function StayDetails() {
             setUser(userToUpdate)
             setIsWishlistStay(!isWishlistStay)
         } catch (err) {
-            console.log('err', err)
             throw err
         }
     }
@@ -125,7 +122,7 @@ export function StayDetails() {
             setStay(stayToSave)
             setAddReviewModal(false)
         } catch (err) {
-            console.log(err)
+            throw Error('err', err)
         }
     }
 
@@ -139,9 +136,7 @@ export function StayDetails() {
                 const savedStay = await stayService.save(stayToSave)
                 saveStay(savedStay)
                 setStay(savedStay)
-            } else {
-                throw Error("Review not found")
-            }
+            } else throw Error("Review not found")
         } catch (err) {
             throw Error(err)
         }
