@@ -140,10 +140,10 @@ export function StayDetails() {
                 saveStay(savedStay)
                 setStay(savedStay)
             } else {
-                console.log("Review not found")
+                throw Error("Review not found")
             }
         } catch (err) {
-            console.log(err)
+            throw Error(err)
         }
     }
 
