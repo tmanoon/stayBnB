@@ -46,7 +46,6 @@ export function StayDetails() {
         const handleScroll = () => {
             setBottomClass('')
             if (Math.ceil(window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
-                console.log('hi')
                 if (window.innerWidth <= 742) setBottomClass('bottom-mobile')
                 if (window.innerWidth > 742) setBottomClass('bottom-tablet')
             }
