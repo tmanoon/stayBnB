@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 
 import { AppHeader } from './cmps/AppHeader'
 import { AppFooter } from './cmps/AppFooter'
+import { UserNotification } from './cmps/UserNotification'
 
 import { StayIndex } from './pages/StayIndex'
 import { StayDetails } from './pages/StayDetails'
@@ -16,7 +17,6 @@ import { UserMessages } from './pages/UserMessages'
 import { StayEdit } from './pages/StayEdit'
 
 import './style/main.css'
-import { UserNotification } from './cmps/UserNotification'
 
 export function RootCmp() {
 
