@@ -82,10 +82,6 @@ export function AppHeader({ scrolledPage }) {
                     <span>Staybnb</span>
                 </section>
                 <section className="filter-section flex justify-center">
-                    {/* <nav className="nav flex space-evenly">
-                    <NavLink onClick={goHome} to="/">Stays</NavLink>
-                    <NavLink to="/unActive" className='grayTxt'>Experiences</NavLink>
-                </nav> */}
                     <div className="compact-filter grid">
                         {
                             modalTypes.map(modal => {
