@@ -19,9 +19,10 @@
     height: 5rem;
     background-color: white;
     padding-inline: 1.5rem;
-    border-block-start: 0.667px solid $gray4;
+    border-block-start: rem(0.667px) solid $gray4;
     color: $darkGray;
     z-index: 30;
+    transition: inset 0.5s ease;
 
     span {
         font-family: circular-bold;
@@ -46,8 +47,6 @@
 @media (width > 742px) {
     .reserve-footer {
         inset: auto 0 0 0;
-        // background-color: white;
-        // z-index: 1;
 
         &.bottom-tablet {
             inset: auto 0 7.25rem 0;
