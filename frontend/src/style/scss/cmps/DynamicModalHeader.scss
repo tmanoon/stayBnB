@@ -3,13 +3,11 @@
     position: fixed;
     right: 0;
     top: 0;
-
     width: 40%;
     color: $darkGray;
     padding-inline-end: 3rem;
     margin-block-start: 0.75rem;
     z-index: 1;
-
     gap: 24px;
     justify-content: end;
 
@@ -31,7 +29,6 @@
 
     button {
         @include coloredBtn;
-
         line-height: 19px;
     }
 }
