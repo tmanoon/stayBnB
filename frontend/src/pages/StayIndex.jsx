@@ -36,9 +36,8 @@ export function StayIndex({ scrolledPage }) {
     }
 
     const scrolledHeader = () => {
-        if (scrolledPage) {
-            return 'index-header-condensed'
-        } else { return 'index-header-expanded' }
+        if (scrolledPage) return 'index-header-condensed'
+        return 'index-header-expanded'
     }
 
     return (
