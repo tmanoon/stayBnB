@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -16,6 +16,7 @@ export function StayIndex({ scrolledPage }) {
     const { isLoading } = useSelector(storeState => storeState.stayModule)
     const [user, setUser] = useState(null)
 
+    const memoizedFilterBy = useMemo(() => filterBy, [filterBy])
 
     useEffect(() => {
         const user = userService.getLoggedInUser()
@@ -24,11 +25,11 @@ export function StayIndex({ scrolledPage }) {
     }, [loggedInUser])
 
     useEffect(() => {
-        const { txt, entryDate, exitDate, label, placeType, propType, amenities, accessibility, hostLngs, pagination } = filterBy
-        const filterByParams = { txt, entryDate, exitDate, label, placeType, propType, amenities, accessibility, hostLngs, pagination, ...filterBy.guestCount, ...filterBy.priceRange, ...filterBy.bbb, ...filterBy.bookingOpts }
+        const { txt, entryDate, exitDate, label, placeType, propType, amenities, accessibility, hostLngs, pagination } = memoizedFilterBy
+        const filterByParams = { txt, entryDate, exitDate, label, placeType, propType, amenities, accessibility, hostLngs, pagination, ...memoizedFilterBy.guestCount, ...memoizedFilterBy.priceRange, ...memoizedFilterBy.bbb, ...memoizedFilterBy.bookingOpts }
         setSearchParams(filterByParams)
         loadStays()
-    }, [filterBy])
+    }, [memoizedFilterBy])
 
     function onIncreasePagination() {
         const newPagination = (filterBy.pagination || 0) + 30
