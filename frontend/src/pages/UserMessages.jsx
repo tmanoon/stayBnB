@@ -25,6 +25,7 @@ export function UserMessages() {
     useEffect(() => {
         socketService.on(SOCKET_EVENT_ADD_MSG, updateMsgs)
         socketService.on(SOCKET_SERVICE_SCROLL_CHAT, scrollChat)
+        
         async function getOrders() {
             try {
                 const fetchedOrders = await orderService.getUserOrHostOrdersById(user._id)
