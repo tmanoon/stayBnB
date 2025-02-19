@@ -45,7 +45,7 @@ If you want to run the project locally, follow these steps:
    - cd ../frontend
    - npm i
 5. **Start the frontend development server:**
-   - npm start
+   - npm run dev
 
 ## Usage
 1. Open your browser and go to http://localhost:3030 to view the application.
