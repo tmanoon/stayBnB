@@ -11,7 +11,6 @@ export const stayService = {
     getById,
     save,
     remove,
-    // getHostStaysById,
     getLabels,
     getNumberOfNights,
     getFilterFromParams,
