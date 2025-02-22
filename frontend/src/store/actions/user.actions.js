@@ -1,4 +1,3 @@
-import { storageService } from '../../services/async-storage.service'
 import { userService } from '../../services/user.service'
 import { socketService } from '../../services/socket.service'
 import { ADD_STAY_TO_FAVORITES, SET_LOGGED_IN_USER, SET_USERS, REMOVE_STAY_FROM_FAVORITES, ADD_USER, LOGOUT } from "../reducers/user.reducer"
