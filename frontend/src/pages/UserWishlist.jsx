@@ -5,7 +5,7 @@ import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 import { store } from "../store/store"
 import { utilService } from "../services/util.service"
 
-export function UserWishlist() {
+const UserWishlist = () => {
     const user = userService.getLoggedInUser()
     const [userWishlist, setUserWishlist] = useState(user.wishlist.length > 0 ? user.wishlist : null)
     const navigate = useNavigate()
@@ -69,3 +69,5 @@ export function UserWishlist() {
         </section>
     )
 }
+
+export default UserWishlist

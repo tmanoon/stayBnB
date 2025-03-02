@@ -7,7 +7,7 @@ import { socketService, SOCKET_EVENT_ORDER_UPDATE } from '../services/socket.ser
 import { TripModal } from '../cmps/UserTripsCmps/TripModal.jsx'
 import { userService } from '../services/user.service.js'
 
-export function UserTrips() {
+const UserTrips = () => {
     const [userTrips, setUserTrips] = useState([])
     const [trips, setTrips] = useState([])
     const [tripFilter, setTripFilter] = useState({ tense: 'future', status: 'all' })
@@ -170,3 +170,5 @@ export function UserTrips() {
         </>
     )
 }
+
+export default UserTrips

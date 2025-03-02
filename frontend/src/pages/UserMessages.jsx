@@ -10,7 +10,7 @@ import { ReservationInfoModal } from "../cmps/UserMessageCmps/ReservationInfoMod
 import { ImgCarousel } from "../cmps/HelperCmps/ImgCarousel"
 import { SOCKET_EMIT_SEND_MSG, SOCKET_EVENT_ADD_MSG, SOCKET_SERVICE_SCROLL_CHAT, socketService } from "../services/socket.service"
 
-export function UserMessages() {
+const UserMessages = () => {
     const [user, setUser] = useState(userService.getLoggedInUser())
     const [chats, setChats] = useState(null)
     const [orders, setOrders] = useState(null)
@@ -246,3 +246,5 @@ export function UserMessages() {
         </section>
     )
 }
+
+export default UserMessages

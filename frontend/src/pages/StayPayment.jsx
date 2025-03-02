@@ -14,7 +14,7 @@ import { GuestCountModal } from '../cmps/Modals/GuestCountModal'
 import { DatesModal } from '../cmps/Modals/DatesModal'
 import { OrderConfirmation } from '../cmps/StayReservationCmps/OrderConfirmation'
 
-export function StayPayment() {
+const StayPayment = () => {
     const { stayId } = useParams()
 
     const location = useLocation()
@@ -145,3 +145,5 @@ export function StayPayment() {
         </section>
     )
 }
+
+export default StayPayment

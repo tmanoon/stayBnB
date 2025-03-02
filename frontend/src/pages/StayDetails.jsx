@@ -17,7 +17,7 @@ import { Loading } from "../cmps/Loading"
 import { SvgPathCmp } from '../cmps/HelperCmps/SvgPathCmp'
 import { Accordion } from "../cmps/HelperCmps/Accordion"
 
-export function StayDetails() {
+const StayDetails = () => {
     const { stayId } = useParams()
     const { isLoading } = useSelector(storeState => storeState.stayModule)
     const safetyAmenities = ['Carbon monoxide alarm', 'Smoke alarm']
@@ -231,3 +231,5 @@ export function StayDetails() {
         </>
     )
 }
+
+export default StayDetails

@@ -12,7 +12,7 @@ import { Loading } from "../cmps/Loading"
 import { TripModal } from "../cmps/UserTripsCmps/TripModal"
 
 
-export function UserDashboard() {
+const UserDashboard = () => {
     const [loggedInUser, setLoggedInUser] = useState(userService.getLoggedInUser())
     const [userOrders, setUserOrders] = useState()
     const [userStays, setUserStays] = useState()
@@ -155,3 +155,5 @@ export function UserDashboard() {
         </>
     )
 }
+
+export default UserDashboard

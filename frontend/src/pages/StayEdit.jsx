@@ -10,7 +10,7 @@ import { StayEditHeader } from "../cmps/StayEditCmps/StayEditHeader"
 import { userService } from "../services/user.service.js"
 import { utilService } from "../services/util.service.js"
 
-export function StayEdit() {
+const StayEdit = () => {
     const params = useParams()
     const navigate = useNavigate()
 
@@ -53,3 +53,5 @@ export function StayEdit() {
         </section>
     )
 }
+
+export default StayEdit
