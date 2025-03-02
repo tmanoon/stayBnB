@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import { login, signup } from "../../store/actions/user.actions"
 import { userService } from "../../services/user.service"
@@ -11,9 +11,15 @@ export function LoginSignup({ setIsLoginModal }) {
     const [isSignup, setIsSignup] = useState(false)
     const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
 
+    useEffect(() => {
+        if (credentials.username === 'guest' && credentials.password === 'guest') {
+          onSubmitLoginSignup()
+        }
+      }, [credentials])
+
     async function onSubmitLoginSignup(ev) {
         try {
-            ev.preventDefault()
+            if (ev) ev.preventDefault()
             const user = isSignup ? await signup(credentials) : await login(credentials)
             if (user) {
                 onClose()
@@ -22,6 +28,10 @@ export function LoginSignup({ setIsLoginModal }) {
             console.log(err)
             throw err
         }
+    }
+
+    function onGuest() {
+        setCredentials(prevCredentials => ({ ...prevCredentials, username: 'guest', password: 'guest' }))
     }
 
     function onChangeLoginSignup() {
@@ -51,6 +61,7 @@ export function LoginSignup({ setIsLoginModal }) {
                 <h1>Welcome to Staybnb</h1>
                 {!isSignup && <p>Don't have an account? <span onClick={onChangeLoginSignup}>Click here to sign up</span></p>}
                 {isSignup && <p>Have have an account? <span onClick={onChangeLoginSignup}>Click here to log in</span></p>}
+                {!isSignup && <button className="guest-btn" onClick={onGuest}>Log-in as guest</button>}
             </header>
 
             <form className="grid" onSubmit={onSubmitLoginSignup}>

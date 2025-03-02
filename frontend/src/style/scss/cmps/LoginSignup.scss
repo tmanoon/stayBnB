@@ -45,6 +45,17 @@
                 font-family: circular-bold;
             }
         }
+
+        .guest-btn {
+            position: absolute;
+            inset: 1rem 1rem auto auto;
+
+            color: white;
+            font-weight: bold;
+            letter-spacing: 0.4px;
+            border-radius: $border-radius-2;
+            background-image: $siteGradient;
+        }
     }
 
     form {
