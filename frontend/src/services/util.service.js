@@ -1,5 +1,3 @@
-import { format, getDate, getDay, getYear } from "date-fns"
-
 export const utilService = {
     makeId,
     makeLorem,

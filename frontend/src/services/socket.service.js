@@ -13,7 +13,6 @@ export const SOCKET_SERVICE_ADD_ORDER = 'add-order'
 const SOCKET_EMIT_LOGIN = 'set-user-socket'
 const SOCKET_EMIT_LOGOUT = 'unset-user-socket'
 
-
 const baseUrl = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'
 
 export const socketService = createSocketService()
@@ -101,12 +100,3 @@ function createDummySocketService() {
   window.listenersMap = listenersMap
   return socketService
 }
-
-// Basic Tests
-// function cb(x) {console.log('Socket Test - Expected Puk, Actual:', x)}
-// socketService.on('baba', cb)
-// socketService.on('baba', cb)
-// socketService.on('baba', cb)
-// socketService.on('mama', cb)
-// socketService.emit('baba', 'Puk')
-// socketService.off('baba', cb)

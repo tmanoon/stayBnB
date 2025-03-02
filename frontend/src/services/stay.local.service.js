@@ -1,9 +1,9 @@
 
-import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
+import { storageService } from './async-storage.service.js'
 import { httpService } from './http.service.js'
 const STAY_DB = 'stay_db'
-const zBASE_URL = 'stay/'
+const BASE_URL = 'stay/'
 
 // createDemoStay(stays)
 export const stayService = {
@@ -11,7 +11,6 @@ export const stayService = {
     getById,
     save,
     remove,
-    // getHostStaysById,
     getLabels,
     getNumberOfNights,
     getFilterFromParams,

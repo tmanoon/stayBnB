@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { utilService } from '../../services/util.service'
@@ -11,7 +10,7 @@ import { DynamicModalHeader } from './DynamicHeader/DynamicModalHeader'
 import { userService } from '../../services/user.service'
 import { LoginSignup } from '../Modals/LoginSignup'
 
-export function ReservationModal({ stay, searchParams, setSearchParams }) {
+export function ReservationModal({ stay, searchParams, setSearchParams, bottomClass }) {
     const navigate = useNavigate()
     const [numOfDays, setNumOfDays] = useState(0)
     const [fee, setFee] = useState(0)
@@ -33,12 +32,12 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
             if (modal.current && !modal.current.contains(event.target)) setModal('')
         }
         document.addEventListener('click', handleClickOutside)
-        return () => document.removeEventListener('click', handleClickOutside) 
+        return () => document.removeEventListener('click', handleClickOutside)
     }, [modal])
 
     useEffect(() => {
         if (btnObserver) btnObserver.observe(btn.current)
-        return () => btnObserver?.disconnect() 
+        return () => btnObserver?.disconnect()
     }, [btnObserver])
 
     function loadBtnScrolledObserver() {
@@ -69,7 +68,7 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
                 <div className="price-logo flex align-center">
                     <h2>${Math.ceil(stay.price)} &nbsp;</h2><span>night</span>
                 </div>
-            
+
                 <div className='selectors-container flex column'>
                     <div className="date-selectors flex">
                         <div className='check-in flex' onClick={() => setModal(modalType === 'date' ? null : 'date')}>
@@ -117,14 +116,14 @@ export function ReservationModal({ stay, searchParams, setSearchParams }) {
                 <span>Staybnb service fee</span>
                 <span>${fee}</span>
             </div>}
-            
+
             {fee > 0 && <div className='sum-total flex space-between'>
                 <span>Total</span>
                 <span>${Math.ceil(stay.price * numOfDays * (+searchParams.adults + +searchParams.children) + fee)}</span>
             </div>}
         </div>
 
-        <div className='reserve-footer flex align-center space-between'>
+        <div className={`reserve-footer flex align-center space-between ${bottomClass}`}>
             <div className='flex column'>
                 <p><span>${stay.price}</span> &nbsp;night</p>
                 <p>{utilService.timestampsToShortDates(+searchParams.entryDate, +searchParams.exitDate)}</p>

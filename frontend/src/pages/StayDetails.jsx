@@ -2,14 +2,12 @@ import { useParams } from "react-router"
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector } from "react-redux"
-
 import { userService } from "../services/user.service"
 import { orderService } from '../services/order.service'
 import { stayService } from "../services/stay.service"
 import { utilService } from "../services/util.service"
 import { loadStayById, saveStay } from "../store/actions/stay.actions"
 import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
-
 import { StayGalleryPreview } from '../cmps/StayDetailsCmps/StayGalleryPreview'
 import { BedroomDetails } from '../cmps/StayDetailsCmps/BedroomDetails'
 import { StayReviewsPreview } from "../cmps/StayDetailsCmps/StayReviewsPreview"
@@ -27,7 +25,6 @@ export function StayDetails() {
     const [URLSearchParams, setUrlSearchParams] = useSearchParams()
     const { adults, children, infants, pets, entryDate, exitDate } = Object.fromEntries(URLSearchParams.entries())
     const [searchParams, setSearchParams] = useState({ adults, children, infants, pets, entryDate, exitDate })
-
     const [stay, setStay] = useState('')
     const [longestBedsCount, setLongestBedsCount] = useState(1)
     const [isGalleryModal, setGalleryModal] = useState(false)
@@ -35,11 +32,26 @@ export function StayDetails() {
     const [isWishlistStay, setIsWishlistStay] = useState(false)
     const [isReviewable, setCanReview] = useState(null)
     const [addReviewModal, setAddReviewModal] = useState(false)
+    const [bottomClass, setBottomClass] = useState('')
 
     useEffect(() => {
         const user = userService.getLoggedInUser()
         if (user) setUser(user)
         if (stayId) loadStay(stayId)
+    }, [])
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setBottomClass('')
+            if (Math.ceil(window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
+                if (window.innerWidth <= 742) setBottomClass('bottom-mobile')
+                if (window.innerWidth > 742) setBottomClass('bottom-tablet')
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll)
+
+        return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
     useEffect(() => {
@@ -58,8 +70,8 @@ export function StayDetails() {
         try {
             const loadedStay = await loadStayById(stayId)
             setStay(loadedStay)
-        } catch (error) {
-            console.error("Error loading stay:", error)
+        } catch (err) {
+            throw Error('err', err)
         }
     }
 
@@ -69,7 +81,7 @@ export function StayDetails() {
             const userPreviousReview = stayService.getUserReview(stay, user._id)
             setCanReview(userOrders.some(order => order.stay._id === stayId) && !userPreviousReview)
         } catch (err) {
-            console.log(err)
+            console.error('err', err)
             setCanReview(false)
         }
     }
@@ -87,7 +99,6 @@ export function StayDetails() {
             setUser(userToUpdate)
             setIsWishlistStay(!isWishlistStay)
         } catch (err) {
-            console.log('err', err)
             throw err
         }
     }
@@ -102,7 +113,7 @@ export function StayDetails() {
         }
     }
 
-    async function addStayReview(newReview) {  // object with rate and txt
+    async function addStayReview(newReview) {
         newReview.at = new Date().getTime()
         newReview.by = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl }
         try {
@@ -110,7 +121,9 @@ export function StayDetails() {
             saveStay(stayToSave)
             setStay(stayToSave)
             setAddReviewModal(false)
-        } catch (err) { console.log(err) }
+        } catch (err) {
+            throw Error('err', err)
+        }
     }
 
     async function removeStayReview() {
@@ -123,10 +136,10 @@ export function StayDetails() {
                 const savedStay = await stayService.save(stayToSave)
                 saveStay(savedStay)
                 setStay(savedStay)
-            } else {
-                console.log("Review not found")
-            }
-        } catch (err) { console.log(err) }
+            } else throw Error("Review not found")
+        } catch (err) {
+            throw Error(err)
+        }
     }
 
     return (
@@ -206,7 +219,7 @@ export function StayDetails() {
                             </ul>
                         </article>
                     </section>
-                    <ReservationModal stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} />
+                    <ReservationModal stay={stay} searchParams={searchParams} setSearchParams={setSearchParams} bottomClass={bottomClass} />
                 </main>
 
                 <div id="reviews">
