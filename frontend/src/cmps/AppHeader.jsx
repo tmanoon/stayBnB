@@ -78,7 +78,7 @@ export function AppHeader({ scrolledPage }) {
         <>
             <header className={`full-app-header header-${getHeaderWidth()} header-${getHeaderSize()} ${getHeaderPosition()} grid`}>
                 <section className="logo-section flex align-center" onClick={goHome}>
-                    <img src="https://res.cloudinary.com/db7t5amdv/image/upload/v1713176792/keig0zr71f8zzeqk1xub.png" alt="app-logo" />
+                    <img src="src\assets\img\staybnb-logo.png" alt="staybnb logo" />
                     <span>Staybnb</span>
                 </section>
                 <section className="filter-section flex justify-center">

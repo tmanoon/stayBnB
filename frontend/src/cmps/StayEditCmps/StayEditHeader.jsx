@@ -9,7 +9,7 @@ export function StayEditHeader(){
     }
 
     return <section className="stay-edit-header flex align-center space-between">
-        <img onClick={onNavigateHome} src="src\assets\img\airbnb-logo.png" alt="" />
+        <img onClick={onNavigateHome} src="src\assets\img\staybnb-logo.png" alt="staybnb logo" />
         <button onClick={onNavigateHome} className="exit-btn flex center"><span className="small">Exit</span><span className="wide">Exit without saving</span></button>
     </section>
 }
