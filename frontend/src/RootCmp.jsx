@@ -35,7 +35,7 @@ export function RootCmp() {
 
     // First console visit check and console log
     useEffect(() => {
-      if (!localStorage.getItem('hasVisited')) {
+      if (!sessionStorage.getItem('messageShown')) {
         console.log(
           '%cWelcome to StayBnB! \n\n%cLooking for great web developers? \nWe\'re looking for jobs. Contact us! \n\n%cJenny Lottner-Tover: \n%chttps://www.linkedin.com/in/jenny-lottner-tover-7b1357261 \n\n%cShoval Sabag: \n%chttps://www.linkedin.com/in/shoval-sabag-2b2305308\n',
           'color: #fc2f65; font-size: 20px; font-weight: bold;',  // Title style
@@ -45,7 +45,7 @@ export function RootCmp() {
           'color: #ffa8a8; font-size: 14px;', // Name style
           'font-size: 12px; font-weight: normal;' // Link style
         )
-        localStorage.setItem('hasVisited', 'true')
+        sessionStorage.setItem('messageShown', 'true')
       }
     }, [])
 
