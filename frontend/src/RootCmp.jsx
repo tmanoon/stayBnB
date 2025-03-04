@@ -55,8 +55,7 @@ export function RootCmp() {
       <Router>
         <AppHeader scrolledPage={scrolledPage} />
         <main>
-          {/* <Suspense fallback={<Loading/>}> */}
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loading/>}>
             <Routes>
               <Route path='/' element={<StayIndex scrolledPage={scrolledPage} />} />
               <Route path='/:stayId' element={<StayDetails />} />
