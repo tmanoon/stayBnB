@@ -22,7 +22,6 @@ export function UserNotification() {
     if (!msg) return <span></span>
     return (
         <section className='notification-msg'>
-            <h1>New notification</h1>
             <button onClick={() => setMsg('')}>x</button>
             <p>{msg}</p>
         </section>

@@ -4,7 +4,6 @@ import { stayService } from "../services/stay.service"
 import { addRemoveStayToUserFavorites } from "../store/actions/user.actions"
 
 import { ImgCarousel } from "./HelperCmps/ImgCarousel"
-import { SOCKET_SERVICE_NOTIFICATION, socketService } from "../services/socket.service"
 
 export function StayPreview({ stay, filterBy, user, setUser }) {
     const [isWishlistStay, setIsWishlistStay] = useState(false)
@@ -16,11 +15,11 @@ export function StayPreview({ stay, filterBy, user, setUser }) {
     async function onFavorite(ev) {
         ev.preventDefault()
         try {
+            const userToUpdate = await addRemoveStayToUserFavorites(stay._id)
             if (user) {
-                const userToUpdate = await addRemoveStayToUserFavorites(stay._id)
                 setUser(userToUpdate)
                 setIsWishlistStay(!isWishlistStay)
-            } else socketService.emit(SOCKET_SERVICE_NOTIFICATION, ['Please login first', 0])
+            }
         } catch (err) {
             console.log('err', err)
             throw err
