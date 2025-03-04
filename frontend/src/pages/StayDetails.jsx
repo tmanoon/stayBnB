@@ -96,8 +96,10 @@ const StayDetails = () => {
     async function onSaveBtn() {
         try {
             const userToUpdate = await addRemoveStayToUserFavorites(stayId)
-            setUser(userToUpdate)
-            setIsWishlistStay(!isWishlistStay)
+            if(user) {
+                setUser(userToUpdate)
+                setIsWishlistStay(!isWishlistStay)
+            }
         } catch (err) {
             throw err
         }

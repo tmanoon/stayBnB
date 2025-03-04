@@ -1,5 +1,5 @@
 import { userService } from '../../services/user.service'
-import { socketService } from '../../services/socket.service'
+import { socketService, SOCKET_SERVICE_NOTIFICATION  } from '../../services/socket.service'
 import { ADD_STAY_TO_FAVORITES, SET_LOGGED_IN_USER, SET_USERS, REMOVE_STAY_FROM_FAVORITES, ADD_USER, LOGOUT } from "../reducers/user.reducer"
 import { store } from "../store"
 
@@ -56,13 +56,17 @@ export async function addRemoveStayToUserFavorites(stayId) {
                 const userToUpdate = userService.addRemoveStayToUserFavorites(stayId, 'remove')
                 store.dispatch({ type: REMOVE_STAY_FROM_FAVORITES, stayId })
                 store.dispatch({ type: SET_LOGGED_IN_USER, user: userToUpdate })
+                socketService.emit(SOCKET_SERVICE_NOTIFICATION, ['Removed from favorites', 0])
                 return userToUpdate
             } else {
                 const userToUpdate = userService.addRemoveStayToUserFavorites(stayId, 'add')
                 store.dispatch({ type: ADD_STAY_TO_FAVORITES, stayId })
                 store.dispatch({ type: SET_LOGGED_IN_USER, user: userToUpdate})
+                socketService.emit(SOCKET_SERVICE_NOTIFICATION, ['Added to favorites', 0])
                 return userToUpdate
             }
+        } else {
+            socketService.emit(SOCKET_SERVICE_NOTIFICATION, ['Log-in before adding to favorites', 0])
         }
     } catch (err) {
         console.log('stay action -> Cannot save stay', err)
