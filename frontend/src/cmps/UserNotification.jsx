@@ -11,8 +11,9 @@ export function UserNotification() {
         }
     }, [])
 
+    // socketService.emit(SOCKET_SERVICE_NOTIFICATION, ['Please login first', 0])
     function promptNotification(data) {
-        setMsg(data)
+        setMsg(data[0])
         setTimeout(() => {
             setMsg('')
         }, 3500)
